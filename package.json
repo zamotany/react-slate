@@ -1,0 +1,72 @@
+{
+  "name": "stdout-react-renderer",
+  "version": "0.0.0",
+  "description": "",
+  "license": "MIT",
+  "repository": "github:zamotany/stdout-react-renderer",
+  "author": {
+    "name": "Paweł Trysła",
+    "email": "pawel.trysla@gmail.com"
+  },
+  "files": [
+    "lib"
+  ],
+  "engines": {
+    "node": ">=6"
+  },
+  "scripts": {
+    "build": "babel src --out-dir lib --ignore **/__tests__/**",
+    "build:watch": "yarn run build --watch",
+    "prepublish": "yarn run build",
+    "postinstall": "node ./scripts/export-reconciler.js",
+    "flow": "flow",
+    "eslint": "eslint src",
+    "jest": "jest src",
+    "prettier": "prettier --single-quote --trailing-comma all --write \"src/**/*.js\"",
+    "test": "npm run eslint && npm run prettier && npm run flow && npm run jest",
+    "example": "node ./lib/example"
+  },
+  "dependencies": {
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "fbjs": "^0.8.16",
+    "react": "^16.0.0",
+    "react-dom": "16.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^7.2.1",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "eslint": "^4.6.1",
+    "eslint-config-callstack-io": "^0.4.1",
+    "flow-bin": "^0.54.1",
+    "jest": "^21.0.2",
+    "np": "^2.16.0",
+    "prettier": "^1.6.1"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": 6
+          }
+        }
+      ],
+      "react",
+      "stage-2"
+    ],
+    "plugins": [
+      "transform-flow-strip-types",
+      "transform-object-rest-spread"
+    ],
+    "sourceMaps": "inline"
+  },
+  "eslintConfig": {
+    "extends": "callstack-io"
+  }
+}

@@ -1,0 +1,7 @@
+[version]
+0.54.1
+
+[ignore]
+.*/node_modules/react-native
+.*/node_modules/fbjs/*
+.*/node_modules/jest-validate/*

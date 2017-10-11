@@ -1,0 +1,13 @@
+*~
+.DS_Store
+
+*.log
+node_modules/
+
+.vscode/
+jsconfig.json
+.idea
+
+lib
+
+.yo-rc.json
