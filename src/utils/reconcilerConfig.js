@@ -54,9 +54,8 @@ export default {
     type,
     oldProps,
     newProps,
-    internalInstanceHandle,
+    internalInstanceHandle
   ) {
-    debugger;
     instance.replaceChildren(
       Array.isArray(newProps.children) ? newProps.children : [newProps.children]
     );
@@ -69,7 +68,7 @@ export default {
     type,
     newProps,
     rootContainerInstance,
-    internalInstanceHandle,
+    internalInstanceHandle
   ) {
     // noop
   },
@@ -81,7 +80,7 @@ export default {
   getChildHostContext() {
     return emptyObject;
   },
-  
+
   getPublicInstance(inst) {
     return inst;
   },
@@ -111,15 +110,13 @@ export default {
     text,
     rootContainerInstance,
     hostContext,
-    internalInstanceHandle,
+    internalInstanceHandle
   ) {
-    console.log('createTextInstance');
     return text;
   },
 
   commitTextUpdate(textInstance, oldText, newText) {
-    console.log('commitTextUpdate', textInstance, oldText, newText);
-    debugger;
+    // console.log('commitTextUpdate', textInstance, oldText, newText);
     // return newText;
     // try {
     // textInstance.replaceChildren([newText]);
@@ -129,6 +126,6 @@ export default {
     //   console.log(textInstance, oldText, newText);
     // }
   },
-  
+
   useSyncScheduling: true,
 };

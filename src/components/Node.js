@@ -1,3 +1,5 @@
+import { Children } from 'react';
+
 export default class Node {
   static componentName = 'NODE';
 
@@ -22,16 +24,23 @@ export default class Node {
   }
 
   renderChildren() {
-    debugger;
-    for (const children of this.children) {
-      if (['string', 'number'].includes(typeof children)) {
-        // If not a component, render it as a paragraph
-        this.container.write(children);
-      } else if (typeof children === 'object') {
-        // We know it's a component so just call the render() method
-        children.render();
-      }
-    }
+    const serialize = children =>
+      children.reduce((text, c) => {
+        if (['string', 'number'].includes(typeof c)) {
+          // It's a string or number
+          return text + c;
+        } else if (Array.isArray(c.children)) {
+          // It's a Node instance
+          return text + serialize(c.children);
+        }
+
+        // It's a react element
+        return text + serialize(Children.toArray(c.props.children));
+      }, '');
+
+    const text = serialize(this.children);
+
+    this.container.write(text);
   }
 
   render() {
