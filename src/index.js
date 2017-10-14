@@ -4,19 +4,17 @@
 
 // $FlowFixMe
 import { ReactFiberReconciler } from 'react-dom';
-import reconcilerConfig from './utils/reconcilerConfig';
-import components from './components';
+import hostConfig from './utils/hostConfig';
+import ContainerNode from './nodes/ContainerNode';
 
-const NodeStreamReconciler = ReactFiberReconciler(reconcilerConfig);
+const NodeStreamReconciler = ReactFiberReconciler(hostConfig);
 
 // eslint-disable-next-line import/prefer-default-export
 export function render(element: any, stream: any) {
-  const container = new components.StreamContainer(stream);
+  const container = new ContainerNode(stream);
   const node = NodeStreamReconciler.createContainer(container);
   NodeStreamReconciler.updateContainer(element, node, null);
   container.flush();
 }
 
-Object.keys(components).forEach(id => {
-  module.exports[id] = components[id];
-});
+export * from './components';

@@ -2,8 +2,8 @@
 
 import readline from 'readline';
 
-export default class StreamContainer {
-  body: any = null;
+export default class ContainerNode {
+  children = [];
   output: string = '';
   stream: any = null;
 
@@ -15,8 +15,8 @@ export default class StreamContainer {
     this.output += data;
   }
 
-  setBody(child: any) {
-    this.body = child;
+  appendChild(child: { render: Function }) {
+    this.children.push(child);
   }
 
   getOutput() {
@@ -25,7 +25,9 @@ export default class StreamContainer {
 
   flush() {
     this.output = '';
-    this.body.render();
+    this.children.forEach(child => child.render());
+    // debugger;
+    // console.log(this.output);
     readline.cursorTo(this.stream, 0, 0);
     readline.clearScreenDown(this.stream);
     this.stream.write(this.getOutput());

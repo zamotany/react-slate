@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, Node } from '../';
+import { render, Chunk } from '../';
 
 class Counter extends React.Component {
   state = {
@@ -16,20 +16,27 @@ class Counter extends React.Component {
   render() {
     // console.log('Counter#render');
     return (
-      <Node>
-        <Node>{'Time \n'}</Node>
-        elapsed: {this.state.counter}s
-      </Node>
-      // [<Node>First</Node>, <Node>Second</Node>]
+      <Chunk id="c-r">
+        <Chunk id="c-t">{'Time \n'}</Chunk>
+        elapsed: {this.state.counter}
+        {'s '}
+      </Chunk>
     );
   }
 }
 
+function Test() {
+  return [<Chunk>First</Chunk>, <Chunk>Second</Chunk>];
+}
+
 render(
-  <Node>
-    <Node>Hello world!</Node>
-    <Node>{'\n'}</Node>
+  <Chunk id="root">
+    <Chunk id="hw">Hello world!</Chunk>
+    <Chunk id="nl">{'\n'}</Chunk>
     <Counter />
-  </Node>,
+    fuck
+    {' yeah '}
+    <Test />
+  </Chunk>,
   process.stdout
 );
