@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, Chunk } from '../';
+import { render, Chunk, Endl, Text } from '../';
 
 class Counter extends React.Component {
   state = {
@@ -29,11 +29,16 @@ function Test() {
   return [<Chunk>First</Chunk>, <Chunk>Second</Chunk>];
 }
 
+console.log(Endl);
+
 render(
   <Chunk id="root">
-    <Chunk id="hw">Hello world!</Chunk>
-    <Chunk id="nl">{'\n'}</Chunk>
+    <Text color="green" endl>
+      Hello world!
+    </Text>
+    <Text>{'\n'}</Text>
     <Counter />
+    <Endl />
     fuck
     {' yeah '}
     <Test />

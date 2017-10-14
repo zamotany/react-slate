@@ -29,6 +29,7 @@
   "dependencies": {
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "chalk": "^2.1.0",
     "fbjs": "^0.8.16",
     "react": "^16.0.0",
     "react-dom": "16.0.0"
