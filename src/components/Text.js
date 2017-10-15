@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Children } from 'react';
 import chalk from 'chalk';
 import { Chunk, Endl } from './';
 
@@ -13,7 +13,7 @@ type Props = {
 export default function Text(props: Props) {
   const { children, color, endl } = props;
 
-  function enhance(text) {
+  function colorize(text) {
     if (color && Array.isArray(color)) {
       return chalk.rgb(...color)(text);
     } else if (color && /#/.test(color)) {
@@ -26,7 +26,21 @@ export default function Text(props: Props) {
 
   return (
     <Chunk>
-      {enhance(children)}
+      {typeof color === 'undefined'
+        ? children
+        : Children.map(children, child => {
+            if (typeof child === 'string') {
+              return colorize(child);
+            }
+
+            if (typeof child.props.color === 'undefined') {
+              return React.cloneElement(child, {
+                color,
+              });
+            }
+
+            return child;
+          })}
       {endl ? <Endl /> : null}
     </Chunk>
   );

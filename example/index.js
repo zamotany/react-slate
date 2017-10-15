@@ -33,6 +33,10 @@ render(
   <Chunk id="root">
     <Text color="green" endl>
       Hello world!
+      <Text color="blue" endl>
+        Hello world!
+      </Text>
+      <Text endl>Hello world!</Text>
     </Text>
     <Text>{'\n'}</Text>
     <Counter />
