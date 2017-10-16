@@ -31,12 +31,17 @@ function Test() {
 
 render(
   <Chunk id="root">
-    <Text color="green" endl>
-      Hello world!
-      <Text color="blue" endl>
-        Hello world!
+    <Text style={{ color: 'yellow', fontWeight: 'bold' }} endl>
+      Some yellow and bold text {'\n'}
+      <Text
+        style={{ backgroundColor: 'rgb(230, 37, 101)', fontWeight: 'normal' }}
+        endl
+      >
+        Text with hot pink background
       </Text>
-      <Text endl>Hello world!</Text>
+      <Text style={{ textDecoration: 'underline' }} endl>
+        Yellow, bold and underlined text
+      </Text>
     </Text>
     <Text>{'\n'}</Text>
     <Counter />
