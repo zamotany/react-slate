@@ -26,8 +26,6 @@ export default class ContainerNode {
   flush() {
     this.output = '';
     this.children.forEach(child => child.render());
-    // debugger;
-    // console.log(this.output);
     readline.cursorTo(this.stream, 0, 0);
     readline.clearScreenDown(this.stream);
     this.stream.write(this.getOutput());

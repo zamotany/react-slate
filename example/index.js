@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, Chunk, Endl, Text } from '../';
+import { render, Chunk, Endl, Text } from '../lib';
 
 class Counter extends React.Component {
   state = {
@@ -10,7 +10,7 @@ class Counter extends React.Component {
     // console.log('Counter#componentDidMount');
     setInterval(() => {
       this.setState(state => ({ counter: state.counter + 1 }));
-    }, 1000);
+    }, 250);
   }
 
   render() {
@@ -29,8 +29,6 @@ function Test() {
   return [<Chunk>First</Chunk>, <Chunk>Second</Chunk>];
 }
 
-console.log(Endl);
-
 render(
   <Chunk id="root">
     <Text color="green" endl>
@@ -39,7 +37,7 @@ render(
     <Text>{'\n'}</Text>
     <Counter />
     <Endl />
-    fuck
+    heck
     {' yeah '}
     <Test />
   </Chunk>,

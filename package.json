@@ -1,9 +1,9 @@
 {
-  "name": "stdout-react-renderer",
+  "name": "stream-react-renderer",
   "version": "0.0.0",
   "description": "",
   "license": "MIT",
-  "repository": "github:zamotany/stdout-react-renderer",
+  "repository": "github:zamotany/stream-react-renderer",
   "author": {
     "name": "Paweł Trysła",
     "email": "pawel.trysla@gmail.com"
@@ -27,8 +27,6 @@
     "example": "node ./lib/example"
   },
   "dependencies": {
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1",
     "chalk": "^2.1.0",
     "fbjs": "^0.8.16",
     "react": "^16.0.0",
@@ -41,6 +39,8 @@
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
     "eslint": "^4.6.1",
     "eslint-config-callstack-io": "^0.4.1",
     "flow-bin": "^0.54.1",

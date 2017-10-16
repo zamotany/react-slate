@@ -1,7 +1,5 @@
 /* @flow */
 
-/* eslint-disable no-param-reassign */
-
 // $FlowFixMe
 import { ReactFiberReconciler } from 'react-dom';
 import hostConfig from './utils/hostConfig';
@@ -9,7 +7,6 @@ import ContainerNode from './nodes/ContainerNode';
 
 const NodeStreamReconciler = ReactFiberReconciler(hostConfig);
 
-// eslint-disable-next-line import/prefer-default-export
 export function render(element: any, stream: any) {
   const container = new ContainerNode(stream);
   const node = NodeStreamReconciler.createContainer(container);
