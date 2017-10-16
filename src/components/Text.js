@@ -20,6 +20,13 @@ type Props = {
   children: any,
 };
 
+function parseRgb(color: string) {
+  return color
+    .replace(/[rgb()]/g, '')
+    .split(',')
+    .map(i => parseInt(i, 10));
+}
+
 function capitalize(text: string) {
   return text
     .split(' ')
@@ -27,32 +34,24 @@ function capitalize(text: string) {
     .join(' ');
 }
 
-function resolveColor(enhancer, color) {
+function setColor(enhancer, color) {
   if (color) {
     if (color.startsWith('#')) {
       return enhancer.hex(color);
     } else if (color.startsWith('rgb')) {
-      const rgb = color
-        .replace(/[rgb()]/g, '')
-        .split(',')
-        .map(i => parseInt(i, 10));
-      return enhancer.rgb(...rgb);
+      return enhancer.rgb(...parseRgb(color));
     }
     return enhancer.keyword(color);
   }
   return enhancer;
 }
 
-function resolveBackgroundColor(enhancer, color) {
+function setBackgroundColor(enhancer, color) {
   if (color) {
     if (color.startsWith('#')) {
       return enhancer.bgHex(color);
     } else if (color.startsWith('rgb')) {
-      const rgb = color
-        .replace(/[rgb()]/g, '')
-        .split(',')
-        .map(i => parseInt(i, 10));
-      return enhancer.bgRgb(...rgb);
+      return enhancer.bgRgb(...parseRgb(color));
     }
     return enhancer.bgKeyword(color);
   }
@@ -66,8 +65,8 @@ function stylize(style: Style, text: string) {
 
   let enhancer = chalk.reset;
 
-  enhancer = resolveBackgroundColor(enhancer, backgroundColor);
-  enhancer = resolveColor(enhancer, color);
+  enhancer = setColor(enhancer, color);
+  enhancer = setBackgroundColor(enhancer, backgroundColor);
 
   if (style.fontWeight === 'bold') {
     enhancer = enhancer.bold;
