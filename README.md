@@ -1,4 +1,4 @@
-# stream-react-renderer
+# react-stream-renderer
 
 > 
 

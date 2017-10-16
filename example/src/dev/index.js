@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, Chunk, Endl, Text } from '../lib';
+// eslint-disable-next-line
+import { Chunk, Endl, Text } from 'react-stream-renderer';
 
 class Counter extends React.Component {
   state = {
@@ -29,7 +30,7 @@ function Test() {
   return [<Chunk>First</Chunk>, <Chunk>Second</Chunk>];
 }
 
-render(
+export default () => (
   <Chunk id="root">
     <Text style={{ color: 'yellow', fontWeight: 'bold' }} endl>
       Some yellow and bold text {'\n'}
@@ -49,6 +50,5 @@ render(
     heck
     {' yeah '}
     <Test />
-  </Chunk>,
-  process.stdout
+  </Chunk>
 );

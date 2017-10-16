@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "build": "babel src --out-dir build --ignore **/__tests__/**",
+    "postinstall": "yarn link react-stream-renderer && yarn run build",
+    "start": "node ./build"
+  },
+  "dependencies": {
+    "react": "16.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0"
+  }
+}

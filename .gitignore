@@ -8,6 +8,6 @@ node_modules/
 jsconfig.json
 .idea
 
-lib
+build
 
 .yo-rc.json

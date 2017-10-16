@@ -27,36 +27,47 @@ function capitalize(text: string) {
     .join(' ');
 }
 
-function stylize(style: Style, text: string) {
-  /* eslint-disable no-param-reassign */
-
-  let color = style.color;
-  let inverse = false;
-
-  if (style.backgroundColor) {
-    color = style.backgroundColor;
-    inverse = true;
-  }
-
-  let enhancer = chalk.reset;
-
+function resolveColor(enhancer, color) {
   if (color) {
     if (color.startsWith('#')) {
-      enhancer = enhancer.hex(color);
+      return enhancer.hex(color);
     } else if (color.startsWith('rgb')) {
       const rgb = color
         .replace(/[rgb()]/g, '')
         .split(',')
         .map(i => parseInt(i, 10));
-      enhancer = chalk.rgb(...rgb);
-    } else {
-      enhancer = chalk.keyword(color);
+      return enhancer.rgb(...rgb);
     }
+    return enhancer.keyword(color);
   }
+  return enhancer;
+}
 
-  if (inverse) {
-    enhancer = enhancer.inverse;
+function resolveBackgroundColor(enhancer, color) {
+  if (color) {
+    if (color.startsWith('#')) {
+      return enhancer.bgHex(color);
+    } else if (color.startsWith('rgb')) {
+      const rgb = color
+        .replace(/[rgb()]/g, '')
+        .split(',')
+        .map(i => parseInt(i, 10));
+      return enhancer.bgRgb(...rgb);
+    }
+    return enhancer.bgKeyword(color);
   }
+  return enhancer;
+}
+
+function stylize(style: Style, text: string) {
+  /* eslint-disable no-param-reassign */
+
+  const { color, backgroundColor } = style;
+
+  let enhancer = chalk.reset;
+
+  enhancer = resolveBackgroundColor(enhancer, backgroundColor);
+  enhancer = resolveColor(enhancer, color);
 
   if (style.fontWeight === 'bold') {
     enhancer = enhancer.bold;
