@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "chalk": "^2.1.0",
+    "fast-memoize": "^2.2.8",
     "fbjs": "^0.8.16",
     "react": "^16.0.0",
     "react-dom": "16.0.0"

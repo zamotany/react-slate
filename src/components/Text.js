@@ -2,6 +2,7 @@
 
 import React, { Children } from 'react';
 import chalk from 'chalk';
+import memoize from 'fast-memoize';
 import { Chunk, Endl } from './';
 
 type Style = {|
@@ -99,28 +100,31 @@ function stylize(style: Style, text: string) {
   return enhance(text);
 }
 
+function stylizeChildren(children, style) {
+  return Children.map(children, child => {
+    if (typeof child === 'string' || typeof child === 'number') {
+      return stylize(style, String(child));
+    }
+
+    if (child && child.type === Text) {
+      return React.cloneElement(child, {
+        style: child.props.style ? { ...style, ...child.props.style } : style,
+      });
+    }
+
+    return child;
+  });
+}
+
+const memoizedStylizeChildren = memoize(stylizeChildren);
+
 export default function Text(props: Props) {
+  // @TODO: memoize
   const { children, style, endl } = props;
 
   return (
     <Chunk>
-      {style
-        ? Children.map(children, child => {
-            if (typeof child === 'string' || typeof child === 'number') {
-              return stylize(style, String(child));
-            }
-
-            if (child && child.type === Text) {
-              return React.cloneElement(child, {
-                style: child.props.style
-                  ? { ...style, ...child.props.style }
-                  : style,
-              });
-            }
-
-            return child;
-          })
-        : children}
+      {style ? memoizedStylizeChildren(children, style) : children}
       {endl ? <Endl /> : null}
     </Chunk>
   );
