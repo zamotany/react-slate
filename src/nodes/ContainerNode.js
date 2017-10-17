@@ -1,6 +1,7 @@
 /* @flow */
 
 import readline from 'readline';
+import { SHOW_CURSOR, HIDE_CURSOR } from '../constants/asciiCodes';
 
 type Options = {
   renderOptimizations: boolean,
@@ -15,18 +16,26 @@ export default class ContainerNode {
   stream: any = null;
   options: Options;
 
-  constructor(stream: any, opts?: Options = {}) {
+  constructor(stream: any, opts?: Options) {
     this.options = {
       renderOptimizations: false,
       debug: false,
       hideCursor: false,
-      ...opts,
+      ...(opts || {}),
     };
     this.stream = stream;
 
     if (this.options.hideCursor) {
-      this.stream.write('\x1B[?25l');
+      this.stream.write(HIDE_CURSOR);
     }
+
+    const restoreCursor = () => {
+      this.stream.write(SHOW_CURSOR);
+    };
+
+    process.on('exit', restoreCursor);
+    process.on('SIGINT', restoreCursor);
+    process.on('uncaughtException', restoreCursor);
   }
 
   write(data: string) {

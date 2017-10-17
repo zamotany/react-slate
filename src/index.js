@@ -11,8 +11,8 @@ export function render(element: any, stream: any, options: any) {
   const container = new ContainerNode(stream, options);
   const node = NodeStreamReconciler.createContainer(container);
   NodeStreamReconciler.updateContainer(element, node, null);
-  container.flush();
 }
 
 export * from './components';
+export * from './constants/asciiCodes';
 export { default as colors } from './constants/colors';
