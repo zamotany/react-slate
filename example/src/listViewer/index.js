@@ -1,6 +1,6 @@
 import React from 'react';
 // eslint-disable-next-line
-import { Text, Endl } from 'react-stream-renderer';
+import { Text, Endl, colors } from 'react-stream-renderer';
 
 const list = [
   'item1',
@@ -58,7 +58,7 @@ class Viewer extends React.Component {
     const style =
       this.currentIndex === this.state.cursorLine
         ? {
-            backgroundColor: 'blue',
+            backgroundColor: colors.blue,
           }
         : {};
     this.currentIndex++;
@@ -70,7 +70,7 @@ class Viewer extends React.Component {
     }
     return (
       <Text>
-        <Text style={{ color: 'yellow', ...style }} endl>
+        <Text style={{ color: colors.yellow, ...style }} endl>
           {`${'  '.repeat(nestingCount)}${item.label}`}
         </Text>
         {item.items.map(element => this._renderItem(element, nestingCount + 1))}
@@ -88,7 +88,7 @@ class Viewer extends React.Component {
 
 export default () => (
   <Text>
-    <Text style={{ color: 'lightgreen' }}>List viewer</Text>
+    <Text style={{ color: colors.green }}>List viewer</Text>
     <Endl times={2} />
     <Viewer />
   </Text>

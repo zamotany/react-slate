@@ -15,3 +15,4 @@ export function render(element: any, stream: any, options: any) {
 }
 
 export * from './components';
+export { default as colors } from './constants/colors';
