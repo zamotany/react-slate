@@ -20,7 +20,7 @@ import { render, Endl, Text } from 'stream-react-renderer';
 
 function App() {
   return (
-    <Text color="green" endl>
+    <Text style={{ color: 'green' }} endl>
       Hello world!
     </Text>
   );
@@ -41,7 +41,7 @@ Basic building block, can render text or other nested components.
 
 #### Props
 
-* `color: string | [number, number, number]` - Color of the text, anything supported by `chalk` - color keyword (`red`), hex code (`#ffffff`) or RGB (`[255, 255, 255]`).
+* `style: Object` - Supported style properties are `color`, `backgroundColor`, `fontWeight`, `fontStyle`, `textDecoration`, `textTransform`, `visibility`
 
 * `endl: boolean` - Whether to end the text with new line.
 

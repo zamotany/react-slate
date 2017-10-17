@@ -27,36 +27,24 @@ function capitalize(text: string) {
     .join(' ');
 }
 
-function resolveColor(enhancer, color) {
+function colorize(enhance, bg: boolean, color?: string) {
   if (color) {
     if (color.startsWith('#')) {
-      return enhancer.hex(color);
+      return bg ? enhance.bgHex(color) : enhance.hex(color);
     } else if (color.startsWith('rgb')) {
       const rgb = color
         .replace(/[rgb()]/g, '')
         .split(',')
         .map(i => parseInt(i, 10));
-      return enhancer.rgb(...rgb);
+      return bg ? enhance.bgRgb(...rgb) : enhance.rgb(...rgb);
+    } else if (color.startsWith('ansi-')) {
+      const name = color.replace(/^ansi-/, '');
+      return bg ? enhance[`bg${capitalize(name)}`] : enhance[name];
     }
-    return enhancer.keyword(color);
-  }
-  return enhancer;
-}
 
-function resolveBackgroundColor(enhancer, color) {
-  if (color) {
-    if (color.startsWith('#')) {
-      return enhancer.bgHex(color);
-    } else if (color.startsWith('rgb')) {
-      const rgb = color
-        .replace(/[rgb()]/g, '')
-        .split(',')
-        .map(i => parseInt(i, 10));
-      return enhancer.bgRgb(...rgb);
-    }
-    return enhancer.bgKeyword(color);
+    return bg ? enhance.bgKeyword(color) : enhance.keyword(color);
   }
-  return enhancer;
+  return enhance;
 }
 
 function stylize(style: Style, text: string) {
@@ -64,33 +52,33 @@ function stylize(style: Style, text: string) {
 
   const { color, backgroundColor } = style;
 
-  let enhancer = chalk.reset;
+  let enhance = chalk.reset;
 
-  enhancer = resolveBackgroundColor(enhancer, backgroundColor);
-  enhancer = resolveColor(enhancer, color);
+  enhance = colorize(enhance, false, color);
+  enhance = colorize(enhance, true, backgroundColor);
 
   if (style.fontWeight === 'bold') {
-    enhancer = enhancer.bold;
+    enhance = enhance.bold;
   }
 
   if (style.fontStyle === 'italic') {
-    enhancer = enhancer.italic;
+    enhance = enhance.italic;
   }
 
   if (style.textDecoration) {
     // eslint-disable-next-line default-case
     switch (style.textDecoration) {
       case 'underline':
-        enhancer = enhancer.underline;
+        enhance = enhance.underline;
         break;
       case 'line-through':
-        enhancer = enhancer.strikethrough;
+        enhance = enhance.strikethrough;
         break;
     }
   }
 
   if (style.visibility === 'hidden') {
-    enhancer = enhancer.hidden;
+    enhance = enhance.hidden;
   }
 
   if (style.textTransform) {
@@ -108,7 +96,7 @@ function stylize(style: Style, text: string) {
     }
   }
 
-  return enhancer(text);
+  return enhance(text);
 }
 
 export default function Text(props: Props) {
