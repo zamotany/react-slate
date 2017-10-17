@@ -16,4 +16,8 @@ switch (process.argv[2]) {
     App = ListViewer;
 }
 
-render(<App />, process.stdout);
+render(<App />, process.stdout, {
+  debug: false,
+  renderOptimizations: false,
+  hideCursor: true,
+});

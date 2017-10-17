@@ -1,4 +1,4 @@
-// @flow
+/* @flow */
 
 import type { Props } from '../types';
 import TextNode from './TextNode';

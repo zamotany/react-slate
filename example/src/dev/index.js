@@ -11,7 +11,7 @@ class Counter extends React.Component {
     // console.log('Counter#componentDidMount');
     setInterval(() => {
       this.setState(state => ({ counter: state.counter + 1 }));
-    }, 250);
+    }, 5);
   }
 
   render() {
@@ -20,7 +20,6 @@ class Counter extends React.Component {
       <Chunk id="c-r">
         <Chunk id="c-t">{'Time \n'}</Chunk>
         elapsed: {this.state.counter}
-        {'s '}
       </Chunk>
     );
   }

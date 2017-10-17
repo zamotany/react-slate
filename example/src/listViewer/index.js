@@ -1,6 +1,6 @@
 import React from 'react';
 // eslint-disable-next-line
-import { Text, Endl, colors } from 'react-stream-renderer';
+import { Text, Endl, colors, KeyPress } from 'react-stream-renderer';
 
 const list = [
   'item1',
@@ -38,21 +38,25 @@ class Viewer extends React.Component {
     super(props);
     this.state = {
       cursorLine: 0,
+      list,
     };
     this.currentIndex = 0;
     this.maxIndex = -1;
-    this.intervalId = -1;
   }
 
-  componentDidMount() {
-    this.intervalId = setInterval(() => {
-      if (this.state.cursorLine >= this.maxIndex - 1) {
-        clearInterval(this.intervalId);
-      }
-
-      this.setState(state => ({ ...state, cursorLine: state.cursorLine + 1 }));
-    }, 200);
-  }
+  _onKeyPress = ch => {
+    if (ch === 'w' && this.state.cursorLine > 0) {
+      this.setState(state => ({
+        ...state,
+        cursorLine: state.cursorLine - 1,
+      }));
+    } else if (ch === 's' && this.state.cursorLine < this.maxIndex - 1) {
+      this.setState(state => ({
+        ...state,
+        cursorLine: state.cursorLine + 1,
+      }));
+    }
+  };
 
   _renderItem = (item, nestingCount = 0) => {
     const style =
@@ -65,11 +69,13 @@ class Viewer extends React.Component {
 
     if (typeof item === 'string') {
       return (
-        <Text style={style} endl>{`${'  '.repeat(nestingCount)}${item}`}</Text>
+        <Text key={item} style={style} endl>{`${'  '.repeat(
+          nestingCount
+        )}${item}`}</Text>
       );
     }
     return (
-      <Text>
+      <Text key={item.label}>
         <Text style={{ color: colors.yellow, ...style }} endl>
           {`${'  '.repeat(nestingCount)}${item.label}`}
         </Text>
@@ -80,9 +86,13 @@ class Viewer extends React.Component {
 
   render() {
     this.currentIndex = 0;
-    const body = list.map(element => this._renderItem(element));
+    const body = this.state.list.map(element => this._renderItem(element));
     this.maxIndex = this.currentIndex;
-    return body;
+    return (
+      <KeyPress stream={process.stdin} onPress={this._onKeyPress}>
+        {body}
+      </KeyPress>
+    );
   }
 }
 
