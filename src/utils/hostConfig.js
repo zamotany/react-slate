@@ -19,8 +19,10 @@ const NOOP = () => {};
 const RETURN_EMPTY_OBJ = () => emptyObject;
 const NO = () => false;
 
+let containerInstance: ContainerNode;
+
 export default {
-  // Creates component instance
+  // Create instance of host environment specific node or instance of a component.
   createInstance(
     type: string | Function,
     props: any,
@@ -38,6 +40,9 @@ export default {
   },
 
   appendChildToContainer(container: ContainerNode, child: any) {
+    if (!containerInstance) {
+      containerInstance = container;
+    }
     container.appendChild(child);
   },
 
@@ -59,8 +64,14 @@ export default {
   ) {
     if (!shallowEqual(oldProps, newProps)) {
       instance.props = newProps;
-      instance.container.flush();
     }
+  },
+
+  resetAfterCommit() {
+    // This hooks is called once per update, whereas commitUpdate is called multiple times, for
+    // each updated node. So here is the best place to flush data to host environment, using
+    // container instance we stored when appending child to container.
+    containerInstance.flush();
   },
 
   getPublicInstance(inst: any) {
@@ -83,7 +94,6 @@ export default {
   getRootHostContext: RETURN_EMPTY_OBJ,
   getChildHostContext: RETURN_EMPTY_OBJ,
   prepareForCommit: NOOP,
-  resetAfterCommit: NOOP,
   shouldSetTextContent: NO,
   resetTextContent: NOOP,
   insertBefore: NOOP,

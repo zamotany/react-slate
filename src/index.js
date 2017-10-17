@@ -7,8 +7,8 @@ import ContainerNode from './nodes/ContainerNode';
 
 const NodeStreamReconciler = ReactFiberReconciler(hostConfig);
 
-export function render(element: any, stream: any) {
-  const container = new ContainerNode(stream);
+export function render(element: any, stream: any, options: any) {
+  const container = new ContainerNode(stream, options);
   const node = NodeStreamReconciler.createContainer(container);
   NodeStreamReconciler.updateContainer(element, node, null);
   container.flush();
