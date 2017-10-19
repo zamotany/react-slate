@@ -1,12 +1,16 @@
 /* @flow */
 
 import readline from 'readline';
-import { SHOW_CURSOR, HIDE_CURSOR } from '../constants/asciiCodes';
+import enhanceConsole from '../effects/enhanceConsole';
+import hideCursor from '../effects/hideCursor';
 
 type Options = {
+  // @TODO: add clearOnExit option
   renderOptimizations: boolean,
   debug: boolean,
   hideCursor: boolean,
+  exitOnWarning: boolean,
+  exitOnError: boolean,
 };
 
 export default class ContainerNode {
@@ -21,21 +25,20 @@ export default class ContainerNode {
       renderOptimizations: false,
       debug: false,
       hideCursor: false,
+      exitOnError: false,
+      exitOnWarning: false,
       ...(opts || {}),
     };
     this.stream = stream;
 
+    enhanceConsole({
+      exitOnError: this.options.exitOnError,
+      exitOnWarning: this.options.exitOnWarning,
+    });
+
     if (this.options.hideCursor) {
-      this.stream.write(HIDE_CURSOR);
+      hideCursor(this.stream);
     }
-
-    const restoreCursor = () => {
-      this.stream.write(SHOW_CURSOR);
-    };
-
-    process.on('exit', restoreCursor);
-    process.on('SIGINT', restoreCursor);
-    process.on('uncaughtException', restoreCursor);
   }
 
   write(data: string) {
