@@ -30,8 +30,10 @@
   },
   "dependencies": {
     "chalk": "^2.1.0",
+    "cli-spinners": "^1.1.0",
     "fast-memoize": "^2.2.8",
     "fbjs": "^0.8.16",
+    "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "16.0.0"
   },
@@ -39,6 +41,7 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^7.2.1",
+    "babel-plugin-flow-react-proptypes": "^6.1.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.0",
@@ -66,6 +69,7 @@
       "stage-2"
     ],
     "plugins": [
+      "flow-react-proptypes",
       "transform-flow-strip-types",
       "transform-object-rest-spread"
     ],
