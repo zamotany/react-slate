@@ -20,6 +20,8 @@ class Counter extends React.Component {
       <Chunk id="c-r">
         <Chunk id="c-t">{'Time \n'}</Chunk>
         elapsed: {this.state.counter}
+        <Endl />
+        {this.state.counter % 2 === 0 ? <Text endl>ABCDEF</Text> : null}
       </Chunk>
     );
   }

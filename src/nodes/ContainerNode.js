@@ -2,10 +2,10 @@
 
 import readline from 'readline';
 import { SHOW_CURSOR, HIDE_CURSOR } from '../constants/asciiCodes';
+import LineBuffer from '../utils/LineBuffer';
 
 type Options = {
   renderOptimizations: boolean,
-  debug: boolean,
   hideCursor: boolean,
 };
 
@@ -19,23 +19,22 @@ export default class ContainerNode {
   constructor(stream: any, opts?: Options) {
     this.options = {
       renderOptimizations: false,
-      debug: false,
       hideCursor: false,
       ...(opts || {}),
     };
     this.stream = stream;
 
-    if (this.options.hideCursor) {
-      this.stream.write(HIDE_CURSOR);
-    }
+    // if (this.options.hideCursor) {
+    //   this.stream.write(HIDE_CURSOR);
+    // }
 
-    const restoreCursor = () => {
-      this.stream.write(SHOW_CURSOR);
-    };
+    // const restoreCursor = () => {
+    //   this.stream.write(SHOW_CURSOR);
+    // };
 
-    process.on('exit', restoreCursor);
-    process.on('SIGINT', restoreCursor);
-    process.on('uncaughtException', restoreCursor);
+    // process.on('exit', restoreCursor);
+    // process.on('SIGINT', restoreCursor);
+    // process.on('uncaughtException', restoreCursor);
   }
 
   write(data: string) {
@@ -46,67 +45,25 @@ export default class ContainerNode {
     this.children.push(child);
   }
 
-  diffBuffers() {
-    if (!this.options.renderOptimizations || !this.backBuffer.length) {
-      return 0;
-    }
-
-    const backBuffer = this.backBuffer.split('\n');
-    const frontBuffer = this.frontBuffer.split('\n');
-
-    let index = 0;
-    for (const frontLine of frontBuffer) {
-      if (backBuffer[index] !== frontLine) {
-        break;
-      }
-      index++;
-    }
-
-    return index;
+  getOutput() {
+    return `${this.frontBuffer}\n`;
   }
 
-  withDebugInfo(body: string, { splitPoint }: { splitPoint: number }) {
-    let debugInfo = `${'='.repeat(10)} DEBUG ${'='.repeat(10)}\n`;
-    debugInfo += `  frontBuffer.length: ${this.backBuffer.length}\n`;
-    debugInfo += `  backBuffer.length: ${this.frontBuffer.length}\n`;
-    debugInfo += `  renderOptimizations: ${this.options.renderOptimizations
-      ? 'enabled'
-      : 'disabled'}\n`;
-    debugInfo += `  frontBuffer splitPoint: ${splitPoint}\n`;
-    return `${body}\n\n${debugInfo}`;
-  }
-
-  getOutput(splitPoint?: number) {
-    let body;
-    if (splitPoint) {
-      body = `${this.frontBuffer
-        .split('\n')
-        .slice(splitPoint)
-        .join('\n')}\n`;
-    } else {
-      body = `${this.frontBuffer}\n`;
-    }
-
-    if (this.options.debug) {
-      return this.withDebugInfo(body, { splitPoint: splitPoint || 0 });
-    }
-    return body;
-  }
+  _buffer: LineBuffer;
 
   flush() {
-    this.backBuffer = this.frontBuffer.split('\n').join('\n');
     this.frontBuffer = '';
-
     this.children.forEach(child => child.render());
 
-    if (this.backBuffer === this.frontBuffer) {
-      return;
+    const output = this.getOutput();
+
+    if (this._buffer) {
+      this._buffer.update(output, this.stream);
+    } else {
+      this._buffer = new LineBuffer(output);
+      readline.cursorTo(this.stream, 0, 0);
+      readline.clearScreenDown(this.stream);
+      this.stream.write(output);
     }
-
-    const splitPoint = this.diffBuffers();
-
-    readline.cursorTo(this.stream, 0, splitPoint);
-    readline.clearScreenDown(this.stream);
-    this.stream.write(this.getOutput(splitPoint));
   }
 }
