@@ -24,17 +24,17 @@ export default class ContainerNode {
     };
     this.stream = stream;
 
-    if (this.options.hideCursor) {
-      this.stream.write(HIDE_CURSOR);
-    }
+    // if (this.options.hideCursor) {
+    //   this.stream.write(HIDE_CURSOR);
+    // }
 
-    const restoreCursor = () => {
-      this.stream.write(SHOW_CURSOR);
-    };
+    // const restoreCursor = () => {
+    //   this.stream.write(SHOW_CURSOR);
+    // };
 
-    process.on('exit', restoreCursor);
-    process.on('SIGINT', restoreCursor);
-    process.on('uncaughtException', restoreCursor);
+    // process.on('exit', restoreCursor);
+    // process.on('SIGINT', restoreCursor);
+    // process.on('uncaughtException', restoreCursor);
   }
 
   write(data: string) {
