@@ -1,11 +1,17 @@
 import { SHOW_CURSOR, HIDE_CURSOR } from '../constants/asciiCodes';
 
-export default function hideCursor(stream) {
+export function hideCursor(stream) {
   stream.write(HIDE_CURSOR);
+}
 
-  const restoreCursor = () => {
-    stream.write(SHOW_CURSOR);
-  };
+export function showCursor(stream) {
+  stream.write(SHOW_CURSOR);
+}
+
+export function hideCursorGlobally(stream) {
+  hideCursor(stream);
+
+  const restoreCursor = () => showCursor(stream);
 
   process.on('exit', restoreCursor);
   process.on('SIGINT', restoreCursor);
