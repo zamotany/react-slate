@@ -7,16 +7,16 @@
 ## Install
 
 ```bash
-git clone https://github.com/zamotany/stream-react-renderer.git && yarn && yarn link
+git clone https://github.com/zamotany/react-stream-renderer.git && yarn && yarn link
 # in project
-yarn link stream-react-renderer
+yarn link react-stream-renderer
 ```
 
 ## Usage
 
 ```js
 import React from 'react';
-import { render, Endl, Text } from 'stream-react-renderer';
+import { render, Endl, Text } from 'react-stream-renderer';
 
 function App() {
   return (
