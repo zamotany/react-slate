@@ -26,7 +26,7 @@ class Counter extends React.Component {
 }
 
 function Test() {
-  return [<Chunk>First</Chunk>, <Chunk>Second</Chunk>];
+  return [<Chunk key="1">First</Chunk>, <Chunk key="2">Second</Chunk>];
 }
 
 export default () => (
