@@ -20,6 +20,7 @@ export default class ChunkNode {
   }
 
   invalidateParent() {
+    // Invalidate the whole path from this node up to the top.
     this.hasChanged = true;
     this.parent.invalidateParent();
   }
@@ -42,21 +43,33 @@ export default class ChunkNode {
 
   render() {
     if (this.hasChanged) {
+      // At least one of the children has changed.
+
       this.memoizedText = '';
       this.hasChanged = false;
 
       for (const child of this.children) {
         if (typeof child.render === 'function') {
+          // Child is a ChunkNode, which means it's
+          // a nested subtree. In this case, move responsibility
+          // of writing to the container to this subtree and
+          // memoize the rendered text.
           this.memoizedText += child.render();
         } else {
+          // Child is a TextNode, so we can just add it
+          // to the memoized test and write it to the container.
           this.memoizedText += child.props.children;
           this.container.write(child.props.children);
         }
       }
     } else {
+      // If subtree hasn't changed, write memoized text
+      // to container.
       this.container.write(this.memoizedText);
     }
 
+    // Return memoized text (old or freshly created new one),
+    // so that the parent can memoize it's subtree.
     return this.memoizedText;
   }
 }
