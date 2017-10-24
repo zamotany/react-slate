@@ -12,7 +12,7 @@ export default class ChunkNode {
   container: ContainerNode;
   parent: ChunkNode | ContainerNode;
   hasChanged: boolean = true;
-  memoizedText: string;
+  memoizedText: string = '';
 
   constructor(container: ContainerNode, props: Props) {
     this.container = container;
@@ -25,11 +25,13 @@ export default class ChunkNode {
     this.parent.invalidateParent();
   }
 
-  appendChild(child: ChunkNode | TextNode, isInitial?: boolean = false) {
-    if (!isInitial) {
-      this.invalidateParent();
-    }
+  appendChild(child: ChunkNode | TextNode) {
+    this.invalidateParent();
+    // eslint-disable-next-line no-param-reassign
+    this.appendInitialChild(child);
+  }
 
+  appendInitialChild(child: ChunkNode | TextNode) {
     // eslint-disable-next-line no-param-reassign
     child.parent = this;
     this.children.push(child);

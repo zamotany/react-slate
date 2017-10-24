@@ -1,4 +1,4 @@
-// @flow
+/* @flow */
 
 import type { Props } from '../types';
 import ContainerNode from './ContainerNode';
@@ -19,7 +19,8 @@ export default class TextNode {
     this.props = props;
   }
 
-  invalidateParent() {
+  replaceChildren(children: string) {
+    this.props.children = children;
     this.parent.invalidateParent();
   }
 }
