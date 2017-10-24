@@ -3,6 +3,7 @@
 import readline from 'readline';
 import enhanceConsole from '../effects/enhanceConsole';
 import hideCursor from '../effects/hideCursor';
+import ChunkNode from './ChunkNode';
 
 type Options = {
   // @TODO: add clearOnExit option
@@ -14,7 +15,7 @@ type Options = {
 };
 
 export default class ContainerNode {
-  children = [];
+  children: ChunkNode[] = [];
   frontBuffer: string = '';
   backBuffer: string = '';
   stream: any = null;
@@ -41,12 +42,18 @@ export default class ContainerNode {
     }
   }
 
-  write(data: string) {
-    this.frontBuffer += data;
+  invalidateParent = () => {
+    /* NOOP */
+  };
+
+  appendChild(child: ChunkNode) {
+    // eslint-disable-next-line no-param-reassign
+    child.parent = this;
+    this.children.push(child);
   }
 
-  appendChild(child: { render: Function }) {
-    this.children.push(child);
+  write(data: string) {
+    this.frontBuffer += data;
   }
 
   diffBuffers() {

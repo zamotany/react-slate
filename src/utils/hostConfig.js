@@ -12,6 +12,7 @@ import TextNode from '../nodes/TextNode';
 
 type GenericParentInstance = {
   appendChild(child: any): void,
+  appendInitialChild(child: any): void,
   removeChild(child: any): void,
 };
 
@@ -32,7 +33,7 @@ export default {
   },
 
   appendInitialChild(parentInstance: GenericParentInstance, child: any) {
-    parentInstance.appendChild(child);
+    parentInstance.appendInitialChild(child);
   },
 
   appendChild(parentInstance: GenericParentInstance, child: any) {
@@ -87,7 +88,7 @@ export default {
   },
 
   commitTextUpdate(textInstance: TextNode, oldText: string, newText: string) {
-    textInstance.props = { children: newText };
+    textInstance.replaceChildren(newText);
   },
 
   commitMount: NOOP,
