@@ -1,6 +1,6 @@
 import React from 'react';
 // eslint-disable-next-line
-import { Text, Endl, colors, KeyPress } from 'react-stream-renderer';
+import { Text, Endl, colors, KeyPress, Spinner, ProgressBar } from 'react-stream-renderer';
 
 const list = [
   'item1',
@@ -96,9 +96,25 @@ class Viewer extends React.Component {
   }
 }
 
+class Throttle extends React.Component {
+
+  shouldComponentUpdate() {
+    return false;
+  }
+
+  render() {
+    return this.props.children;
+  }
+}
+
 export default () => (
   <Text>
     <Text style={{ color: colors.green }}>List viewer</Text>
+    <Endl times={2} />
+    <Endl />
+    <Spinner interval={200} />
+    <Endl />
+    {/* <ProgressBar /> */}
     <Endl times={2} />
     <Viewer />
   </Text>

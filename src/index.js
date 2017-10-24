@@ -16,3 +16,4 @@ export function render(element: any, stream: any, options: any) {
 export * from './components';
 export * from './constants/asciiCodes';
 export { default as colors } from './constants/colors';
+export { hideCursor, showCursor } from './effects/cursor';

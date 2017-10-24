@@ -18,7 +18,6 @@ switch (process.argv[2]) {
 
 render(<App />, process.stdout, {
   debug: false,
-  renderOptimizations: false,
   hideCursor: true,
   exitOnError: true,
 });

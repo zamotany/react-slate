@@ -2,27 +2,29 @@
 
 import readline from 'readline';
 import enhanceConsole from '../effects/enhanceConsole';
-import hideCursor from '../effects/hideCursor';
+import { hideCursorGlobally } from '../effects/cursor';
 
 type Options = {
   // @TODO: add clearOnExit option
-  renderOptimizations: boolean,
   debug: boolean,
   hideCursor: boolean,
   exitOnWarning: boolean,
   exitOnError: boolean,
 };
 
+type Chunk = {
+  data: string,
+};
+
 export default class ContainerNode {
   children = [];
-  frontBuffer: string = '';
-  backBuffer: string = '';
+  frontBuffer: Chunk[] = [];
+  backBuffer: Chunk[] = [];
   stream: any = null;
   options: Options;
 
   constructor(stream: any, opts?: Options) {
     this.options = {
-      renderOptimizations: false,
       debug: false,
       hideCursor: false,
       exitOnError: false,
@@ -37,79 +39,104 @@ export default class ContainerNode {
     });
 
     if (this.options.hideCursor) {
-      hideCursor(this.stream);
+      hideCursorGlobally(this.stream);
     }
-  }
-
-  write(data: string) {
-    this.frontBuffer += data;
   }
 
   appendChild(child: { render: Function }) {
     this.children.push(child);
   }
 
-  diffBuffers() {
-    if (!this.options.renderOptimizations || !this.backBuffer.length) {
-      return 0;
-    }
+  write(data: string) {
+    this.frontBuffer.push({ data });
+  }
 
-    const backBuffer = this.backBuffer.split('\n');
-    const frontBuffer = this.frontBuffer.split('\n');
+  normalizeFrontBuffer() {
+    const normalizedBuffer = [];
+    this.frontBuffer.forEach(chunk => {
+      const lines = chunk.data.split('\n');
+      const hasNewLines = chunk.data.includes('\n');
+
+      if (!hasNewLines) {
+        normalizedBuffer.push(chunk);
+      } else {
+        lines
+          .slice(0, lines.length - 1)
+          .map(line => (line === '' ? '\n' : line))
+          .forEach(line => {
+            normalizedBuffer.push({ data: line });
+          });
+      }
+    });
+
+    this.frontBuffer = normalizedBuffer;
+  }
+
+  getDiffFromBuffers() {
+    const areLengthsEqual = this.backBuffer.length === this.frontBuffer.length;
+
+    const diff = [];
 
     let index = 0;
-    for (const frontLine of frontBuffer) {
-      if (backBuffer[index] !== frontLine) {
+    let absIndex = 0;
+    for (const chunk of this.frontBuffer) {
+      const isMismatch =
+        !this.backBuffer[index] || this.backBuffer[index].data !== chunk.data;
+      if (isMismatch && areLengthsEqual) {
+        // If line mismatches but lengths are the same -> get multiple line diffs
+        diff.push({ dataToAppend: chunk.data, location: absIndex });
+      } else if (isMismatch) {
+        // If line mismatches and lengths are not the same -> concat everything below to single diff
+        diff.push({
+          dataToAppend: this.frontBuffer
+            .slice(index)
+            .map(({ data }) => data)
+            .join(''),
+          location: index,
+        });
         break;
+      }
+
+      if (chunk.data !== '\n' || this.frontBuffer[index - 1].data === '\n') {
+        absIndex++;
       }
       index++;
     }
 
-    return index;
-  }
-
-  withDebugInfo(body: string, { splitPoint }: { splitPoint: number }) {
-    let debugInfo = `${'='.repeat(10)} DEBUG ${'='.repeat(10)}\n`;
-    debugInfo += `  frontBuffer.length: ${this.backBuffer.length}\n`;
-    debugInfo += `  backBuffer.length: ${this.frontBuffer.length}\n`;
-    debugInfo += `  renderOptimizations: ${this.options.renderOptimizations
-      ? 'enabled'
-      : 'disabled'}\n`;
-    debugInfo += `  frontBuffer splitPoint: ${splitPoint}\n`;
-    return `${body}\n\n${debugInfo}`;
-  }
-
-  getOutput(splitPoint?: number) {
-    let body;
-    if (splitPoint) {
-      body = `${this.frontBuffer
-        .split('\n')
-        .slice(splitPoint)
-        .join('\n')}\n`;
-    } else {
-      body = `${this.frontBuffer}\n`;
-    }
-
-    if (this.options.debug) {
-      return this.withDebugInfo(body, { splitPoint: splitPoint || 0 });
-    }
-    return body;
+    return {
+      isSingleLine: areLengthsEqual && diff.length === 1,
+      diff,
+    };
   }
 
   flush() {
-    this.backBuffer = this.frontBuffer.split('\n').join('\n');
-    this.frontBuffer = '';
+    this.backBuffer = [...this.frontBuffer];
+    this.frontBuffer = [];
 
     this.children.forEach(child => child.render());
+    this.normalizeFrontBuffer();
 
-    if (this.backBuffer === this.frontBuffer) {
+    const { isSingleLine, diff } = this.getDiffFromBuffers();
+    if (!diff.length) {
       return;
     }
 
-    const splitPoint = this.diffBuffers();
+    if (!isSingleLine && diff.length === 1) {
+      const { dataToAppend, location } = diff[0];
+      readline.cursorTo(this.stream, 0, location);
+      readline.clearScreenDown(this.stream);
+      this.stream.write(dataToAppend);
+    } else {
+      diff.forEach(({ dataToAppend, location }) => {
+        readline.cursorTo(this.stream, 0, location);
+        readline.clearLine(this.stream, 0);
+        this.stream.write(dataToAppend);
+      });
+    }
 
-    readline.cursorTo(this.stream, 0, splitPoint);
-    readline.clearScreenDown(this.stream);
-    this.stream.write(this.getOutput(splitPoint));
+    if (!this.options.hideCursor) {
+      // @TODO: fix location
+      readline.cursorTo(this.stream, 0, this.frontBuffer.length);
+    }
   }
 }
