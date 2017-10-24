@@ -1,8 +1,11 @@
 {
   "scripts": {
     "build": "babel src --out-dir build --ignore **/__tests__/**",
+    "build:watch": "babel src --out-dir build --ignore **/__tests__/** --watch",
     "postinstall": "yarn link react-stream-renderer && yarn run build",
-    "start": "node ./build"
+    "start": "node ./build",
+    "debug": "node --inspect ./build",
+    "debug:brk": "node --inspect-brk ./build"
   },
   "dependencies": {
     "react": "16.0.0"
