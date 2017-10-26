@@ -33,7 +33,7 @@ type Key = {
 type Props = {
   stream: ReadableStream,
   onPress(char: string, key: Key): void,
-  children: any
+  children?: any
 };
 
 export default class KeyPress extends React.Component<Props> {
@@ -53,6 +53,6 @@ export default class KeyPress extends React.Component<Props> {
   }
 
   render() {
-    return this.props.children;
+    return this.props.children || null;
   }
 }

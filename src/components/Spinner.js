@@ -6,11 +6,14 @@ import cliSpinners from 'cli-spinners';
 import shallowEqual from 'fbjs/lib/shallowEqual';
 import { Chunk } from './';
 import throwError from '../utils/throwError';
+import getPositionPros from '../utils/getPositionPros';
 
 type Props = {
   type?: string, // eslint-disable-line react/no-unused-prop-types
   interval?: number, // eslint-disable-line react/no-unused-prop-types
   frames?: string[], // eslint-disable-line react/no-unused-prop-types
+  x?: number,
+  y?: number,
 };
 type State = {
   frame: number,
@@ -18,7 +21,7 @@ type State = {
 
 export default class Spinner extends React.Component<Props, State> {
   intervalId: number = -1;
-  currentFrames: string[] = [''];
+  currentFrames: string[] = [' '];
 
   constructor(props: Props) {
     super(props);
@@ -86,6 +89,10 @@ export default class Spinner extends React.Component<Props, State> {
   }
 
   render() {
-    return <Chunk>{this.currentFrames[this.state.frame]}</Chunk>;
+    return (
+      <Chunk {...getPositionPros(this.props)}>
+        {this.currentFrames[this.state.frame]}
+      </Chunk>
+    );
   }
 }

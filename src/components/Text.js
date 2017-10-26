@@ -4,6 +4,7 @@ import React, { Children } from 'react';
 import chalk from 'chalk';
 import memoize from 'fast-memoize';
 import { Chunk, Endl } from './';
+import getPositionPros from '../utils/getPositionPros';
 
 type Style = {|
   color?: string,
@@ -19,6 +20,8 @@ type Props = {
   style?: Style,
   endl?: boolean,
   children: any,
+  x?: number,
+  y?: number,
 };
 
 function capitalize(text: string) {
@@ -121,9 +124,8 @@ const memoizedStylizeChildren = memoize(stylizeChildren);
 export default function Text(props: Props) {
   // @TODO: memoize
   const { children, style, endl } = props;
-
   return (
-    <Chunk>
+    <Chunk {...getPositionPros(props)}>
       {style ? memoizedStylizeChildren(children, style) : children}
       {endl ? <Endl /> : null}
     </Chunk>
