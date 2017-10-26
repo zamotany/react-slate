@@ -6,7 +6,7 @@ import cliSpinners from 'cli-spinners';
 import shallowEqual from 'fbjs/lib/shallowEqual';
 import { Chunk } from './';
 import throwError from '../utils/throwError';
-import getPositionPros from '../utils/getPositionPros';
+import getPositionPros from '../utils/getPositionProps';
 
 type Props = {
   type?: string, // eslint-disable-line react/no-unused-prop-types

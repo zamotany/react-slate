@@ -32,7 +32,7 @@ export default class ChunkNode {
     this.parentsOffset.y = y;
   }
 
-  getParentsOffset() {
+  getChildOffset() {
     return {
       x: this.props.x + this.parentsOffset.x,
       y: this.props.y + this.parentsOffset.y,
@@ -55,7 +55,7 @@ export default class ChunkNode {
     // eslint-disable-next-line no-param-reassign
     child.parent = this;
     if (child instanceof ChunkNode) {
-      child.setParentsOffset(this.getParentsOffset());
+      child.setParentsOffset(this.getChildOffset());
     }
     this.children.push(child);
   }
@@ -81,12 +81,12 @@ export default class ChunkNode {
 
           // Parents offset need to be corrected, otherwise this subtree would have
           // the old offset from previous render.
-          child.setParentsOffset(this.getParentsOffset());
+          child.setParentsOffset(this.getChildOffset());
           this.memoizedElements.push(...child.render());
         } else {
           // Child is a TextNode, so we can just create element object and append it to
           // memoized elements and to the container.
-          const parentsOffset = this.getParentsOffset();
+          const parentsOffset = this.getChildOffset();
           const element = {
             x: 0,
             y: 0,
@@ -106,7 +106,7 @@ export default class ChunkNode {
       // If subtree hasn't changed, append memoized elements to the container.
       this.memoizedElements.forEach(element => {
         // Fix parents offset, since it might have changed.
-        const parentsOffset = this.getParentsOffset();
+        const parentsOffset = this.getChildOffset();
         this.container.appendElement({
           ...element,
           parentsOffsetX: parentsOffset.x,

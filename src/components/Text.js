@@ -4,7 +4,7 @@ import React, { Children } from 'react';
 import chalk from 'chalk';
 import memoize from 'fast-memoize';
 import { Chunk, Endl } from './';
-import getPositionPros from '../utils/getPositionPros';
+import getPositionPros from '../utils/getPositionProps';
 
 type Style = {|
   color?: string,
