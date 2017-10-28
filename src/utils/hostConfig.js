@@ -65,6 +65,7 @@ export default {
   ) {
     if (!shallowEqual(oldProps, newProps)) {
       instance.props = newProps;
+      instance.invalidateParent();
     }
   },
 

@@ -4,6 +4,9 @@ import readline from 'readline';
 import enhanceConsole from '../effects/enhanceConsole';
 import hideCursor from '../effects/hideCursor';
 import ChunkNode from './ChunkNode';
+import Layout from '../utils/Layout';
+
+import type { Element } from '../types';
 
 type Options = {
   // @TODO: add clearOnExit option
@@ -16,6 +19,7 @@ type Options = {
 
 export default class ContainerNode {
   children: ChunkNode[] = [];
+  elements: Element[] = [];
   frontBuffer: string = '';
   backBuffer: string = '';
   stream: any = null;
@@ -52,8 +56,8 @@ export default class ContainerNode {
     this.children.push(child);
   }
 
-  write(data: string) {
-    this.frontBuffer += data;
+  appendElement(element: Element) {
+    this.elements.push(element);
   }
 
   diffBuffers() {
@@ -75,16 +79,16 @@ export default class ContainerNode {
     return index;
   }
 
-  withDebugInfo(body: string, { splitPoint }: { splitPoint: number }) {
-    let debugInfo = `${'='.repeat(10)} DEBUG ${'='.repeat(10)}\n`;
-    debugInfo += `  frontBuffer.length: ${this.backBuffer.length}\n`;
-    debugInfo += `  backBuffer.length: ${this.frontBuffer.length}\n`;
-    debugInfo += `  renderOptimizations: ${this.options.renderOptimizations
-      ? 'enabled'
-      : 'disabled'}\n`;
-    debugInfo += `  frontBuffer splitPoint: ${splitPoint}\n`;
-    return `${body}\n\n${debugInfo}`;
-  }
+  // withDebugInfo(body: string, { splitPoint }: { splitPoint: number }) {
+  //   let debugInfo = `${'='.repeat(10)} DEBUG ${'='.repeat(10)}\n`;
+  //   debugInfo += `  frontBuffer.length: ${this.backBuffer.length}\n`;
+  //   debugInfo += `  backBuffer.length: ${this.frontBuffer.length}\n`;
+  //   debugInfo += `  renderOptimizations: ${this.options.renderOptimizations
+  //     ? 'enabled'
+  //     : 'disabled'}\n`;
+  //   debugInfo += `  frontBuffer splitPoint: ${splitPoint}\n`;
+  //   return `${body}\n\n${debugInfo}`;
+  // }
 
   getOutput(splitPoint?: number) {
     let body;
@@ -94,20 +98,23 @@ export default class ContainerNode {
         .slice(splitPoint)
         .join('\n')}\n`;
     } else {
-      body = `${this.frontBuffer}\n`;
+      body = this.frontBuffer;
     }
 
-    if (this.options.debug) {
-      return this.withDebugInfo(body, { splitPoint: splitPoint || 0 });
-    }
+    // if (this.options.debug) {
+    //   return this.withDebugInfo(body, { splitPoint: splitPoint || 0 });
+    // }
     return body;
   }
 
   flush() {
+    // debugger;
     this.backBuffer = this.frontBuffer.split('\n').join('\n');
-    this.frontBuffer = '';
+    this.elements = [];
 
     this.children.forEach(child => child.render());
+    const layout = new Layout(this.elements);
+    this.frontBuffer = layout.build();
 
     if (this.backBuffer === this.frontBuffer) {
       return;

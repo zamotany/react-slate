@@ -23,10 +23,9 @@
     "postinstall": "node ./scripts/export-reconciler.js && yarn run bootstrap:example",
     "bootstrap:example": "yarn link && cd example && yarn && cd ..",
     "flow": "flow",
-    "eslint": "eslint src",
-    "jest": "jest src",
-    "prettier": "prettier --single-quote --trailing-comma all --write \"src/**/*.js\"",
-    "test": "npm run eslint && npm run prettier && npm run flow && npm run jest"
+    "lint": "eslint src",
+    "test": "jest src",
+    "format": "prettier --single-quote --trailing-comma all --write \"src/**/*.js\""
   },
   "dependencies": {
     "chalk": "^2.1.0",

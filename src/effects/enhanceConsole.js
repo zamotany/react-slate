@@ -14,6 +14,7 @@ export default function enhanceConsole({
   const logWarning = console.error.bind(console);
   const logError = console.error.bind(console);
 
+  // $FlowFixMe
   console.warn = (...args) => {
     logWarning(chalk.yellow(...args));
     if (exitOnWarning) {
@@ -21,8 +22,10 @@ export default function enhanceConsole({
     }
   };
 
+  // $FlowFixMe
   console.warn.raw = logWarning;
 
+  // $FlowFixMe
   console.error = (...args) => {
     logError(chalk.red(...args));
     if (exitOnError) {
@@ -30,5 +33,6 @@ export default function enhanceConsole({
     }
   };
 
+  // $FlowFixMe
   console.error.raw = logError;
 }
