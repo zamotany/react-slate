@@ -6,12 +6,7 @@ import {
   SHOW_CURSOR,
   HIDE_CURSOR,
 } from '../constants/asciiCodes';
-
-function onExit(cb: Function) {
-  process.on('exit', cb);
-  process.on('SIGINT', cb);
-  process.on('uncaughtException', cb);
-}
+import { onExit } from './utils';
 
 export function clearOnExit(stream: any) {
   onExit(() => {
