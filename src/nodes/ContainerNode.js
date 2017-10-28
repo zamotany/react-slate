@@ -2,7 +2,11 @@
 
 import readline from 'readline';
 import enhanceConsole from '../effects/enhanceConsole';
-import hideCursor from '../effects/hideCursor';
+import {
+  hideCursor,
+  clearOnExit,
+  clearScrollBackOnExit,
+} from '../effects/terminal';
 import ChunkNode from './ChunkNode';
 import Layout from '../utils/Layout';
 
@@ -10,9 +14,10 @@ import type { Element } from '../types';
 
 type Options = {
   // @TODO: add clearOnExit option
-  renderOptimizations: boolean,
   debug: boolean,
   hideCursor: boolean,
+  clearOnExit: boolean,
+  clearScrollBackOnExit: boolean,
   exitOnWarning: boolean,
   exitOnError: boolean,
 };
@@ -27,11 +32,12 @@ export default class ContainerNode {
 
   constructor(stream: any, opts?: Options) {
     this.options = {
-      renderOptimizations: false,
       debug: false,
-      hideCursor: false,
       exitOnError: false,
       exitOnWarning: false,
+      hideCursor: false,
+      clearOnExit: false,
+      clearScrollBackOnExit: false,
       ...(opts || {}),
     };
     this.stream = stream;
@@ -43,6 +49,14 @@ export default class ContainerNode {
 
     if (this.options.hideCursor) {
       hideCursor(this.stream);
+    }
+
+    if (this.options.clearOnExit) {
+      clearOnExit(this.stream);
+    }
+
+    if (this.options.clearScrollBackOnExit) {
+      clearScrollBackOnExit(this.stream);
     }
   }
 
