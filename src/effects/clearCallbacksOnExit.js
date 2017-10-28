@@ -5,7 +5,7 @@ import { onExit } from './utils';
 let callbacks = [];
 
 export default function clearCallbacksOnExit() {
-  ['Interval', 'Timeout'].forEach(type => {
+  ['Interval', 'Timeout', 'Immediate'].forEach(type => {
     const set = global[`set${type}`];
     const clear = global[`clear${type}`];
 
