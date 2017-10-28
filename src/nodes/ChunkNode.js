@@ -1,6 +1,6 @@
 /* @flow */
 
-import type { Props, Element } from '../types';
+import type { Props, Element, Position } from '../types';
 import TextNode from './TextNode';
 import ContainerNode from './ContainerNode';
 
@@ -18,16 +18,26 @@ export default class ChunkNode {
   container: ContainerNode;
   parent: ChunkNode | ContainerNode;
   children = [];
-  parentsOffset: { x: number, y: number } = { x: 0, y: 0 };
-  hasChanged: boolean = true;
+  parentsOffset: Position = { x: 0, y: 0 };
+  previousPosition: Position;
+  hasChildrenChanged: boolean = true;
+  hasParentChanged: boolean = false;
   memoizedElements: Element[] = [];
 
   constructor(container: ContainerNode, props: ChunkNodePros) {
     this.container = container;
     this.props = props;
+    this.previousPosition = { x: props.x, y: props.y };
   }
 
-  setParentsOffset({ x, y }: { x: number, y: number }) {
+  hasPositionChanged() {
+    return (
+      this.props.x !== this.previousPosition.x ||
+      this.props.y !== this.previousPosition.y
+    );
+  }
+
+  setParentsOffset({ x, y }: Position) {
     this.parentsOffset.x = x;
     this.parentsOffset.y = y;
   }
@@ -41,7 +51,7 @@ export default class ChunkNode {
 
   invalidateParent() {
     // Invalidate the whole path from this node up to the top.
-    this.hasChanged = true;
+    this.hasChildrenChanged = true;
     this.parent.invalidateParent();
   }
 
@@ -63,15 +73,22 @@ export default class ChunkNode {
   removeChild(child: ChunkNode | TextNode) {
     this.invalidateParent();
     const index = this.children.indexOf(child);
-    this.children.slice(index, 1);
+    this.children.splice(index, 1);
   }
 
   render() {
-    if (this.hasChanged || !this.memoizedElements.length) {
-      // At least one of the children has changed.
+    // When parent changes (eg. positions is updated) it might affect children.
+    const hasParentChanged = this.hasParentChanged || this.hasPositionChanged();
+    if (
+      this.hasChildrenChanged ||
+      !this.memoizedElements.length ||
+      hasParentChanged
+    ) {
+      // At least one of the children has changed or position of the parent
+      // has changed.
 
       this.memoizedElements = [];
-      this.hasChanged = false;
+      this.hasChildrenChanged = false;
 
       for (const child of this.children) {
         if (child instanceof ChunkNode) {
@@ -81,6 +98,7 @@ export default class ChunkNode {
 
           // Parents offset need to be corrected, otherwise this subtree would have
           // the old offset from previous render.
+          child.hasParentChanged = hasParentChanged;
           child.setParentsOffset(this.getChildOffset());
           this.memoizedElements.push(...child.render());
         } else {
@@ -99,15 +117,8 @@ export default class ChunkNode {
         }
       }
     } else {
-      // If subtree hasn't changed, append memoized elements to the container.
       this.memoizedElements.forEach(element => {
-        // Fix parents offset, since it might have changed.
-        const parentsOffset = this.getChildOffset();
-        this.container.appendElement({
-          ...element,
-          parentsOffsetX: parentsOffset.x,
-          parentsOffsetY: parentsOffset.y,
-        });
+        this.container.appendElement(element);
       });
     }
 

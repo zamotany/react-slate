@@ -9,3 +9,8 @@ export type Element = {
   parentsOffsetY: number,
   text: string,
 };
+
+export type Position = {
+  x: number,
+  y: number,
+};
