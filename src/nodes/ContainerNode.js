@@ -7,6 +7,7 @@ import {
   clearOnExit,
   clearScrollBackOnExit,
 } from '../effects/terminal';
+import clearCallbacksOnExit from '../effects/clearCallbacksOnExit';
 import ChunkNode from './ChunkNode';
 import Layout from '../utils/Layout';
 
@@ -46,6 +47,8 @@ export default class ContainerNode {
       exitOnError: this.options.exitOnError,
       exitOnWarning: this.options.exitOnWarning,
     });
+
+    clearCallbacksOnExit();
 
     if (this.options.hideCursor) {
       hideCursor(this.stream);
