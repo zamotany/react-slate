@@ -1,6 +1,6 @@
 /* @flow */
 
-export default function getPositionProps(props) {
+export default function getPositionProps(props: { x?: number, y?: number }) {
   const { x, y } = props;
   return {
     x: x || 0,

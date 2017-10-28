@@ -108,7 +108,7 @@ export default class ContainerNode {
   }
 
   flush() {
-    debugger;
+    // debugger;
     this.backBuffer = this.frontBuffer.split('\n').join('\n');
     this.elements = [];
 
