@@ -22,7 +22,6 @@ export default class Layout {
   elements: Element[] = [];
   lines: string[] = [];
   lastFilledLine: number = 0;
-  relativeIndex: number = 0;
 
   constructor(elements: Element[]) {
     this.elements = elements;
@@ -42,12 +41,10 @@ export default class Layout {
     // Assumption: both x and y are zero-based indexes
     this.elements.forEach(element => {
       const contentLines = getLines(element.text);
-      const TOP_OFFSET =
-        element.y +
-        element.parentsOffsetY +
-        (element.isRelative ? this.relativeIndex : 0);
+      const TOP_OFFSET = element.y + element.parentsOffsetY;
       const LEFT_OFFSET = element.x + element.parentsOffsetX;
       if (TOP_OFFSET + contentLines.length > this.lines.length) {
+        // TODO: get rid of it
         this.fillMissingLines(TOP_OFFSET + contentLines.length);
       }
 
@@ -63,10 +60,6 @@ export default class Layout {
 
         this.lines[TOP_OFFSET + i] = `${preContent}${content}${postContent}`;
       });
-
-      if (element.isRelative) {
-        this.relativeIndex += contentLines.length;
-      }
     });
 
     return this.lines.join('');

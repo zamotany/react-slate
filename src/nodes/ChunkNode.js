@@ -93,10 +93,6 @@ export default class ChunkNode {
             parentsOffsetX: parentsOffset.x,
             parentsOffsetY: parentsOffset.y,
             text: child.props.children,
-            // If ChunkNode (parent) has only a single child, this element isRelative
-            // property is determined from parent node, otherwise we assume it's relative.
-            isRelative:
-              this.children.length > 1 || Boolean(this.props.relative),
           };
           this.memoizedElements.push(element);
           this.container.appendElement(element);

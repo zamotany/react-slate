@@ -7,6 +7,5 @@ export type Element = {
   y: number,
   parentsOffsetX: number,
   parentsOffsetY: number,
-  isRelative: boolean,
   text: string,
 };
