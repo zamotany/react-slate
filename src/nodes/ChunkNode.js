@@ -7,7 +7,6 @@ import ContainerNode from './ContainerNode';
 type ChunkNodePros = Props & {
   x: number,
   y: number,
-  relative: boolean,
   children: any,
 };
 

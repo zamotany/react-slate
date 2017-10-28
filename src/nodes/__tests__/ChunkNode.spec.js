@@ -2,27 +2,29 @@
 
 import ChunkNode from '../ChunkNode';
 import TextNode from '../TextNode';
+import ContainerNode from '../ContainerNode';
 
 function withChildren(instance, children) {
   children.forEach(instance.appendInitialChild.bind(instance));
   return instance;
 }
 
-function getTreeFixture(container) {
-  const rootNode = new ChunkNode(container, { x: 2, y: 0 });
+function getTreeFixture(containerMock) {
+  const container = ((containerMock: any): ContainerNode);
+  const rootNode = new ChunkNode(container, { x: 2, y: 0, children: null });
   rootNode.appendInitialChild(
-    withChildren(new ChunkNode(container, { x: 0, y: 2 }), [
-      withChildren(new ChunkNode(container, { x: 0, y: 0 }), [
+    withChildren(new ChunkNode(container, { x: 0, y: 2, children: null }), [
+      withChildren(new ChunkNode(container, { x: 0, y: 0, children: null }), [
         new TextNode(container, { children: 'Text1' }),
       ]),
-      withChildren(new ChunkNode(container, { x: 2, y: 3 }), [
+      withChildren(new ChunkNode(container, { x: 2, y: 3, children: null }), [
         new TextNode(container, { children: 'Text2' }),
       ]),
       new TextNode(container, { children: 'Text3' }),
     ])
   );
   rootNode.appendInitialChild(
-    withChildren(new ChunkNode(container, { x: 0, y: 0 }), [
+    withChildren(new ChunkNode(container, { x: 0, y: 0, children: null }), [
       new TextNode(container, { children: 'Text4' }),
     ])
   );
@@ -154,6 +156,7 @@ describe('nodes/ChunkNode', () => {
     rootNode.render();
 
     rootNode.children[1].appendChild(
+      // $FlowFixMe
       new TextNode(container, { children: 'Added' })
     );
 
