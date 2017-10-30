@@ -15,12 +15,12 @@ import type { Element } from '../types';
 
 type Options = {
   // @TODO: add clearOnExit option
-  debug: boolean,
-  hideCursor: boolean,
-  clearOnExit: boolean,
-  clearScrollBackOnExit: boolean,
-  exitOnWarning: boolean,
-  exitOnError: boolean,
+  debug?: boolean,
+  hideCursor?: boolean,
+  clearOnExit?: boolean,
+  clearScrollBackOnExit?: boolean,
+  exitOnWarning?: boolean,
+  exitOnError?: boolean,
 };
 
 export default class ContainerNode {
@@ -44,8 +44,8 @@ export default class ContainerNode {
     this.stream = stream;
 
     enhanceConsole({
-      exitOnError: this.options.exitOnError,
-      exitOnWarning: this.options.exitOnWarning,
+      exitOnError: !!this.options.exitOnError,
+      exitOnWarning: !!this.options.exitOnWarning,
     });
 
     clearCallbacksOnExit();
