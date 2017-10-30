@@ -1,8 +1,8 @@
 import React from 'react';
 // eslint-disable-next-line
-import { Text, KeyPress, Endl } from 'react-stream-renderer';
+import { Text, Box, KeyPress, Endl } from 'react-stream-renderer';
 
-export default class Box extends React.Component {
+export default class BoxExample extends React.Component {
   state = {
     x: 3,
     y: 5,
@@ -37,13 +37,16 @@ export default class Box extends React.Component {
     return (
       <Text>
         <KeyPress onPress={this.moveBox} stream={process.stdin} />
-        <Text x={this.state.x} y={this.state.y}>
-          {'+-----+\n'}
-          {/* <Endl /> */}
-          {'| ABC |\n'}
-          {/* <Endl /> */}
-          {'+-----+'}
-        </Text>
+        <Box
+          x={this.state.x}
+          y={this.state.y}
+          style={{
+            height: 4,
+            width: 10,
+            borderColor: 'tomato',
+            borderStyle: 'double',
+          }}
+        />
       </Text>
     );
   }

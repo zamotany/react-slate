@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Children } from 'react';
+import * as React from 'react';
 import chalk from 'chalk';
 import memoize from 'fast-memoize';
 import { Chunk, Endl } from './';
@@ -16,13 +16,13 @@ type Style = {|
   visibility?: 'visible' | 'hidden',
 |};
 
-type Props = {
-  style?: Style,
-  endl?: boolean,
-  children: any,
+type Props = {|
   x?: number,
   y?: number,
-};
+  endl?: boolean,
+  style?: Style,
+  children: React.Node,
+|};
 
 function capitalize(text: string) {
   return text
@@ -104,7 +104,7 @@ function stylize(style: Style, text: string) {
 }
 
 function stylizeChildren(children, style) {
-  return Children.map(children, child => {
+  return React.Children.map(children, child => {
     if (typeof child === 'string' || typeof child === 'number') {
       return stylize(style, String(child));
     }

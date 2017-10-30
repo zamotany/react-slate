@@ -30,6 +30,7 @@
   "dependencies": {
     "chalk": "^2.1.0",
     "cli-spinners": "^1.1.0",
+    "dedent": "^0.7.0",
     "fast-memoize": "^2.2.8",
     "fbjs": "^0.8.16",
     "prop-types": "^15.6.0",
