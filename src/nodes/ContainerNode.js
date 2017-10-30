@@ -73,6 +73,18 @@ export default class ContainerNode {
     this.children.push(child);
   }
 
+  prependChild(child: ChunkNode, childBefore: ChunkNode) {
+    // eslint-disable-next-line no-param-reassign
+    child.parent = this;
+    const index = this.children.indexOf(childBefore);
+    this.children.splice(index, 0, child);
+  }
+
+  removeChild(child: ChunkNode) {
+    const index = this.children.indexOf(child);
+    this.children.splice(index, 1);
+  }
+
   appendElement(element: Element) {
     this.elements.push(element);
   }
@@ -115,7 +127,7 @@ export default class ContainerNode {
         .slice(splitPoint)
         .join('\n')}\n`;
     } else {
-      body = this.frontBuffer;
+      body = `${this.frontBuffer}\n`;
     }
 
     // if (this.options.debug) {

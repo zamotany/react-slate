@@ -54,6 +54,14 @@ export default class ChunkNode {
     this.parent.invalidateParent();
   }
 
+  prepareChild(child: ChunkNode | TextNode) {
+    // eslint-disable-next-line no-param-reassign
+    child.parent = this;
+    if (child instanceof ChunkNode) {
+      child.setParentsOffset(this.getChildOffset());
+    }
+  }
+
   appendChild(child: ChunkNode | TextNode) {
     this.invalidateParent();
     // eslint-disable-next-line no-param-reassign
@@ -61,12 +69,15 @@ export default class ChunkNode {
   }
 
   appendInitialChild(child: ChunkNode | TextNode) {
-    // eslint-disable-next-line no-param-reassign
-    child.parent = this;
-    if (child instanceof ChunkNode) {
-      child.setParentsOffset(this.getChildOffset());
-    }
+    this.prepareChild(child);
     this.children.push(child);
+  }
+
+  prependChild(child: ChunkNode | TextNode, childBefore: ChunkNode | TextNode) {
+    this.invalidateParent();
+    this.prepareChild(child);
+    const index = this.children.indexOf(childBefore);
+    this.children.splice(index, 0, child);
   }
 
   removeChild(child: ChunkNode | TextNode) {

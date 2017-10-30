@@ -227,4 +227,42 @@ describe('nodes/ChunkNode', () => {
       }))
     );
   });
+
+  it('should prepend child', () => {
+    let elements = [];
+    const container = {
+      appendElement(element) {
+        elements.push(element);
+      },
+      invalidateParent: jest.fn(),
+    };
+
+    const rootNode = getTreeFixture(container);
+    rootNode.parent = container;
+    rootNode.render();
+
+    rootNode.prependChild(
+      // $FlowFixMe
+      new TextNode(container, { children: 'Appended' }),
+      rootNode.children[1]
+    );
+
+    expect(rootNode.hasChildrenChanged).toBeTruthy();
+
+    const oldElements = [...elements];
+    elements = [];
+    rootNode.render();
+
+    expect(elements).toEqual([
+      ...oldElements.slice(0, 3),
+      {
+        x: 0,
+        y: 0,
+        parentsOffsetX: 2,
+        parentsOffsetY: 0,
+        text: 'Appended',
+      },
+      ...oldElements.slice(3),
+    ]);
+  });
 });
