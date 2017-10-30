@@ -8,7 +8,7 @@ node_modules/
 jsconfig.json
 .idea
 
-build
+build/
 coverage/
 
 .yo-rc.json

@@ -13,6 +13,7 @@ import TextNode from '../nodes/TextNode';
 type GenericParentInstance = {
   appendChild(child: any): void,
   appendInitialChild(child: any): void,
+  prependChild(child: any, childBefore: any): void,
   removeChild(child: any): void,
 };
 
@@ -40,6 +41,18 @@ export default {
     parentInstance.appendChild(child);
   },
 
+  removeChild(parentInstance: GenericParentInstance, child: any) {
+    parentInstance.removeChild(child);
+  },
+
+  insertBefore(
+    parentInstance: GenericParentInstance,
+    child: any,
+    childBefore: any
+  ) {
+    parentInstance.prependChild(child, childBefore);
+  },
+
   appendChildToContainer(container: ContainerNode, child: any) {
     if (!containerInstance) {
       containerInstance = container;
@@ -47,8 +60,16 @@ export default {
     container.appendChild(child);
   },
 
-  removeChild(parentInstance: GenericParentInstance, child: any) {
-    parentInstance.removeChild(child);
+  insertInContainerBefore(
+    container: ContainerNode,
+    child: any,
+    childBefore: any
+  ) {
+    container.prependChild(child, childBefore);
+  },
+
+  removeChildFromContainer(container: ContainerNode, child: any) {
+    container.removeChild(child);
   },
 
   prepareUpdate(/* testElement, type, oldProps, newProps, hostContext */) {
@@ -98,7 +119,6 @@ export default {
   prepareForCommit: NOOP,
   shouldSetTextContent: NO,
   resetTextContent: NOOP,
-  insertBefore: NOOP,
   finalizeInitialChildren: NOOP,
 
   useSyncScheduling: true,
