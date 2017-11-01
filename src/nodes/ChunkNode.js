@@ -17,7 +17,7 @@ type ChunkNodePros = Props &
     children: any,
   };
 
-export function getChunkNodeProps({ style }: any = { style: {} }) {
+export function getChunkNodeProps(style: any = {}) {
   return {
     marginTop: style.marginTop || 0,
     marginBottom: style.marginBottom || 0,
