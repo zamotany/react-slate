@@ -7,7 +7,6 @@ import {
   clearOnExit,
   clearScrollBackOnExit,
 } from '../effects/terminal';
-import clearCallbacksOnExit from '../effects/clearCallbacksOnExit';
 import ChunkNode from './ChunkNode';
 import { mergeCanvas, getCanvas } from '../utils/layout';
 
@@ -46,15 +45,13 @@ export default class ContainerNode {
 
     this.canvasSize = {
       width: this.stream.columns,
-      height: this.stream.rows,
+      height: this.stream.rows - 1,
     };
 
     enhanceConsole({
       exitOnError: this.options.exitOnError,
       exitOnWarning: this.options.exitOnWarning,
     });
-
-    clearCallbacksOnExit();
 
     if (this.options.hideCursor) {
       hideCursor(this.stream);

@@ -4,6 +4,9 @@
 import { ReactFiberReconciler } from 'react-dom';
 import hostConfig from './utils/hostConfig';
 import ContainerNode from './nodes/ContainerNode';
+import clearCallbacksOnExit from './effects/clearCallbacksOnExit';
+
+clearCallbacksOnExit();
 
 const NodeStreamReconciler = ReactFiberReconciler(hostConfig);
 

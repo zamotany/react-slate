@@ -1,10 +1,10 @@
 /* @flow */
 
-import { onExit } from './utils';
+import { onExit, callOnce } from './utils';
 
 let callbacks = [];
 
-export default function clearCallbacksOnExit() {
+export default callOnce(() => {
   ['Interval', 'Timeout', 'Immediate'].forEach(type => {
     const set = global[`set${type}`];
     const clear = global[`clear${type}`];
@@ -15,6 +15,13 @@ export default function clearCallbacksOnExit() {
         id: set(...args),
       });
     };
+
+    Object.defineProperty(global[`set${type}`], 'name', {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: 'setTimeoutCustom',
+    });
 
     global[`clear${type}`] = (...args) => {
       clear(...args);
@@ -28,4 +35,4 @@ export default function clearCallbacksOnExit() {
     });
     callbacks = [];
   });
-}
+});
