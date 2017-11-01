@@ -3,8 +3,7 @@
 import React, { Children } from 'react';
 import chalk from 'chalk';
 import memoize from 'fast-memoize';
-import { Chunk, Endl } from './';
-import getPositionPros from '../utils/getPositionProps';
+import { Chunk, getChunkNodeProps } from './';
 
 type Style = {|
   color?: string,
@@ -14,14 +13,15 @@ type Style = {|
   textDecoration?: 'underline' | 'line-through' | 'normal',
   textTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase',
   visibility?: 'visible' | 'hidden',
+  marginTop?: number,
+  marginBottom?: number,
+  marginLeft?: number,
+  marginRight?: number,
 |};
 
 type Props = {
   style?: Style,
-  endl?: boolean,
   children: any,
-  x?: number,
-  y?: number,
 };
 
 function capitalize(text: string) {
@@ -123,11 +123,10 @@ const memoizedStylizeChildren = memoize(stylizeChildren);
 
 export default function Text(props: Props) {
   // @TODO: memoize
-  const { children, style, endl } = props;
+  const { children, style } = props;
   return (
-    <Chunk {...getPositionPros(props)}>
+    <Chunk {...getChunkNodeProps(style)}>
       {style ? memoizedStylizeChildren(children, style) : children}
-      {endl ? <Endl /> : null}
     </Chunk>
   );
 }

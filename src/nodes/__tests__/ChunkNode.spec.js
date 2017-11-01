@@ -3,7 +3,7 @@
 import ChunkNode from '../ChunkNode';
 import TextNode from '../TextNode';
 import ContainerNode from '../ContainerNode';
-// import { mergeCanvas } from '../../utils/layoutUtils';
+import { getCanvas } from '../../utils/layout';
 
 function withChildren(instance, children) {
   children.forEach(instance.appendInitialChild.bind(instance));
@@ -71,12 +71,8 @@ function getNodeProps(props = {}) {
   };
 }
 
-function getCanvas() {
-  const canvas = [];
-  for (let i = 0; i < 10; i++) {
-    canvas.push(' '.repeat(10));
-  }
-  return canvas;
+function getCanvasMock() {
+  return getCanvas({ width: 10, height: 10 });
 }
 
 describe('nodes/ChunkNode', () => {
@@ -90,7 +86,7 @@ describe('nodes/ChunkNode', () => {
     rootNode.appendInitialChild(new TextNode(container, { children: 'Text1' }));
     rootNode.appendInitialChild(new TextNode(container, { children: 'Text2' }));
 
-    expect(rootNode.render(getCanvas())).toEqual(['Text1Text2']);
+    expect(rootNode.render(getCanvasMock())).toEqual(['Text1Text2']);
   });
 
   it('should render TextNodes separated by 3rd node with \\n', () => {
@@ -110,7 +106,7 @@ describe('nodes/ChunkNode', () => {
     rootNode.appendInitialChild(new TextNode(container, { children: '\n' }));
     rootNode.appendInitialChild(new TextNode(container, { children: 'Text2' }));
 
-    expect(rootNode.render(getCanvas())).toEqual([
+    expect(rootNode.render(getCanvasMock())).toEqual([
       ' '.repeat(10),
       'Text1     ',
       'Text2     ',
@@ -129,7 +125,7 @@ describe('nodes/ChunkNode', () => {
     );
     rootNode.appendInitialChild(new TextNode(container, { children: 'Text2' }));
 
-    expect(rootNode.render(getCanvas())).toEqual([
+    expect(rootNode.render(getCanvasMock())).toEqual([
       ' '.repeat(10),
       'Text1     ',
       'Text2     ',
@@ -161,7 +157,7 @@ describe('nodes/ChunkNode', () => {
     );
     rootNode.appendInitialChild(new TextNode(container, { children: 'Text2' }));
 
-    expect(rootNode.render(getCanvas())).toEqual([
+    expect(rootNode.render(getCanvasMock())).toEqual([
       ' '.repeat(10),
       ' '.repeat(10),
       '  Text1   ',
@@ -213,7 +209,7 @@ describe('nodes/ChunkNode', () => {
     );
     rootNode.appendInitialChild(new TextNode(container, { children: 'Text3' }));
 
-    expect(rootNode.render(getCanvas())).toEqual([
+    expect(rootNode.render(getCanvasMock())).toEqual([
       ' '.repeat(10),
       ' '.repeat(10),
       '  Text1   ',

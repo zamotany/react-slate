@@ -9,6 +9,7 @@ import {
 } from '../effects/terminal';
 import clearCallbacksOnExit from '../effects/clearCallbacksOnExit';
 import ChunkNode from './ChunkNode';
+import { mergeCanvas, getCanvas } from '../utils/layout';
 
 import type { Element } from '../types';
 
@@ -29,6 +30,7 @@ export default class ContainerNode {
   backBuffer: string = '';
   stream: any = null;
   options: Options;
+  canvasSize: { width: number, height: number };
 
   constructor(stream: any, opts?: Options) {
     this.options = {
@@ -41,6 +43,11 @@ export default class ContainerNode {
       ...(opts || {}),
     };
     this.stream = stream;
+
+    this.canvasSize = {
+      width: this.stream.columns,
+      height: this.stream.rows,
+    };
 
     enhanceConsole({
       exitOnError: this.options.exitOnError,
@@ -136,13 +143,18 @@ export default class ContainerNode {
   }
 
   flush() {
-    // debugger;
+    // @TODO: this buffer/optimization/slitting logic needs to be refactored
     this.backBuffer = this.frontBuffer.split('\n').join('\n');
     this.elements = [];
 
-    this.frontBuffer = this.children
-      .reduce((acc, child) => [...acc, ...child.render()], [])
-      .join('\n');
+    const canvas = getCanvas(this.canvasSize);
+    this.frontBuffer = mergeCanvas(
+      canvas,
+      this.children.reduce(
+        (acc, child) => [...acc, ...child.render(canvas)],
+        []
+      )
+    ).join('\n');
 
     if (this.backBuffer === this.frontBuffer) {
       return;

@@ -1,60 +1,77 @@
 /* @flow */
 
-import type { Element } from '../types';
+import type { Margins } from '../types';
 
-export default class Layout {
-  elements: Element[] = [];
-  lines: string[] = [];
-  lastFilledLine: number = 0;
+import TextNode from '../nodes/TextNode';
 
-  constructor(elements: Element[]) {
-    this.elements = elements;
+/* eslint-disable no-param-reassign */
+
+export function getCanvas({ width, height }: { [key: string]: number }) {
+  const canvas = [];
+  for (let i = 0; i < height; i++) {
+    canvas.push(' '.repeat(width));
   }
+  return canvas;
+}
 
-  fillMissingLines(toLine: number) {
-    const LINES_LENGTH = this.lines.length;
-    for (let i = this.lastFilledLine; i < toLine; i++) {
-      this.lines[i] = i < LINES_LENGTH ? this.lines[i] : '';
-    }
-    this.lastFilledLine = toLine;
+export function mergeCanvas(canvas: string[], relativeCanvas: string[]) {
+  // We only care about canvas.length since it should be max number or terminal's rows.
+  const finalCanvas = [];
+  const noContentLine = ' '.repeat(canvas[0].length);
+  for (let lineIndex = 0; lineIndex < canvas.length; lineIndex++) {
+    finalCanvas[lineIndex] =
+      canvas[lineIndex] === noContentLine && relativeCanvas[lineIndex]
+        ? relativeCanvas[lineIndex]
+        : canvas[lineIndex];
   }
+  return finalCanvas;
+}
 
-  build() {
-    // @TODO: support layers (z-index)
-    // Assumption: both x and y are zero-based indexes
-    this.elements.forEach(element => {
-      const textByLines = element.text.split('\n');
-      const POS_Y = getPositionY(element);
-      const POS_X = getPositionX(element);
+export function appendToLastLine(canvas: string[], text: string) {
+  const index = (canvas.length || 1) - 1;
+  canvas[index] = `${canvas[index] || ''}${text}`;
+}
 
-      if (POS_Y + textByLines.length > this.lines.length) {
-        // TODO: get rid of it
-        this.fillMissingLines(POS_Y + textByLines.length);
+export function appendTextNode(canvas: string[], node: TextNode) {
+  const hasNewLine = node.props.children.indexOf('\n') > -1;
+  if (!hasNewLine) {
+    appendToLastLine(canvas, node.props.children);
+  } else {
+    const textLines = node.props.children.split('\n');
+    textLines.forEach((text, i) => {
+      appendToLastLine(canvas, text);
+      if (i !== textLines.length - 1) {
+        canvas.push('');
       }
-
-      textByLines.forEach((textLine, lineIndex) => {
-        const line = this.lines[POS_Y + lineIndex];
-        const postContent = line.substr(POS_X + textLine.length);
-
-        let preContent = line.substr(0, POS_X);
-        if (preContent.length < POS_X) {
-          preContent += ' '.repeat(POS_X - preContent.length);
-        }
-
-        this.lines[
-          POS_Y + lineIndex
-        ] = `${preContent}${textLine}${postContent}`;
-      });
     });
-
-    return this.lines.join('\n');
   }
 }
 
-function getPositionY(element: Element) {
-  return element.y + element.parentsOffsetY;
+export function appendRenderResults(canvas: string[], renderResults: string[]) {
+  renderResults.forEach(text => {
+    canvas.push(text);
+  });
+  canvas.push('');
 }
 
-function getPositionX(element: Element) {
-  return element.x + element.parentsOffsetX;
+export function addMarginsAndNormalize(
+  canvas: string[],
+  { marginLeft, marginRight, marginTop, marginBottom }: Margins,
+  lineLength: number
+) {
+  const noContentLine = ' '.repeat(lineLength);
+  for (let i = 0; i < canvas.length; i++) {
+    canvas[i] = `${' '.repeat(marginLeft)}${canvas[i]}${' '.repeat(
+      marginRight
+    )}`;
+    canvas[i] = `${canvas[i]}${noContentLine}`.substr(0, lineLength);
+  }
+  for (let i = 0; i < marginTop; i++) {
+    canvas.unshift(noContentLine);
+  }
+  for (let i = 0; i < marginBottom; i++) {
+    canvas.push(noContentLine);
+  }
 }
+
+export function layAbsoluteTextNode(canvas: string[], node: TextNode) {}

@@ -1,5 +1,5 @@
 export const Chunk = 'CHUNK_NODE';
-export { default as Endl } from './Endl';
+export { getChunkNodeProps } from '../nodes/ChunkNode';
 export { default as Text } from './Text';
 export { default as KeyPress } from './KeyPress';
 export { default as Spinner } from './Spinner';

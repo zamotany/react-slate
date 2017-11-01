@@ -10,12 +10,21 @@ import {
   layAbsoluteTextNode,
   appendRenderResults,
   addMarginsAndNormalize,
-} from '../utils/layoutUtils';
+} from '../utils/layout';
 
 type ChunkNodePros = Props &
   Margins & {
     children: any,
   };
+
+export function getChunkNodeProps({ style }: any = { style: {} }) {
+  return {
+    marginTop: style.marginTop || 0,
+    marginBottom: style.marginBottom || 0,
+    marginLeft: style.marginLeft || 0,
+    marginRight: style.marginRight || 0,
+  };
+}
 
 export default class ChunkNode {
   static componentName = 'CHUNK_NODE';
