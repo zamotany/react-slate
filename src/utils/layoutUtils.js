@@ -1,65 +1,69 @@
 /* @flow */
 
+import type { Margins } from '../types';
+
 import TextNode from '../nodes/TextNode';
 
 /* eslint-disable no-param-reassign */
 
-export function appendToLastLine(outputLines: string[], text: string) {
-  const index = (outputLines.length || 1) - 1;
-  outputLines[index] = `${outputLines[index] || ''}${text}`;
+export function mergeCanvas(canvas: string[], relativeCanvas: string[]) {
+  // We only care about canvas.length since it should be max number or terminal's rows.
+  const finalCanvas = [];
+  const noContentLine = ' '.repeat(canvas[0].length);
+  for (let lineIndex = 0; lineIndex < canvas.length; lineIndex++) {
+    finalCanvas[lineIndex] =
+      canvas[lineIndex] === noContentLine && relativeCanvas[lineIndex]
+        ? relativeCanvas[lineIndex]
+        : canvas[lineIndex];
+  }
+  return finalCanvas;
 }
 
-export function appendTextNode(outputLines: string[], node: TextNode) {
+export function appendToLastLine(canvas: string[], text: string) {
+  const index = (canvas.length || 1) - 1;
+  canvas[index] = `${canvas[index] || ''}${text}`;
+}
+
+export function appendTextNode(canvas: string[], node: TextNode) {
   const hasNewLine = node.props.children.indexOf('\n') > -1;
   if (!hasNewLine) {
-    appendToLastLine(outputLines, node.props.children);
+    appendToLastLine(canvas, node.props.children);
   } else {
     const textLines = node.props.children.split('\n');
     textLines.forEach((text, i) => {
-      appendToLastLine(outputLines, text);
+      appendToLastLine(canvas, text);
       if (i !== textLines.length - 1) {
-        outputLines.push('');
+        canvas.push('');
       }
     });
   }
 }
 
-export function appendRenderResults(
-  outputLines: string[],
-  renderResults: string[]
-) {
+export function appendRenderResults(canvas: string[], renderResults: string[]) {
   renderResults.forEach(text => {
-    outputLines.push(text);
+    canvas.push(text);
   });
-  outputLines.push('');
+  canvas.push('');
 }
 
-export function indentLeftBy(textLines: string[], indentation: number) {
-  return textLines.map(text => `${' '.repeat(indentation)}${text}`);
-}
-
-export function indentTopBy(textLines: string[], indentation: number) {
-  const indentLines = [];
-  for (let i = 0; i < indentation; i++) {
-    indentLines.push('');
+export function addMarginsAndNormalize(
+  canvas: string[],
+  { marginLeft, marginRight, marginTop, marginBottom }: Margins,
+  lineLength: number
+) {
+  const noContentLine = ' '.repeat(lineLength);
+  for (let i = 0; i < canvas.length; i++) {
+    canvas[i] = `${' '.repeat(marginLeft)}${canvas[i]}${' '.repeat(
+      marginRight
+    )}`;
+    canvas[i] = `${canvas[i]}${noContentLine}`.substr(0, lineLength);
   }
-  return [...indentLines, ...textLines];
-}
-
-export function indentRightTo(textLines: string[], indentation: number) {
-  return textLines.map(text => {
-    let repeatCount = indentation > 0 ? indentation - text.length : 0;
-    if (repeatCount < 0) {
-      repeatCount = 0;
-    }
-    return `${text}${' '.repeat(repeatCount)}`;
-  });
-}
-
-export function indentBottomTo(textLines: string[], indentation: number) {
-  const indentLines = [];
-  for (let i = textLines.length; i < indentation; i++) {
-    indentLines.push('');
+  for (let i = 0; i < marginTop; i++) {
+    canvas.unshift(noContentLine);
   }
-  return [...textLines, ...indentLines];
+  for (let i = 0; i < marginBottom; i++) {
+    canvas.push(noContentLine);
+  }
 }
+
+export function layAbsoluteTextNode(canvas: string[], node: TextNode) {}

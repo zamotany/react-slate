@@ -10,6 +10,13 @@ export type Element = {
   text: string,
 };
 
+export type Margins = {
+  marginTop: number,
+  marginRight: number,
+  marginBottom: number,
+  marginLeft: number,
+};
+
 export type Position = {
   x: number,
   y: number,
