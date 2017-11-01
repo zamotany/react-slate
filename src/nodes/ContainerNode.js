@@ -9,7 +9,6 @@ import {
 } from '../effects/terminal';
 import clearCallbacksOnExit from '../effects/clearCallbacksOnExit';
 import ChunkNode from './ChunkNode';
-import Layout from '../utils/Layout';
 
 import type { Element } from '../types';
 
@@ -141,9 +140,9 @@ export default class ContainerNode {
     this.backBuffer = this.frontBuffer.split('\n').join('\n');
     this.elements = [];
 
-    this.children.forEach(child => child.render());
-    const layout = new Layout(this.elements);
-    this.frontBuffer = layout.build();
+    this.frontBuffer = this.children
+      .reduce((acc, child) => [...acc, ...child.render()], [])
+      .join('\n');
 
     if (this.backBuffer === this.frontBuffer) {
       return;

@@ -1,8 +1,18 @@
 /* @flow */
 
+/* eslint-disable no-param-reassign */
+
 import type { Props, Element, Position } from '../types';
 import TextNode from './TextNode';
 import ContainerNode from './ContainerNode';
+import {
+  appendTextNode,
+  appendRenderResults,
+  indentLeftBy,
+  indentRightTo,
+  indentTopBy,
+  indentBottomTo,
+} from '../utils/layoutUtils';
 
 type ChunkNodePros = Props & {
   x: number,
@@ -18,10 +28,10 @@ export default class ChunkNode {
   parent: ChunkNode | ContainerNode;
   children = [];
   parentsOffset: Position = { x: 0, y: 0 };
-  previousPosition: Position;
-  hasChildrenChanged: boolean = true;
-  hasParentChanged: boolean = false;
-  memoizedElements: Element[] = [];
+  // previousPosition: Position;
+  // hasChildrenChanged: boolean = true;
+  // hasParentChanged: boolean = false;
+  // memoizedElements: Element[] = [];
 
   constructor(container: ContainerNode, props: ChunkNodePros) {
     this.container = container;
@@ -29,12 +39,12 @@ export default class ChunkNode {
     this.previousPosition = { x: props.x, y: props.y };
   }
 
-  hasPositionChanged() {
-    return (
-      this.props.x !== this.previousPosition.x ||
-      this.props.y !== this.previousPosition.y
-    );
-  }
+  // hasPositionChanged() {
+  //   return (
+  //     this.props.x !== this.previousPosition.x ||
+  //     this.props.y !== this.previousPosition.y
+  //   );
+  // }
 
   setParentsOffset({ x, y }: Position) {
     this.parentsOffset.x = x;
@@ -49,13 +59,12 @@ export default class ChunkNode {
   }
 
   invalidateParent() {
-    // Invalidate the whole path from this node up to the top.
-    this.hasChildrenChanged = true;
-    this.parent.invalidateParent();
+    // // Invalidate the whole path from this node up to the top.
+    // this.hasChildrenChanged = true;
+    // this.parent.invalidateParent();
   }
 
   prepareChild(child: ChunkNode | TextNode) {
-    // eslint-disable-next-line no-param-reassign
     child.parent = this;
     if (child instanceof ChunkNode) {
       child.setParentsOffset(this.getChildOffset());
@@ -64,7 +73,6 @@ export default class ChunkNode {
 
   appendChild(child: ChunkNode | TextNode) {
     this.invalidateParent();
-    // eslint-disable-next-line no-param-reassign
     this.appendInitialChild(child);
   }
 
@@ -87,6 +95,35 @@ export default class ChunkNode {
   }
 
   render() {
+    const outputLines = [];
+
+    for (let childIndex = 0; childIndex < this.children.length; childIndex++) {
+      const child = this.children[childIndex];
+
+      if (child instanceof ChunkNode) {
+        appendRenderResults(outputLines, child.render());
+      } else {
+        appendTextNode(outputLines, child);
+      }
+    }
+
+    const topIndentation = this.props.y;
+    const bottomIndentation = this.props.h + this.props.y;
+    const leftIndentation = this.props.x;
+    const rightIndentation = this.props.w;
+    return indentRightTo(
+      indentLeftBy(
+        indentBottomTo(
+          indentTopBy(outputLines, topIndentation),
+          bottomIndentation
+        ),
+        leftIndentation
+      ),
+      rightIndentation
+    );
+  }
+
+  renderOld() {
     // When parent changes (eg. positions is updated) it might affect children.
     const hasParentChanged = this.hasParentChanged || this.hasPositionChanged();
     if (
