@@ -10,11 +10,18 @@ export type Element = {
   text: string,
 };
 
-export type Margins = {
+export type StyleProps = {
   marginTop: number,
   marginRight: number,
   marginBottom: number,
   marginLeft: number,
+  paddingTop: number,
+  paddingRight: number,
+  paddingBottom: number,
+  paddingLeft: number,
+  height: number,
+  width: number,
+  inline: boolean,
 };
 
 export type Position = {

@@ -1,7 +1,5 @@
 /* @flow */
 
-import type { Margins } from '../types';
-
 import TextNode from '../nodes/TextNode';
 
 /* eslint-disable no-param-reassign */
@@ -47,30 +45,57 @@ export function appendTextNode(canvas: string[], node: TextNode) {
   }
 }
 
-export function appendRenderResults(canvas: string[], renderResults: string[]) {
-  renderResults.forEach(text => {
-    canvas.push(text);
+export function appendRenderResults(
+  canvas: string[],
+  renderResults: string[],
+  { isInline }: { isInline: boolean }
+) {
+  renderResults.forEach((text, i) => {
+    if (i === 0 && isInline) {
+      appendToLastLine(canvas, text);
+    } else {
+      canvas.push(text);
+    }
   });
-  canvas.push('');
+  if (!isInline) {
+    canvas.push('');
+  }
 }
 
-export function addMarginsAndNormalize(
+export function appendOffsets(
   canvas: string[],
-  { marginLeft, marginRight, marginTop, marginBottom }: Margins,
-  lineLength: number
+  { top, bottom, left, right }: { [key: string]: number },
+  { width }: { width?: number } = {}
 ) {
-  const noContentLine = ' '.repeat(lineLength);
   for (let i = 0; i < canvas.length; i++) {
-    canvas[i] = `${' '.repeat(marginLeft)}${canvas[i]}${' '.repeat(
-      marginRight
-    )}`;
-    canvas[i] = `${canvas[i]}${noContentLine}`.substr(0, lineLength);
+    canvas[i] = `${' '.repeat(left)}${canvas[i]}${' '.repeat(right)}`;
   }
-  for (let i = 0; i < marginTop; i++) {
-    canvas.unshift(noContentLine);
+  for (let i = 0; i < top + bottom; i++) {
+    // $FlowFixMe
+    canvas[i < top ? 'unshift' : 'push'](width ? ' '.repeat(width) : '');
   }
-  for (let i = 0; i < marginBottom; i++) {
-    canvas.push(noContentLine);
+}
+
+export function normalize(
+  canvas: string[],
+  { width, height }: { [key: string]: ?number }
+) {
+  if (width) {
+    for (let i = 0; i < canvas.length; i++) {
+      canvas[i] = canvas[i].substr(0, width || canvas[i].length);
+      canvas[i] += ' '.repeat((width || canvas[i].length) - canvas[i].length);
+    }
+  }
+
+  if (height && canvas.length < height) {
+    const length = height - canvas.length;
+    for (let i = 0; i < length; i++) {
+      canvas.push(width ? ' '.repeat(width) : '');
+    }
+  } else if (height && canvas.length > height) {
+    for (let i = 0; i < canvas.length - height; i++) {
+      canvas.pop();
+    }
   }
 }
 

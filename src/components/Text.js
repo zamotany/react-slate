@@ -3,7 +3,8 @@
 import React, { Children } from 'react';
 import chalk from 'chalk';
 import memoize from 'fast-memoize';
-import { Chunk, getChunkNodeProps } from './';
+import { Chunk } from './';
+import { getStyleProps } from '../utils/style';
 
 type Style = {|
   color?: string,
@@ -125,7 +126,7 @@ export default function Text(props: Props) {
   // @TODO: memoize
   const { children, style } = props;
   return (
-    <Chunk {...getChunkNodeProps(style)}>
+    <Chunk {...getStyleProps(style)}>
       {style ? memoizedStylizeChildren(children, style) : children}
     </Chunk>
   );

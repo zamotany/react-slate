@@ -2,29 +2,21 @@
 
 /* eslint-disable no-param-reassign */
 
-import type { Props, Margins } from '../types';
+import type { Props, StyleProps } from '../types';
 import TextNode from './TextNode';
 import ContainerNode from './ContainerNode';
 import {
   appendTextNode,
   layAbsoluteTextNode,
   appendRenderResults,
-  addMarginsAndNormalize,
+  appendOffsets,
+  normalize,
 } from '../utils/layout';
 
 type ChunkNodePros = Props &
-  Margins & {
+  StyleProps & {
     children: any,
   };
-
-export function getChunkNodeProps(style: any = {}) {
-  return {
-    marginTop: style.marginTop || 0,
-    marginBottom: style.marginBottom || 0,
-    marginLeft: style.marginLeft || 0,
-    marginRight: style.marginRight || 0,
-  };
-}
 
 export default class ChunkNode {
   static componentName = 'CHUNK_NODE';
@@ -90,15 +82,39 @@ export default class ChunkNode {
       const child = this.children[childIndex];
 
       if (child instanceof ChunkNode) {
-        appendRenderResults(localCanvas, child.render(canvas));
+        appendRenderResults(localCanvas, child.render(canvas), {
+          isInline: Boolean(this.props.inline),
+        });
       } else if (this.props.absolute) {
-        layAbsoluteTextNode(canvas, child);
+        // @TODO: implement
+        // layAbsoluteTextNode(canvas, child);
       } else {
         appendTextNode(localCanvas, child);
       }
     }
 
-    addMarginsAndNormalize(localCanvas, this.props, canvas[0].length);
+    appendOffsets(localCanvas, {
+      top: this.props.paddingTop,
+      bottom: this.props.paddingBottom,
+      left: this.props.paddingLeft,
+      right: this.props.paddingRight,
+    });
+
+    normalize(localCanvas, this.props);
+
+    appendOffsets(
+      localCanvas,
+      {
+        top: this.props.marginTop,
+        bottom: this.props.marginBottom,
+        left: this.props.marginLeft,
+        right: this.props.marginRight,
+      },
+      {
+        width: this.props.width,
+      }
+    );
+
     return localCanvas;
   }
 }

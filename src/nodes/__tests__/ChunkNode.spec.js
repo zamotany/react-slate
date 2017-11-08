@@ -66,7 +66,14 @@ function getNodeProps(props = {}) {
     marginBottom: 0,
     marginRight: 0,
     marginLeft: 0,
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingRight: 0,
+    paddingLeft: 0,
+    width: null,
+    height: 0,
     children: null,
+    inline: false,
     ...props,
   };
 }
@@ -82,6 +89,7 @@ describe('nodes/ChunkNode', () => {
     //   {'Text2'}
     // </Text>
     const container = (({}: any): ContainerNode);
+    // $FlowFixMe
     const rootNode = new ChunkNode(container, getNodeProps());
     rootNode.appendInitialChild(new TextNode(container, { children: 'Text1' }));
     rootNode.appendInitialChild(new TextNode(container, { children: 'Text2' }));
@@ -106,11 +114,7 @@ describe('nodes/ChunkNode', () => {
     rootNode.appendInitialChild(new TextNode(container, { children: '\n' }));
     rootNode.appendInitialChild(new TextNode(container, { children: 'Text2' }));
 
-    expect(rootNode.render(getCanvasMock())).toEqual([
-      ' '.repeat(10),
-      'Text1     ',
-      'Text2     ',
-    ]);
+    expect(rootNode.render(getCanvasMock())).toEqual(['', 'Text1', 'Text2']);
   });
 
   it('should render TextNodes separated by \\n', () => {
@@ -125,11 +129,7 @@ describe('nodes/ChunkNode', () => {
     );
     rootNode.appendInitialChild(new TextNode(container, { children: 'Text2' }));
 
-    expect(rootNode.render(getCanvasMock())).toEqual([
-      ' '.repeat(10),
-      'Text1     ',
-      'Text2     ',
-    ]);
+    expect(rootNode.render(getCanvasMock())).toEqual(['', 'Text1', 'Text2']);
   });
 
   it('should add margins (shallow)', () => {
@@ -158,11 +158,11 @@ describe('nodes/ChunkNode', () => {
     rootNode.appendInitialChild(new TextNode(container, { children: 'Text2' }));
 
     expect(rootNode.render(getCanvasMock())).toEqual([
-      ' '.repeat(10),
-      ' '.repeat(10),
-      '  Text1   ',
-      '  Text2   ',
-      ' '.repeat(10),
+      '',
+      '',
+      '  Text1  ',
+      '  Text2  ',
+      '',
     ]);
   });
 
@@ -210,14 +210,14 @@ describe('nodes/ChunkNode', () => {
     rootNode.appendInitialChild(new TextNode(container, { children: 'Text3' }));
 
     expect(rootNode.render(getCanvasMock())).toEqual([
-      ' '.repeat(10),
-      ' '.repeat(10),
-      '  Text1   ',
-      ' '.repeat(10),
+      '',
+      '',
+      '  Text1  ',
+      '    ',
       '   Text2  ',
-      ' '.repeat(10),
-      '  Text3   ',
-      ' '.repeat(10),
+      '    ',
+      '  Text3  ',
+      '',
     ]);
   });
 });
