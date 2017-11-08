@@ -24,6 +24,7 @@ function getNodeProps(props = {}) {
     height: 0,
     children: null,
     inline: false,
+    stylizeArgs: {},
     ...props,
   };
 }

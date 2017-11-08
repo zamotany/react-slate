@@ -5,7 +5,7 @@ import { render } from 'enzyme';
 import Text from '../Text';
 import colors from '../../constants/colors';
 
-describe('Text component', () => {
+xdescribe('Text component', () => {
   it('renders children', () => {
     const element = render(
       <Text>

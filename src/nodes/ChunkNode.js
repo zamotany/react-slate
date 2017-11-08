@@ -2,7 +2,7 @@
 
 /* eslint-disable no-param-reassign */
 
-import type { Props, StyleProps } from '../types';
+import type { Props, LayoutProps } from '../types';
 import TextNode from './TextNode';
 import ContainerNode from './ContainerNode';
 import {
@@ -12,10 +12,12 @@ import {
   appendOffsets,
   normalize,
 } from '../utils/layout';
+import { createStylize } from '../utils/style';
 
 type ChunkNodePros = Props &
-  StyleProps & {
+  LayoutProps & {
     children: any,
+    stylizeArgs: any,
   };
 
 export default class ChunkNode {
@@ -101,6 +103,11 @@ export default class ChunkNode {
     });
 
     normalize(localCanvas, this.props);
+
+    const stylize = createStylize(this.props.stylizeArgs);
+    for (let i = 0; i < localCanvas.length; i++) {
+      localCanvas[i] = stylize(localCanvas[i]);
+    }
 
     appendOffsets(
       localCanvas,
