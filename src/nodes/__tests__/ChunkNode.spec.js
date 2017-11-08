@@ -10,56 +10,6 @@ function withChildren(instance, children) {
   return instance;
 }
 
-// function getTreeFixture(containerMock) {
-// const container = ((containerMock: any): ContainerNode);
-// <Text x={2}>
-//   <Text y={2}>
-//     <Text y={1}>Text1</Text>
-//     <Text h={1} x={2}>Text2</Text>
-//     {'Text3}
-//   </Text>
-//   <Text w={7}>
-//     {'Text4\n'}
-//     {'Text5'}
-//   </Text>
-//   {'Text6'}
-// </Text>
-// const rootNode = new ChunkNode(container, {
-//   x: 2,
-//   y: 0,
-//   h: 0,
-//   w: 0,
-//   children: null,
-// });
-// rootNode.appendInitialChild(
-//   withChildren(
-//     new ChunkNode(container, { x: 0, y: 2, h: 0, w: 0, children: null }),
-//     [
-//       withChildren(
-//         new ChunkNode(container, { x: 0, y: 1, h: 0, w: 0, children: null }),
-//         [new TextNode(container, { children: 'Text1' })]
-//       ),
-//       withChildren(
-//         new ChunkNode(container, { x: 2, y: 0, h: 1, w: 0, children: null }),
-//         [new TextNode(container, { children: 'Text2' })]
-//       ),
-//       new TextNode(container, { children: 'Text3' }),
-//     ]
-//   )
-// );
-// rootNode.appendInitialChild(
-//   withChildren(
-//     new ChunkNode(container, { x: 0, y: 0, w: 7, h: 0, children: null }),
-//     [
-//       new TextNode(container, { children: 'Text4\n' }),
-//       new TextNode(container, { children: 'Text5' }),
-//     ]
-//   )
-// );
-// rootNode.appendInitialChild(new TextNode(container, { children: 'Text6' }));
-// return rootNode;
-// }
-
 function getNodeProps(props = {}) {
   return {
     marginTop: 0,
@@ -70,7 +20,7 @@ function getNodeProps(props = {}) {
     paddingBottom: 0,
     paddingRight: 0,
     paddingLeft: 0,
-    width: null,
+    width: -1,
     height: 0,
     children: null,
     inline: false,
@@ -83,142 +33,286 @@ function getCanvasMock() {
 }
 
 describe('nodes/ChunkNode', () => {
-  it('should render TextNodes one after another', () => {
-    // <Text>
-    //   {'Text1'}
-    //   {'Text2'}
-    // </Text>
-    const container = (({}: any): ContainerNode);
-    // $FlowFixMe
-    const rootNode = new ChunkNode(container, getNodeProps());
-    rootNode.appendInitialChild(new TextNode(container, { children: 'Text1' }));
-    rootNode.appendInitialChild(new TextNode(container, { children: 'Text2' }));
+  describe('render method', () => {
+    it('should render TextNodes one after another', () => {
+      // <Text>
+      //   {'Text1'}
+      //   {'Text2'}
+      // </Text>
+      const container = (({}: any): ContainerNode);
+      // $FlowFixMe
+      const rootNode = new ChunkNode(container, getNodeProps());
+      rootNode.appendInitialChild(
+        new TextNode(container, { children: 'Text1' })
+      );
+      rootNode.appendInitialChild(
+        new TextNode(container, { children: 'Text2' })
+      );
 
-    expect(rootNode.render(getCanvasMock())).toEqual(['Text1Text2']);
-  });
+      expect(rootNode.render(getCanvasMock())).toEqual(['Text1Text2']);
+    });
 
-  it('should render TextNodes separated by 3rd node with \\n', () => {
-    // <Text marginTop={1}>
-    //   {'Text1'}
-    //   {'\n'}
-    //   {'Text2'}
-    // </Text>
-    const container = (({}: any): ContainerNode);
-    const rootNode = new ChunkNode(
-      container,
-      getNodeProps({
-        marginTop: 1,
-      })
-    );
-    rootNode.appendInitialChild(new TextNode(container, { children: 'Text1' }));
-    rootNode.appendInitialChild(new TextNode(container, { children: '\n' }));
-    rootNode.appendInitialChild(new TextNode(container, { children: 'Text2' }));
+    it('should render TextNodes separated by 3rd node with \\n', () => {
+      // <Text marginTop={1}>
+      //   {'Text1'}
+      //   {'\n'}
+      //   {'Text2'}
+      // </Text>
+      const container = (({}: any): ContainerNode);
+      const rootNode = new ChunkNode(
+        container,
+        getNodeProps({
+          marginTop: 1,
+        })
+      );
+      rootNode.appendInitialChild(
+        new TextNode(container, { children: 'Text1' })
+      );
+      rootNode.appendInitialChild(new TextNode(container, { children: '\n' }));
+      rootNode.appendInitialChild(
+        new TextNode(container, { children: 'Text2' })
+      );
 
-    expect(rootNode.render(getCanvasMock())).toEqual(['', 'Text1', 'Text2']);
-  });
+      expect(rootNode.render(getCanvasMock())).toEqual(['', 'Text1', 'Text2']);
+    });
 
-  it('should render TextNodes separated by \\n', () => {
-    // <Text marginTop={1}>
-    //   {'Text1\n'}
-    //   {'Text2'}
-    // </Text>
-    const container = (({}: any): ContainerNode);
-    const rootNode = new ChunkNode(container, getNodeProps({ marginTop: 1 }));
-    rootNode.appendInitialChild(
-      new TextNode(container, { children: 'Text1\n' })
-    );
-    rootNode.appendInitialChild(new TextNode(container, { children: 'Text2' }));
+    it('should render TextNodes separated by \\n', () => {
+      // <Text marginTop={1}>
+      //   {'Text1\n'}
+      //   {'Text2'}
+      // </Text>
+      const container = (({}: any): ContainerNode);
+      const rootNode = new ChunkNode(container, getNodeProps({ marginTop: 1 }));
+      rootNode.appendInitialChild(
+        new TextNode(container, { children: 'Text1\n' })
+      );
+      rootNode.appendInitialChild(
+        new TextNode(container, { children: 'Text2' })
+      );
 
-    expect(rootNode.render(getCanvasMock())).toEqual(['', 'Text1', 'Text2']);
-  });
+      expect(rootNode.render(getCanvasMock())).toEqual(['', 'Text1', 'Text2']);
+    });
 
-  it('should add margins (shallow)', () => {
-    // <Text
-    //   marginTop={2}
-    //   marginBottom={1}
-    //   marginLeft={2}
-    //   marginRight={2}
-    // >
-    //   {'Text1\n'}
-    //   {'Text2'}
-    // </Text>
-    const container = (({}: any): ContainerNode);
-    const rootNode = new ChunkNode(
-      container,
-      getNodeProps({
-        marginTop: 2,
-        marginBottom: 1,
-        marginLeft: 2,
-        marginRight: 2,
-      })
-    );
-    rootNode.appendInitialChild(
-      new TextNode(container, { children: 'Text1\n' })
-    );
-    rootNode.appendInitialChild(new TextNode(container, { children: 'Text2' }));
+    it('should render ChunkNodes one below another', () => {
+      // <Text>
+      //   <Text>Text1</Text>
+      //   <Text>Text2</Text>
+      // </Text>
+      const container = (({}: any): ContainerNode);
+      // $FlowFixMe
+      const rootNode = new ChunkNode(container, getNodeProps());
+      rootNode.appendInitialChild(
+        withChildren(new ChunkNode(container, getNodeProps()), [
+          new TextNode(container, { children: 'Text1' }),
+        ])
+      );
+      rootNode.appendInitialChild(
+        withChildren(new ChunkNode(container, getNodeProps()), [
+          new TextNode(container, { children: 'Text2' }),
+        ])
+      );
 
-    expect(rootNode.render(getCanvasMock())).toEqual([
-      '',
-      '',
-      '  Text1  ',
-      '  Text2  ',
-      '',
-    ]);
-  });
+      expect(rootNode.render(getCanvasMock())).toEqual(['Text1', 'Text2', '']);
+    });
 
-  it('should apply top indentation (nested)', () => {
-    // <Text
-    //   marginTop={2}
-    //   marginBottom={1}
-    //   marginLeft={2}
-    //   marginRight={2}
-    // >
-    //   Text1
-    //   <Text
-    //     marginBottom={1}
-    //     marginLeft={1}
-    //     marginRight={1}
-    //   >
-    //     Text2
-    //   </Text>
-    //   Text3
-    // </Text>
-    const container = (({}: any): ContainerNode);
-    const rootNode = new ChunkNode(
-      container,
-      getNodeProps({
-        marginTop: 2,
-        marginBottom: 1,
-        marginLeft: 2,
-        marginRight: 2,
-      })
-    );
-    rootNode.appendInitialChild(new TextNode(container, { children: 'Text1' }));
-    rootNode.appendInitialChild(
-      withChildren(
-        new ChunkNode(
-          container,
-          getNodeProps({
-            marginTop: 1,
-            marginBottom: 1,
-            marginLeft: 1,
-          })
-        ),
-        [new TextNode(container, { children: 'Text2' })]
-      )
-    );
-    rootNode.appendInitialChild(new TextNode(container, { children: 'Text3' }));
+    it('should render TextNode and inlined ChunkNodes in the same line', () => {
+      // <Text>
+      //   Text1
+      //   <Text>Text2</Text>
+      // </Text>
+      const container = (({}: any): ContainerNode);
+      // $FlowFixMe
+      const rootNode = new ChunkNode(container, getNodeProps());
+      rootNode.appendInitialChild(
+        new TextNode(container, { children: 'Text1' })
+      );
+      rootNode.appendInitialChild(
+        withChildren(new ChunkNode(container, getNodeProps({ inline: true })), [
+          new TextNode(container, { children: 'Text2' }),
+        ])
+      );
 
-    expect(rootNode.render(getCanvasMock())).toEqual([
-      '',
-      '',
-      '  Text1  ',
-      '    ',
-      '   Text2  ',
-      '    ',
-      '  Text3  ',
-      '',
-    ]);
+      expect(rootNode.render(getCanvasMock())).toEqual(['Text1Text2']);
+    });
+
+    it('should add margins (shallow)', () => {
+      // <Text
+      //   marginTop={2}
+      //   marginBottom={1}
+      //   marginLeft={2}
+      //   marginRight={2}
+      // >
+      //   {'Text1\n'}
+      //   {'Text2'}
+      // </Text>
+      const container = (({}: any): ContainerNode);
+      const rootNode = new ChunkNode(
+        container,
+        getNodeProps({
+          marginTop: 2,
+          marginBottom: 1,
+          marginLeft: 2,
+          marginRight: 2,
+        })
+      );
+      rootNode.appendInitialChild(
+        new TextNode(container, { children: 'Text1\n' })
+      );
+      rootNode.appendInitialChild(
+        new TextNode(container, { children: 'Text2' })
+      );
+
+      expect(rootNode.render(getCanvasMock())).toEqual([
+        '',
+        '',
+        '  Text1  ',
+        '  Text2  ',
+        '',
+      ]);
+    });
+
+    it('should add margins indentation (nested)', () => {
+      // <Text
+      //   marginTop={2}
+      //   marginBottom={1}
+      //   marginLeft={2}
+      //   marginRight={2}
+      // >
+      //   Text1
+      //   <Text
+      //     marginTop={1}
+      //     marginBottom={1}
+      //     marginLeft={1}
+      //     marginRight={1}
+      //   >
+      //     Text2
+      //   </Text>
+      //   Text3
+      // </Text>
+      const container = (({}: any): ContainerNode);
+      const rootNode = new ChunkNode(
+        container,
+        getNodeProps({
+          marginTop: 2,
+          marginBottom: 1,
+          marginLeft: 2,
+          marginRight: 2,
+        })
+      );
+      rootNode.appendInitialChild(
+        new TextNode(container, { children: 'Text1' })
+      );
+      rootNode.appendInitialChild(
+        withChildren(
+          new ChunkNode(
+            container,
+            getNodeProps({
+              marginTop: 1,
+              marginRight: 1,
+              marginBottom: 1,
+              marginLeft: 1,
+            })
+          ),
+          [new TextNode(container, { children: 'Text2' })]
+        )
+      );
+      rootNode.appendInitialChild(
+        new TextNode(container, { children: 'Text3' })
+      );
+
+      expect(rootNode.render(getCanvasMock())).toEqual([
+        '',
+        '',
+        '  Text1  ',
+        '   Text2   ',
+        '    ',
+        '  Text3  ',
+        '',
+      ]);
+    });
+
+    it('should render a valid representation of the tree', () => {
+      // <Text
+      //   marginTop={1}
+      //   marginBottom={1}
+      //   paddingLeft={2}
+      //   paddingRight={2}
+      //   paddingTop={1}
+      //   paddingBottom={1}
+      //   width={9}
+      //   height={5}
+      // >
+      //   <Text marginLeft={1} marginRight={1}>
+      //     <Text inline>A</Text>
+      //     <Text inline>B</Text>
+      //     <Text inline>C</Text>
+      //   </Text>
+      //   <Text marginTop={1}>
+      //     Text1
+      //   </Text>
+      // </Text>
+
+      const container = (({}: any): ContainerNode);
+      const rootNode = new ChunkNode(
+        container,
+        getNodeProps({
+          marginTop: 1,
+          marginBottom: 1,
+          paddingLeft: 2,
+          paddingRight: 2,
+          paddingTop: 1,
+          paddingBottom: 1,
+          width: 9,
+          height: 5,
+        })
+      );
+      rootNode.appendInitialChild(
+        withChildren(
+          new ChunkNode(
+            container,
+            getNodeProps({
+              marginLeft: 1,
+              marginRight: 1,
+            })
+          ),
+          [
+            withChildren(
+              new ChunkNode(container, getNodeProps({ inline: true })),
+              [new TextNode(container, { children: 'A' })]
+            ),
+            withChildren(
+              new ChunkNode(container, getNodeProps({ inline: true })),
+              [new TextNode(container, { children: 'B' })]
+            ),
+            withChildren(
+              new ChunkNode(container, getNodeProps({ inline: true })),
+              [new TextNode(container, { children: 'C' })]
+            ),
+          ]
+        )
+      );
+      rootNode.appendInitialChild(
+        withChildren(
+          new ChunkNode(
+            container,
+            getNodeProps({
+              marginTop: 1,
+            })
+          ),
+          [new TextNode(container, { children: 'Text1' })]
+        )
+      );
+
+      expect(rootNode.render(getCanvasMock())).toEqual([
+        ' '.repeat(9),
+        ' '.repeat(9),
+        '   ABC   ',
+        ' '.repeat(9),
+        '  Text1  ',
+        ' '.repeat(9),
+        ' '.repeat(9),
+      ]);
+    });
   });
 });
 

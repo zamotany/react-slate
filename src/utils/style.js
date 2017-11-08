@@ -1,5 +1,6 @@
 /* @flow */
 
+// eslint-disable-next-line import/prefer-default-export
 export function getStyleProps(style: any = {}) {
   const inline = style.display === 'inline';
   return {

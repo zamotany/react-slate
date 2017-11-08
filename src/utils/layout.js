@@ -51,7 +51,7 @@ export function appendRenderResults(
   { isInline }: { isInline: boolean }
 ) {
   renderResults.forEach((text, i) => {
-    if (i === 0 && isInline) {
+    if (i === 0) {
       appendToLastLine(canvas, text);
     } else {
       canvas.push(text);
@@ -72,7 +72,7 @@ export function appendOffsets(
   }
   for (let i = 0; i < top + bottom; i++) {
     // $FlowFixMe
-    canvas[i < top ? 'unshift' : 'push'](width ? ' '.repeat(width) : '');
+    canvas[i < top ? 'unshift' : 'push'](width > 0 ? ' '.repeat(width) : '');
   }
 }
 
@@ -80,7 +80,7 @@ export function normalize(
   canvas: string[],
   { width, height }: { [key: string]: ?number }
 ) {
-  if (width) {
+  if (width && width > 0) {
     for (let i = 0; i < canvas.length; i++) {
       canvas[i] = canvas[i].substr(0, width || canvas[i].length);
       canvas[i] += ' '.repeat((width || canvas[i].length) - canvas[i].length);
@@ -90,10 +90,11 @@ export function normalize(
   if (height && canvas.length < height) {
     const length = height - canvas.length;
     for (let i = 0; i < length; i++) {
-      canvas.push(width ? ' '.repeat(width) : '');
+      canvas.push(width && width > 0 ? ' '.repeat(width) : '');
     }
   } else if (height && canvas.length > height) {
-    for (let i = 0; i < canvas.length - height; i++) {
+    const length = canvas.length - height;
+    for (let i = 0; i < length; i++) {
       canvas.pop();
     }
   }

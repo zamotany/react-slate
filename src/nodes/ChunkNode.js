@@ -83,7 +83,7 @@ export default class ChunkNode {
 
       if (child instanceof ChunkNode) {
         appendRenderResults(localCanvas, child.render(canvas), {
-          isInline: Boolean(this.props.inline),
+          isInline: Boolean(child.props.inline),
         });
       } else if (this.props.absolute) {
         // @TODO: implement
