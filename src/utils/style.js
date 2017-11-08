@@ -27,7 +27,7 @@ export function getStyleProps(style: any = {}) {
     paddingBottom: paddingBottom || 0,
     paddingLeft: paddingLeft || 0,
     paddingRight: paddingRight || 0,
-    height: height || (inline ? 0 : 1),
+    height: height || (inline ? 0 : -1),
     width: width || -1,
     inline,
     stylizeArgs: rest,

@@ -92,7 +92,7 @@ export function normalize(
     for (let i = 0; i < length; i++) {
       canvas.push(width && width > 0 ? ' '.repeat(width) : '');
     }
-  } else if (height && canvas.length > height) {
+  } else if (height && height > 0 && canvas.length > height) {
     const length = canvas.length - height;
     for (let i = 0; i < length; i++) {
       canvas.pop();
