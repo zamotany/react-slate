@@ -2,9 +2,7 @@
 
 exports[`Text component renders children 1`] = `
 "Hello world
-Something more
-No way
-Haha"
+Something moreNo wayHaha"
 `;
 
 exports[`Text component respects color and background color 1`] = `"[0m[35m[46mHello world[49m[39m[0m"`;

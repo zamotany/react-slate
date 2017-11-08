@@ -10,21 +10,11 @@ describe('Text component', () => {
     const element = render(
       <Text>
         {'Hello world\n'}
-        <Text endl>Something more</Text>
-        {[
-          <Text key="1" endl>
-            No way
-          </Text>,
-          <Text key="2">Haha</Text>,
-        ]}
+        <Text>Something more</Text>
+        {[<Text key="1">No way</Text>, <Text key="2">Haha</Text>]}
       </Text>
     );
     expect(element.text()).toMatchSnapshot();
-  });
-
-  it('appends new line', () => {
-    const element = render(<Text endl>Hello world</Text>);
-    expect(element.text()).toBe('Hello world\n');
   });
 
   it('respects color and background color', () => {
