@@ -20,7 +20,7 @@
     "build:clean": "rimraf build",
     "build:watch": "yarn run build --watch",
     "prepublish": "yarn run build",
-    "postinstall": "node ./scripts/export-reconciler.js && yarn run bootstrap:example",
+    "postinstall": "yarn run bootstrap:example",
     "bootstrap:example": "yarn link && cd example && yarn && cd ..",
     "flow": "flow",
     "lint": "eslint .",
@@ -34,7 +34,7 @@
     "fbjs": "^0.8.16",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
-    "react-dom": "16.0.0"
+    "react-reconciler": "0.3.0-beta.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

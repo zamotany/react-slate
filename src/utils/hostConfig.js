@@ -37,29 +37,6 @@ export default {
     parentInstance.appendInitialChild(child);
   },
 
-  appendChild(parentInstance: GenericParentInstance, child: any) {
-    parentInstance.appendChild(child);
-  },
-
-  removeChild(parentInstance: GenericParentInstance, child: any) {
-    parentInstance.removeChild(child);
-  },
-
-  insertBefore(
-    parentInstance: GenericParentInstance,
-    child: any,
-    childBefore: any
-  ) {
-    parentInstance.prependChild(child, childBefore);
-  },
-
-  appendChildToContainer(container: ContainerNode, child: any) {
-    if (!containerInstance) {
-      containerInstance = container;
-    }
-    container.appendChild(child);
-  },
-
   insertInContainerBefore(
     container: ContainerNode,
     child: any,
@@ -68,26 +45,9 @@ export default {
     container.prependChild(child, childBefore);
   },
 
-  removeChildFromContainer(container: ContainerNode, child: any) {
-    container.removeChild(child);
-  },
-
   prepareUpdate(/* testElement, type, oldProps, newProps, hostContext */) {
     // @TODO: change it later
     return true;
-  },
-
-  commitUpdate(
-    instance: any,
-    updatePayload: any,
-    type: string,
-    oldProps: any,
-    newProps: any
-  ) {
-    if (!shallowEqual(oldProps, newProps)) {
-      instance.props = newProps;
-      instance.invalidateParent();
-    }
   },
 
   resetAfterCommit() {
@@ -109,17 +69,61 @@ export default {
     );
   },
 
-  commitTextUpdate(textInstance: TextNode, oldText: string, newText: string) {
-    textInstance.replaceChildren(newText);
+  mutation: {
+    appendChild(parentInstance: GenericParentInstance, child: any) {
+      parentInstance.appendChild(child);
+    },
+
+    removeChild(parentInstance: GenericParentInstance, child: any) {
+      parentInstance.removeChild(child);
+    },
+
+    appendChildToContainer(container: ContainerNode, child: any) {
+      if (!containerInstance) {
+        containerInstance = container;
+      }
+      container.appendChild(child);
+    },
+
+    removeChildFromContainer(container: ContainerNode, child: any) {
+      container.removeChild(child);
+    },
+
+    insertBefore(
+      parentInstance: GenericParentInstance,
+      child: any,
+      childBefore: any
+    ) {
+      parentInstance.prependChild(child, childBefore);
+    },
+
+    commitUpdate(
+      instance: any,
+      updatePayload: any,
+      type: string,
+      oldProps: any,
+      newProps: any
+    ) {
+      if (!shallowEqual(oldProps, newProps)) {
+        instance.props = newProps;
+        instance.invalidateParent();
+      }
+    },
+
+    commitTextUpdate(textInstance: TextNode, oldText: string, newText: string) {
+      textInstance.replaceChildren(newText);
+    },
+
+    commitMount: NOOP,
   },
 
-  commitMount: NOOP,
   getRootHostContext: RETURN_EMPTY_OBJ,
   getChildHostContext: RETURN_EMPTY_OBJ,
   prepareForCommit: NOOP,
   shouldSetTextContent: NO,
   resetTextContent: NOOP,
   finalizeInitialChildren: NOOP,
+  now: NOOP,
 
   useSyncScheduling: true,
 };
