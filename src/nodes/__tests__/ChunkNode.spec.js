@@ -4,6 +4,7 @@ import ChunkNode from '../ChunkNode';
 import TextNode from '../TextNode';
 import ContainerNode from '../ContainerNode';
 import { getCanvas } from '../../utils/layout';
+import colors from '../../constants/colors';
 
 function withChildren(instance, children) {
   children.forEach(instance.appendInitialChild.bind(instance));
@@ -313,6 +314,99 @@ describe('nodes/ChunkNode', () => {
         ' '.repeat(9),
         ' '.repeat(9),
       ]);
+    });
+  });
+
+  describe('styling', () => {
+    function getTextMock(textNodeProps, text) {
+      const container = (({}: any): ContainerNode);
+      const rootNode = new ChunkNode(
+        container,
+        getNodeProps({
+          stylizeArgs: textNodeProps,
+        })
+      );
+      rootNode.appendInitialChild(new TextNode(container, { children: text }));
+
+      return rootNode.render(getCanvasMock()).join('\n');
+    }
+
+    it('respects color and background color', () => {
+      const colored = getTextMock(
+        {
+          color: colors.magenta,
+          backgroundColor: colors.cyan,
+        },
+        'Hello world'
+      );
+      expect(colored).toMatchSnapshot();
+    });
+
+    it('respects fontWeight', () => {
+      const bold = getTextMock(
+        {
+          fontWeight: 'bold',
+        },
+        'Hello world'
+      );
+      const normal = getTextMock(
+        {
+          fontWeight: 'normal',
+        },
+        'Hello world'
+      );
+
+      expect(bold).toMatchSnapshot();
+      expect(normal).toMatchSnapshot();
+    });
+
+    it('respects fontStyle', () => {
+      const italic = getTextMock({ fontStyle: 'italic' }, 'Hello world');
+      const normal = getTextMock({ fontStyle: 'normal' }, 'Hello world');
+      expect(italic).toMatchSnapshot();
+      expect(normal).toMatchSnapshot();
+    });
+
+    it('respects textDecoration', () => {
+      const underline = getTextMock(
+        { textDecoration: 'underline' },
+        'Hello world'
+      );
+      const lineThrough = getTextMock(
+        { textDecoration: 'line-through' },
+        'Hello world'
+      );
+      const normal = getTextMock({ textDecoration: 'normal' }, 'Hello world');
+      expect(underline).toMatchSnapshot();
+      expect(lineThrough).toMatchSnapshot();
+      expect(normal).toMatchSnapshot();
+    });
+
+    it('respects textTransform', () => {
+      const capitalize = getTextMock(
+        { textTransform: 'capitalize' },
+        'Hello world'
+      );
+      const uppercase = getTextMock(
+        { textTransform: 'uppercase' },
+        'Hello world'
+      );
+      const lowercase = getTextMock(
+        { textTransform: 'lowercase' },
+        'Hello world'
+      );
+      const none = getTextMock({ textTransform: 'none' }, 'Hello world');
+      expect(capitalize).toMatchSnapshot();
+      expect(uppercase).toMatchSnapshot();
+      expect(lowercase).toMatchSnapshot();
+      expect(none).toMatchSnapshot();
+    });
+
+    it('respects visibility', () => {
+      const visible = getTextMock({ visibility: 'visible' }, 'Hello world');
+      const hidden = getTextMock({ visibility: 'hidden' }, 'Hello world');
+      expect(visible).toMatchSnapshot();
+      expect(hidden).toMatchSnapshot();
     });
   });
 });

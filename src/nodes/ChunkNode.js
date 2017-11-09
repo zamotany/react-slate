@@ -7,7 +7,7 @@ import TextNode from './TextNode';
 import ContainerNode from './ContainerNode';
 import {
   appendTextNode,
-  layAbsoluteTextNode,
+  // layAbsoluteTextNode,
   appendRenderResults,
   appendOffsets,
   normalize,
