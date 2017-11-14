@@ -1,6 +1,6 @@
 import React from 'react';
 // eslint-disable-next-line
-import { Text } from 'react-stream-renderer';
+import { Text, Spinner } from 'react-stream-renderer';
 
 export default class DevComponent extends React.Component {
   state = {
@@ -27,7 +27,13 @@ export default class DevComponent extends React.Component {
         }}
       >
         <Text style={{ backgroundColor: 'green' }}>---</Text>
-        <Text style={{ color: 'red' }}>{this.state.random}</Text>
+        <Text style={{ color: 'red' }}>
+          <Spinner
+            interval={200}
+            style={{ display: 'inline', marginRight: 1 }}
+          />
+          {this.state.random}
+        </Text>
         <Text>---</Text>
       </Text>
     );
