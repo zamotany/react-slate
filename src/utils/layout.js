@@ -1,5 +1,7 @@
 /* @flow */
 
+import sliceAnsi from 'slice-ansi';
+import stripAnsi from 'strip-ansi';
 import TextNode from '../nodes/TextNode';
 
 /* eslint-disable no-param-reassign */
@@ -82,8 +84,10 @@ export function normalize(
 ) {
   if (width && width > 0) {
     for (let i = 0; i < canvas.length; i++) {
-      canvas[i] = canvas[i].substr(0, width || canvas[i].length);
-      canvas[i] += ' '.repeat((width || canvas[i].length) - canvas[i].length);
+      canvas[i] = sliceAnsi(canvas[i], 0, width || stripAnsi(canvas[i]).length);
+      canvas[i] += ' '.repeat(
+        (width || stripAnsi(canvas[i]).length) - stripAnsi(canvas[i]).length
+      );
     }
   }
 

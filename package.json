@@ -34,7 +34,9 @@
     "fbjs": "^0.8.16",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
-    "react-reconciler": "0.3.0-beta.1"
+    "react-reconciler": "0.3.0-beta.1",
+    "slice-ansi": "^1.0.0",
+    "strip-ansi": "^4.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

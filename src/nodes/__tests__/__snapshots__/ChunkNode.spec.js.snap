@@ -1,29 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`nodes/ChunkNode styling respects color and background color 1`] = `"[0m[35m[46mHello world[49m[39m[0m"`;
+exports[`nodes/ChunkNode styling respects color and background color 1`] = `"[35m[46mHello world[49m[39m"`;
 
-exports[`nodes/ChunkNode styling respects fontStyle 1`] = `"[0m[3mHello world[23m[0m"`;
+exports[`nodes/ChunkNode styling respects fontStyle 1`] = `"[3mHello world[23m"`;
 
-exports[`nodes/ChunkNode styling respects fontStyle 2`] = `"[0mHello world[0m"`;
+exports[`nodes/ChunkNode styling respects fontStyle 2`] = `"Hello world"`;
 
-exports[`nodes/ChunkNode styling respects fontWeight 1`] = `"[0m[1mHello world[22m[0m"`;
+exports[`nodes/ChunkNode styling respects fontWeight 1`] = `"[1mHello world[22m"`;
 
-exports[`nodes/ChunkNode styling respects fontWeight 2`] = `"[0mHello world[0m"`;
+exports[`nodes/ChunkNode styling respects fontWeight 2`] = `"Hello world"`;
 
-exports[`nodes/ChunkNode styling respects textDecoration 1`] = `"[0m[4mHello world[24m[0m"`;
+exports[`nodes/ChunkNode styling respects textDecoration 1`] = `"[4mHello world[24m"`;
 
-exports[`nodes/ChunkNode styling respects textDecoration 2`] = `"[0m[9mHello world[29m[0m"`;
+exports[`nodes/ChunkNode styling respects textDecoration 2`] = `"[9mHello world[29m"`;
 
-exports[`nodes/ChunkNode styling respects textDecoration 3`] = `"[0mHello world[0m"`;
+exports[`nodes/ChunkNode styling respects textDecoration 3`] = `"Hello world"`;
 
-exports[`nodes/ChunkNode styling respects textTransform 1`] = `"[0mHello World[0m"`;
+exports[`nodes/ChunkNode styling respects textTransform 1`] = `"Hello World"`;
 
-exports[`nodes/ChunkNode styling respects textTransform 2`] = `"[0mHELLO WORLD[0m"`;
+exports[`nodes/ChunkNode styling respects textTransform 2`] = `"HELLO WORLD"`;
 
-exports[`nodes/ChunkNode styling respects textTransform 3`] = `"[0mhello world[0m"`;
+exports[`nodes/ChunkNode styling respects textTransform 3`] = `"hello world"`;
 
-exports[`nodes/ChunkNode styling respects textTransform 4`] = `"[0mHello world[0m"`;
+exports[`nodes/ChunkNode styling respects textTransform 4`] = `"Hello world"`;
 
-exports[`nodes/ChunkNode styling respects visibility 1`] = `"[0mHello world[0m"`;
+exports[`nodes/ChunkNode styling respects visibility 1`] = `"Hello world"`;
 
-exports[`nodes/ChunkNode styling respects visibility 2`] = `"[0m[8mHello world[28m[0m"`;
+exports[`nodes/ChunkNode styling respects visibility 2`] = `"[8mHello world[28m"`;
