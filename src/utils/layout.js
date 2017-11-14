@@ -23,6 +23,11 @@ export function mergeCanvas(canvas: string[], relativeCanvas: string[]) {
       canvas[lineIndex] === noContentLine && relativeCanvas[lineIndex]
         ? relativeCanvas[lineIndex]
         : canvas[lineIndex];
+
+    const lineLength = stripAnsi(finalCanvas[lineIndex]).length;
+    if (lineLength < noContentLine.length) {
+      finalCanvas[lineIndex] += ' '.repeat(noContentLine.length - lineLength);
+    }
   }
   return finalCanvas;
 }
