@@ -1,7 +1,7 @@
 /* @flow */
 
-import sliceAnsi from 'slice-ansi';
 import stripAnsi from 'strip-ansi';
+import sliceAnsi from './sliceAnsi';
 import TextNode from '../nodes/TextNode';
 
 /* eslint-disable no-param-reassign */

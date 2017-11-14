@@ -72,9 +72,7 @@ export function createStylize(style: any = {}) {
 
   const { color, backgroundColor } = style;
 
-  let enhance = chalk.reset;
-
-  enhance = colorize(enhance, false, color);
+  let enhance = colorize(chalk, false, color);
   enhance = colorize(enhance, true, backgroundColor);
 
   if (style.fontWeight === 'bold') {
