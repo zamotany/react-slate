@@ -109,4 +109,4 @@ export function normalize(
   }
 }
 
-export function layAbsoluteTextNode(canvas: string[], node: TextNode) {}
+export function layAbsoluteTextNode(/* canvas: string[], node: TextNode */) {}
