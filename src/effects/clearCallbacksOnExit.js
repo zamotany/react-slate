@@ -16,13 +16,6 @@ export default callOnce(() => {
       });
     };
 
-    Object.defineProperty(global[`set${type}`], 'name', {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: 'setTimeoutCustom',
-    });
-
     global[`clear${type}`] = (...args) => {
       clear(...args);
       callbacks = callbacks.filter(callback => callback.id !== args[0]);

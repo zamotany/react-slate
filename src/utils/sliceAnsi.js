@@ -1,3 +1,10 @@
+/**
+ * Code taken from https://github.com/chalk/slice-ansi.
+ * This is just a temporary solution.
+ *
+ * @TODO: make a PR to chalk/slice-ansi to support 256bit color.
+ */
+
 import isFullwidthCodePoint from 'is-fullwidth-code-point';
 import astralRegex from 'astral-regex';
 import ansiStyles from 'ansi-styles';

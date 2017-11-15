@@ -11,11 +11,10 @@ import ChunkNode from './ChunkNode';
 import { mergeCanvas, getCanvas } from '../utils/layout';
 
 type Options = {
-  // @TODO: add clearOnExit option
   debug: boolean,
   hideCursor: boolean,
-  clearOnExit: boolean,
-  clearScrollBackOnExit: boolean,
+  clearScreenOnExit: boolean,
+  clearScrollbackOnExit: boolean,
   exitOnWarning: boolean,
   exitOnError: boolean,
 };
@@ -34,12 +33,13 @@ export default class ContainerNode {
       exitOnError: false,
       exitOnWarning: false,
       hideCursor: false,
-      clearOnExit: false,
-      clearScrollBackOnExit: false,
+      clearScreenOnExit: false,
+      clearScrollbackOnExit: false,
       ...(opts || {}),
     };
     this.stream = stream;
 
+    // @TODO: handle resize
     this.canvasSize = {
       width: this.stream.columns,
       height: this.stream.rows - 1,
@@ -54,11 +54,11 @@ export default class ContainerNode {
       hideCursor(this.stream);
     }
 
-    if (this.options.clearOnExit) {
+    if (this.options.clearScreenOnExit) {
       clearOnExit(this.stream);
     }
 
-    if (this.options.clearScrollBackOnExit) {
+    if (this.options.clearScrollbackOnExit) {
       clearScrollBackOnExit(this.stream);
     }
   }
