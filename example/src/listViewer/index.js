@@ -69,9 +69,9 @@ class Viewer extends React.Component {
 
     if (typeof item === 'string') {
       return (
-        <Text key={item} style={style} endl>{`${'  '.repeat(
-          nestingCount
-        )}${item}`}</Text>
+        <Text key={item} style={style} endl>{`${'  '.repeat(nestingCount)}${
+          item
+        }`}</Text>
       );
     }
     return (

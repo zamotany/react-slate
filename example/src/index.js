@@ -25,4 +25,6 @@ render(<App />, process.stdout, {
   renderOptimizations: false,
   hideCursor: true,
   exitOnError: true,
+  clearScreenOnExit: false,
+  clearScrollbackOnExit: true,
 });

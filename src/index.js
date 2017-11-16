@@ -1,9 +1,12 @@
 /* @flow */
 
 // $FlowFixMe
-import { ReactFiberReconciler } from 'react-dom';
+import ReactFiberReconciler from 'react-reconciler';
 import hostConfig from './utils/hostConfig';
 import ContainerNode from './nodes/ContainerNode';
+import clearCallbacksOnExit from './effects/clearCallbacksOnExit';
+
+clearCallbacksOnExit();
 
 const NodeStreamReconciler = ReactFiberReconciler(hostConfig);
 

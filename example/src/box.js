@@ -16,13 +16,13 @@ export default class Box extends React.Component {
         dy = -1;
         break;
       case 'a':
-        dx = -1;
+        dx = -2;
         break;
       case 's':
         dy = 1;
         break;
       case 'd':
-        dx = 1;
+        dx = 2;
         break;
       default:
     }
@@ -37,11 +37,15 @@ export default class Box extends React.Component {
     return (
       <Text>
         <KeyPress onPress={this.moveBox} stream={process.stdin} />
-        <Text x={this.state.x} y={this.state.y}>
+        <Text
+          style={{
+            marginLeft: this.state.x,
+            marginTop: this.state.y,
+            backgroundColor: 'grey',
+          }}
+        >
           {'+-----+\n'}
-          {/* <Endl /> */}
           {'| ABC |\n'}
-          {/* <Endl /> */}
           {'+-----+'}
         </Text>
       </Text>

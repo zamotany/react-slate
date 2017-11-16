@@ -1,53 +1,41 @@
 import React from 'react';
 // eslint-disable-next-line
-import { Chunk, Endl, Text } from 'react-stream-renderer';
+import { Text, Spinner } from 'react-stream-renderer';
 
-class Counter extends React.Component {
+export default class DevComponent extends React.Component {
   state = {
-    counter: 0,
+    random: 0,
   };
 
   componentDidMount() {
-    // console.log('Counter#componentDidMount');
     setInterval(() => {
-      this.setState(state => ({ counter: state.counter + 1 }));
-    }, 5);
+      this.setState(() => ({ random: Math.random() }));
+    }, 500);
   }
 
   render() {
-    // console.log('Counter#render');
     return (
-      <Chunk id="c-r">
-        <Chunk id="c-t">{'Time \n'}</Chunk>
-        elapsed: {this.state.counter}
-      </Chunk>
+      <Text
+        style={{
+          marginTop: 1,
+          marginBottom: 1,
+          marginLeft: 2,
+          marginRight: 2,
+          backgroundColor: 'blue',
+          width: 20,
+          height: 3,
+        }}
+      >
+        <Text style={{ backgroundColor: 'green' }}>---</Text>
+        <Text style={{ color: 'red' }}>
+          <Spinner
+            interval={200}
+            style={{ display: 'inline', marginRight: 1 }}
+          />
+          {this.state.random}
+        </Text>
+        <Text>---</Text>
+      </Text>
     );
   }
 }
-
-function Test() {
-  return [<Chunk key="1">First</Chunk>, <Chunk key="2">Second</Chunk>];
-}
-
-export default () => (
-  <Chunk id="root">
-    <Text style={{ color: 'yellow', fontWeight: 'bold' }} endl>
-      Some yellow and bold text {'\n'}
-      <Text
-        style={{ backgroundColor: 'rgb(230, 37, 101)', fontWeight: 'normal' }}
-        endl
-      >
-        Text with hot pink background
-      </Text>
-      <Text style={{ textDecoration: 'underline' }} endl>
-        Yellow, bold and underlined text
-      </Text>
-    </Text>
-    <Text>{'\n'}</Text>
-    <Counter />
-    <Endl />
-    heck
-    {' yeah '}
-    <Test />
-  </Chunk>
-);

@@ -4,16 +4,14 @@ import React from 'react';
 import cliSpinners from 'cli-spinners';
 // $FlowFixMe
 import shallowEqual from 'fbjs/lib/shallowEqual';
-import { Chunk } from './';
+import Text from './Text';
 import throwError from '../utils/throwError';
-import getPositionPros from '../utils/getPositionProps';
 
 type Props = {
-  type?: string, // eslint-disable-line react/no-unused-prop-types
-  interval?: number, // eslint-disable-line react/no-unused-prop-types
-  frames?: string[], // eslint-disable-line react/no-unused-prop-types
-  x?: number,
-  y?: number,
+  type?: string,
+  interval?: number,
+  frames?: string[],
+  style?: any,
 };
 type State = {
   frame: number,
@@ -89,10 +87,7 @@ export default class Spinner extends React.Component<Props, State> {
   }
 
   render() {
-    return (
-      <Chunk {...getPositionPros(this.props)}>
-        {this.currentFrames[this.state.frame]}
-      </Chunk>
-    );
+    const { type, interval, frames, ...rest } = this.props;
+    return <Text {...rest}>{this.currentFrames[this.state.frame]}</Text>;
   }
 }
