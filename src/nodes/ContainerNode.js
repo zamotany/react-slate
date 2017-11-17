@@ -8,7 +8,7 @@ import {
   clearScrollbackOnExit,
 } from '../effects/terminal';
 import ChunkNode from './ChunkNode';
-import { mergeCanvas, getCanvas } from '../utils/layout';
+import Canvas from '../utils/Canvas';
 
 type Options = {
   debug: boolean,
@@ -88,14 +88,15 @@ export default class ContainerNode {
   flush() {
     // @TODO: this buffer/optimization/slitting logic needs to be refactored
     // @TODO: draw damage to screen only instead of everything
-    const canvas = getCanvas(this.canvasSize);
-    this.frontBuffer = mergeCanvas(
-      canvas,
-      this.children.reduce(
-        (acc, child) => [...acc, ...child.render(canvas)],
-        []
+    const canvas = new Canvas(this.canvasSize);
+    this.frontBuffer = canvas
+      .flatten(
+        this.children.reduce(
+          (acc, child) => [...acc, ...child.render(canvas)],
+          []
+        )
       )
-    ).join('\n');
+      .join('\n');
 
     readline.cursorTo(this.stream, 0, 0);
     readline.clearScreenDown(this.stream);
