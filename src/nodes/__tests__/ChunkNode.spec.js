@@ -3,7 +3,7 @@
 import ChunkNode from '../ChunkNode';
 import TextNode from '../TextNode';
 import ContainerNode from '../ContainerNode';
-import { getCanvas } from '../../utils/layout';
+import Canvas from '../../utils/Canvas';
 import colors from '../../constants/colors';
 
 function withChildren(instance, children) {
@@ -31,7 +31,7 @@ function getNodeProps(props = {}) {
 }
 
 function getCanvasMock() {
-  return getCanvas({ width: 10, height: 10 });
+  return new Canvas({ width: 10, height: 10 });
 }
 
 describe('nodes/ChunkNode', () => {
@@ -167,8 +167,8 @@ describe('nodes/ChunkNode', () => {
       expect(rootNode.render(getCanvasMock())).toEqual([
         '',
         '',
-        '  Text1  ',
-        '  Text2  ',
+        '\0\0Text1\0\0',
+        '\0\0Text2\0\0',
         '',
       ]);
     });
@@ -225,10 +225,10 @@ describe('nodes/ChunkNode', () => {
       expect(rootNode.render(getCanvasMock())).toEqual([
         '',
         '',
-        '  Text1  ',
-        '   Text2   ',
-        '    ',
-        '  Text3  ',
+        '\0\0Text1\0\0',
+        '\0\0\0Text2\0\0\0',
+        '\0\0\0\0',
+        '\0\0Text3\0\0',
         '',
       ]);
     });
@@ -306,13 +306,13 @@ describe('nodes/ChunkNode', () => {
       );
 
       expect(rootNode.render(getCanvasMock())).toEqual([
+        '\0'.repeat(9),
         ' '.repeat(9),
-        ' '.repeat(9),
-        '   ABC   ',
-        ' '.repeat(9),
+        '  \0ABC\0  ',
+        `${' '.repeat(4)}${'\0'.repeat(5)}`,
         '  Text1  ',
-        ' '.repeat(9),
-        ' '.repeat(9),
+        `${' '.repeat(4)}${'\0'.repeat(5)}`,
+        '\0'.repeat(9),
       ]);
     });
   });

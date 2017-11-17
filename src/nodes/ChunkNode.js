@@ -2,7 +2,7 @@
 
 /* eslint-disable no-param-reassign */
 
-import type { Props, LayoutProps } from '../types';
+import type { Props, LayoutProps, CustomRender } from '../types';
 import TextNode from './TextNode';
 import ContainerNode from './ContainerNode';
 import {
@@ -13,11 +13,13 @@ import {
   normalize,
 } from '../utils/layout';
 import { createStylize } from '../utils/style';
+import Canvas from '../utils/Canvas';
 
 type ChunkNodePros = Props &
   LayoutProps & {
     children: any,
     stylizeArgs: any,
+    render?: CustomRender,
   };
 
 export default class ChunkNode {
@@ -78,7 +80,11 @@ export default class ChunkNode {
     this.children.splice(index, 1);
   }
 
-  render(canvas: string[]) {
+  render(canvas: Canvas) {
+    if (typeof this.props.render === 'function') {
+      return this.props.render(this.children, this.props, canvas);
+    }
+
     const localCanvas = [];
     for (let childIndex = 0; childIndex < this.children.length; childIndex++) {
       const child = this.children[childIndex];
@@ -95,12 +101,16 @@ export default class ChunkNode {
       }
     }
 
-    appendOffsets(localCanvas, {
-      top: this.props.paddingTop,
-      bottom: this.props.paddingBottom,
-      left: this.props.paddingLeft,
-      right: this.props.paddingRight,
-    });
+    appendOffsets(
+      localCanvas,
+      {
+        top: this.props.paddingTop,
+        bottom: this.props.paddingBottom,
+        left: this.props.paddingLeft,
+        right: this.props.paddingRight,
+      },
+      { offsetChar: ' ', width: this.props.width }
+    );
 
     normalize(localCanvas, this.props);
 

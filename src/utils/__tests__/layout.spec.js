@@ -11,17 +11,23 @@ describe('utils/layout', () => {
       right: 5,
     });
 
-    expect(canvas).toEqual(['', '', '   Text1     ', '   Text2     ', '']);
+    expect(canvas).toEqual([
+      '',
+      '',
+      '\0\0\0Text1\0\0\0\0\0',
+      '\0\0\0Text2\0\0\0\0\0',
+      '',
+    ]);
   });
 
   it('should normalize strings', () => {
-    const canvas = [' Text1', 'T e x t 2'];
+    const canvas = ['\0Text1', 'T e x t 2'];
 
     normalize(canvas, {
       width: 8,
     });
 
-    expect(canvas).toEqual([' Text1  ', 'T e x t ']);
+    expect(canvas).toEqual(['\0Text1\0\0', 'T e x t ']);
 
     normalize(canvas, {
       height: 4,
@@ -29,10 +35,10 @@ describe('utils/layout', () => {
     });
 
     expect(canvas).toEqual([
-      ' Text1  ',
+      '\0Text1\0\0',
       'T e x t ',
-      ' '.repeat(8),
-      ' '.repeat(8),
+      '\0'.repeat(8),
+      '\0'.repeat(8),
     ]);
 
     normalize(canvas, {
@@ -40,6 +46,6 @@ describe('utils/layout', () => {
       width: 7,
     });
 
-    expect(canvas).toEqual([' Text1 ', 'T e x t', ' '.repeat(7)]);
+    expect(canvas).toEqual(['\0Text1\0', 'T e x t', '\0'.repeat(7)]);
   });
 });

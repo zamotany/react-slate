@@ -1,4 +1,8 @@
-// @flow
+/* @flow */
+
+import TextNode from './nodes/TextNode';
+import ChunkNode from './nodes/ChunkNode';
+import Canvas from './utils/Canvas';
 
 export type Props = { [key: string]: any };
 
@@ -36,3 +40,9 @@ export type Style = {|
   width?: number,
   display?: 'block' | 'inline',
 |};
+
+export type CustomRender = (
+  children: (ChunkNode | TextNode)[],
+  props: any,
+  canvas: Canvas
+) => string[];

@@ -6,32 +6,6 @@ import TextNode from '../nodes/TextNode';
 
 /* eslint-disable no-param-reassign */
 
-export function getCanvas({ width, height }: { [key: string]: number }) {
-  const canvas = [];
-  for (let i = 0; i < height; i++) {
-    canvas.push(' '.repeat(width));
-  }
-  return canvas;
-}
-
-export function mergeCanvas(canvas: string[], relativeCanvas: string[]) {
-  // We only care about canvas.length since it should be max number or terminal's rows.
-  const finalCanvas = [];
-  const noContentLine = ' '.repeat(canvas[0].length);
-  for (let lineIndex = 0; lineIndex < canvas.length; lineIndex++) {
-    finalCanvas[lineIndex] =
-      canvas[lineIndex] === noContentLine && relativeCanvas[lineIndex]
-        ? relativeCanvas[lineIndex]
-        : canvas[lineIndex];
-
-    const lineLength = stripAnsi(finalCanvas[lineIndex]).length;
-    if (lineLength < noContentLine.length) {
-      finalCanvas[lineIndex] += ' '.repeat(noContentLine.length - lineLength);
-    }
-  }
-  return finalCanvas;
-}
-
 export function appendToLastLine(canvas: string[], text: string) {
   const index = (canvas.length || 1) - 1;
   canvas[index] = `${canvas[index] || ''}${text}`;
@@ -72,14 +46,19 @@ export function appendRenderResults(
 export function appendOffsets(
   canvas: string[],
   { top, bottom, left, right }: { [key: string]: number },
-  { width }: { width?: number } = {}
+  options: { width?: number, offsetChar?: string } = {}
 ) {
+  const { width, offsetChar } = { offsetChar: '\0', width: 0, ...options };
   for (let i = 0; i < canvas.length; i++) {
-    canvas[i] = `${' '.repeat(left)}${canvas[i]}${' '.repeat(right)}`;
+    canvas[i] = `${offsetChar.repeat(left)}${canvas[i]}${offsetChar.repeat(
+      right
+    )}`;
   }
   for (let i = 0; i < top + bottom; i++) {
     // $FlowFixMe
-    canvas[i < top ? 'unshift' : 'push'](width > 0 ? ' '.repeat(width) : '');
+    canvas[i < top ? 'unshift' : 'push'](
+      width > 0 ? offsetChar.repeat(width) : ''
+    );
   }
 }
 
@@ -90,7 +69,7 @@ export function normalize(
   if (width && width > 0) {
     for (let i = 0; i < canvas.length; i++) {
       canvas[i] = sliceAnsi(canvas[i], 0, width || stripAnsi(canvas[i]).length);
-      canvas[i] += ' '.repeat(
+      canvas[i] += '\0'.repeat(
         (width || stripAnsi(canvas[i]).length) - stripAnsi(canvas[i]).length
       );
     }
@@ -99,7 +78,7 @@ export function normalize(
   if (height && canvas.length < height) {
     const length = height - canvas.length;
     for (let i = 0; i < length; i++) {
-      canvas.push(width && width > 0 ? ' '.repeat(width) : '');
+      canvas.push(width && width > 0 ? '\0'.repeat(width) : '');
     }
   } else if (height && height > 0 && canvas.length > height) {
     const length = canvas.length - height;
