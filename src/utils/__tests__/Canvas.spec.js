@@ -2,7 +2,7 @@
 
 import Canvas from '../Canvas';
 
-fdescribe('utils/Canvas', () => {
+describe('utils/Canvas', () => {
   it('should return layer canvas and generate it if needed', () => {
     const canvas = new Canvas({ width: 10, height: 3 });
 

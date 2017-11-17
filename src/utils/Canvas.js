@@ -95,7 +95,7 @@ export default class Canvas {
 
       const lineLength = stripAnsi(bottomCanvas[lineIndex]).length;
       if (lineLength < this.noContentLine.length) {
-        bottomCanvas[lineIndex] += ' '.repeat(
+        bottomCanvas[lineIndex] += '\0'.repeat(
           this.noContentLine.length - lineLength
         );
       }
