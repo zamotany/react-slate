@@ -25,7 +25,7 @@ export function hideCursor(stream: any) {
   onExit(restoreCursor);
 }
 
-export function clearScrollBackOnExit(stream: any) {
+export function clearScrollbackOnExit(stream: any) {
   onExit(() => {
     stream.write(CLEAR_SCROLL_BACK);
   });

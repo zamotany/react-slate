@@ -5,7 +5,7 @@ import enhanceConsole from '../effects/enhanceConsole';
 import {
   hideCursor,
   clearOnExit,
-  clearScrollBackOnExit,
+  clearScrollbackOnExit,
 } from '../effects/terminal';
 import ChunkNode from './ChunkNode';
 import { mergeCanvas, getCanvas } from '../utils/layout';
@@ -59,7 +59,7 @@ export default class ContainerNode {
     }
 
     if (this.options.clearScrollbackOnExit) {
-      clearScrollBackOnExit(this.stream);
+      clearScrollbackOnExit(this.stream);
     }
   }
 
