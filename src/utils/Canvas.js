@@ -49,13 +49,11 @@ export default class Canvas {
   }
 
   atLayer(layerIndex: number) {
-    if (layerIndex === 0) {
-      throw new Error(
-        'Layer index (z-index) 0 is reserved and cannot be used.'
-      );
+    if (!Number.isInteger(layerIndex)) {
+      throw new Error('Layer index (z-index) must be an integer.');
     }
 
-    if (layerIndex > 0) {
+    if (layerIndex > -1) {
       this.positiveLayers[layerIndex] = isEmpty(this.positiveLayers[layerIndex])
         ? new Array(this.size.height).fill(this.noContentLine)
         : this.positiveLayers[layerIndex];
