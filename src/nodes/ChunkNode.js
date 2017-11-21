@@ -5,15 +5,8 @@
 import type { Props, LayoutProps, CustomRender } from '../types';
 import TextNode from './TextNode';
 import ContainerNode from './ContainerNode';
-import {
-  appendTextNode,
-  // layAbsoluteTextNode,
-  appendRenderResults,
-  appendOffsets,
-  normalize,
-} from '../utils/layout';
-import { createStylize } from '../utils/style';
 import Canvas from '../utils/Canvas';
+import LocalCanvas from '../utils/LocalCanvas';
 
 type ChunkNodePros = Props &
   LayoutProps & {
@@ -85,52 +78,42 @@ export default class ChunkNode {
       return this.props.render(this.children, this.props, canvas);
     }
 
-    const localCanvas = [];
+    const localCanvas = new LocalCanvas({
+      width: this.props.width,
+      height: this.props.height,
+      style: this.props.stylizeArgs,
+    });
     for (let childIndex = 0; childIndex < this.children.length; childIndex++) {
       const child = this.children[childIndex];
 
       if (child instanceof ChunkNode) {
-        appendRenderResults(localCanvas, child.render(canvas), {
+        localCanvas.merge(child.render(canvas), {
           isInline: Boolean(child.props.inline),
         });
       } else if (this.props.absolute) {
         // @TODO: implement
         // layAbsoluteTextNode(canvas, child);
       } else {
-        appendTextNode(localCanvas, child);
+        localCanvas.appendTextNode(child);
       }
     }
 
-    appendOffsets(
-      localCanvas,
-      {
-        top: this.props.paddingTop,
-        bottom: this.props.paddingBottom,
-        left: this.props.paddingLeft,
-        right: this.props.paddingRight,
-      },
-      { offsetChar: ' ', width: this.props.width }
-    );
+    localCanvas.addPaddings({
+      top: this.props.paddingTop,
+      bottom: this.props.paddingBottom,
+      left: this.props.paddingLeft,
+      right: this.props.paddingRight,
+    });
 
-    normalize(localCanvas, this.props);
+    localCanvas.normalize();
+    localCanvas.stylize();
 
-    const stylize = createStylize(this.props.stylizeArgs);
-    for (let i = 0; i < localCanvas.length; i++) {
-      localCanvas[i] = stylize(localCanvas[i]);
-    }
-
-    appendOffsets(
-      localCanvas,
-      {
-        top: this.props.marginTop,
-        bottom: this.props.marginBottom,
-        left: this.props.marginLeft,
-        right: this.props.marginRight,
-      },
-      {
-        width: this.props.width,
-      }
-    );
+    localCanvas.addMargins({
+      top: this.props.marginTop,
+      bottom: this.props.marginBottom,
+      left: this.props.marginLeft,
+      right: this.props.marginRight,
+    });
 
     return localCanvas;
   }

@@ -92,9 +92,12 @@ export default class ContainerNode {
     this.frontBuffer = canvas
       .flatten(
         this.children.reduce(
-          (acc, child) => [...acc, ...child.render(canvas)],
-          []
-        )
+          (acc, child) =>
+            acc
+              ? acc.merge(child.render(canvas), { isInline: false })
+              : child.render(canvas),
+          null
+        ).canvas
       )
       .join('\n');
 
