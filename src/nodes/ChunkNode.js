@@ -75,37 +75,22 @@ export default class ChunkNode {
   }
 
   render(canvas: Canvas) {
-    if (typeof this.props.render === 'function') {
-      return this.props.render(this.children, this.props, canvas);
-    }
-
     const localCanvas = new LocalCanvas({
       width: this.props.width,
       height: this.props.height,
       style: this.props.stylizeArgs,
     });
+
+    if (typeof this.props.render === 'function') {
+      return this.props.render(this, localCanvas, canvas);
+    }
+
     for (let childIndex = 0; childIndex < this.children.length; childIndex++) {
       const child = this.children[childIndex];
 
-      const isFixed = Boolean(this.props.fixed);
       if (child instanceof ChunkNode) {
-        const nestedLocalCanvas = child.render(canvas);
-        if (isFixed) {
-          canvas.appendTree(nestedLocalCanvas.canvas, {
-            x: this.props.x,
-            y: this.props.y,
-            z: this.props.z,
-          });
-        } else {
-          localCanvas.merge(nestedLocalCanvas, {
-            isInline: Boolean(child.props.inline),
-          });
-        }
-      } else if (isFixed) {
-        canvas.appendTree(child.props.children.split('\n'), {
-          x: this.props.x,
-          y: this.props.y,
-          z: this.props.z,
+        localCanvas.merge(child.render(canvas), {
+          isInline: Boolean(child.props.inline),
         });
       } else {
         localCanvas.appendTextNode(child);
@@ -128,6 +113,15 @@ export default class ChunkNode {
       left: this.props.marginLeft,
       right: this.props.marginRight,
     });
+
+    if (this.props.fixed) {
+      canvas.appendTree(localCanvas.canvas, {
+        x: this.props.x,
+        y: this.props.y,
+        z: this.props.z,
+      });
+      localCanvas.clear();
+    }
 
     return localCanvas;
   }

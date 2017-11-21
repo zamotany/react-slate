@@ -331,6 +331,132 @@ describe('nodes/ChunkNode', () => {
         '\0'.repeat(9),
       ]);
     });
+
+    it('should append fixed subtree in global canvas', () => {
+      /**
+       * <Text style={{ position: 'fixed', left: 1, top: 1 }}>
+       *   <Text style={{ marginBottom: 1 }}>Text1</Text>
+       *   {'Text2A\nText2B'}
+       * </Text>
+       */
+
+      const container = (({}: any): ContainerNode);
+      const rootNode = new ChunkNode(
+        container,
+        getNodeProps({
+          fixed: true,
+          x: 1,
+          y: 1,
+        })
+      );
+      rootNode.appendInitialChild(
+        withChildren(
+          new ChunkNode(
+            container,
+            getNodeProps({
+              marginBottom: 1,
+            })
+          ),
+          [new TextNode(container, { children: 'Text1' })]
+        )
+      );
+      rootNode.appendInitialChild(
+        new TextNode(container, { children: 'Text2A\nText2B' })
+      );
+
+      const globalCanvas = getCanvasMock();
+      expect(globalCanvas.flatten(rootNode.render(globalCanvas))).toEqual([
+        ' '.repeat(10),
+        ' Text1    ',
+        ' '.repeat(10),
+        ' Text2A   ',
+        ' Text2B   ',
+        ' '.repeat(10),
+        ' '.repeat(10),
+        ' '.repeat(10),
+        ' '.repeat(10),
+        ' '.repeat(10),
+      ]);
+    });
+
+    it('should properly layout nested fixed subtree', () => {
+      /**
+       * <Text style={{ position: 'fixed', left: 1, top: 1 }}>
+       *   {'Text1'}
+       *   <Text style={{
+       *     position: 'fixed',
+       *     left: 2,
+       *     top: 0
+       *   }}>Text2</Text>
+       * </Text>
+       */
+
+      const container = (({}: any): ContainerNode);
+      const rootNode = new ChunkNode(
+        container,
+        getNodeProps({
+          fixed: true,
+          x: 1,
+          y: 1,
+        })
+      );
+      rootNode.appendInitialChild(
+        new TextNode(container, { children: 'Text1' })
+      );
+      rootNode.appendInitialChild(
+        withChildren(
+          new ChunkNode(
+            container,
+            getNodeProps({
+              fixed: true,
+              x: 2,
+              y: 0,
+            })
+          ),
+          [new TextNode(container, { children: 'Text2' })]
+        )
+      );
+
+      const globalCanvas = getCanvasMock();
+      expect(globalCanvas.flatten(rootNode.render(globalCanvas))).toEqual([
+        '  Text2   ',
+        ' Text1    ',
+        ' '.repeat(10),
+        ' '.repeat(10),
+        ' '.repeat(10),
+        ' '.repeat(10),
+        ' '.repeat(10),
+        ' '.repeat(10),
+        ' '.repeat(10),
+        ' '.repeat(10),
+      ]);
+    });
+
+    it('should use custom render prop', () => {
+      const customRender = jest.fn((instance, localCanvas, globalCanvas) => {
+        expect(instance.children.length).toBe(1);
+        expect(globalCanvas).toBeDefined();
+        localCanvas.canvas.push('CustomText');
+        return localCanvas;
+      });
+      const container = (({}: any): ContainerNode);
+      const rootNode = new ChunkNode(
+        container,
+        getNodeProps({
+          fixed: true,
+          x: 1,
+          y: 1,
+          render: customRender,
+        })
+      );
+      rootNode.appendInitialChild(
+        new TextNode(container, { children: 'Text1' })
+      );
+
+      expect(rootNode.render(getCanvasMock()).canvas).toEqual(['CustomText']);
+
+      expect(customRender).toHaveBeenCalled();
+    });
   });
 
   describe('styling', () => {

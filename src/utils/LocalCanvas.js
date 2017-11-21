@@ -56,6 +56,10 @@ export default class LocalCanvas {
     this.stylizer = createStylize(style);
   }
 
+  clear() {
+    this.canvas = [];
+  }
+
   addPaddings(offset: Offset) {
     appendOffsets(this.canvas, offset, {
       offsetChar: ' ',

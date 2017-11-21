@@ -1,8 +1,8 @@
 /* @flow */
 
-import TextNode from './nodes/TextNode';
 import ChunkNode from './nodes/ChunkNode';
 import Canvas from './utils/Canvas';
+import LocalCanvas from './utils/LocalCanvas';
 
 export type Props = { [key: string]: any };
 
@@ -49,7 +49,7 @@ export type Style = {|
 |};
 
 export type CustomRender = (
-  children: (ChunkNode | TextNode)[],
-  props: any,
-  canvas: Canvas
-) => string[];
+  instance: ChunkNode,
+  localCanvas: LocalCanvas,
+  globalCanvas: Canvas
+) => LocalCanvas;
