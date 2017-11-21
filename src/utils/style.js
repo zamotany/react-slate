@@ -17,7 +17,7 @@ export function getStyleProps(style: any = {}) {
     width,
     position,
     left,
-    right,
+    top,
     zIndex,
     ...rest
   } = style;
@@ -36,7 +36,7 @@ export function getStyleProps(style: any = {}) {
     inline,
     fixed: position === 'fixed',
     x: left || 0,
-    y: right || 0,
+    y: top || 0,
     z: typeof zIndex === 'number' ? zIndex : 0,
     stylizeArgs: rest,
   };
