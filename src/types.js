@@ -20,6 +20,13 @@ export type LayoutProps = {
   inline: boolean,
 };
 
+export type AbsoluteProps = {
+  fixed: boolean,
+  x: number,
+  y: number,
+  z: number,
+};
+
 export type Style = {|
   color?: string,
   backgroundColor?: string,

@@ -25,6 +25,10 @@ function getNodeProps(props = {}) {
     height: 0,
     children: null,
     inline: false,
+    fixed: false,
+    x: 0,
+    y: 0,
+    z: 0,
     stylizeArgs: {},
     ...props,
   };
@@ -51,7 +55,7 @@ describe('nodes/ChunkNode', () => {
         new TextNode(container, { children: 'Text2' })
       );
 
-      expect(rootNode.render(getCanvasMock())).toEqual(['Text1Text2']);
+      expect(rootNode.render(getCanvasMock()).canvas).toEqual(['Text1Text2']);
     });
 
     it('should render TextNodes separated by 3rd node with \\n', () => {
@@ -75,7 +79,11 @@ describe('nodes/ChunkNode', () => {
         new TextNode(container, { children: 'Text2' })
       );
 
-      expect(rootNode.render(getCanvasMock())).toEqual(['', 'Text1', 'Text2']);
+      expect(rootNode.render(getCanvasMock()).canvas).toEqual([
+        '',
+        'Text1',
+        'Text2',
+      ]);
     });
 
     it('should render TextNodes separated by \\n', () => {
@@ -92,7 +100,11 @@ describe('nodes/ChunkNode', () => {
         new TextNode(container, { children: 'Text2' })
       );
 
-      expect(rootNode.render(getCanvasMock())).toEqual(['', 'Text1', 'Text2']);
+      expect(rootNode.render(getCanvasMock()).canvas).toEqual([
+        '',
+        'Text1',
+        'Text2',
+      ]);
     });
 
     it('should render ChunkNodes one below another', () => {
@@ -114,7 +126,11 @@ describe('nodes/ChunkNode', () => {
         ])
       );
 
-      expect(rootNode.render(getCanvasMock())).toEqual(['Text1', 'Text2', '']);
+      expect(rootNode.render(getCanvasMock()).canvas).toEqual([
+        'Text1',
+        'Text2',
+        '',
+      ]);
     });
 
     it('should render TextNode and inlined ChunkNodes in the same line', () => {
@@ -134,7 +150,7 @@ describe('nodes/ChunkNode', () => {
         ])
       );
 
-      expect(rootNode.render(getCanvasMock())).toEqual(['Text1Text2']);
+      expect(rootNode.render(getCanvasMock()).canvas).toEqual(['Text1Text2']);
     });
 
     it('should add margins (shallow)', () => {
@@ -164,7 +180,7 @@ describe('nodes/ChunkNode', () => {
         new TextNode(container, { children: 'Text2' })
       );
 
-      expect(rootNode.render(getCanvasMock())).toEqual([
+      expect(rootNode.render(getCanvasMock()).canvas).toEqual([
         '',
         '',
         '\0\0Text1\0\0',
@@ -222,7 +238,7 @@ describe('nodes/ChunkNode', () => {
         new TextNode(container, { children: 'Text3' })
       );
 
-      expect(rootNode.render(getCanvasMock())).toEqual([
+      expect(rootNode.render(getCanvasMock()).canvas).toEqual([
         '',
         '',
         '\0\0Text1\0\0',
@@ -305,7 +321,7 @@ describe('nodes/ChunkNode', () => {
         )
       );
 
-      expect(rootNode.render(getCanvasMock())).toEqual([
+      expect(rootNode.render(getCanvasMock()).canvas).toEqual([
         '\0'.repeat(9),
         ' '.repeat(9),
         '  \0ABC\0  ',
@@ -328,7 +344,7 @@ describe('nodes/ChunkNode', () => {
       );
       rootNode.appendInitialChild(new TextNode(container, { children: text }));
 
-      return rootNode.render(getCanvasMock()).join('\n');
+      return rootNode.render(getCanvasMock()).canvas.join('\n');
     }
 
     it('respects color and background color', () => {

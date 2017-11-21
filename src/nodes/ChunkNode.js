@@ -2,14 +2,15 @@
 
 /* eslint-disable no-param-reassign */
 
-import type { Props, LayoutProps, CustomRender } from '../types';
+import type { Props, LayoutProps, AbsoluteProps, CustomRender } from '../types';
 import TextNode from './TextNode';
 import ContainerNode from './ContainerNode';
 import Canvas from '../utils/Canvas';
 import LocalCanvas from '../utils/LocalCanvas';
 
 type ChunkNodePros = Props &
-  LayoutProps & {
+  LayoutProps &
+  AbsoluteProps & {
     children: any,
     stylizeArgs: any,
     render?: CustomRender,
@@ -86,13 +87,26 @@ export default class ChunkNode {
     for (let childIndex = 0; childIndex < this.children.length; childIndex++) {
       const child = this.children[childIndex];
 
+      const isFixed = Boolean(this.props.fixed);
       if (child instanceof ChunkNode) {
-        localCanvas.merge(child.render(canvas), {
-          isInline: Boolean(child.props.inline),
+        const nestedLocalCanvas = child.render(canvas);
+        if (isFixed) {
+          canvas.appendTree(nestedLocalCanvas.canvas, {
+            x: this.props.x,
+            y: this.props.y,
+            z: this.props.z,
+          });
+        } else {
+          localCanvas.merge(nestedLocalCanvas, {
+            isInline: Boolean(child.props.inline),
+          });
+        }
+      } else if (isFixed) {
+        canvas.appendTree(child.props.children.split('\n'), {
+          x: this.props.x,
+          y: this.props.y,
+          z: this.props.z,
         });
-      } else if (this.props.absolute) {
-        // @TODO: implement
-        // layAbsoluteTextNode(canvas, child);
       } else {
         localCanvas.appendTextNode(child);
       }

@@ -52,4 +52,17 @@ describe('utils/Canvas', () => {
       ' '.repeat(10),
     ]);
   });
+
+  it('should append a tree with specified layer', () => {
+    const canvas = new Canvas({ width: 10, height: 4 });
+
+    canvas.appendTree(['Text1', 'T e x t 2'], { x: 2, y: 1, z: 1 });
+
+    expect(canvas.flatten([])).toEqual([
+      ' '.repeat(10),
+      '  Text1   ',
+      '  T e x t ',
+      ' '.repeat(10),
+    ]);
+  });
 });

@@ -66,6 +66,19 @@ export default class Canvas {
     return this.negativeLayers[index];
   }
 
+  appendTree(
+    nestedTree: string[],
+    { x, y, z }: { x: number, y: number, z: number }
+  ) {
+    const layer = this.atLayer(z);
+    for (let i = 0; i < nestedTree.length; i++) {
+      layer[y + i] = mergeAnsiStrings(
+        layer[y + i],
+        `${'\0'.repeat(x)}${nestedTree[i]}`
+      ).substr(0, this.size.width);
+    }
+  }
+
   merge(bottomCanvas: string[], topCanvas: string[]) {
     for (let lineIndex = 0; lineIndex < this.size.height; lineIndex++) {
       if (

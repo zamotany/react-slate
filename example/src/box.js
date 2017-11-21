@@ -48,6 +48,9 @@ export default class Box extends React.Component {
           {'| ABC |\n'}
           {'+-----+'}
         </Text>
+        <Text style={{ position: 'fixed', left: 10, top: 10, zIndex: -1 }}>
+          THIS IS FIXED
+        </Text>
       </Text>
     );
   }
