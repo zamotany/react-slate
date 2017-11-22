@@ -3,7 +3,7 @@
 import ChunkNode from '../ChunkNode';
 import TextNode from '../TextNode';
 import ContainerNode from '../ContainerNode';
-import Canvas from '../../utils/Canvas';
+import AbsoluteCanvas from '../../utils/AbsoluteCanvas';
 import colors from '../../constants/colors';
 
 function withChildren(instance, children) {
@@ -35,7 +35,7 @@ function getNodeProps(props = {}) {
 }
 
 function getCanvasMock() {
-  return new Canvas({ width: 10, height: 10 });
+  return new AbsoluteCanvas({ width: 10, height: 10 });
 }
 
 describe('nodes/ChunkNode', () => {
@@ -364,8 +364,8 @@ describe('nodes/ChunkNode', () => {
         new TextNode(container, { children: 'Text2A\nText2B' })
       );
 
-      const globalCanvas = getCanvasMock();
-      expect(globalCanvas.flatten(rootNode.render(globalCanvas))).toEqual([
+      const absoluteCanvas = getCanvasMock();
+      expect(absoluteCanvas.flatten(rootNode.render(absoluteCanvas))).toEqual([
         ' '.repeat(10),
         ' Text1    ',
         ' '.repeat(10),
@@ -417,8 +417,8 @@ describe('nodes/ChunkNode', () => {
         )
       );
 
-      const globalCanvas = getCanvasMock();
-      expect(globalCanvas.flatten(rootNode.render(globalCanvas))).toEqual([
+      const absoluteCanvas = getCanvasMock();
+      expect(absoluteCanvas.flatten(rootNode.render(absoluteCanvas))).toEqual([
         '  Text2   ',
         ' Text1    ',
         ' '.repeat(10),
@@ -433,9 +433,9 @@ describe('nodes/ChunkNode', () => {
     });
 
     it('should use custom render prop', () => {
-      const customRender = jest.fn((instance, localCanvas, globalCanvas) => {
+      const customRender = jest.fn((instance, localCanvas, absoluteCanvas) => {
         expect(instance.children.length).toBe(1);
-        expect(globalCanvas).toBeDefined();
+        expect(absoluteCanvas).toBeDefined();
         localCanvas.canvas.push('CustomText');
         return localCanvas;
       });

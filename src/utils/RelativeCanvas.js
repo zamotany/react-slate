@@ -36,7 +36,7 @@ type Offset = {
   right: number,
 };
 
-export default class LocalCanvas {
+export default class RelativeCanvas {
   canvas: string[] = [];
   width: number;
   height: number;
@@ -123,8 +123,11 @@ export default class LocalCanvas {
     }
   }
 
-  merge(nestedLocalCanvas: LocalCanvas, { isInline }: { isInline: boolean }) {
-    nestedLocalCanvas.canvas.forEach((text, i) => {
+  merge(
+    nestedRelativeCanvas: RelativeCanvas,
+    { isInline }: { isInline: boolean }
+  ) {
+    nestedRelativeCanvas.canvas.forEach((text, i) => {
       if (i === 0) {
         appendToLastLine(this.canvas, text);
       } else {

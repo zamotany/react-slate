@@ -1,10 +1,10 @@
 /* @flow */
 
-import Canvas from '../Canvas';
+import AbsoluteCanvas from '../AbsoluteCanvas';
 
-describe('utils/Canvas', () => {
+describe('utils/AbsoluteCanvas', () => {
   it('should return layer canvas and generate it if needed', () => {
-    const canvas = new Canvas({ width: 10, height: 3 });
+    const canvas = new AbsoluteCanvas({ width: 10, height: 3 });
 
     expect(canvas.atLayer(1)).toEqual([
       '\0'.repeat(10),
@@ -35,7 +35,7 @@ describe('utils/Canvas', () => {
   });
 
   it('should flatten positive layers, negative layers and relative canvas', () => {
-    const canvas = new Canvas({ width: 10, height: 4 });
+    const canvas = new AbsoluteCanvas({ width: 10, height: 4 });
 
     const relativeCanvas = ['', '\0Test\0', '\0'.repeat(10)];
 
@@ -54,7 +54,7 @@ describe('utils/Canvas', () => {
   });
 
   it('should append a tree with specified layer', () => {
-    const canvas = new Canvas({ width: 10, height: 4 });
+    const canvas = new AbsoluteCanvas({ width: 10, height: 4 });
 
     canvas.appendTree(['Text1', 'T e x t 2'], { x: 2, y: 1, z: 1 });
 

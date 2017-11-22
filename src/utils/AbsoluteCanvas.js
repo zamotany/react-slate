@@ -36,7 +36,7 @@ function mergeAnsiStrings(bottomString: string, topString: string) {
   return AnsiParser.stringify(output).replace(/\u001b\[0m$/, '');
 }
 
-export default class Canvas {
+export default class AbsoluteCanvas {
   positiveLayers = [];
   negativeLayers = [];
 

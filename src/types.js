@@ -1,8 +1,8 @@
 /* @flow */
 
 import ChunkNode from './nodes/ChunkNode';
-import Canvas from './utils/Canvas';
-import LocalCanvas from './utils/LocalCanvas';
+import AbsoluteCanvas from './utils/AbsoluteCanvas';
+import RelativeCanvas from './utils/RelativeCanvas';
 
 export type Props = { [key: string]: any };
 
@@ -50,6 +50,6 @@ export type Style = {|
 
 export type CustomRender = (
   instance: ChunkNode,
-  localCanvas: LocalCanvas,
-  globalCanvas: Canvas
-) => LocalCanvas;
+  relativeCanvas: RelativeCanvas,
+  absoluteCanvas: AbsoluteCanvas
+) => RelativeCanvas;

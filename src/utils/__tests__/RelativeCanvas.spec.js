@@ -1,8 +1,8 @@
-import LocalCanvas from '../LocalCanvas';
+import RelativeCanvas from '../RelativeCanvas';
 
-describe('utils/LocalCanvas', () => {
+describe('utils/RelativeCanvas', () => {
   it('should add paddings', () => {
-    const localCanvas = new LocalCanvas({ width: 10, height: -1 });
+    const localCanvas = new RelativeCanvas({ width: 10, height: -1 });
     localCanvas.canvas.push('Text1', 'Text2');
 
     localCanvas.addPaddings({
@@ -22,7 +22,7 @@ describe('utils/LocalCanvas', () => {
   });
 
   it('should add margins', () => {
-    const localCanvas = new LocalCanvas({ width: 10, height: -1 });
+    const localCanvas = new RelativeCanvas({ width: 10, height: -1 });
     localCanvas.canvas.push('Text1', 'Text2');
 
     localCanvas.addMargins({
@@ -42,7 +42,7 @@ describe('utils/LocalCanvas', () => {
   });
 
   it('should normalize canvas', () => {
-    let localCanvas = new LocalCanvas({ width: 8, height: -1 });
+    let localCanvas = new RelativeCanvas({ width: 8, height: -1 });
     localCanvas.canvas.push('\0Text1', 'T e x t 2');
     localCanvas.normalize();
 
@@ -50,7 +50,7 @@ describe('utils/LocalCanvas', () => {
 
     let prev = localCanvas.canvas;
 
-    localCanvas = new LocalCanvas({ width: 8, height: 4 });
+    localCanvas = new RelativeCanvas({ width: 8, height: 4 });
     localCanvas.canvas.push(...prev);
     localCanvas.normalize();
 
@@ -62,7 +62,7 @@ describe('utils/LocalCanvas', () => {
     ]);
 
     prev = localCanvas.canvas;
-    localCanvas = new LocalCanvas({ width: 7, height: 3 });
+    localCanvas = new RelativeCanvas({ width: 7, height: 3 });
     localCanvas.canvas.push(...prev);
     localCanvas.normalize();
 
@@ -74,7 +74,7 @@ describe('utils/LocalCanvas', () => {
   });
 
   it('should stylize canvas', () => {
-    const localCanvas = new LocalCanvas({
+    const localCanvas = new RelativeCanvas({
       width: -1,
       height: -1,
       style: {
@@ -87,10 +87,10 @@ describe('utils/LocalCanvas', () => {
     expect(localCanvas.canvas).toEqual(['A', 'B']);
   });
 
-  it('should merge 2 LocalCanvases', () => {
-    const localCanvas = new LocalCanvas({ width: -1, height: -1 });
+  it('should merge 2 RelativeCanvases', () => {
+    const localCanvas = new RelativeCanvas({ width: -1, height: -1 });
     localCanvas.canvas.push('a', 'b', '');
-    const nestedCanvas = new LocalCanvas({ width: -1, height: -1 });
+    const nestedCanvas = new RelativeCanvas({ width: -1, height: -1 });
     nestedCanvas.canvas.push('c', 'd');
     localCanvas.merge(nestedCanvas, { isInline: false });
 
@@ -98,7 +98,7 @@ describe('utils/LocalCanvas', () => {
   });
 
   it('should append TextNode', () => {
-    const localCanvas = new LocalCanvas({ width: -1, height: -1 });
+    const localCanvas = new RelativeCanvas({ width: -1, height: -1 });
     localCanvas.appendTextNode({
       props: {
         children: 'Text1',

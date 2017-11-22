@@ -5,8 +5,8 @@
 import type { Props, LayoutProps, AbsoluteProps, CustomRender } from '../types';
 import TextNode from './TextNode';
 import ContainerNode from './ContainerNode';
-import Canvas from '../utils/Canvas';
-import LocalCanvas from '../utils/LocalCanvas';
+import AbsoluteCanvas from '../utils/AbsoluteCanvas';
+import RelativeCanvas from '../utils/RelativeCanvas';
 
 type ChunkNodePros = Props &
   LayoutProps &
@@ -74,40 +74,40 @@ export default class ChunkNode {
     this.children.splice(index, 1);
   }
 
-  render(canvas: Canvas) {
-    const localCanvas = new LocalCanvas({
+  render(absoluteCanvas: AbsoluteCanvas) {
+    const relativeCanvas = new RelativeCanvas({
       width: this.props.width,
       height: this.props.height,
       style: this.props.stylizeArgs,
     });
 
     if (typeof this.props.render === 'function') {
-      return this.props.render(this, localCanvas, canvas);
+      return this.props.render(this, relativeCanvas, absoluteCanvas);
     }
 
     for (let childIndex = 0; childIndex < this.children.length; childIndex++) {
       const child = this.children[childIndex];
 
       if (child instanceof ChunkNode) {
-        localCanvas.merge(child.render(canvas), {
+        relativeCanvas.merge(child.render(absoluteCanvas), {
           isInline: Boolean(child.props.inline),
         });
       } else {
-        localCanvas.appendTextNode(child);
+        relativeCanvas.appendTextNode(child);
       }
     }
 
-    localCanvas.addPaddings({
+    relativeCanvas.addPaddings({
       top: this.props.paddingTop,
       bottom: this.props.paddingBottom,
       left: this.props.paddingLeft,
       right: this.props.paddingRight,
     });
 
-    localCanvas.normalize();
-    localCanvas.stylize();
+    relativeCanvas.normalize();
+    relativeCanvas.stylize();
 
-    localCanvas.addMargins({
+    relativeCanvas.addMargins({
       top: this.props.marginTop,
       bottom: this.props.marginBottom,
       left: this.props.marginLeft,
@@ -115,14 +115,14 @@ export default class ChunkNode {
     });
 
     if (this.props.fixed) {
-      canvas.appendTree(localCanvas.canvas, {
+      absoluteCanvas.appendTree(relativeCanvas.canvas, {
         x: this.props.x,
         y: this.props.y,
         z: this.props.z,
       });
-      localCanvas.clear();
+      relativeCanvas.clear();
     }
 
-    return localCanvas;
+    return relativeCanvas;
   }
 }
