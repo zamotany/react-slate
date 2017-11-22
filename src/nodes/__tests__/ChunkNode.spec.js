@@ -3,7 +3,7 @@
 import ChunkNode from '../ChunkNode';
 import TextNode from '../TextNode';
 import ContainerNode from '../ContainerNode';
-import { getCanvas } from '../../utils/layout';
+import AbsoluteCanvas from '../../utils/AbsoluteCanvas';
 import colors from '../../constants/colors';
 
 function withChildren(instance, children) {
@@ -25,13 +25,17 @@ function getNodeProps(props = {}) {
     height: 0,
     children: null,
     inline: false,
+    fixed: false,
+    x: 0,
+    y: 0,
+    z: 0,
     stylizeArgs: {},
     ...props,
   };
 }
 
 function getCanvasMock() {
-  return getCanvas({ width: 10, height: 10 });
+  return new AbsoluteCanvas({ width: 10, height: 10 });
 }
 
 describe('nodes/ChunkNode', () => {
@@ -51,7 +55,7 @@ describe('nodes/ChunkNode', () => {
         new TextNode(container, { children: 'Text2' })
       );
 
-      expect(rootNode.render(getCanvasMock())).toEqual(['Text1Text2']);
+      expect(rootNode.render(getCanvasMock()).canvas).toEqual(['Text1Text2']);
     });
 
     it('should render TextNodes separated by 3rd node with \\n', () => {
@@ -75,7 +79,11 @@ describe('nodes/ChunkNode', () => {
         new TextNode(container, { children: 'Text2' })
       );
 
-      expect(rootNode.render(getCanvasMock())).toEqual(['', 'Text1', 'Text2']);
+      expect(rootNode.render(getCanvasMock()).canvas).toEqual([
+        '',
+        'Text1',
+        'Text2',
+      ]);
     });
 
     it('should render TextNodes separated by \\n', () => {
@@ -92,7 +100,11 @@ describe('nodes/ChunkNode', () => {
         new TextNode(container, { children: 'Text2' })
       );
 
-      expect(rootNode.render(getCanvasMock())).toEqual(['', 'Text1', 'Text2']);
+      expect(rootNode.render(getCanvasMock()).canvas).toEqual([
+        '',
+        'Text1',
+        'Text2',
+      ]);
     });
 
     it('should render ChunkNodes one below another', () => {
@@ -114,7 +126,11 @@ describe('nodes/ChunkNode', () => {
         ])
       );
 
-      expect(rootNode.render(getCanvasMock())).toEqual(['Text1', 'Text2', '']);
+      expect(rootNode.render(getCanvasMock()).canvas).toEqual([
+        'Text1',
+        'Text2',
+        '',
+      ]);
     });
 
     it('should render TextNode and inlined ChunkNodes in the same line', () => {
@@ -134,7 +150,7 @@ describe('nodes/ChunkNode', () => {
         ])
       );
 
-      expect(rootNode.render(getCanvasMock())).toEqual(['Text1Text2']);
+      expect(rootNode.render(getCanvasMock()).canvas).toEqual(['Text1Text2']);
     });
 
     it('should add margins (shallow)', () => {
@@ -164,11 +180,11 @@ describe('nodes/ChunkNode', () => {
         new TextNode(container, { children: 'Text2' })
       );
 
-      expect(rootNode.render(getCanvasMock())).toEqual([
+      expect(rootNode.render(getCanvasMock()).canvas).toEqual([
         '',
         '',
-        '  Text1  ',
-        '  Text2  ',
+        '\0\0Text1\0\0',
+        '\0\0Text2\0\0',
         '',
       ]);
     });
@@ -222,13 +238,13 @@ describe('nodes/ChunkNode', () => {
         new TextNode(container, { children: 'Text3' })
       );
 
-      expect(rootNode.render(getCanvasMock())).toEqual([
+      expect(rootNode.render(getCanvasMock()).canvas).toEqual([
         '',
         '',
-        '  Text1  ',
-        '   Text2   ',
-        '    ',
-        '  Text3  ',
+        '\0\0Text1\0\0',
+        '\0\0\0Text2\0\0\0',
+        '\0\0\0\0',
+        '\0\0Text3\0\0',
         '',
       ]);
     });
@@ -305,15 +321,141 @@ describe('nodes/ChunkNode', () => {
         )
       );
 
-      expect(rootNode.render(getCanvasMock())).toEqual([
+      expect(rootNode.render(getCanvasMock()).canvas).toEqual([
+        '\0'.repeat(9),
         ' '.repeat(9),
-        ' '.repeat(9),
-        '   ABC   ',
-        ' '.repeat(9),
+        '  \0ABC\0  ',
+        `${' '.repeat(4)}${'\0'.repeat(5)}`,
         '  Text1  ',
-        ' '.repeat(9),
-        ' '.repeat(9),
+        `${' '.repeat(4)}${'\0'.repeat(5)}`,
+        '\0'.repeat(9),
       ]);
+    });
+
+    it('should append fixed subtree in global canvas', () => {
+      /**
+       * <Text style={{ position: 'fixed', left: 1, top: 1 }}>
+       *   <Text style={{ marginBottom: 1 }}>Text1</Text>
+       *   {'Text2A\nText2B'}
+       * </Text>
+       */
+
+      const container = (({}: any): ContainerNode);
+      const rootNode = new ChunkNode(
+        container,
+        getNodeProps({
+          fixed: true,
+          x: 1,
+          y: 1,
+        })
+      );
+      rootNode.appendInitialChild(
+        withChildren(
+          new ChunkNode(
+            container,
+            getNodeProps({
+              marginBottom: 1,
+            })
+          ),
+          [new TextNode(container, { children: 'Text1' })]
+        )
+      );
+      rootNode.appendInitialChild(
+        new TextNode(container, { children: 'Text2A\nText2B' })
+      );
+
+      const absoluteCanvas = getCanvasMock();
+      expect(absoluteCanvas.flatten(rootNode.render(absoluteCanvas))).toEqual([
+        ' '.repeat(10),
+        ' Text1    ',
+        ' '.repeat(10),
+        ' Text2A   ',
+        ' Text2B   ',
+        ' '.repeat(10),
+        ' '.repeat(10),
+        ' '.repeat(10),
+        ' '.repeat(10),
+        ' '.repeat(10),
+      ]);
+    });
+
+    it('should properly layout nested fixed subtree', () => {
+      /**
+       * <Text style={{ position: 'fixed', left: 1, top: 1 }}>
+       *   {'Text1'}
+       *   <Text style={{
+       *     position: 'fixed',
+       *     left: 2,
+       *     top: 0
+       *   }}>Text2</Text>
+       * </Text>
+       */
+
+      const container = (({}: any): ContainerNode);
+      const rootNode = new ChunkNode(
+        container,
+        getNodeProps({
+          fixed: true,
+          x: 1,
+          y: 1,
+        })
+      );
+      rootNode.appendInitialChild(
+        new TextNode(container, { children: 'Text1' })
+      );
+      rootNode.appendInitialChild(
+        withChildren(
+          new ChunkNode(
+            container,
+            getNodeProps({
+              fixed: true,
+              x: 2,
+              y: 0,
+            })
+          ),
+          [new TextNode(container, { children: 'Text2' })]
+        )
+      );
+
+      const absoluteCanvas = getCanvasMock();
+      expect(absoluteCanvas.flatten(rootNode.render(absoluteCanvas))).toEqual([
+        '  Text2   ',
+        ' Text1    ',
+        ' '.repeat(10),
+        ' '.repeat(10),
+        ' '.repeat(10),
+        ' '.repeat(10),
+        ' '.repeat(10),
+        ' '.repeat(10),
+        ' '.repeat(10),
+        ' '.repeat(10),
+      ]);
+    });
+
+    it('should use custom render prop', () => {
+      const customRender = jest.fn((instance, localCanvas, absoluteCanvas) => {
+        expect(instance.children.length).toBe(1);
+        expect(absoluteCanvas).toBeDefined();
+        localCanvas.canvas.push('CustomText');
+        return localCanvas;
+      });
+      const container = (({}: any): ContainerNode);
+      const rootNode = new ChunkNode(
+        container,
+        getNodeProps({
+          fixed: true,
+          x: 1,
+          y: 1,
+          render: customRender,
+        })
+      );
+      rootNode.appendInitialChild(
+        new TextNode(container, { children: 'Text1' })
+      );
+
+      expect(rootNode.render(getCanvasMock()).canvas).toEqual(['CustomText']);
+
+      expect(customRender).toHaveBeenCalled();
     });
   });
 
@@ -328,7 +470,7 @@ describe('nodes/ChunkNode', () => {
       );
       rootNode.appendInitialChild(new TextNode(container, { children: text }));
 
-      return rootNode.render(getCanvasMock()).join('\n');
+      return rootNode.render(getCanvasMock()).canvas.join('\n');
     }
 
     it('respects color and background color', () => {

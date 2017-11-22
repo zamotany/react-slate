@@ -15,6 +15,10 @@ export function getStyleProps(style: any = {}) {
     paddingRight,
     height,
     width,
+    position,
+    left,
+    top,
+    zIndex,
     ...rest
   } = style;
   const inline = display === 'inline';
@@ -30,6 +34,10 @@ export function getStyleProps(style: any = {}) {
     height: height || (inline ? 0 : -1),
     width: width || -1,
     inline,
+    fixed: position === 'fixed',
+    x: left || 0,
+    y: top || 0,
+    z: typeof zIndex === 'number' ? zIndex : 0,
     stylizeArgs: rest,
   };
 }

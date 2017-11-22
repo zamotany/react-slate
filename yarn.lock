@@ -80,6 +80,10 @@ ansi-escapes@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-3.0.0.tgz#ec3e8b4e9f8064fc02c3ac9b65f1c275bda8ef92"
 
+ansi-parser@^3.2.8:
+  version "3.2.8"
+  resolved "https://registry.yarnpkg.com/ansi-parser/-/ansi-parser-3.2.8.tgz#ad80a6351ac5e58cc7e8a761abc037b5505041d0"
+
 ansi-regex@^2.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-2.1.1.tgz#c3b33ab5ee360d86e0e628f0468ae7ef27d654df"

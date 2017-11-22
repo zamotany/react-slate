@@ -1,4 +1,8 @@
-// @flow
+/* @flow */
+
+import ChunkNode from './nodes/ChunkNode';
+import AbsoluteCanvas from './utils/AbsoluteCanvas';
+import RelativeCanvas from './utils/RelativeCanvas';
 
 export type Props = { [key: string]: any };
 
@@ -14,6 +18,13 @@ export type LayoutProps = {
   height: number,
   width: number,
   inline: boolean,
+};
+
+export type AbsoluteProps = {
+  fixed: boolean,
+  x: number,
+  y: number,
+  z: number,
 };
 
 export type Style = {|
@@ -36,3 +47,9 @@ export type Style = {|
   width?: number,
   display?: 'block' | 'inline',
 |};
+
+export type CustomRender = (
+  instance: ChunkNode,
+  relativeCanvas: RelativeCanvas,
+  absoluteCanvas: AbsoluteCanvas
+) => RelativeCanvas;

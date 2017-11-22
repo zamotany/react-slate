@@ -2,22 +2,18 @@
 
 /* eslint-disable no-param-reassign */
 
-import type { Props, LayoutProps } from '../types';
+import type { Props, LayoutProps, AbsoluteProps, CustomRender } from '../types';
 import TextNode from './TextNode';
 import ContainerNode from './ContainerNode';
-import {
-  appendTextNode,
-  // layAbsoluteTextNode,
-  appendRenderResults,
-  appendOffsets,
-  normalize,
-} from '../utils/layout';
-import { createStylize } from '../utils/style';
+import AbsoluteCanvas from '../utils/AbsoluteCanvas';
+import RelativeCanvas from '../utils/RelativeCanvas';
 
 type ChunkNodePros = Props &
-  LayoutProps & {
+  LayoutProps &
+  AbsoluteProps & {
     children: any,
     stylizeArgs: any,
+    render?: CustomRender,
   };
 
 export default class ChunkNode {
@@ -78,50 +74,55 @@ export default class ChunkNode {
     this.children.splice(index, 1);
   }
 
-  render(canvas: string[]) {
-    const localCanvas = [];
+  render(absoluteCanvas: AbsoluteCanvas) {
+    const relativeCanvas = new RelativeCanvas({
+      width: this.props.width,
+      height: this.props.height,
+      style: this.props.stylizeArgs,
+    });
+
+    if (typeof this.props.render === 'function') {
+      return this.props.render(this, relativeCanvas, absoluteCanvas);
+    }
+
     for (let childIndex = 0; childIndex < this.children.length; childIndex++) {
       const child = this.children[childIndex];
 
       if (child instanceof ChunkNode) {
-        appendRenderResults(localCanvas, child.render(canvas), {
+        relativeCanvas.merge(child.render(absoluteCanvas), {
           isInline: Boolean(child.props.inline),
         });
-      } else if (this.props.absolute) {
-        // @TODO: implement
-        // layAbsoluteTextNode(canvas, child);
       } else {
-        appendTextNode(localCanvas, child);
+        relativeCanvas.appendTextNode(child);
       }
     }
 
-    appendOffsets(localCanvas, {
+    relativeCanvas.addPaddings({
       top: this.props.paddingTop,
       bottom: this.props.paddingBottom,
       left: this.props.paddingLeft,
       right: this.props.paddingRight,
     });
 
-    normalize(localCanvas, this.props);
+    relativeCanvas.normalize();
+    relativeCanvas.stylize();
 
-    const stylize = createStylize(this.props.stylizeArgs);
-    for (let i = 0; i < localCanvas.length; i++) {
-      localCanvas[i] = stylize(localCanvas[i]);
+    relativeCanvas.addMargins({
+      top: this.props.marginTop,
+      bottom: this.props.marginBottom,
+      left: this.props.marginLeft,
+      right: this.props.marginRight,
+    });
+
+    if (this.props.fixed) {
+      absoluteCanvas.appendTree(relativeCanvas.canvas, {
+        x: this.props.x,
+        y: this.props.y,
+        z: this.props.z,
+      });
+      relativeCanvas.clear();
     }
 
-    appendOffsets(
-      localCanvas,
-      {
-        top: this.props.marginTop,
-        bottom: this.props.marginBottom,
-        left: this.props.marginLeft,
-        right: this.props.marginRight,
-      },
-      {
-        width: this.props.width,
-      }
-    );
-
-    return localCanvas;
+    return relativeCanvas;
   }
 }
