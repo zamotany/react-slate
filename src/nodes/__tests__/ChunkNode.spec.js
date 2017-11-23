@@ -564,7 +564,7 @@ describe('nodes/ChunkNode', () => {
       ).toMatchSnapshot();
       expect(
         getTextMock(
-          { borderStyle: 'solid', borderColor: 'rgb(255, 0, 0)' },
+          { borderStyle: 'solid', borderColor: 'ansi-red' },
           'Hello world'
         )
       ).toMatchSnapshot();
@@ -572,8 +572,8 @@ describe('nodes/ChunkNode', () => {
         getTextMock(
           {
             borderStyle: 'solid',
-            borderColor: 'red',
-            backgroundColor: 'blue',
+            borderColor: 'ansi-red',
+            backgroundColor: 'ansi-blue',
           },
           'Hello world'
         )
