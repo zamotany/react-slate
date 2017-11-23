@@ -71,7 +71,7 @@ export default class AbsoluteCanvas {
     { x, y, z }: { x: number, y: number, z: number }
   ) {
     const layer = this.atLayer(z);
-    for (let i = 0; i < nestedTree.length; i++) {
+    for (let i = 0; i < nestedTree.length && y + i < layer.length; i++) {
       layer[y + i] = mergeAnsiStrings(
         layer[y + i],
         `${'\0'.repeat(x)}${nestedTree[i]}`
