@@ -42,11 +42,11 @@ export default class Box extends React.Component {
             marginLeft: this.state.x,
             marginTop: this.state.y,
             backgroundColor: 'grey',
+            border: 'solid white',
+            padding: '0 2',
           }}
         >
-          {'+-----+\n'}
-          {'| ABC |\n'}
-          {'+-----+'}
+          ABC
         </Text>
         <Text style={{ position: 'fixed', left: 10, top: 10, zIndex: -1 }}>
           THIS IS FIXED

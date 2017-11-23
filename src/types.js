@@ -35,10 +35,12 @@ export type Style = {|
   textDecoration?: 'underline' | 'line-through' | 'normal',
   textTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase',
   visibility?: 'visible' | 'hidden',
+  margin?: string,
   marginTop?: number,
   marginBottom?: number,
   marginLeft?: number,
   marginRight?: number,
+  padding?: string,
   paddingTop?: number,
   paddingBottom?: number,
   paddingLeft?: number,
@@ -46,6 +48,9 @@ export type Style = {|
   height?: number,
   width?: number,
   display?: 'block' | 'inline',
+  border?: string,
+  borderStyle?: 'none' | 'solid' | 'double',
+  borderColor?: string,
 |};
 
 export type CustomRender = (

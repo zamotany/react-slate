@@ -460,11 +460,12 @@ describe('nodes/ChunkNode', () => {
   });
 
   describe('styling', () => {
-    function getTextMock(textNodeProps, text) {
+    function getTextMock(textNodeProps, text, additionalProps = {}) {
       const container = (({}: any): ContainerNode);
       const rootNode = new ChunkNode(
         container,
         getNodeProps({
+          ...additionalProps,
           stylizeArgs: textNodeProps,
         })
       );
@@ -549,6 +550,70 @@ describe('nodes/ChunkNode', () => {
       const hidden = getTextMock({ visibility: 'hidden' }, 'Hello world');
       expect(visible).toMatchSnapshot();
       expect(hidden).toMatchSnapshot();
+    });
+
+    it('adds border', () => {
+      expect(
+        getTextMock({ borderStyle: 'solid' }, 'Hello world')
+      ).toMatchSnapshot();
+      expect(
+        getTextMock({ borderStyle: 'double' }, 'Hello world')
+      ).toMatchSnapshot();
+      expect(
+        getTextMock({ borderStyle: 'none' }, 'Hello world')
+      ).toMatchSnapshot();
+      expect(
+        getTextMock(
+          { borderStyle: 'solid', borderColor: 'ansi-red' },
+          'Hello world'
+        )
+      ).toMatchSnapshot();
+      expect(
+        getTextMock(
+          {
+            borderStyle: 'solid',
+            borderColor: 'ansi-red',
+            backgroundColor: 'ansi-blue',
+          },
+          'Hello world'
+        )
+      ).toMatchSnapshot();
+      expect(
+        getTextMock(
+          {
+            borderStyle: 'solid',
+          },
+          'Hello world',
+          {
+            width: 15,
+            height: 3,
+          }
+        ).replace(/\0/g, ' ')
+      ).toMatchSnapshot();
+      expect(
+        getTextMock(
+          {
+            borderStyle: 'solid',
+          },
+          'Hello world',
+          {
+            width: 15,
+            height: 4,
+          }
+        ).replace(/\0/g, ' ')
+      ).toMatchSnapshot();
+      expect(
+        getTextMock(
+          {
+            borderStyle: 'solid',
+          },
+          'Hello\nworld',
+          {
+            width: 15,
+            height: 3,
+          }
+        ).replace(/\0/g, ' ')
+      ).toMatchSnapshot();
     });
   });
 });
