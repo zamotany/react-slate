@@ -7,11 +7,14 @@ import {
   HIDE_CURSOR,
 } from '../constants/asciiCodes';
 import { onExit } from './utils';
+import { hasThrown } from '../utils/throwError';
 
 export function clearOnExit(stream: any) {
   onExit(() => {
-    readline.cursorTo(stream, 0, 0);
-    readline.clearScreenDown(stream);
+    if (!hasThrown()) {
+      readline.cursorTo(stream, 0, 0);
+      readline.clearScreenDown(stream);
+    }
   });
 }
 
@@ -27,6 +30,8 @@ export function hideCursor(stream: any) {
 
 export function clearScrollbackOnExit(stream: any) {
   onExit(() => {
-    stream.write(CLEAR_SCROLL_BACK);
+    if (!hasThrown()) {
+      stream.write(CLEAR_SCROLL_BACK);
+    }
   });
 }
