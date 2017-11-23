@@ -9,7 +9,6 @@ import {
 } from '../effects/terminal';
 import ChunkNode from './ChunkNode';
 import AbsoluteCanvas from '../utils/AbsoluteCanvas';
-import { throwError } from '../utils/throwError';
 
 type Options = {
   debug: boolean,
