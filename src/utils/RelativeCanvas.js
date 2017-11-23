@@ -85,7 +85,7 @@ export default class RelativeCanvas {
           0,
           this.width || stripAnsi(this.canvas[i]).length
         );
-        this.canvas[i] += '\0'.repeat(
+        this.canvas[i] += ' '.repeat(
           (this.width || stripAnsi(this.canvas[i]).length) -
             stripAnsi(this.canvas[i]).length
         );

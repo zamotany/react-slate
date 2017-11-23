@@ -325,9 +325,9 @@ describe('nodes/ChunkNode', () => {
         '\0'.repeat(9),
         ' '.repeat(9),
         '  \0ABC\0  ',
-        `${' '.repeat(4)}${'\0'.repeat(5)}`,
+        ' '.repeat(9),
         '  Text1  ',
-        `${' '.repeat(4)}${'\0'.repeat(5)}`,
+        ' '.repeat(9),
         '\0'.repeat(9),
       ]);
     });
@@ -613,6 +613,57 @@ describe('nodes/ChunkNode', () => {
             height: 3,
           }
         ).replace(/\0/g, ' ')
+      ).toMatchSnapshot();
+    });
+
+    it('aligns text', () => {
+      expect(
+        getTextMock({ textAlign: 'left' }, 'Hello world')
+      ).toMatchSnapshot();
+      expect(
+        getTextMock({ textAlign: 'center' }, 'Hello world')
+      ).toMatchSnapshot();
+      expect(
+        getTextMock({ textAlign: 'right' }, 'Hello world')
+      ).toMatchSnapshot();
+      expect(
+        getTextMock({ textAlign: 'left' }, 'Hello world', { width: 21 })
+      ).toMatchSnapshot();
+      expect(
+        getTextMock({ textAlign: 'center' }, 'Hello world', { width: 21 })
+      ).toMatchSnapshot();
+      expect(
+        getTextMock({ textAlign: 'right' }, 'Hello world', { width: 21 })
+      ).toMatchSnapshot();
+      expect(
+        getTextMock({ textAlign: 'left' }, 'Hello world', { width: 20 })
+      ).toMatchSnapshot();
+      expect(
+        getTextMock({ textAlign: 'center' }, 'Hello world', { width: 20 })
+      ).toMatchSnapshot();
+      expect(
+        getTextMock({ textAlign: 'right' }, 'Hello world', { width: 20 })
+      ).toMatchSnapshot();
+      expect(
+        getTextMock(
+          { textAlign: 'left', borderStyle: 'solid' },
+          'Hello world',
+          { width: 21 }
+        )
+      ).toMatchSnapshot();
+      expect(
+        getTextMock(
+          { textAlign: 'center', borderStyle: 'solid' },
+          'Hello world',
+          { width: 21 }
+        )
+      ).toMatchSnapshot();
+      expect(
+        getTextMock(
+          { textAlign: 'right', borderStyle: 'solid' },
+          'Hello world',
+          { width: 21 }
+        )
       ).toMatchSnapshot();
     });
   });
