@@ -5,7 +5,7 @@ import cliSpinners from 'cli-spinners';
 // $FlowFixMe
 import shallowEqual from 'fbjs/lib/shallowEqual';
 import Text from './Text';
-import throwError from '../utils/throwError';
+import { throwComponentError } from '../utils/throwError';
 
 type Props = {
   type?: string,
@@ -34,12 +34,12 @@ export default class Spinner extends React.Component<Props, State> {
     const { type = 'dots', interval, frames } = props;
 
     if (typeof interval === 'number' && interval <= 0) {
-      throwError('Interval property must be grater than 0', 'Spinner');
+      throwComponentError('Interval property must be grater than 0', 'Spinner');
     }
 
     if (frames) {
       if (!interval) {
-        throwError(
+        throwComponentError(
           'Interval property must be specified when using custom frames',
           'Spinner'
         );
