@@ -22,12 +22,14 @@ export function throwComponentError(
   throw new Error(message);
 }
 
-export function throwError(error: Error) {
+export function throwError(error: Error, forceThrow: boolean = false) {
   _hasThrown = true;
   if (console.error.raw) {
     console.error.raw(chalk.red(error.stack));
   } else {
     console.error(error.stack);
   }
-  throw error;
+  if (forceThrow) {
+    throw error;
+  }
 }
