@@ -2,7 +2,10 @@
 
 import chalk from 'chalk';
 
-export default function throwError(description: string, componentName: string) {
+export function throwComponentError(
+  description: string,
+  componentName: string
+) {
   const message = `Error: ${description}\n    in ${componentName}`;
   if (console.error.raw) {
     console.error.raw(chalk.red(message));
@@ -10,4 +13,13 @@ export default function throwError(description: string, componentName: string) {
     console.error(message);
   }
   throw new Error(message);
+}
+
+export function throwError(error: Error) {
+  if (console.error.raw) {
+    console.error.raw(chalk.red(error.stack));
+  } else {
+    console.error(error.stack);
+  }
+  throw error;
 }

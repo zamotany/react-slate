@@ -9,6 +9,7 @@ import {
 } from '../effects/terminal';
 import ChunkNode from './ChunkNode';
 import AbsoluteCanvas from '../utils/AbsoluteCanvas';
+import { throwError } from '../utils/throwError';
 
 type Options = {
   debug: boolean,
@@ -86,23 +87,27 @@ export default class ContainerNode {
   }
 
   flush() {
-    // @TODO: this buffer/optimization/slitting logic needs to be refactored
-    // @TODO: draw damage to screen only instead of everything
-    const canvas = new AbsoluteCanvas(this.canvasSize);
-    this.frontBuffer = canvas
-      .flatten(
-        this.children.reduce(
-          (acc, child) =>
-            acc
-              ? acc.merge(child.render(canvas), { isInline: false })
-              : child.render(canvas),
-          null
-        ).canvas
-      )
-      .join('\n');
+    try {
+      // @TODO: this buffer/optimization/slitting logic needs to be refactored
+      // @TODO: draw damage to screen only instead of everything
+      const canvas = new AbsoluteCanvas(this.canvasSize);
+      this.frontBuffer = canvas
+        .flatten(
+          this.children.reduce(
+            (acc, child) =>
+              acc
+                ? acc.merge(child.render(canvas), { isInline: false })
+                : child.render(canvas),
+            null
+          ).canvas
+        )
+        .join('\n');
 
-    readline.cursorTo(this.stream, 0, 0);
-    readline.clearScreenDown(this.stream);
-    this.stream.write(this.frontBuffer);
+      readline.cursorTo(this.stream, 0, 0);
+      readline.clearScreenDown(this.stream);
+      this.stream.write(this.frontBuffer);
+    } catch (error) {
+      throwError(error);
+    }
   }
 }
