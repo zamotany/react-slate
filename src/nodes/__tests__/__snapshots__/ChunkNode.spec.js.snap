@@ -45,6 +45,42 @@ exports[`nodes/ChunkNode styling adds border 8`] = `
 └─────────────┘"
 `;
 
+exports[`nodes/ChunkNode styling aligns text 1`] = `"Hello world"`;
+
+exports[`nodes/ChunkNode styling aligns text 2`] = `"Hello world"`;
+
+exports[`nodes/ChunkNode styling aligns text 3`] = `"Hello world"`;
+
+exports[`nodes/ChunkNode styling aligns text 4`] = `"Hello world          "`;
+
+exports[`nodes/ChunkNode styling aligns text 5`] = `"     Hello world     "`;
+
+exports[`nodes/ChunkNode styling aligns text 6`] = `"          Hello world"`;
+
+exports[`nodes/ChunkNode styling aligns text 7`] = `"Hello world         "`;
+
+exports[`nodes/ChunkNode styling aligns text 8`] = `"     Hello world    "`;
+
+exports[`nodes/ChunkNode styling aligns text 9`] = `"         Hello world"`;
+
+exports[`nodes/ChunkNode styling aligns text 10`] = `
+"┌───────────────────┐
+│Hello world        │
+└───────────────────┘"
+`;
+
+exports[`nodes/ChunkNode styling aligns text 11`] = `
+"┌───────────────────┐
+│    Hello world    │
+└───────────────────┘"
+`;
+
+exports[`nodes/ChunkNode styling aligns text 12`] = `
+"┌───────────────────┐
+│        Hello world│
+└───────────────────┘"
+`;
+
 exports[`nodes/ChunkNode styling respects color and background color 1`] = `"[35m[46mHello world[49m[39m"`;
 
 exports[`nodes/ChunkNode styling respects fontStyle 1`] = `"[3mHello world[23m"`;

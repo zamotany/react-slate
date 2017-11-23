@@ -2,6 +2,7 @@
 
 import chalk from 'chalk';
 import stripAnsi from 'strip-ansi';
+import alignText from './alignText';
 import sliceAnsi from './sliceAnsi';
 
 const borderStyleChars = {
@@ -229,6 +230,15 @@ export function createStylize(
   }
 
   const shouldAddBorder = style.borderStyle && style.borderStyle !== 'none';
+  if (style.textAlign) {
+    const _transform = transform;
+    transform = text =>
+      alignText(
+        _transform(shouldAddBorder ? text.replace(/\s{2}$/, '') : text),
+        { align: style.textAlign }
+      );
+  }
+
   if (shouldAddBorder) {
     const _transform = transform;
     transform = text => {
@@ -241,6 +251,7 @@ export function createStylize(
   }
 
   return function stylize(canvas: string[]) {
+    debugger;
     for (let i = 0; i < canvas.length; i++) {
       canvas[i] = enhance(transform(canvas[i]));
     }

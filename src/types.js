@@ -51,6 +51,7 @@ export type Style = {|
   border?: string,
   borderStyle?: 'none' | 'solid' | 'double',
   borderColor?: string,
+  textAlign?: 'left' | 'center' | 'right',
 |};
 
 export type CustomRender = (
