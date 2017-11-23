@@ -40,7 +40,7 @@ export default class RelativeCanvas {
   canvas: string[] = [];
   width: number;
   height: number;
-  stylizer: (data: string) => string;
+  stylize: () => void;
 
   constructor({
     width,
@@ -53,7 +53,10 @@ export default class RelativeCanvas {
   }) {
     this.width = width || -1;
     this.height = height || -1;
-    this.stylizer = createStylize(style);
+    this.stylize = () =>
+      createStylize(style, { height: this.height, width: this.width })(
+        this.canvas
+      );
   }
 
   clear() {
@@ -99,12 +102,6 @@ export default class RelativeCanvas {
       for (let i = 0; i < length; i++) {
         this.canvas.pop();
       }
-    }
-  }
-
-  stylize() {
-    for (let i = 0; i < this.canvas.length; i++) {
-      this.canvas[i] = this.stylizer(this.canvas[i]);
     }
   }
 

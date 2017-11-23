@@ -1,5 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`nodes/ChunkNode styling adds border 1`] = `
+"┌───────────┐
+│Hello world│
+└───────────┘"
+`;
+
+exports[`nodes/ChunkNode styling adds border 2`] = `
+"╔═══════════╗
+║Hello world║
+╚═══════════╝"
+`;
+
+exports[`nodes/ChunkNode styling adds border 3`] = `"Hello world"`;
+
+exports[`nodes/ChunkNode styling adds border 4`] = `
+"[38;5;196m┌───────────┐[39m
+[38;5;196m│[39mHello world[38;5;196m│[39m
+[38;5;196m└───────────┘[39m"
+`;
+
+exports[`nodes/ChunkNode styling adds border 5`] = `
+"[38;5;196m[48;5;21m┌───────────┐[49m[39m
+[48;5;21m[38;5;196m│[39mHello world[38;5;196m│[39m[49m
+[38;5;196m[48;5;21m└───────────┘[49m[39m"
+`;
+
+exports[`nodes/ChunkNode styling adds border 6`] = `
+"┌─────────────┐
+│Hello world  │
+└─────────────┘"
+`;
+
+exports[`nodes/ChunkNode styling adds border 7`] = `
+"┌─────────────┐
+│Hello world  │
+│             │
+└─────────────┘"
+`;
+
+exports[`nodes/ChunkNode styling adds border 8`] = `
+"┌─────────────┐
+│Hello        │
+└─────────────┘"
+`;
+
 exports[`nodes/ChunkNode styling respects color and background color 1`] = `"[35m[46mHello world[49m[39m"`;
 
 exports[`nodes/ChunkNode styling respects fontStyle 1`] = `"[3mHello world[23m"`;

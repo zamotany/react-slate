@@ -1,18 +1,89 @@
 /* @flow */
 
 import chalk from 'chalk';
+import stripAnsi from 'strip-ansi';
+import sliceAnsi from './sliceAnsi';
+
+const borderStyleChars = {
+  solid: {
+    top: '─',
+    bottom: '─',
+    left: '│',
+    right: '│',
+    topLeft: '┌',
+    topRight: '┐',
+    bottomLeft: '└',
+    bottomRight: '┘',
+  },
+  double: {
+    top: '═',
+    bottom: '═',
+    left: '║',
+    right: '║',
+    topLeft: '╔',
+    topRight: '╗',
+    bottomLeft: '╚',
+    bottomRight: '╝',
+  },
+};
+
+function splitOffsets(name: string, value: string) {
+  const offsets = value.match(/\d+/g);
+  if (!offsets) {
+    return null;
+  }
+
+  const output = {
+    [`${name}Top`]: Number(offsets[0]),
+    [`${name}Right`]: Number(offsets[1]),
+    [`${name}Bottom`]: Number(offsets[2]),
+    [`${name}Left`]: Number(offsets[3]),
+  };
+
+  if (offsets.length === 3) {
+    output[`${name}Left`] = output[`${name}Right`];
+  } else if (offsets.length === 2) {
+    output[`${name}Left`] = output[`${name}Right`];
+    output[`${name}Bottom`] = output[`${name}Top`];
+  } else if (offsets.length === 1) {
+    // eslint-disable-next-line no-multi-assign
+    output[`${name}Left`] = output[`${name}Right`] = output[`${name}Bottom`] =
+      output[`${name}Top`];
+  } else if (offsets.length === 0) {
+    return null;
+  }
+  return output;
+}
+
+function getBorderProps(border: string) {
+  const match = border.match(/(none|solid|double) (.+)/);
+  if (!match) {
+    return null;
+  }
+  const [, style, color] = match;
+  return {
+    borderStyle: style,
+    borderColor: color,
+  };
+}
 
 export function getStyleProps(style: any = {}) {
   const {
     display,
+    margin,
     marginTop,
     marginBottom,
     marginLeft,
     marginRight,
+    padding,
     paddingTop,
     paddingBottom,
     paddingLeft,
     paddingRight,
+    border,
+    borderStyle,
+    borderWidth,
+    borderColor,
     height,
     width,
     position,
@@ -23,14 +94,18 @@ export function getStyleProps(style: any = {}) {
   } = style;
   const inline = display === 'inline';
   return {
-    marginTop: marginTop || 0,
-    marginBottom: marginBottom || 0,
-    marginLeft: marginLeft || 0,
-    marginRight: marginRight || 0,
-    paddingTop: paddingTop || 0,
-    paddingBottom: paddingBottom || 0,
-    paddingLeft: paddingLeft || 0,
-    paddingRight: paddingRight || 0,
+    ...(splitOffsets('margin', margin || '') || {
+      marginTop: marginTop || 0,
+      marginBottom: marginBottom || 0,
+      marginLeft: marginLeft || 0,
+      marginRight: marginRight || 0,
+    }),
+    ...(splitOffsets('padding', padding || '') || {
+      paddingTop: paddingTop || 0,
+      paddingBottom: paddingBottom || 0,
+      paddingLeft: paddingLeft || 0,
+      paddingRight: paddingRight || 0,
+    }),
     height: height || (inline ? 0 : -1),
     width: width || -1,
     inline,
@@ -38,7 +113,13 @@ export function getStyleProps(style: any = {}) {
     x: left || 0,
     y: top || 0,
     z: typeof zIndex === 'number' ? zIndex : 0,
-    stylizeArgs: rest,
+    stylizeArgs: {
+      ...rest,
+      ...(getBorderProps(border || '') || {
+        borderStyle: borderStyle || 'none',
+        borderColor: borderColor || '',
+      }),
+    },
   };
 }
 
@@ -69,12 +150,36 @@ function colorize(enhance, bg: boolean, color?: string) {
   return enhance;
 }
 
-export function createStylize(style: any = {}) {
+function createBorderLine(
+  style: {
+    borderStyle: string,
+    borderColor?: string,
+    backgroundColor?: string,
+  },
+  position: 'top' | 'bottom',
+  width: number
+) {
+  let enhancer = colorize(chalk, false, style.borderColor);
+  enhancer = colorize(enhancer, true, style.backgroundColor);
+  return enhancer(
+    `${
+      borderStyleChars[style.borderStyle][`${position}Left`]
+    }${borderStyleChars[style.borderStyle][position].repeat(width - 2)}${
+      borderStyleChars[style.borderStyle][`${position}Right`]
+    }`
+  );
+}
+
+export function createStylize(
+  style: any,
+  { height, width }: { height: number, width: number }
+) {
   /* eslint-disable no-param-reassign */
 
-  if (!Object.keys(style).length) {
-    return function stylize(text: string) {
-      return text;
+  if (!Object.keys(style || {}).length) {
+    // eslint-disable-next-line no-unused-vars
+    return (canvas: string[]) => {
+      /* NOOP */
     };
   }
 
@@ -107,22 +212,55 @@ export function createStylize(style: any = {}) {
     enhance = enhance.hidden;
   }
 
-  return function stylize(text: string) {
-    if (style.textTransform) {
-      // eslint-disable-next-line default-case
-      switch (style.textTransform) {
-        case 'uppercase':
-          text = text.toUpperCase();
-          break;
-        case 'lowercase':
-          text = text.toLowerCase();
-          break;
-        case 'capitalize':
-          text = capitalize(text);
-          break;
-      }
+  let transform = text => text;
+  if (style.textTransform) {
+    // eslint-disable-next-line default-case
+    switch (style.textTransform) {
+      case 'uppercase':
+        transform = text => text.toUpperCase();
+        break;
+      case 'lowercase':
+        transform = text => text.toLowerCase();
+        break;
+      case 'capitalize':
+        transform = text => capitalize(text);
+        break;
+    }
+  }
+
+  const shouldAddBorder = style.borderStyle && style.borderStyle !== 'none';
+  if (shouldAddBorder) {
+    const _transform = transform;
+    transform = text => {
+      const transformedText = _transform(text);
+      const borderEnhancer = colorize(chalk, false, style.borderColor);
+      return `${borderEnhancer(borderStyleChars[style.borderStyle].left)}${
+        width > 0 ? sliceAnsi(transformedText, 0, width - 2) : transformedText
+      }${borderEnhancer(borderStyleChars[style.borderStyle].right)}`;
+    };
+  }
+
+  return function stylize(canvas: string[]) {
+    for (let i = 0; i < canvas.length; i++) {
+      canvas[i] = enhance(transform(canvas[i]));
     }
 
-    return enhance(text);
+    if (shouldAddBorder && canvas.length) {
+      // At this point canvas should be normalized.
+      // If width is not specified we can use any line's length from canvas.
+      const lineWidth = width > 0 ? width : stripAnsi(canvas[0]).length;
+      canvas.unshift(createBorderLine(style, 'top', lineWidth));
+      // Height is specified we need to remove last 2 lines in order for height to be preserved,
+      // otherwise we can just push it.
+      if (height > 0) {
+        canvas.splice(
+          canvas.length - 2,
+          2,
+          createBorderLine(style, 'bottom', lineWidth)
+        );
+      } else {
+        canvas.push(createBorderLine(style, 'bottom', lineWidth));
+      }
+    }
   };
 }
