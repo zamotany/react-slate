@@ -251,7 +251,6 @@ export function createStylize(
   }
 
   return function stylize(canvas: string[]) {
-    debugger;
     for (let i = 0; i < canvas.length; i++) {
       canvas[i] = enhance(transform(canvas[i]));
     }
