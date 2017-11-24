@@ -46,7 +46,7 @@ describe('utils/RelativeCanvas', () => {
     localCanvas.canvas.push('\0Text1', 'T e x t 2');
     localCanvas.normalize();
 
-    expect(localCanvas.canvas).toEqual(['\0Text1\0\0', 'T e x t ']);
+    expect(localCanvas.canvas).toEqual(['\0Text1  ', 'T e x t ']);
 
     let prev = localCanvas.canvas;
 
@@ -55,7 +55,7 @@ describe('utils/RelativeCanvas', () => {
     localCanvas.normalize();
 
     expect(localCanvas.canvas).toEqual([
-      '\0Text1\0\0',
+      '\0Text1  ',
       'T e x t ',
       '\0'.repeat(8),
       '\0'.repeat(8),
@@ -66,11 +66,7 @@ describe('utils/RelativeCanvas', () => {
     localCanvas.canvas.push(...prev);
     localCanvas.normalize();
 
-    expect(localCanvas.canvas).toEqual([
-      '\0Text1\0',
-      'T e x t',
-      '\0'.repeat(7),
-    ]);
+    expect(localCanvas.canvas).toEqual(['\0Text1 ', 'T e x t', '\0'.repeat(7)]);
   });
 
   it('should stylize canvas', () => {
