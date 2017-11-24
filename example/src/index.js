@@ -27,7 +27,7 @@ switch (process.argv[2]) {
 render(<App />, process.stdout, {
   debug: false,
   renderOptimizations: false,
-  hideCursor: false,
+  hideCursor: true,
   exitOnError: true,
   clearScreenOnExit: false,
   clearScrollbackOnExit: true,

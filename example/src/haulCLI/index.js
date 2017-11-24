@@ -1,55 +1,69 @@
 import React from 'react';
 // eslint-disable-next-line
-import { Text, Endl, Spinner } from 'react-stream-renderer';
+import { Text, Spinner } from 'react-stream-renderer';
 
 import Logo from './components/Logo';
 import Status from './components/Status';
 import Logs from './components/Logs';
 
-function Hr({ style, width, char = '=' }) {
+function Line({ style, width, char = '=', label }) {
   return (
-    <Text style={style} endl>
-      {`${char}`.repeat(width)}
+    <Text style={style}>
+      {`${char.repeat(4)} `}
+      <Text
+        style={{
+          display: 'inline',
+          color: 'white',
+          textTransform: 'uppercase',
+        }}
+      >
+        {label}
+      </Text>
+      {` ${char.repeat(width - label.length - 6)}`}
     </Text>
   );
-}
-
-function CompilerProgress() {
-  return null;
-}
-
-function Shortcuts() {
-  return null;
 }
 
 const width = process.stdout.columns;
 const height = process.stdout.rows;
 
 export default class HaulCLI extends React.Component {
+  state = {
+    messages: [],
+  };
+
+  componentDidMount() {
+    setInterval(() => {
+      this.setState({
+        messages: this.state.messages.concat({
+          timestamp: Date.now(),
+          text: `Test log ${Date.now()}`,
+        }),
+      });
+    }, 1000);
+  }
+
   render() {
+    const spinner = <Spinner interval={200} />;
     return (
       <Text>
         <Logo width={width} />
-        <Endl times={2} />
-        <Hr width={width} style={styles.separator} />
+        <Line width={width} style={styles.separator} label="status" />
         <Status
           compilerState={
-            <Text>
-              <Spinner interval={400} />
+            <Text style={{ display: 'inline' }}>
+              {spinner}
               {'  building  '}
-              <Spinner />
+              {spinner}
             </Text>
           }
           serverAddress="http://localhost:8081"
+          width={width}
         />
-        <CompilerProgress />
-        <Hr width={width} style={styles.separator} />
-        <Logs
-          maxHeight={height - 20}
-          messages={[{ timestamp: Date.now(), text: 'Test log' }]}
-        />
-        <Hr width={width} style={styles.separator} />
-        <Shortcuts />
+        <Line width={width} style={styles.separator} label="Logs" />
+        <Logs height={height - 20} messages={this.state.messages} />
+        <Line width={width} style={styles.separator} label="shortcuts" />
+        <Text style={{ textTransform: 'uppercase' }}>todo</Text>
       </Text>
     );
   }

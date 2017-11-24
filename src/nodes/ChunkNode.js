@@ -95,10 +95,6 @@ export default class ChunkNode {
       } else {
         relativeCanvas.appendTextNode(child);
       }
-    } else {
-      // If subtree hasn't changed, write memoized text
-      // to container.
-      this.container.write(this.memoizedText);
     }
 
     relativeCanvas.addPaddings({
