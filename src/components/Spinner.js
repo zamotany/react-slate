@@ -4,13 +4,14 @@ import React from 'react';
 import cliSpinners from 'cli-spinners';
 // $FlowFixMe
 import shallowEqual from 'fbjs/lib/shallowEqual';
-import { Chunk } from './';
-import throwError from '../utils/throwError';
+import Text from './Text';
+import { throwComponentError } from '../utils/throwError';
 
 type Props = {
-  type?: string, // eslint-disable-line react/no-unused-prop-types
-  interval?: number, // eslint-disable-line react/no-unused-prop-types
-  frames?: string[], // eslint-disable-line react/no-unused-prop-types
+  type?: string,
+  interval?: number,
+  frames?: string[],
+  style?: any,
 };
 type State = {
   frame: number,
@@ -18,7 +19,7 @@ type State = {
 
 export default class Spinner extends React.Component<Props, State> {
   intervalId: number = -1;
-  currentFrames: string[] = [''];
+  currentFrames: string[] = [' '];
 
   constructor(props: Props) {
     super(props);
@@ -33,12 +34,12 @@ export default class Spinner extends React.Component<Props, State> {
     const { type = 'dots', interval, frames } = props;
 
     if (typeof interval === 'number' && interval <= 0) {
-      throwError('Interval property must be grater than 0', 'Spinner');
+      throwComponentError('Interval property must be grater than 0', 'Spinner');
     }
 
     if (frames) {
       if (!interval) {
-        throwError(
+        throwComponentError(
           'Interval property must be specified when using custom frames',
           'Spinner'
         );
@@ -86,6 +87,7 @@ export default class Spinner extends React.Component<Props, State> {
   }
 
   render() {
-    return <Chunk>{this.currentFrames[this.state.frame]}</Chunk>;
+    const { type, interval, frames, ...rest } = this.props;
+    return <Text {...rest}>{this.currentFrames[this.state.frame]}</Text>;
   }
 }

@@ -1,66 +1,99 @@
 /* @flow */
 
-import type { Props } from '../types';
+/* eslint-disable no-param-reassign */
+
+import type { Props, LayoutProps, AbsoluteProps, CustomRender } from '../types';
 import TextNode from './TextNode';
 import ContainerNode from './ContainerNode';
+import AbsoluteCanvas from '../utils/AbsoluteCanvas';
+import RelativeCanvas from '../utils/RelativeCanvas';
+
+type ChunkNodePros = Props &
+  LayoutProps &
+  AbsoluteProps & {
+    children: any,
+    stylizeArgs: any,
+    render?: CustomRender,
+  };
 
 export default class ChunkNode {
   static componentName = 'CHUNK_NODE';
 
-  children = [];
-  props: Props;
+  props: ChunkNodePros;
   container: ContainerNode;
   parent: ChunkNode | ContainerNode;
-  hasChanged: boolean = true;
-  memoizedText: string;
+  children = [];
+  // previousPosition: Position;
+  // hasChildrenChanged: boolean = true;
+  // hasParentChanged: boolean = false;
+  // memoizedElements: Element[] = [];
 
-  constructor(container: ContainerNode, props: Props) {
+  constructor(container: ContainerNode, props: ChunkNodePros) {
     this.container = container;
     this.props = props;
   }
 
+  // hasPositionChanged() {
+  //   return (
+  //     this.props.x !== this.previousPosition.x ||
+  //     this.props.y !== this.previousPosition.y
+  //   );
+  // }
+
   invalidateParent() {
-    // Invalidate the whole path from this node up to the top.
-    this.hasChanged = true;
-    this.parent.invalidateParent();
+    this;
+    // // Invalidate the whole path from this node up to the top.
+    // this.hasChildrenChanged = true;
+    // this.parent.invalidateParent();
   }
 
-  appendChild(child: ChunkNode | TextNode, isInitial?: boolean = false) {
-    if (!isInitial) {
-      this.invalidateParent();
-    }
-
-    // eslint-disable-next-line no-param-reassign
+  prepareChild(child: ChunkNode | TextNode) {
     child.parent = this;
+  }
+
+  appendChild(child: ChunkNode | TextNode) {
+    this.invalidateParent();
+    this.appendInitialChild(child);
+  }
+
+  appendInitialChild(child: ChunkNode | TextNode) {
+    this.prepareChild(child);
     this.children.push(child);
+  }
+
+  prependChild(child: ChunkNode | TextNode, childBefore: ChunkNode | TextNode) {
+    this.invalidateParent();
+    this.prepareChild(child);
+    const index = this.children.indexOf(childBefore);
+    this.children.splice(index, 0, child);
   }
 
   removeChild(child: ChunkNode | TextNode) {
     this.invalidateParent();
     const index = this.children.indexOf(child);
-    this.children.slice(index, 1);
+    this.children.splice(index, 1);
   }
 
-  render() {
-    if (this.hasChanged) {
-      // At least one of the children has changed.
+  render(absoluteCanvas: AbsoluteCanvas) {
+    const relativeCanvas = new RelativeCanvas({
+      width: this.props.width,
+      height: this.props.height,
+      style: this.props.stylizeArgs,
+    });
 
-      this.memoizedText = '';
-      this.hasChanged = false;
+    if (typeof this.props.render === 'function') {
+      return this.props.render(this, relativeCanvas, absoluteCanvas);
+    }
 
-      for (const child of this.children) {
-        if (typeof child.render === 'function') {
-          // Child is a ChunkNode, which means it's
-          // a nested subtree. In this case, move responsibility
-          // of writing to the container to this subtree and
-          // memoize the rendered text.
-          this.memoizedText += child.render();
-        } else {
-          // Child is a TextNode, so we can just add it
-          // to the memoized test and write it to the container.
-          this.memoizedText += child.props.children;
-          this.container.write(child.props.children);
-        }
+    for (let childIndex = 0; childIndex < this.children.length; childIndex++) {
+      const child = this.children[childIndex];
+
+      if (child instanceof ChunkNode) {
+        relativeCanvas.merge(child.render(absoluteCanvas), {
+          isInline: Boolean(child.props.inline),
+        });
+      } else {
+        relativeCanvas.appendTextNode(child);
       }
     } else {
       // If subtree hasn't changed, write memoized text
@@ -68,8 +101,32 @@ export default class ChunkNode {
       this.container.write(this.memoizedText);
     }
 
-    // Return memoized text (old or freshly created new one),
-    // so that the parent can memoize it's subtree.
-    return this.memoizedText;
+    relativeCanvas.addPaddings({
+      top: this.props.paddingTop,
+      bottom: this.props.paddingBottom,
+      left: this.props.paddingLeft,
+      right: this.props.paddingRight,
+    });
+
+    relativeCanvas.normalize();
+    relativeCanvas.stylize();
+
+    relativeCanvas.addMargins({
+      top: this.props.marginTop,
+      bottom: this.props.marginBottom,
+      left: this.props.marginLeft,
+      right: this.props.marginRight,
+    });
+
+    if (this.props.fixed) {
+      absoluteCanvas.appendTree(relativeCanvas.canvas, {
+        x: this.props.x,
+        y: this.props.y,
+        z: this.props.z,
+      });
+      relativeCanvas.clear();
+    }
+
+    return relativeCanvas;
   }
 }

@@ -4,11 +4,15 @@ import { render, Chunk, Endl, Text } from 'react-stream-renderer';
 
 import Dev from './dev';
 import ListViewer from './listViewer';
+import Box from './box';
 import HaulCLI from './haulCLI';
 
 let App;
 
 switch (process.argv[2]) {
+  case 'box':
+    App = Box;
+    break;
   case 'dev':
     App = Dev;
     break;
@@ -25,4 +29,6 @@ render(<App />, process.stdout, {
   renderOptimizations: false,
   hideCursor: false,
   exitOnError: true,
+  clearScreenOnExit: false,
+  clearScrollbackOnExit: true,
 });

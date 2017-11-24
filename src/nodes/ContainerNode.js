@@ -2,14 +2,19 @@
 
 import readline from 'readline';
 import enhanceConsole from '../effects/enhanceConsole';
-import hideCursor from '../effects/hideCursor';
+import {
+  hideCursor,
+  clearOnExit,
+  clearScrollbackOnExit,
+} from '../effects/terminal';
 import ChunkNode from './ChunkNode';
+import AbsoluteCanvas from '../utils/AbsoluteCanvas';
 
 type Options = {
-  // @TODO: add clearOnExit option
-  renderOptimizations: boolean,
   debug: boolean,
   hideCursor: boolean,
+  clearScreenOnExit: boolean,
+  clearScrollbackOnExit: boolean,
   exitOnWarning: boolean,
   exitOnError: boolean,
 };
@@ -20,17 +25,25 @@ export default class ContainerNode {
   backBuffer: string = '';
   stream: any = null;
   options: Options;
+  canvasSize: { width: number, height: number };
 
   constructor(stream: any, opts?: Options) {
     this.options = {
-      renderOptimizations: false,
       debug: false,
-      hideCursor: false,
       exitOnError: false,
       exitOnWarning: false,
+      hideCursor: false,
+      clearScreenOnExit: false,
+      clearScrollbackOnExit: false,
       ...(opts || {}),
     };
     this.stream = stream;
+
+    // @TODO: handle resize
+    this.canvasSize = {
+      width: this.stream.columns,
+      height: this.stream.rows - 1,
+    };
 
     enhanceConsole({
       exitOnError: this.options.exitOnError,
@@ -39,6 +52,14 @@ export default class ContainerNode {
 
     if (this.options.hideCursor) {
       hideCursor(this.stream);
+    }
+
+    if (this.options.clearScreenOnExit) {
+      clearOnExit(this.stream);
+    }
+
+    if (this.options.clearScrollbackOnExit) {
+      clearScrollbackOnExit(this.stream);
     }
   }
 
@@ -52,71 +73,36 @@ export default class ContainerNode {
     this.children.push(child);
   }
 
-  write(data: string) {
-    this.frontBuffer += data;
+  prependChild(child: ChunkNode, childBefore: ChunkNode) {
+    // eslint-disable-next-line no-param-reassign
+    child.parent = this;
+    const index = this.children.indexOf(childBefore);
+    this.children.splice(index, 0, child);
   }
 
-  diffBuffers() {
-    if (!this.options.renderOptimizations || !this.backBuffer.length) {
-      return 0;
-    }
-
-    const backBuffer = this.backBuffer.split('\n');
-    const frontBuffer = this.frontBuffer.split('\n');
-
-    let index = 0;
-    for (const frontLine of frontBuffer) {
-      if (backBuffer[index] !== frontLine) {
-        break;
-      }
-      index++;
-    }
-
-    return index;
-  }
-
-  withDebugInfo(body: string, { splitPoint }: { splitPoint: number }) {
-    let debugInfo = `${'='.repeat(10)} DEBUG ${'='.repeat(10)}\n`;
-    debugInfo += `  frontBuffer.length: ${this.backBuffer.length}\n`;
-    debugInfo += `  backBuffer.length: ${this.frontBuffer.length}\n`;
-    debugInfo += `  renderOptimizations: ${this.options.renderOptimizations
-      ? 'enabled'
-      : 'disabled'}\n`;
-    debugInfo += `  frontBuffer splitPoint: ${splitPoint}\n`;
-    return `${body}\n\n${debugInfo}`;
-  }
-
-  getOutput(splitPoint?: number) {
-    let body;
-    if (splitPoint) {
-      body = `${this.frontBuffer
-        .split('\n')
-        .slice(splitPoint)
-        .join('\n')}\n`;
-    } else {
-      body = `${this.frontBuffer}\n`;
-    }
-
-    if (this.options.debug) {
-      return this.withDebugInfo(body, { splitPoint: splitPoint || 0 });
-    }
-    return body;
+  removeChild(child: ChunkNode) {
+    const index = this.children.indexOf(child);
+    this.children.splice(index, 1);
   }
 
   flush() {
-    this.backBuffer = this.frontBuffer.split('\n').join('\n');
-    this.frontBuffer = '';
+    // @TODO: this buffer/optimization/slitting logic needs to be refactored
+    // @TODO: draw damage to screen only instead of everything
+    const canvas = new AbsoluteCanvas(this.canvasSize);
+    this.frontBuffer = canvas
+      .flatten(
+        this.children.reduce(
+          (acc, child) =>
+            acc
+              ? acc.merge(child.render(canvas), { isInline: false })
+              : child.render(canvas),
+          null
+        ).canvas
+      )
+      .join('\n');
 
-    this.children.forEach(child => child.render());
-
-    if (this.backBuffer === this.frontBuffer) {
-      return;
-    }
-
-    const splitPoint = this.diffBuffers();
-
-    readline.cursorTo(this.stream, 0, splitPoint);
+    readline.cursorTo(this.stream, 0, 0);
     readline.clearScreenDown(this.stream);
-    this.stream.write(this.getOutput(splitPoint));
+    this.stream.write(this.frontBuffer);
   }
 }

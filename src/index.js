@@ -1,9 +1,21 @@
 /* @flow */
 
 // $FlowFixMe
-import { ReactFiberReconciler } from 'react-dom';
+import ReactFiberReconciler from 'react-reconciler';
 import hostConfig from './utils/hostConfig';
 import ContainerNode from './nodes/ContainerNode';
+import clearCallbacksOnExit from './effects/clearCallbacksOnExit';
+import { throwError } from './utils/throwError';
+
+process.on('uncaughtException', error => {
+  throwError(error);
+});
+
+process.on('unhandledRejection', reason => {
+  throwError(new Error(`Unhandled rejection: ${reason}`));
+});
+
+clearCallbacksOnExit();
 
 const NodeStreamReconciler = ReactFiberReconciler(hostConfig);
 
