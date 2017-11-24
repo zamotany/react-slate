@@ -10,10 +10,12 @@ export default callOnce(() => {
     const clear = global[`clear${type}`];
 
     global[`set${type}`] = (...args) => {
+      const id = set(...args);
       callbacks.push({
         clearFunction: `clear${type}`,
-        id: set(...args),
+        id,
       });
+      return id;
     };
 
     global[`clear${type}`] = (...args) => {
