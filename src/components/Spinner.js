@@ -62,9 +62,7 @@ export default class Spinner extends React.Component<Props, State> {
   initializeFramesAndStartCounter(props: Props) {
     const { frames, interval } = this.getAnimationFromProps(props);
     this.currentFrames = frames;
-    if (this.intervalId > 0) {
-      clearInterval(this.intervalId);
-    }
+    clearInterval(this.intervalId);
     this.intervalId = setInterval(() => {
       const frame =
         this.state.frame + 1 >= frames.length ? 0 : this.state.frame + 1;
@@ -88,6 +86,10 @@ export default class Spinner extends React.Component<Props, State> {
 
   render() {
     const { type, interval, frames, ...rest } = this.props;
-    return <Text {...rest}>{this.currentFrames[this.state.frame]}</Text>;
+    return (
+      <Text {...{ ...rest, style: { display: 'inline', ...rest.style } }}>
+        {this.currentFrames[this.state.frame]}
+      </Text>
+    );
   }
 }
