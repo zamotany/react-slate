@@ -38,6 +38,7 @@ type Offset = {
 
 export default class RelativeCanvas {
   canvas: string[] = [];
+  mergeState: { wasInlined: boolean } = { wasInlined: true };
   width: number;
   height: number;
   stylize: () => void;
@@ -107,6 +108,9 @@ export default class RelativeCanvas {
 
   appendTextNode(node: TextNode) {
     const hasNewLine = node.props.children.indexOf('\n') > -1;
+    if (!this.mergeState.wasInlined) {
+      this.canvas.push('');
+    }
     if (!hasNewLine) {
       appendToLastLine(this.canvas, node.props.children);
     } else {
@@ -124,15 +128,14 @@ export default class RelativeCanvas {
     nestedRelativeCanvas: RelativeCanvas,
     { isInline }: { isInline: boolean }
   ) {
+    const shouldInline = this.mergeState.wasInlined && isInline;
+    this.mergeState.wasInlined = isInline;
     nestedRelativeCanvas.canvas.forEach((text, i) => {
-      if (i === 0) {
+      if (i === 0 && shouldInline) {
         appendToLastLine(this.canvas, text);
       } else {
         this.canvas.push(text);
       }
     });
-    if (!isInline) {
-      this.canvas.push('');
-    }
   }
 }

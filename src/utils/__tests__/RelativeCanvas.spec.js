@@ -85,12 +85,17 @@ describe('utils/RelativeCanvas', () => {
 
   it('should merge 2 RelativeCanvases', () => {
     const localCanvas = new RelativeCanvas({ width: -1, height: -1 });
-    localCanvas.canvas.push('a', 'b', '');
+    localCanvas.canvas.push('a', 'b');
     const nestedCanvas = new RelativeCanvas({ width: -1, height: -1 });
     nestedCanvas.canvas.push('c', 'd');
-    localCanvas.merge(nestedCanvas, { isInline: false });
 
-    expect(localCanvas.canvas).toEqual(['a', 'b', 'c', 'd', '']);
+    localCanvas.merge(nestedCanvas, { isInline: false });
+    expect(localCanvas.canvas).toEqual(['a', 'b', 'c', 'd']);
+
+    localCanvas.canvas = ['a', 'b'];
+    localCanvas.mergeState.wasInlined = true;
+    localCanvas.merge(nestedCanvas, { isInline: true });
+    expect(localCanvas.canvas).toEqual(['a', 'bc', 'd']);
   });
 
   it('should append TextNode', () => {
