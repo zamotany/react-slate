@@ -109,34 +109,42 @@ describe('nodes/ChunkNode', () => {
 
     it('should render ChunkNodes one below another', () => {
       // <Text>
-      //   <Text>Text1</Text>
-      //   <Text>Text2</Text>
+      //   <Text>
+      //     <Text>Text1</Text>
+      //     <Text>Text2</Text>
+      //   </Text>
+      //   <Text>Text3</Text>
       // </Text>
       const container = (({}: any): ContainerNode);
       // $FlowFixMe
       const rootNode = new ChunkNode(container, getNodeProps());
       rootNode.appendInitialChild(
         withChildren(new ChunkNode(container, getNodeProps()), [
-          new TextNode(container, { children: 'Text1' }),
+          withChildren(new ChunkNode(container, getNodeProps()), [
+            new TextNode(container, { children: 'Text1' }),
+          ]),
+          withChildren(new ChunkNode(container, getNodeProps()), [
+            new TextNode(container, { children: 'Text2' }),
+          ]),
         ])
       );
       rootNode.appendInitialChild(
         withChildren(new ChunkNode(container, getNodeProps()), [
-          new TextNode(container, { children: 'Text2' }),
+          new TextNode(container, { children: 'Text3' }),
         ])
       );
 
       expect(rootNode.render(getCanvasMock()).canvas).toEqual([
         'Text1',
         'Text2',
-        '',
+        'Text3',
       ]);
     });
 
     it('should render TextNode and inlined ChunkNodes in the same line', () => {
       // <Text>
       //   Text1
-      //   <Text>Text2</Text>
+      //   <Text inline>Text2</Text>
       // </Text>
       const container = (({}: any): ContainerNode);
       // $FlowFixMe
@@ -242,8 +250,9 @@ describe('nodes/ChunkNode', () => {
         '',
         '',
         '\0\0Text1\0\0',
+        '\0'.repeat(4),
         '\0\0\0Text2\0\0\0',
-        '\0\0\0\0',
+        '\0'.repeat(4),
         '\0\0Text3\0\0',
         '',
       ]);
