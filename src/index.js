@@ -53,6 +53,7 @@ export function render(element: any, stream: any, options?: Options = {}) {
   }
 
   const container = new ContainerNode(stream);
+  const NodeStreamReconciler = ReactFiberReconciler(hostConfig(container));
   const node = NodeStreamReconciler.createContainer(container);
   NodeStreamReconciler.updateContainer(element, node, null);
 }

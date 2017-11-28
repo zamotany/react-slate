@@ -21,9 +21,7 @@ const NOOP = () => {};
 const RETURN_EMPTY_OBJ = () => emptyObject;
 const NO = () => false;
 
-let containerInstance: ContainerNode;
-
-export default {
+export default (containerInstance: ContainerNode) => ({
   // Create instance of host environment specific node or instance of a component.
   createInstance(
     type: string | Function,
@@ -79,9 +77,6 @@ export default {
     },
 
     appendChildToContainer(container: ContainerNode, child: any) {
-      if (!containerInstance) {
-        containerInstance = container;
-      }
       container.appendChild(child);
     },
 
@@ -126,4 +121,4 @@ export default {
   now: NOOP,
 
   useSyncScheduling: true,
-};
+});
