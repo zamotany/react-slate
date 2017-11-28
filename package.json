@@ -18,7 +18,7 @@
   "scripts": {
     "build": "babel src --out-dir build --ignore **/__tests__/**",
     "build:clean": "rimraf build",
-    "build:watch": "yarn run build --watch",
+    "build:watch": "concurrently --names \"lib,example\" \"yarn run build --watch\" \"cd example && yarn run build --watch\"",
     "prepublish": "yarn run build",
     "postinstall": "yarn run bootstrap:example",
     "bootstrap:example": "yarn link && cd example && yarn && cd ..",
@@ -51,6 +51,7 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "concurrently": "^3.5.1",
     "cross-env": "^5.1.1",
     "eslint": "^4.6.1",
     "eslint-config-callstack-io": "^0.4.1",

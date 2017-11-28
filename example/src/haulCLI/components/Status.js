@@ -31,8 +31,7 @@ export default function Status({ compilerState, serverAddress, width }) {
 
 const styles = {
   container: {
-    padding: '1 1 1 0',
-    height: 5,
+    padding: '1',
   },
   progressContainer: {
     position: 'fixed',
