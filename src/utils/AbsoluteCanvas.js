@@ -4,6 +4,7 @@
 
 import stripAnsi from 'strip-ansi';
 import AnsiParser from 'ansi-parser';
+import sliceAnsi from './sliceAnsi';
 
 type CanvasSize = {
   width: number,
@@ -72,10 +73,11 @@ export default class AbsoluteCanvas {
   ) {
     const layer = this.atLayer(z);
     for (let i = 0; i < nestedTree.length && y + i < layer.length; i++) {
-      layer[y + i] = mergeAnsiStrings(
-        layer[y + i],
-        `${'\0'.repeat(x)}${nestedTree[i]}`
-      ).substr(0, this.size.width);
+      layer[y + i] = sliceAnsi(
+        mergeAnsiStrings(layer[y + i], `${'\0'.repeat(x)}${nestedTree[i]}`),
+        0,
+        this.size.width
+      );
     }
   }
 
