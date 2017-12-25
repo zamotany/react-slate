@@ -5,6 +5,7 @@
 import stripAnsi from 'strip-ansi';
 import AnsiParser from 'ansi-parser';
 import sliceAnsi from './sliceAnsi';
+import stringifyStyledAnsiChars from './stringifyStyledAnsiChars';
 
 type CanvasSize = {
   width: number,
@@ -34,7 +35,7 @@ function mergeAnsiStrings(bottomString: string, topString: string) {
     output.push(char);
   }
 
-  return AnsiParser.stringify(output).replace(/\u001b\[0m$/, '');
+  return stringifyStyledAnsiChars(output);
 }
 
 export default class AbsoluteCanvas {
