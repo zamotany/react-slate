@@ -5,6 +5,7 @@ import { render, Chunk, Endl, Text } from 'react-stream-renderer';
 import Dev from './dev';
 import ListViewer from './listViewer';
 import Box from './box';
+import HaulCLI from './haulCLI';
 
 let App;
 
@@ -14,6 +15,9 @@ switch (process.argv[2]) {
     break;
   case 'dev':
     App = Dev;
+    break;
+  case 'haul-cli':
+    App = HaulCLI;
     break;
   case 'list-viewer':
   default:
