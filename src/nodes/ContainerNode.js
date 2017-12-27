@@ -9,6 +9,7 @@ import {
 } from '../effects/terminal';
 import ChunkNode from './ChunkNode';
 import AbsoluteCanvas from '../utils/AbsoluteCanvas';
+import getBufferDiff from '../utils/getBufferDiff';
 
 type Options = {
   debug: boolean,
@@ -21,8 +22,8 @@ type Options = {
 
 export default class ContainerNode {
   children: ChunkNode[] = [];
-  frontBuffer: string = '';
-  backBuffer: string = '';
+  frontBuffer: string[] = [];
+  backBuffer: string[] = [];
   stream: any = null;
   options: Options;
   canvasSize: { width: number, height: number };
@@ -86,23 +87,29 @@ export default class ContainerNode {
   }
 
   flush() {
-    // @TODO: this buffer/optimization/slitting logic needs to be refactored
-    // @TODO: draw damage to screen only instead of everything
-    const canvas = new AbsoluteCanvas(this.canvasSize);
-    this.frontBuffer = canvas
-      .flatten(
-        this.children.reduce(
-          (acc, child) =>
-            acc
-              ? acc.merge(child.render(canvas), { isInline: false })
-              : child.render(canvas),
-          null
-        ).canvas
-      )
-      .join('\n');
+    this.backBuffer = this.frontBuffer;
 
-    readline.cursorTo(this.stream, 0, 0);
-    readline.clearScreenDown(this.stream);
-    this.stream.write(this.frontBuffer);
+    const canvas = new AbsoluteCanvas(this.canvasSize);
+    this.frontBuffer = canvas.flatten(
+      this.children.reduce(
+        (acc, child) =>
+          acc
+            ? acc.merge(child.render(canvas), { isInline: false })
+            : child.render(canvas),
+        null
+      ).canvas
+    );
+
+    if (this.backBuffer.length !== this.frontBuffer.length) {
+      readline.cursorTo(this.stream, 0, 0);
+      readline.clearScreenDown(this.stream);
+      this.stream.write(this.frontBuffer.join('\n'));
+    } else {
+      const damages = getBufferDiff(this.backBuffer, this.frontBuffer);
+      damages.forEach(damage => {
+        readline.cursorTo(this.stream, damage.x, damage.y);
+        this.stream.write(damage.content);
+      });
+    }
   }
 }
