@@ -9,19 +9,20 @@ const RESET = '\u001b[0m';
 
 export default function stringifyStyledAnsiChars(chars: StyledChar[]): string {
   let output = '';
-  let lastStyle = null;
+  let lastStyle = '';
 
   for (let i = 0; i < chars.length; ++i) {
     const char = chars[i];
     if (char) {
       const { style, content } = char;
       let escapeCode = '';
+      const hasStyleChanged = style !== lastStyle;
 
-      if (style !== lastStyle && style === '') {
+      if (hasStyleChanged && style === '') {
         escapeCode = RESET;
-        lastStyle = null;
-      } else if (style !== lastStyle) {
-        escapeCode = `${RESET}${style}`;
+        lastStyle = '';
+      } else if (hasStyleChanged) {
+        escapeCode = `${lastStyle !== '' ? RESET : ''}${style}`;
         lastStyle = style;
       }
 
@@ -29,5 +30,5 @@ export default function stringifyStyledAnsiChars(chars: StyledChar[]): string {
     }
   }
 
-  return output;
+  return `${output}${RESET}`;
 }
