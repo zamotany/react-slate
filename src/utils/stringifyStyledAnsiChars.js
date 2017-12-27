@@ -10,6 +10,7 @@ const RESET = '\u001b[0m';
 export default function stringifyStyledAnsiChars(chars: StyledChar[]): string {
   let output = '';
   let lastStyle = '';
+  let needsTrailingReset = false;
 
   for (let i = 0; i < chars.length; ++i) {
     const char = chars[i];
@@ -24,11 +25,12 @@ export default function stringifyStyledAnsiChars(chars: StyledChar[]): string {
       } else if (hasStyleChanged) {
         escapeCode = `${lastStyle !== '' ? RESET : ''}${style}`;
         lastStyle = style;
+        needsTrailingReset = true;
       }
 
       output += `${escapeCode}${content}`;
     }
   }
 
-  return `${output}${RESET}`;
+  return `${output}${needsTrailingReset ? RESET : ''}`;
 }
