@@ -9,9 +9,9 @@ import {
 import { onExit } from './utils';
 import { hasThrown } from '../utils/throwError';
 
-export function clearOnExit(stream: any) {
+export function clearOnExit(stream: any, forceClear?: boolean = false) {
   onExit(() => {
-    if (!hasThrown()) {
+    if (!hasThrown() || forceClear) {
       readline.cursorTo(stream, 0, 0);
       readline.clearScreenDown(stream);
     }
@@ -28,9 +28,12 @@ export function hideCursor(stream: any) {
   onExit(restoreCursor);
 }
 
-export function clearScrollbackOnExit(stream: any) {
+export function clearScrollbackOnExit(
+  stream: any,
+  forceClear?: boolean = false
+) {
   onExit(() => {
-    if (!hasThrown()) {
+    if (!hasThrown() || forceClear) {
       stream.write(CLEAR_SCROLL_BACK);
     }
   });
