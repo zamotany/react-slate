@@ -1,6 +1,6 @@
 /* @flow */
 
-import chalk from 'chalk';
+import { exit } from '../effects/utils';
 
 let _hasThrown = false;
 
@@ -14,22 +14,12 @@ export function throwComponentError(
 ) {
   _hasThrown = true;
   const message = `Error: ${description}\n    in ${componentName}`;
-  if (console.error.raw) {
-    console.error.raw(chalk.red(message));
-  } else {
-    console.error(message);
-  }
-  throw new Error(message);
+  console.error(message);
+  exit(1);
 }
 
-export function throwError(error: Error, forceThrow: boolean = false) {
+export function throwError(error: Error) {
   _hasThrown = true;
-  if (console.error.raw) {
-    console.error.raw(chalk.red(error.stack));
-  } else {
-    console.error(error.stack);
-  }
-  if (forceThrow) {
-    throw error;
-  }
+  console.error(error);
+  exit(1);
 }

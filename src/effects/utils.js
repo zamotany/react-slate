@@ -1,8 +1,11 @@
 /* @flow */
 
+const onExitCallbacks = [];
+
 // eslint-disable-next-line
 export function onExit(cb: Function) {
   const exitCb = callOnce(cb);
+  onExitCallbacks.push(exitCb);
   process.on('exit', exitCb);
   process.on('SIGINT', exitCb);
   process.on('uncaughtException', exitCb);
@@ -16,4 +19,11 @@ export function callOnce(cb: Function) {
       cb(...args);
     }
   };
+}
+
+export function exit(code?: number = 0) {
+  debugger; // eslint-disable-line
+  onExitCallbacks.forEach(cb => cb(code));
+  // $FlowFixMe
+  process._exit(code);
 }
