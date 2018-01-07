@@ -6,7 +6,7 @@ import ContainerNode from './nodes/ContainerNode';
 import hostConfig from './utils/hostConfig';
 import { throwError } from './utils/throwError';
 import clearCallbacksOnExit from './effects/clearCallbacksOnExit';
-import enhanceConsole from './effects/enhanceConsole';
+import overwriteConsole from './effects/overwriteConsole';
 import {
   hideCursor,
   clearOnExit,
@@ -32,12 +32,17 @@ type Options = {
   clearScrollbackOnExit?: boolean,
   exitOnWarning?: boolean,
   exitOnError?: boolean,
+  outStream?: any,
+  errStream?: any,
 };
 
 export function render(element: any, stream: any, options?: Options = {}) {
-  enhanceConsole({
+  // Redirect console output to specified streams or files.
+  overwriteConsole({
     exitOnError: Boolean(options.exitOnError),
     exitOnWarning: Boolean(options.exitOnWarning),
+    outStream: options.outStream,
+    errStream: options.errStream,
   });
 
   if (options.hideCursor) {
