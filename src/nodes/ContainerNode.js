@@ -1,43 +1,18 @@
 /* @flow */
 
 import readline from 'readline';
-import enhanceConsole from '../effects/enhanceConsole';
-import {
-  hideCursor,
-  clearOnExit,
-  clearScrollbackOnExit,
-} from '../effects/terminal';
 import ChunkNode from './ChunkNode';
 import AbsoluteCanvas from '../utils/AbsoluteCanvas';
 import getBufferDiff from '../utils/getBufferDiff';
-
-type Options = {
-  debug: boolean,
-  hideCursor: boolean,
-  clearScreenOnExit: boolean,
-  clearScrollbackOnExit: boolean,
-  exitOnWarning: boolean,
-  exitOnError: boolean,
-};
 
 export default class ContainerNode {
   children: ChunkNode[] = [];
   frontBuffer: string[] = [];
   backBuffer: string[] = [];
   stream: any = null;
-  options: Options;
   canvasSize: { width: number, height: number };
 
-  constructor(stream: any, opts?: Options) {
-    this.options = {
-      debug: false,
-      exitOnError: false,
-      exitOnWarning: false,
-      hideCursor: false,
-      clearScreenOnExit: false,
-      clearScrollbackOnExit: false,
-      ...(opts || {}),
-    };
+  constructor(stream: any) {
     this.stream = stream;
 
     // @TODO: handle resize
@@ -45,23 +20,6 @@ export default class ContainerNode {
       width: this.stream.columns,
       height: this.stream.rows - 1,
     };
-
-    enhanceConsole({
-      exitOnError: this.options.exitOnError,
-      exitOnWarning: this.options.exitOnWarning,
-    });
-
-    if (this.options.hideCursor) {
-      hideCursor(this.stream);
-    }
-
-    if (this.options.clearScreenOnExit) {
-      clearOnExit(this.stream);
-    }
-
-    if (this.options.clearScrollbackOnExit) {
-      clearScrollbackOnExit(this.stream);
-    }
   }
 
   invalidateParent = () => {
