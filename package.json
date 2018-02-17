@@ -1,6 +1,6 @@
 {
   "name": "react-stream-renderer",
-  "version": "0.0.0",
+  "version": "0.1.1",
   "description": "",
   "license": "MIT",
   "repository": "github:zamotany/react-stream-renderer",
@@ -9,8 +9,8 @@
     "email": "pawel.trysla@gmail.com"
   },
   "files": [
-    "build",
-    "scripts"
+    "/build",
+    "index.js"
   ],
   "engines": {
     "node": ">=6"
@@ -20,7 +20,7 @@
     "build:clean": "rimraf build",
     "build:watch": "concurrently --names \"lib,example\" \"yarn run build --watch\" \"cd example && yarn run build --watch\"",
     "prepublish": "yarn run build",
-    "postinstall": "yarn run bootstrap:example",
+    "prepare": "yarn run bootstrap:example",
     "bootstrap:example": "yarn link && cd example && yarn && cd ..",
     "flow": "flow",
     "lint": "eslint .",
