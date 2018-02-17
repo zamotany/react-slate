@@ -69,5 +69,8 @@ export default class ContainerNode {
         this.stream.write(damage.content);
       });
     }
+    // Reset cursor position, so when exiting command prompt will be at the bottom
+    // not somewhere in the middle.
+    readline.cursorTo(this.stream, 0, this.canvasSize.height + 1);
   }
 }
