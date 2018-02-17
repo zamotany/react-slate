@@ -1,12 +1,13 @@
 # react-stream-renderer
 
+[![Version][version-badge]][package]
 [![Build Status][build-badge]][build]
 [![MIT License][license-badge]][license]
 
 ## Install
 
 ```bash
-yarn add https://github.com/zamotany/react-stream-renderer.git
+yarn add react-stream-renderer
 ```
 
 ## Usage
@@ -272,3 +273,5 @@ type Style = {|
 [build]: https://circleci.com/gh/zamotany/react-stream-renderer
 [license-badge]: https://img.shields.io/npm/l/linaria.svg?style=flat-square
 [license]: https://opensource.org/licenses/MIT
+[version-badge]: https://img.shields.io/npm/v/react-stream-renderer.svg?style=flat-square
+[package]: https://www.npmjs.com/package/react-stream-renderer
