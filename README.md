@@ -4,6 +4,10 @@
 [![Build Status][build-badge]][build]
 [![MIT License][license-badge]][license]
 
+![Prototype of Haul CLI](./haul-cli-preview.gif)
+
+Prototype of [Haul CLI](https://github.com/callstack/haul). You can see the [source here](https://github.com/callstack/haul/blob/b5de93c580128a8f5be48c01e4f87211d7e70435/src/server/ui.js#L74-L346).
+
 ## Install
 
 ```bash
