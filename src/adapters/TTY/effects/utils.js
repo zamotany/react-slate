@@ -22,8 +22,7 @@ export function callOnce(cb: Function) {
 }
 
 export function exit(code?: number = 0) {
-  debugger; // eslint-disable-line
   onExitCallbacks.forEach(cb => cb(code));
   // $FlowFixMe
-  process._exit(code);
+  process.exit(code);
 }

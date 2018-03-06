@@ -51,8 +51,8 @@ export default (containerInstance: ContainerNode) => ({
   resetAfterCommit() {
     // This hooks is called once per update, whereas commitUpdate is called multiple times, for
     // each updated node. So here is the best place to flush data to host environment, using
-    // container instance we stored when appending child to container.
-    containerInstance.flush();
+    // container instance.
+    containerInstance.draw();
   },
 
   getPublicInstance(inst: any) {

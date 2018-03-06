@@ -1,7 +1,5 @@
 /* @flow */
 
-import { exit } from '../effects/utils';
-
 let _hasThrown = false;
 
 export function hasThrown() {
@@ -15,11 +13,11 @@ export function throwComponentError(
   _hasThrown = true;
   const message = `Error: ${description}\n    in ${componentName}`;
   console.error(message);
-  exit(1);
+  process.exit(1);
 }
 
 export function throwError(error: Error) {
   _hasThrown = true;
   console.error(error);
-  exit(1);
+  process.exit(1);
 }
