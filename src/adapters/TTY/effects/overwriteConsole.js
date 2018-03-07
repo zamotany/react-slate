@@ -2,7 +2,6 @@
 
 import fs from 'fs';
 import path from 'path';
-import { exit } from './utils';
 
 type Options = {
   exitOnWarning?: boolean,
@@ -40,7 +39,7 @@ export default function overwriteConsole({
     customConsole.warn = (...args) => {
       logWarning(...args);
       if (exitOnWarning) {
-        exit(1);
+        process.exit(1);
       }
     };
 
@@ -49,7 +48,7 @@ export default function overwriteConsole({
     customConsole.error = (...args) => {
       logError(...args);
       if (exitOnError) {
-        exit(1);
+        process.exit(1);
       }
     };
 
@@ -70,7 +69,7 @@ export default function overwriteConsole({
   console.warn = (...args) => {
     logWarning(...args);
     if (exitOnWarning) {
-      exit(1);
+      process.exit(1);
     }
   };
 
@@ -81,7 +80,7 @@ export default function overwriteConsole({
   console.error = (...args) => {
     logError(...args);
     if (exitOnError) {
-      exit(1);
+      process.exit(1);
     }
   };
 

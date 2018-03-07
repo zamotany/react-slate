@@ -2,13 +2,17 @@
 
 const onExitCallbacks = [];
 
+function execExitCallbacks(...args) {
+  onExitCallbacks.forEach(cb => cb(...args));
+}
+
 // eslint-disable-next-line
 export function onExit(cb: Function) {
-  const exitCb = callOnce(cb);
-  onExitCallbacks.push(exitCb);
-  process.on('exit', exitCb);
-  process.on('SIGINT', exitCb);
-  process.on('uncaughtException', exitCb);
+  onExitCallbacks.push(callOnce(cb));
+
+  process.on('exit', execExitCallbacks);
+  process.on('SIGINT', execExitCallbacks);
+  process.on('uncaughtException', execExitCallbacks);
 }
 
 export function callOnce(cb: Function) {
@@ -19,10 +23,4 @@ export function callOnce(cb: Function) {
       cb(...args);
     }
   };
-}
-
-export function exit(code?: number = 0) {
-  onExitCallbacks.forEach(cb => cb(code));
-  // $FlowFixMe
-  process.exit(code);
 }
