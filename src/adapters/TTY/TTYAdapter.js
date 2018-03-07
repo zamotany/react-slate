@@ -14,15 +14,15 @@ import {
   clearOnError,
 } from './effects/terminal';
 
-// const adapter = new TTYAdapter()
-//  .withCustomConsole(/* ... */)
-//  .hideCursor()
-//  .clearOnExit(shouldClearScrollback)
-//  .clearOnError()
-//  .makeEffects();
-
 /**
- * TODO
+ * Adapter for TTY streams like `process.{stdout,stderr}` with chainable API for
+ * enhancing the experience with terminal apps.
+ *
+ * @example
+ * const adapter = new TTYAdapter()
+ *   .withCustomConsole({ outStream: true, errStream: true })
+ *   .hideCursor()
+ *   .makeEffects();
  */
 export default class TTYAdapter extends BaseAdapter {
   notReadyErrorMessage: string = 'Adapter is not ready. Did you forgot to call `makeEffects`?';
@@ -38,11 +38,12 @@ export default class TTYAdapter extends BaseAdapter {
   }) {
     super();
     this.stream = stream;
-    this.effects = [...effects];
+    this.effects = effects;
   }
 
   /**
    * Redirect console output to specified streams or files.
+   * This method won't have any effect unless `makeEffects` is called.
    */
   withCustomConsole(params: *) {
     return new TTYAdapter({
@@ -51,6 +52,10 @@ export default class TTYAdapter extends BaseAdapter {
     });
   }
 
+  /**
+   * Hides cursor.
+   * This method won't have any effect unless `makeEffects` is called.
+   */
   hideCursor() {
     return new TTYAdapter({
       stream: this.stream,
@@ -59,7 +64,8 @@ export default class TTYAdapter extends BaseAdapter {
   }
 
   /**
-   *  Clear screen or scrollback when process is about to exit.
+   * Clear screen or scrollback when process is about to exit.
+   * This method won't have any effect unless `makeEffects` is called.
    */
   clearOnExit(shouldClearScrollback: boolean) {
     return new TTYAdapter({
@@ -79,6 +85,7 @@ export default class TTYAdapter extends BaseAdapter {
 
   /**
    * Clear screen when process is about to exit due to an error.
+   * This method won't have any effect unless `makeEffects` is called.
    */
   clearOnError() {
     return new TTYAdapter({
