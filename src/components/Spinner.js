@@ -4,7 +4,7 @@ import React from 'react';
 import cliSpinners from 'cli-spinners';
 // $FlowFixMe
 import shallowEqual from 'fbjs/lib/shallowEqual';
-import Text from './Text';
+import View from './View';
 import { throwComponentError } from '../utils/throwError';
 
 type Props = {
@@ -87,9 +87,9 @@ export default class Spinner extends React.Component<Props, State> {
   render() {
     const { type, interval, frames, ...rest } = this.props;
     return (
-      <Text {...{ ...rest, style: { display: 'inline', ...rest.style } }}>
+      <View {...{ ...rest, style: { display: 'inline', ...rest.style } }}>
         {this.currentFrames[this.state.frame]}
-      </Text>
+      </View>
     );
   }
 }

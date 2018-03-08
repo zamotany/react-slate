@@ -59,3 +59,7 @@ export type CustomRender = (
   relativeCanvas: RelativeCanvas,
   absoluteCanvas: AbsoluteCanvas
 ) => RelativeCanvas;
+
+export type NodeStream = {
+  write(data: string): void,
+};
