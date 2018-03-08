@@ -1,7 +1,7 @@
 /* @flow */
 
 import React from 'react';
-import Text from './Text';
+import View from './View';
 
 type CharProps = {
   char?: string,
@@ -27,19 +27,19 @@ export default function ProgressBar(props: Props) {
   const progress = Math.round(value * width);
 
   return (
-    <Text style={{ display: 'inline', ...(props.style || {}) }}>
-      <Text style={{ display: 'inline', ...(open.style || {}) }}>
+    <View style={{ display: 'inline', ...(props.style || {}) }}>
+      <View style={{ display: 'inline', ...(open.style || {}) }}>
         {open.char || '['}
-      </Text>
-      <Text style={{ display: 'inline', ...(bar.style || {}) }}>
+      </View>
+      <View style={{ display: 'inline', ...(bar.style || {}) }}>
         {(bar.char || '=').repeat(progress)}
-      </Text>
-      <Text style={{ display: 'inline', ...(fill.style || {}) }}>
+      </View>
+      <View style={{ display: 'inline', ...(fill.style || {}) }}>
         {(fill.char || ' ').repeat(width - progress)}
-      </Text>
-      <Text style={{ display: 'inline', ...(close.style || {}) }}>
+      </View>
+      <View style={{ display: 'inline', ...(close.style || {}) }}>
         {close.char || ']'}
-      </Text>
-    </Text>
+      </View>
+    </View>
   );
 }
