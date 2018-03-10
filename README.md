@@ -11,7 +11,7 @@ Prototype of [Haul CLI](https://github.com/callstack/haul). You can see the [sou
 ## Install
 
 ```bash
-yarn add react-stream-renderer
+yarn add react react-stream-renderer
 ```
 
 ## Usage
@@ -22,11 +22,7 @@ import { render, View, makeTTYAdapter } from 'react-stream-renderer';
 
 class App extends React.Component {
   render() {
-    return (
-      <View style={{ color: 'green' }}>
-        Hello world!
-      </View>
-    );
+    return <Text style={{ color: 'green' }}>Hello world!</Text>;
   }
 }
 
@@ -34,6 +30,7 @@ render(<App />, makeTTYAdapter(process.stdout).makeEffects());
 ```
 
 ## API
+
 ---
 
 ## Functions
@@ -89,9 +86,9 @@ This method won't have any effect unless `makeEffects` is called.
 #### `makeEffects(): TTYAdapter`
 
 Perform accumulated side effects.
-__This method must always be called!__
+**This method must always be called!**
 
-__Example__
+**Example**
 
 ```js
 render(
@@ -108,7 +105,7 @@ render(
 
 Creates an adapter for testing. You can provide hooks to assert the rendered content.
 
-#### `options: Options` 
+#### `options: Options`
 
 * `height: number = 40` - Canvas height (default: `40`)
 * `width: number = 80` - Canvas width (default: `80`)
@@ -124,10 +121,18 @@ test('render should draw content', () => {
   const adapter = makeTestAdapter({ onDraw });
 
   render(<View>Test</View>, adapter);
-
   expect(onDraw).toHaveBeenCalledWith('Test');
 });
 ```
+
+* `hideCursor?: boolean` - Hide cursor if true.
+* `clearOnError?: boolean` - Clear screen when process exits due to error being thrown.
+* `clearScreenOnExit?: boolean` - Clear screen when process is about to exit.
+* `clearScrollbackOnExit?: boolean` - Clear scrollback when process is about to exit (**clearing scrollback also clears the whole screen**).
+* `exitOnWarning?: boolean` - Exit when there's a call to `console.warn`.
+* `exitOnError?: boolean` - Exit when there's a call to `console.error`.
+* `outStream?: any` - Custom writable stream or file path for output from `console`.
+* `errStream?: any` - Custom writable stream or file path for errors logged with `console.error`.
 
 ## Components
 
@@ -163,10 +168,9 @@ const styles = {
 };
 ```
 
-
 ### `KeyPress`
 
-Attach `onPress` callback to `keypress` event. __This component by itself doesn't render anything, but it can render passed `children`.__
+Attach `onPress` callback to `keypress` event. **This component by itself doesn't render anything, but it can render passed `children`.**
 
 #### Props
 
@@ -190,7 +194,7 @@ import { KeyPress, Text } from 'react-stream-renderer';
 class MyComponent extends React.Component {
   _onPress = (char, key) => {
     console.log(char, key);
-  }
+  };
 
   render() {
     return (
@@ -204,13 +208,14 @@ class MyComponent extends React.Component {
 
 ### `ProgressBar`
 
-Uncontrolled component with progress bar. 
+Uncontrolled component with progress bar.
 
 #### Props
 
-* `value: number` - Progress value normalized between 0 and 1 (__values above 1 will be treated as 1__).
+* `value: number` - Progress value normalized between 0 and 1 (**values above 1 will be treated as 1**).
 * `barWidth: number` - Width of progress bar including `open` and `close` characters.
 * `chars?: Chars` - Characters and their styling to use when rendering progress bar.
+
   ```js
   type CharProps = {
     char?: string,
@@ -224,6 +229,7 @@ Uncontrolled component with progress bar.
     fill?: CharProps, // default char: ' '
   };
   ```
+
 * `style?: Style` - Object with [Style properties](#style-properties)
 
 #### Example
@@ -286,12 +292,11 @@ class MyComponent extends React.Component {
 
 ## Styling and layout
 
-
 ### Layout
 
 #### Positioning
 
-`react-stream-renderer` supports both relative (__default__) and fixed positioning of elements. Use `position: 'fixed'` (and optionally `zIndex`, `left` and `right`) to
+`react-stream-renderer` supports both relative (**default**) and fixed positioning of elements. Use `position: 'fixed'` (and optionally `zIndex`, `left` and `right`) to
 make the element fixed to specific position.
 
 #### Display (block vs inline)
@@ -316,8 +321,10 @@ B
 but both
 
 ```js
-<Text>A</Text>
-{'B'}
+<Text>A</Text>;
+{
+  ('B');
+}
 ```
 
 and:
@@ -325,7 +332,6 @@ and:
 ```js
 <Text style={{ display: 'inline' }}>A</Text>
 <Text style={{ display: 'inline' }}>B</Text>
-
 ```
 
 renders:
@@ -371,8 +377,8 @@ type Style = {|
 |};
 ```
 
-
 <!-- badges -->
+
 [build-badge]: https://img.shields.io/circleci/project/github/zamotany/react-stream-renderer/master.svg?style=flat-square
 [build]: https://circleci.com/gh/zamotany/react-stream-renderer
 [license-badge]: https://img.shields.io/npm/l/linaria.svg?style=flat-square

@@ -15,15 +15,15 @@ exports[`nodes/ChunkNode styling adds border 2`] = `
 exports[`nodes/ChunkNode styling adds border 3`] = `"Hello world"`;
 
 exports[`nodes/ChunkNode styling adds border 4`] = `
-"[31m┌───────────┐[39m
-[31m│[39mHello world[31m│[39m
-[31m└───────────┘[39m"
+"@[31m┌───────────┐@[39m
+@[31m│@[39mHello world@[31m│@[39m
+@[31m└───────────┘@[39m"
 `;
 
 exports[`nodes/ChunkNode styling adds border 5`] = `
-"[31m[44m┌───────────┐[49m[39m
-[44m[31m│[39mHello world[31m│[39m[49m
-[31m[44m└───────────┘[49m[39m"
+"@[31m@[44m┌───────────┐@[49m@[39m
+@[44m@[31m│@[39mHello world@[31m│@[39m@[49m
+@[31m@[44m└───────────┘@[49m@[39m"
 `;
 
 exports[`nodes/ChunkNode styling adds border 6`] = `
@@ -81,19 +81,19 @@ exports[`nodes/ChunkNode styling aligns text 12`] = `
 └───────────────────┘"
 `;
 
-exports[`nodes/ChunkNode styling respects color and background color 1`] = `"[35m[46mHello world[49m[39m"`;
+exports[`nodes/ChunkNode styling respects color and background color 1`] = `"@[35m@[46mHello world@[49m@[39m"`;
 
-exports[`nodes/ChunkNode styling respects fontStyle 1`] = `"[3mHello world[23m"`;
+exports[`nodes/ChunkNode styling respects fontStyle 1`] = `"@[3mHello world@[23m"`;
 
 exports[`nodes/ChunkNode styling respects fontStyle 2`] = `"Hello world"`;
 
-exports[`nodes/ChunkNode styling respects fontWeight 1`] = `"[1mHello world[22m"`;
+exports[`nodes/ChunkNode styling respects fontWeight 1`] = `"@[1mHello world@[22m"`;
 
 exports[`nodes/ChunkNode styling respects fontWeight 2`] = `"Hello world"`;
 
-exports[`nodes/ChunkNode styling respects textDecoration 1`] = `"[4mHello world[24m"`;
+exports[`nodes/ChunkNode styling respects textDecoration 1`] = `"@[4mHello world@[24m"`;
 
-exports[`nodes/ChunkNode styling respects textDecoration 2`] = `"[9mHello world[29m"`;
+exports[`nodes/ChunkNode styling respects textDecoration 2`] = `"@[9mHello world@[29m"`;
 
 exports[`nodes/ChunkNode styling respects textDecoration 3`] = `"Hello world"`;
 
@@ -107,4 +107,4 @@ exports[`nodes/ChunkNode styling respects textTransform 4`] = `"Hello world"`;
 
 exports[`nodes/ChunkNode styling respects visibility 1`] = `"Hello world"`;
 
-exports[`nodes/ChunkNode styling respects visibility 2`] = `"[8mHello world[28m"`;
+exports[`nodes/ChunkNode styling respects visibility 2`] = `"@[8mHello world@[28m"`;
