@@ -1,6 +1,6 @@
 /* @flow */
 
-import readline from 'readline';
+import type { IBaseAdapter } from '../adapters/BaseAdapter';
 import ChunkNode from './ChunkNode';
 import AbsoluteCanvas from '../utils/AbsoluteCanvas';
 import getBufferDiff from '../utils/getBufferDiff';
@@ -9,17 +9,21 @@ export default class ContainerNode {
   children: ChunkNode[] = [];
   frontBuffer: string[] = [];
   backBuffer: string[] = [];
-  stream: any = null;
-  canvasSize: { width: number, height: number };
+  adapter: IBaseAdapter;
 
-  constructor(stream: any) {
-    this.stream = stream;
+  constructor(adapter: IBaseAdapter) {
+    this.adapter = adapter;
+    this.reset();
 
-    // @TODO: handle resize
-    this.canvasSize = {
-      width: this.stream.columns,
-      height: this.stream.rows - 1,
-    };
+    if (!this.adapter.isReady) {
+      throw new Error(
+        this.adapter.notReadyErrorMessage || 'Adapter is not ready'
+      );
+    }
+  }
+
+  reset() {
+    this.frontBuffer = [];
   }
 
   invalidateParent = () => {
@@ -44,10 +48,10 @@ export default class ContainerNode {
     this.children.splice(index, 1);
   }
 
-  flush() {
+  draw() {
     this.backBuffer = this.frontBuffer;
 
-    const canvas = new AbsoluteCanvas(this.canvasSize);
+    const canvas = new AbsoluteCanvas(this.adapter.getSize());
     this.frontBuffer = canvas.flatten(
       this.children.reduce(
         (acc, child) =>
@@ -58,19 +62,22 @@ export default class ContainerNode {
       ).canvas
     );
 
-    if (this.backBuffer.length !== this.frontBuffer.length) {
-      readline.cursorTo(this.stream, 0, 0);
-      readline.clearScreenDown(this.stream);
-      this.stream.write(this.frontBuffer.join('\n'));
+    if (
+      this.backBuffer.length !== this.frontBuffer.length ||
+      this.adapter.forceFullDraw
+    ) {
+      this.adapter.setCursorPosition(0, 0);
+      this.adapter.clear();
+      this.adapter.print(this.frontBuffer.join('\n'), { isFullPrint: true });
     } else {
       const damages = getBufferDiff(this.backBuffer, this.frontBuffer);
       damages.forEach(damage => {
-        readline.cursorTo(this.stream, damage.x, damage.y);
-        this.stream.write(damage.content);
+        this.adapter.setCursorPosition(damage.x, damage.y);
+        this.adapter.print(damage.content, { isFullPrint: false });
       });
     }
     // Reset cursor position, so when exiting command prompt will be at the bottom
     // not somewhere in the middle.
-    readline.cursorTo(this.stream, 0, this.canvasSize.height + 1);
+    this.adapter.setCursorPosition(0, this.adapter.getSize().height + 1);
   }
 }

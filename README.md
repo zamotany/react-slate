@@ -11,7 +11,7 @@ Prototype of [Haul CLI](https://github.com/callstack/haul). You can see the [sou
 ## Install
 
 ```bash
-yarn add react-stream-renderer
+yarn add react react-stream-renderer
 ```
 
 ## Usage
@@ -22,11 +22,7 @@ import { render, Text } from 'react-stream-renderer';
 
 class App extends React.Component {
   render() {
-    return (
-      <Text style={{ color: 'green' }}>
-        Hello world!
-      </Text>
-    );
+    return <Text style={{ color: 'green' }}>Hello world!</Text>;
   }
 }
 
@@ -34,6 +30,7 @@ render(<App />, process.stdout);
 ```
 
 ## API
+
 ---
 
 ## Functions
@@ -47,7 +44,7 @@ Render given element to writable (Node) stream.
 * `hideCursor?: boolean` - Hide cursor if true.
 * `clearOnError?: boolean` - Clear screen when process exits due to error being thrown.
 * `clearScreenOnExit?: boolean` - Clear screen when process is about to exit.
-* `clearScrollbackOnExit?: boolean` - Clear scrollback when process is about to exit (__clearing scrollback also clears the whole screen__).
+* `clearScrollbackOnExit?: boolean` - Clear scrollback when process is about to exit (**clearing scrollback also clears the whole screen**).
 * `exitOnWarning?: boolean` - Exit when there's a call to `console.warn`.
 * `exitOnError?: boolean` - Exit when there's a call to `console.error`.
 * `outStream?: any` - Custom writable stream or file path for output from `console`.
@@ -63,10 +60,9 @@ Basic building block. Can render text (strings) or other nested components.
 
 * `style?: Style` - Object with [Style properties](#style-properties)
 
-
 ### `KeyPress`
 
-Attach `onPress` callback to `keypress` event. __This component by itself doesn't render anything, but it can render passed `children`.__
+Attach `onPress` callback to `keypress` event. **This component by itself doesn't render anything, but it can render passed `children`.**
 
 #### Props
 
@@ -90,7 +86,7 @@ import { KeyPress, Text } from 'react-stream-renderer';
 class MyComponent extends React.Component {
   _onPress = (char, key) => {
     console.log(char, key);
-  }
+  };
 
   render() {
     return (
@@ -104,13 +100,14 @@ class MyComponent extends React.Component {
 
 ### `ProgressBar`
 
-Uncontrolled component with progress bar. 
+Uncontrolled component with progress bar.
 
 #### Props
 
-* `value: number` - Progress value normalized between 0 and 1 (__values above 1 will be treated as 1__).
+* `value: number` - Progress value normalized between 0 and 1 (**values above 1 will be treated as 1**).
 * `barWidth: number` - Width of progress bar including `open` and `close` characters.
 * `chars?: Chars` - Characters and their styling to use when rendering progress bar.
+
   ```js
   type CharProps = {
     char?: string,
@@ -124,6 +121,7 @@ Uncontrolled component with progress bar.
     fill?: CharProps, // default char: ' '
   };
   ```
+
 * `style?: Style` - Object with [Style properties](#style-properties)
 
 #### Example
@@ -186,12 +184,11 @@ class MyComponent extends React.Component {
 
 ## Styling and layout
 
-
 ### Layout
 
 #### Positioning
 
-`react-stream-renderer` supports both relative (__default__) and fixed positioning of elements. Use `position: 'fixed'` (and optionally `zIndex`, `left` and `right`) to
+`react-stream-renderer` supports both relative (**default**) and fixed positioning of elements. Use `position: 'fixed'` (and optionally `zIndex`, `left` and `right`) to
 make the element fixed to specific position.
 
 #### Display (block vs inline)
@@ -216,8 +213,10 @@ B
 but both
 
 ```js
-<Text>A</Text>
-{'B'}
+<Text>A</Text>;
+{
+  ('B');
+}
 ```
 
 and:
@@ -225,7 +224,6 @@ and:
 ```js
 <Text style={{ display: 'inline' }}>A</Text>
 <Text style={{ display: 'inline' }}>B</Text>
-
 ```
 
 renders:
@@ -271,8 +269,8 @@ type Style = {|
 |};
 ```
 
-
 <!-- badges -->
+
 [build-badge]: https://img.shields.io/circleci/project/github/zamotany/react-stream-renderer/master.svg?style=flat-square
 [build]: https://circleci.com/gh/zamotany/react-stream-renderer
 [license-badge]: https://img.shields.io/npm/l/linaria.svg?style=flat-square

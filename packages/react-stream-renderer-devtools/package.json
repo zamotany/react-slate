@@ -1,0 +1,28 @@
+{
+  "name": "react-stream-renderer-devtools",
+  "version": "0.1.0",
+  "main": "index.js",
+  "repository": "https://github.com/zamotany/react-stream-renderer",
+  "license": "MIT",
+  "private": false,
+  "author": {
+    "name": "Paweł Trysła",
+    "email": "pawel.trysla@gmail.com"
+  },
+  "files": [
+    "/build",
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=6"
+  },
+  "peerDependencies": {
+    "react-stream-renderer": "*"
+  },
+  "dependencies": {
+    "react": "^16.2.0"
+  },
+  "eslintConfig": {
+    "extends": "callstack-io"
+  }
+}

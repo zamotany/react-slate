@@ -5,6 +5,9 @@ import stripAnsi from 'strip-ansi';
 import alignText from './alignText';
 import sliceAnsi from './sliceAnsi';
 
+chalk.enabled = process.env.CI ? true : chalk.enabled;
+chalk.level = process.env.CI ? 1 : chalk.level;
+
 const borderStyleChars = {
   solid: {
     top: '─',

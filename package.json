@@ -1,93 +1,46 @@
 {
-  "name": "react-stream-renderer",
-  "version": "0.1.1",
-  "description": "",
-  "license": "MIT",
-  "repository": "github:zamotany/react-stream-renderer",
-  "author": {
-    "name": "Paweł Trysła",
-    "email": "pawel.trysla@gmail.com"
-  },
-  "files": [
-    "/build",
-    "index.js"
+  "private": true,
+  "workspaces": [
+    "packages/*"
   ],
-  "engines": {
-    "node": ">=6"
-  },
   "scripts": {
-    "build": "babel src --out-dir build --ignore **/__tests__/**",
-    "build:clean": "rimraf build",
-    "build:watch": "concurrently --names \"lib,example\" \"yarn run build --watch\" \"cd example && yarn run build --watch\"",
-    "prepublish": "yarn run build",
-    "prepare": "yarn run bootstrap:example",
-    "bootstrap:example": "yarn link && cd example && yarn && cd ..",
+    "build": "lerna run --parallel build",
+    "watch": "lerna run --parallel build:watch",
+    "prepare": "yarn build",
     "flow": "flow",
-    "lint": "eslint .",
+    "lint": "lerna exec ../../node_modules/.bin/eslint .",
     "test": "jest",
-    "format": "prettier --single-quote --trailing-comma all --write \"src/**/*.js\""
-  },
-  "dependencies": {
-    "ansi-parser": "^3.2.8",
-    "ansi-styles": "^3.2.0",
-    "astral-regex": "^1.0.0",
-    "chalk": "^2.1.0",
-    "cli-spinners": "^1.1.0",
-    "fast-memoize": "^2.2.8",
-    "fbjs": "^0.8.16",
-    "is-fullwidth-code-point": "^2.0.0",
-    "prop-types": "^15.6.0",
-    "react": "^16.0.0",
-    "react-reconciler": "0.3.0-beta.1",
-    "strip-ansi": "^4.0.0"
+    "format": "prettier --single-quote --trailing-comma all --write \"packages/*/src/**/*.js\""
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-eslint": "^7.2.1",
+    "babel-eslint": "^8.2.2",
     "babel-plugin-flow-react-proptypes": "^6.1.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.6.0",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "concurrently": "^3.5.1",
     "cross-env": "^5.1.1",
-    "eslint": "^4.6.1",
-    "eslint-config-callstack-io": "^0.4.1",
+    "eslint": "^4.18.2",
+    "eslint-config-callstack-io": "^1.1.1",
     "flow-bin": "^0.54.1",
-    "jest": "^21.0.2",
-    "np": "^2.16.0",
-    "prettier": "^1.6.1",
+    "jest": "^22.4.2",
+    "prettier": "^1.11.1",
     "rimraf": "^2.6.2"
-  },
-  "babel": {
-    "presets": [
-      [
-        "env",
-        {
-          "targets": {
-            "node": 6
-          }
-        }
-      ],
-      "react",
-      "stage-2"
-    ],
-    "plugins": [
-      "flow-react-proptypes",
-      "transform-flow-strip-types",
-      "transform-object-rest-spread"
-    ],
-    "sourceMaps": "inline"
-  },
-  "eslintConfig": {
-    "extends": "callstack-io"
   },
   "jest": {
     "modulePathIgnorePatterns": [
-      "<rootDir>/build",
+      "<rootDir>/packages/.+/build",
       "<rootDir>/example"
+    ],
+    "snapshotSerializers": [
+      "<rootDir>/jestSnapshotSerializer.js"
     ]
+  },
+  "dependencies": {
+    "lerna": "^2.9.0"
   }
 }

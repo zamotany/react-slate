@@ -9,10 +9,10 @@ import { getStyleProps } from '../utils/style';
 
 type Props = {
   style?: Style,
-  children: any,
+  children: mixed,
 };
 
-export default function Text(props: Props) {
+export default function View(props: Props) {
   const { children, style } = props;
   return (
     <Chunk.componentName {...getStyleProps(style)}>
