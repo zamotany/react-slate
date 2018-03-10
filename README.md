@@ -86,9 +86,9 @@ This method won't have any effect unless `makeEffects` is called.
 #### `makeEffects(): TTYAdapter`
 
 Perform accumulated side effects.
-__This method must always be called!__
+**This method must always be called!**
 
-__Example__
+**Example**
 
 ```js
 render(
@@ -105,7 +105,7 @@ render(
 
 Creates an adapter for testing. You can provide hooks to assert the rendered content.
 
-#### `options: Options` 
+#### `options: Options`
 
 * `height: number = 40` - Canvas height (default: `40`)
 * `width: number = 80` - Canvas width (default: `80`)
@@ -121,6 +121,9 @@ test('render should draw content', () => {
   const adapter = makeTestAdapter({ onDraw });
 
   render(<View>Test</View>, adapter);
+  expect(onDraw).toHaveBeenCalledWith('Test');
+});
+```
 
 * `hideCursor?: boolean` - Hide cursor if true.
 * `clearOnError?: boolean` - Clear screen when process exits due to error being thrown.
@@ -164,7 +167,6 @@ const styles = {
   },
 };
 ```
-
 
 ### `KeyPress`
 
