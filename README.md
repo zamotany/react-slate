@@ -18,7 +18,7 @@ yarn add react react-stream-renderer
 
 ```js
 import React from 'react';
-import { render, Text } from 'react-stream-renderer';
+import { render, View, makeTTYAdapter } from 'react-stream-renderer';
 
 class App extends React.Component {
   render() {
@@ -26,7 +26,7 @@ class App extends React.Component {
   }
 }
 
-render(<App />, process.stdout);
+render(<App />, makeTTYAdapter(process.stdout).makeEffects());
 ```
 
 ## API
@@ -35,11 +35,92 @@ render(<App />, process.stdout);
 
 ## Functions
 
-### `render(element, writableStream, options): void`
+### `render(element: React.Element, adapter: BaseAdapter): () => void`
 
-Render given element to writable (Node) stream.
+Render given element using a given adapter (`makeTTYAdapter` for TTY streams or `makeTestAdapter` for testing purposes).
 
-#### `options`
+Returns `forceRender` function which triggers full re-render.
+
+### `makeTTYAdapter(ttyStream: NodeTTYStream): TTYAdapter`
+
+Creates an adapter a TTY Node stream.
+Use chainable API from `TTYAdapter` for configuring the behavior:
+
+#### `withCustomConsole(options: OverwriteConsoleOptions): TTYAdapter`
+
+Redirect console output to specified streams or files.
+
+This method won't have any effect unless `makeEffects` is called.
+
+`options: OverwriteConsoleOptions`:
+
+* `exitOnWarning: boolean` - Exit on first call to `console.warning`.
+* `exitOnError: boolean` - Exit on first call to `console.error`.
+* `outStream: boolean | string | NodeWritableStream` - Redirect console output to:
+  * `stdout.log` if `true`
+  * custom file if `string` with path is supplied
+  * custom Node stream if writable node stream is supplied
+* `errStream: boolean | string | NodeWritableStream` - Redirect console error output to:
+  * `stderr.log` if `true`
+  * custom file if `string` with path is supplied
+  * custom Node stream if writable node stream is supplied
+
+#### `hideCursor(): TTYAdapter`
+
+Hides cursor.
+
+This method won't have any effect unless `makeEffects` is called.
+
+#### `clearOnExit(shouldClearScrollback: boolean = false): TTYAdapter`
+
+Clear screen or scrollback (if `shouldClearScrollback` is `true`) when process is about to exit.
+
+This method won't have any effect unless `makeEffects` is called.
+
+#### `clearOnError(): TTYAdapter`
+
+Clear screen (scrollback will be untouched) when process is about to exit due to an error.
+
+This method won't have any effect unless `makeEffects` is called.
+
+#### `makeEffects(): TTYAdapter`
+
+Perform accumulated side effects.
+__This method must always be called!__
+
+__Example__
+
+```js
+render(
+  <View>Hello world</View>,
+  makeTTYAdapter(process.stdout)
+    .withCustomConsole({ outStream: true, errStream: true })
+    .hideCursor()
+    .clearOnExit(true)
+    .makeEffects()
+);
+```
+
+### `makeTestAdapter(options: Options): TestAdapter`
+
+Creates an adapter for testing. You can provide hooks to assert the rendered content.
+
+#### `options: Options` 
+
+* `height: number = 40` - Canvas height (default: `40`)
+* `width: number = 80` - Canvas width (default: `80`)
+* `onPrint?: (data: string) => void` - Testing hook executed on each render, `data` will be a string with full rendered content.
+* `onClear: () => void` - Testing hook executed when canvas should be cleared.
+* `onSetCursorPosition: (x: number, y: number) => void`- Testing hook executed when cursor should be changed.
+
+#### Example
+
+```js
+test('render should draw content', () => {
+  const onDraw = jest.fn();
+  const adapter = makeTestAdapter({ onDraw });
+
+  render(<View>Test</View>, adapter);
 
 * `hideCursor?: boolean` - Hide cursor if true.
 * `clearOnError?: boolean` - Clear screen when process exits due to error being thrown.
@@ -52,13 +133,38 @@ Render given element to writable (Node) stream.
 
 ## Components
 
-### `Text`
+### `View` (aka `Text`)
 
-Basic building block. Can render text (strings) or other nested components.
+Basic building block. Can render text (strings), arrays and other nested components.
+
+`Text` component is exposed for compatibility and it's the same as `View`.
 
 #### Props
 
 * `style?: Style` - Object with [Style properties](#style-properties)
+
+#### Example
+
+```js
+class App extends React.Component {
+  render() {
+    return (
+      <View>
+        <View style={styles.title}>Hello world!</View>
+        Today is {new Date().toLocaleString()}
+      </View>
+    );
+  }
+}
+
+const styles = {
+  title: {
+    margin: '0 1',
+    color: 'green',
+  },
+};
+```
+
 
 ### `KeyPress`
 
