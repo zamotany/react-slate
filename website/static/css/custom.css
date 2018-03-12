@@ -1,0 +1,38 @@
+/* your custom css */
+
+.nav-footer {
+  box-shadow: none !important;
+  background: #24113a !important;
+}
+
+.blockImage {
+  max-height: 80px !important;
+}
+
+h3 {
+  line-height: 1.5em;
+}
+
+.docs-prevnext .button {
+  text-transform: none !important;
+}
+
+.productShowcaseSection .logos img {
+  max-height: 100px;
+  width: 200px;
+}
+
+@media only screen and (min-width: 360px) and (max-width: 736px) {
+}
+
+@media only screen and (min-width: 736px) {
+}
+
+@media only screen and (max-width: 1023px) {
+}
+
+@media only screen and (min-width: 1400px) {
+}
+
+@media only screen and (min-width: 1500px) {
+}
