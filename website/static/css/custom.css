@@ -22,6 +22,10 @@ h3 {
   width: 200px;
 }
 
+img[alt="Preview"] {
+  max-height: 300px;
+}
+
 @media only screen and (min-width: 360px) and (max-width: 736px) {
 }
 
