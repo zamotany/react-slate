@@ -26,6 +26,12 @@ img[alt="Preview"] {
   max-height: 300px;
 }
 
+.sitemap > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 @media only screen and (min-width: 360px) and (max-width: 736px) {
 }
 
