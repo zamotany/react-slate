@@ -37,7 +37,7 @@ import { render, View, makeTTYAdapter } from 'react-stream-renderer';
 
 class App extends React.Component {
   render() {
-    return <Text style={{ color: 'green' }}>Hello world!</Text>;
+    return <View style={{ color: 'green' }}>Hello world!</View>;
   }
 }
 

@@ -20,10 +20,10 @@ Creates an adapter for testing. You can provide hooks to assert the rendered con
 
 ```js
 test('render should draw content', () => {
-  const onDraw = jest.fn();
-  const adapter = makeTestAdapter({ onDraw });
+  const onPrint = jest.fn();
+  const adapter = makeTestAdapter({ onPrint });
 
   render(<View>Test</View>, adapter);
-  expect(onDraw).toHaveBeenCalledWith('Test');
+  expect(onPrint).toHaveBeenCalledWith('Test');
 });
 ```
