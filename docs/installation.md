@@ -29,6 +29,6 @@ render(
 
 Now when you run your app, you should see:
 
-![Preview](/react-stream-renderer/img/preview.png)
+![Preview](/img/preview.png)
 
 Please refer to [Babel](http://babeljs.io/) or [Typescript](https://www.typescriptlang.org/) documentation on how to setup your project to transpile JSX.
