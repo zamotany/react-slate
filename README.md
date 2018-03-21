@@ -21,7 +21,9 @@ Prototype of [Haul CLI](https://github.com/callstack/haul). You can see the [sou
 
 ### Documentation
 
-## Install
+Documentation can be found here: http://react-stream-renderer.surge.sh/
+
+## Installation
 
 ```bash
 yarn add react react-stream-renderer
@@ -41,58 +43,6 @@ class App extends React.Component {
 
 render(<App />, makeTTYAdapter(process.stdout).makeEffects());
 ```
-
-### Layout
-
-#### Positioning
-
-`react-stream-renderer` supports both relative (**default**) and fixed positioning of elements. Use `position: 'fixed'` (and optionally `zIndex`, `left` and `right`) to
-make the element fixed to specific position.
-
-#### Display (block vs inline)
-
-`react-stream-renderer` supports both `block` and `inline` display of elements.
-By default all `<Text>` components have `display: 'block'` set, whereas all _inline_ text (usually strings) have `display: inline`.
-
-Example:
-
-```js
-<Text>A</Text>
-<Text>B</Text>
-```
-
-renders:
-
-```
-A
-B
-```
-
-but both
-
-```js
-<Text>A</Text>;
-{
-  ('B');
-}
-```
-
-and:
-
-```js
-<Text style={{ display: 'inline' }}>A</Text>
-<Text style={{ display: 'inline' }}>B</Text>
-```
-
-renders:
-
-```
-AB
-```
-
-### Style properties
-
-`react-stream-renderer` supports every color that [`chalk`](https://github.com/chalk/chalk) does.
 
 <!-- badges -->
 
