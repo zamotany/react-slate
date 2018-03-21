@@ -1,0 +1,23 @@
+{
+  "docs": {
+    "Getting started": [
+      "installation",
+      "adapters"
+    ],
+    "API": [
+      "render-function",
+      "tty-adapter",
+      "test-adapter",
+      "view-component",
+      "text-component",
+      "key-press-component",
+      "progress-bar-component",
+      "spinner-component"
+    ],
+    "Styling & Layout": [
+      "styling",
+      "positioning",
+      "style-prop"
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "start": "docusaurus-start",
+    "build": "docusaurus-build",
+    "publish-website": "yarn build && surge ./build/react-stream-renderer react-stream-renderer.surge.sh"
+  },
+  "dependencies": {
+    "docusaurus": "^1.0.7",
+    "surge": "^0.20.1"
+  }
+}
