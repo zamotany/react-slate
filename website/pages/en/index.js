@@ -50,12 +50,6 @@ const SplashContainer = props => (
   </div>
 );
 
-const Logo = props => (
-  <div className="projectLogo">
-    <img src={props.img_src} />
-  </div>
-);
-
 const ProjectTitle = props => (
   <h2 className="projectTitle">
     {siteConfig.title}
@@ -154,6 +148,11 @@ class Index extends React.Component {
         <HomeSplash language={language} />
         <div className="mainContainer">
           <Features />
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <img src={imgUrl('haul_cli_preview.gif')} alt="Preview gif" />
+        </div>
+        <div className="mainContainer">
           <Showcase language={language} />
         </div>
       </div>
