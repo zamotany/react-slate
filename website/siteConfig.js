@@ -11,7 +11,7 @@ module.exports = {
   title: 'react-stream-renderer',
   tagline: 'Custom renderer for rendering React apps to Node stream',
   url: 'https://zamotany.github.io',
-  baseUrl: '/react-stream-renderer/',
+  baseUrl: '/',
   projectName: 'react-stream-renderer',
   organizationName: 'zamotany',
   headerLinks: [
