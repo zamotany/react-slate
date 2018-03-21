@@ -13,6 +13,7 @@ module.exports = {
   url: 'https://zamotany.github.io',
   baseUrl: '/react-stream-renderer/',
   projectName: 'react-stream-renderer',
+  organizationName: 'zamotany',
   headerLinks: [
     { doc: 'installation', label: 'Docs' },
   ],
