@@ -32,7 +32,7 @@ Uncontrolled component rendering a progress bar.
 
 ```js
 import React from 'react';
-import { ProgressBar, View } from 'react-stream-renderer';
+import { ProgressBar, View } from 'react-slate';
 
 class MyComponent extends React.Component {
   render() {

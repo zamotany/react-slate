@@ -4,7 +4,7 @@ title: Styling
 sidebar_label: Styling
 ---
 
-`react-stream-renderer` comes with custom CSS-like styling system on top on [`chalk`](https://github.com/chalk/chalk). It is using ANSI escape codes for terminals to allow to create a visually appealing CLI React apps.
+`react-slate` comes with custom CSS-like styling system on top on [`chalk`](https://github.com/chalk/chalk). It is using ANSI escape codes for terminals to allow to create a visually appealing CLI React apps.
 
 **This guide is only valid for TTY targets like terminals.**
 

@@ -13,7 +13,7 @@ Returns `forceRender` function which triggers full re-render.
 ## Example
 
 ```js
-import { render, Text } from 'react-stream-render';
+import { render, Text } from 'react-slate';
 
 const forceRender = render(
   <Text>Hello World!</Text>,

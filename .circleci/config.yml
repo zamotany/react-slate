@@ -3,7 +3,7 @@ version: 2
 defaults: &defaults
   docker:
     - image: circleci/node:6.10.3
-  working_directory: ~/react-stream-renderer
+  working_directory: ~/react-slate
 
 jobs:
   install-dependencies:
@@ -11,7 +11,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: ~/react-stream-renderer
+          at: ~/react-slate
       - restore_cache:
           keys:
             - dependencies-{{ checksum "yarn.lock" }}
@@ -29,7 +29,7 @@ jobs:
       <<: *defaults
       steps:
         - attach_workspace:
-            at: ~/react-stream-renderer
+            at: ~/react-slate
         - run: |
             yarn run lint
             yarn run flow
@@ -37,7 +37,7 @@ jobs:
       <<: *defaults
       steps:
         - attach_workspace:
-            at: ~/react-stream-renderer
+            at: ~/react-slate
         - run: yarn test -- --coverage
         - store_artifacts:
             path: coverage

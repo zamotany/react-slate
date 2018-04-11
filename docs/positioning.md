@@ -4,7 +4,7 @@ title: Positioning
 sidebar_label: Positioning
 ---
 
-`react-stream-renderer` comes with custom CSS-like layout system to allow to create a visually appealing CLI React apps.
+`react-slate` comes with custom CSS-like layout system to allow to create a visually appealing CLI React apps.
 
 Below you can find all of the supported layout properties and theirs description. For a guide on how to style elements, please refer to [Styling guide](./styling.md). All of the properties should be passed to a `style` prop:
 

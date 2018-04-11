@@ -6,9 +6,9 @@ sidebar_label: Adapters
 
 ## Concept
 
-In order to support wide variety of cases, instead of accepting [WritableStream](https://nodejs.org/api/stream.html#stream_writable_streams), `react-stream-renderer` uses a adapters as an simple abstraction over the output target. This means, that you can support not only terminals (`process.stdout`/`process.stderr`) but also remote targets through - for example - `WebSockets`.
+In order to support wide variety of cases, instead of accepting [WritableStream](https://nodejs.org/api/stream.html#stream_writable_streams), `react-slate` uses a adapters as an simple abstraction over the output target. This means, that you can support not only terminals (`process.stdout`/`process.stderr`) but also remote targets through - for example - `WebSockets`.
 
-`react-stream-renderer` -> `Adapter` -> `Target`
+`react-slate` -> `Adapter` -> `Target`
 
 ## Available adapters
 
@@ -17,7 +17,7 @@ In order to support wide variety of cases, instead of accepting [WritableStream]
 
 ## Custom adapter
 
-You are free to your own adapter, as long as it implements required functions from [`IBaseAdapter` interface](https://github.com/zamotany/react-stream-renderer/blob/master/packages/react-stream-renderer/src/adapters/BaseAdapter.js#L4-L43) or extend from [`BaseAdapter` class](https://github.com/zamotany/react-stream-renderer/blob/master/packages/react-stream-renderer/src/adapters/BaseAdapter.js#L49-L71):
+You are free to your own adapter, as long as it implements required functions from [`IBaseAdapter` interface](https://github.com/zamotany/react-slate/blob/master/packages/react-slate/src/adapters/BaseAdapter.js#L4-L43) or extend from [`BaseAdapter` class](https://github.com/zamotany/react-slate/blob/master/packages/react-slate/src/adapters/BaseAdapter.js#L49-L71):
 
 * `isReady: boolean` - Tells if the adapter is ready. For example if there's a need to trigger some side effects this flag can be used to distinct if they're applied or not.
 
@@ -38,7 +38,7 @@ You are free to your own adapter, as long as it implements required functions fr
 ```js
 import fs from 'fs';
 import path from 'path';
-import { render, BaseAdapter, Text } from 'react-stream-renderer';
+import { render, BaseAdapter, Text } from 'react-slate';
 
 class FileAdapter extends BaseAdapter {
   constructor() {
