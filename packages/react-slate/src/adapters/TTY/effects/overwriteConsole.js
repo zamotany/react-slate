@@ -2,6 +2,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import mkdir from 'mkdirp';
 
 type Options = {
   exitOnWarning?: boolean,
@@ -11,13 +12,19 @@ type Options = {
 };
 
 function createWriteStream(label: string, streamOrSpec: any) {
-  return streamOrSpec && typeof streamOrSpec.write === 'function'
-    ? streamOrSpec
-    : fs.createWriteStream(
-        path.resolve(
-          typeof streamOrSpec === 'string' ? streamOrSpec : `./std${label}.log`
-        )
-      );
+  if (streamOrSpec && typeof streamOrSpec.write === 'function') {
+    return streamOrSpec;
+  }
+
+  if (typeof streamOrSpec === 'string') {
+    mkdir.sync(path.resolve(path.dirname(streamOrSpec)));
+  }
+
+  return fs.createWriteStream(
+    path.resolve(
+      typeof streamOrSpec === 'string' ? streamOrSpec : `./std${label}.log`
+    )
+  );
 }
 
 export default function overwriteConsole({
