@@ -8,11 +8,11 @@ const users = [
 ];
 
 module.exports = {
-  title: 'react-stream-renderer',
-  tagline: 'Custom renderer for rendering React apps to Node stream',
+  title: 'react-slate',
+  tagline: 'Render React apps to terminal',
   url: 'https://zamotany.github.io',
   baseUrl: '/',
-  projectName: 'react-stream-renderer',
+  projectName: 'react-slate',
   organizationName: 'zamotany',
   headerLinks: [
     { doc: 'installation', label: 'Docs' },
@@ -28,5 +28,5 @@ module.exports = {
     theme: 'default',
   },
   scripts: ['https://buttons.github.io/buttons.js'],
-  repoUrl: 'https://github.com/zamotany/react-stream-renderer',
+  repoUrl: 'https://github.com/zamotany/react-slate',
 };

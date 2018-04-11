@@ -4,10 +4,10 @@ title: Installation
 sidebar_label: Installation
 ---
 
-`react-stream-renderer` is a custom React renderer, not it's re-implementation, so the first thing is to install necessary dependencies:
+`react-slate` is a custom React renderer, not it's re-implementation, so the first thing is to install necessary dependencies:
 
 ```bash
-yarn add react react-stream-reconciler
+yarn add react react-slate
 ```
 
 Now, in your entry file import [`render` function](./render-function.md) and appropriate adapter for your use case:
@@ -17,7 +17,7 @@ Now, in your entry file import [`render` function](./render-function.md) and app
 
 ```js
 import React from 'react';
-import { render, makeTTYAdapter, View, Text } from 'react-stream-renderer';
+import { render, makeTTYAdapter, View, Text } from 'react-slate';
 
 render(
   <View style={{ margin: '1' }}>

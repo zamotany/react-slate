@@ -25,7 +25,7 @@ Contentless component for attaching `onPress` callback to `keypress` event.
 
 ```js
 import React from 'react';
-import { KeyPress, Text, View } from 'react-stream-renderer';
+import { KeyPress, Text, View } from 'react-slate';
 
 class MyComponent extends React.Component {
   _onPress = (char, key) => {
@@ -47,7 +47,7 @@ Rendering passed children:
 
 ```js
 import React from 'react';
-import { KeyPress, Text } from 'react-stream-renderer';
+import { KeyPress, Text } from 'react-slate';
 
 class MyComponent extends React.Component {
   _onPress = (char, key) => {

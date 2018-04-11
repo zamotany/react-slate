@@ -2,7 +2,7 @@
   "scripts": {
     "start": "docusaurus-start",
     "build": "docusaurus-build",
-    "publish-website": "yarn build && surge ./build/react-stream-renderer react-stream-renderer.surge.sh"
+    "publish-website": "yarn build && surge ./build/react-slate react-slate.surge.sh"
   },
   "dependencies": {
     "docusaurus": "^1.0.7",

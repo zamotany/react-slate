@@ -1,4 +1,4 @@
-# react-stream-renderer
+# react-slate
 
 [![Version][version-badge]][package]
 [![Build Status][build-badge]][build]
@@ -21,19 +21,19 @@ Prototype of [Haul CLI](https://github.com/callstack/haul). You can see the [sou
 
 ### Documentation
 
-Documentation can be found here: http://react-stream-renderer.surge.sh/
+Documentation can be found here: http://react-slate.surge.sh/
 
 ## Installation
 
 ```bash
-yarn add react react-stream-renderer
+yarn add react react-slate
 ```
 
 ## Usage
 
 ```js
 import React from 'react';
-import { render, View, makeTTYAdapter } from 'react-stream-renderer';
+import { render, View, makeTTYAdapter } from 'react-slate';
 
 class App extends React.Component {
   render() {
@@ -46,9 +46,9 @@ render(<App />, makeTTYAdapter(process.stdout).makeEffects());
 
 <!-- badges -->
 
-[build-badge]: https://img.shields.io/circleci/project/github/zamotany/react-stream-renderer/master.svg?style=flat-square
-[build]: https://circleci.com/gh/zamotany/react-stream-renderer
+[build-badge]: https://img.shields.io/circleci/project/github/zamotany/react-slate/master.svg?style=flat-square
+[build]: https://circleci.com/gh/zamotany/react-slate
 [license-badge]: https://img.shields.io/npm/l/linaria.svg?style=flat-square
 [license]: https://opensource.org/licenses/MIT
-[version-badge]: https://img.shields.io/npm/v/react-stream-renderer.svg?style=flat-square
-[package]: https://www.npmjs.com/package/react-stream-renderer
+[version-badge]: https://img.shields.io/npm/v/react-slate.svg?style=flat-square
+[package]: https://www.npmjs.com/package/react-slate
