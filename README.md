@@ -48,7 +48,7 @@ render(<App />, makeTTYAdapter(process.stdout).makeEffects());
 
 [build-badge]: https://img.shields.io/circleci/project/github/zamotany/react-slate/master.svg?style=flat-square
 [build]: https://circleci.com/gh/zamotany/react-slate
-[license-badge]: https://img.shields.io/npm/l/linaria.svg?style=flat-square
+[license-badge]: https://img.shields.io/npm/l/react-slate.svg?style=flat-square
 [license]: https://opensource.org/licenses/MIT
 [version-badge]: https://img.shields.io/npm/v/react-slate.svg?style=flat-square
 [package]: https://www.npmjs.com/package/react-slate

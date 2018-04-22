@@ -2,12 +2,12 @@
   "docs": {
     "Getting started": [
       "installation",
-      "adapters"
+      "packages"
     ],
     "API": [
-      "render-function",
-      "tty-adapter",
-      "test-adapter",
+      "renderToTerminal-function",
+      "renderToFrames-function",
+      "renderToTarget-function",
       "view-component",
       "text-component",
       "key-press-component",
@@ -18,6 +18,12 @@
       "styling",
       "positioning",
       "style-prop"
+    ],
+    "Utils": [
+      "hideCursor-function",
+      "clearOnError-function",
+      "clearOnExit-function",
+      "overwriteConsole-function"
     ]
   }
 }

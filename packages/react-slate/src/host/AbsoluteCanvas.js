@@ -4,8 +4,8 @@
 
 import stripAnsi from 'strip-ansi';
 import AnsiParser from 'ansi-parser';
-import sliceAnsi from './sliceAnsi';
-import stringifyStyledAnsiChars from './stringifyStyledAnsiChars';
+import sliceAnsi from '../utils/sliceAnsi';
+import stringifyStyledAnsiChars from '../utils/stringifyStyledAnsiChars';
 
 type CanvasSize = {
   width: number,

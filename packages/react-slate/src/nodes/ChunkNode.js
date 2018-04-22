@@ -5,8 +5,8 @@
 import type { Props, LayoutProps, AbsoluteProps, CustomRender } from '../types';
 import TextNode from './TextNode';
 import ContainerNode from './ContainerNode';
-import AbsoluteCanvas from '../utils/AbsoluteCanvas';
-import RelativeCanvas from '../utils/RelativeCanvas';
+import AbsoluteCanvas from '../host/AbsoluteCanvas';
+import RelativeCanvas from '../host/RelativeCanvas';
 
 type ChunkNodePros = Props &
   LayoutProps &

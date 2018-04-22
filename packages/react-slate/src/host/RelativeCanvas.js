@@ -3,7 +3,7 @@
 
 import stripAnsi from 'strip-ansi';
 import TextNode from '../nodes/TextNode';
-import sliceAnsi from './sliceAnsi';
+import sliceAnsi from '../utils/sliceAnsi';
 import { createStylize } from '../utils/style';
 
 function appendOffsets(

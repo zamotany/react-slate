@@ -10,20 +10,20 @@ sidebar_label: Installation
 yarn add react react-slate
 ```
 
-Now, in your entry file import [`render` function](./render-function.md) and appropriate adapter for your use case:
+Now, in your entry file import [`renderToTerminal` function](./renderToTerminal-function.md) or [`renderToFrames` function](./renderToFrames-function.md):
 
-* for terminal apps (CLIs etc) use [`makeTTYAdapter`](./tty-adapter.md)
-* for testing on CI use [`makeTestAdapter`](./test-adapter.md)
+* for terminal apps (CLIs etc) use [`renderToTerminal` function](./renderToTerminal-function.md)
+* for testing on CI use [`renderToFrames` function](./renderToFrames-function.md)
 
 ```js
 import React from 'react';
-import { render, makeTTYAdapter, View, Text } from 'react-slate';
+import { renderToTerminal, View, Text } from 'react-slate';
 
-render(
+renderToTerminal(
   <View style={{ margin: '1' }}>
     <Text style={{ color: 'ansi-green' }}>Hello world!</Text>
   </View>,
-  makeTTYAdapter(process.stdout).makeEffects()
+  process.stdout
 );
 ```
 
