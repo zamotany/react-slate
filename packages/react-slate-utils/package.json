@@ -22,8 +22,7 @@
     "build:clean": "rimraf build",
     "build:watch": "yarn build:transpile --watch",
     "build": "yarn build:clean && yarn build:transpile",
-    "copy-readme": "cp ../../README.md .",
-    "prepublish": "yarn build && yarn copy-readme"
+    "prepublish": "yarn build"
   },
   "dependencies": {
     "mkdirp": "^0.5.1"
