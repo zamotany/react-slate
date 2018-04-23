@@ -33,7 +33,7 @@ yarn add react react-slate
 
 ```js
 import React from 'react';
-import { render, View, makeTTYAdapter } from 'react-slate';
+import { renderToTerminal, View } from 'react-slate';
 
 class App extends React.Component {
   render() {
@@ -41,7 +41,7 @@ class App extends React.Component {
   }
 }
 
-render(<App />, makeTTYAdapter(process.stdout).makeEffects());
+renderToTerminal(<App />, process.stdout);
 ```
 
 <!-- badges -->
