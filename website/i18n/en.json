@@ -8,8 +8,6 @@
     "clearOnError": "clearOnError",
     "clearOnExit-function": "clearOnExit",
     "clearOnExit": "clearOnExit",
-    "hideCursor-function": "hideCursor",
-    "hideCursor": "hideCursor",
     "installation": "Installation",
     "Installation": "Installation",
     "key-press-component": "KeyPress",
@@ -22,6 +20,7 @@
     "Positioning": "Positioning",
     "progress-bar-component": "ProgressBar",
     "ProgressBar": "ProgressBar",
+    "react-slate-utils": "react-slate-utils",
     "render-function": "render",
     "render": "render",
     "renderToString-function": "renderToString",
@@ -44,7 +43,7 @@
     "Getting started": "Getting started",
     "API": "API",
     "Styling & Layout": "Styling & Layout",
-    "Utils": "Utils"
+    "Miscellaneous": "Miscellaneous"
   },
   "pages-strings": {
     "Help Translate|recruit community translators for your project": "Help Translate",

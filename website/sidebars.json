@@ -19,11 +19,8 @@
       "positioning",
       "style-prop"
     ],
-    "Utils": [
-      "hideCursor-function",
-      "clearOnError-function",
-      "clearOnExit-function",
-      "overwriteConsole-function"
+    "Miscellaneous": [
+      "react-slate-utils"
     ]
   }
 }
