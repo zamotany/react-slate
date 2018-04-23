@@ -4,9 +4,15 @@ import readline from 'readline';
 
 import render from './render';
 
+type Options = {
+  width?: number,
+  height?: number,
+};
+
 export default function renderToTerminal(
   element: any,
-  stream: tty$WriteStream,
+  stream: tty$WriteStream | stream$WritableStream,
+  { height = 20, width = 40 }: Options = {},
   callback: ?Function = null
 ) {
   const target = {
@@ -22,8 +28,8 @@ export default function renderToTerminal(
     },
     getSize() {
       return {
-        height: stream.rows,
-        width: stream.columns,
+        height: stream.isTTY ? stream.rows : height,
+        width: stream.isTTY ? stream.columns : width,
       };
     },
   };
