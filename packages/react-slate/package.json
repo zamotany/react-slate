@@ -21,7 +21,8 @@
     "build:clean": "rimraf build",
     "build:watch": "yarn build:transpile --watch",
     "build": "yarn build:clean && yarn build:transpile",
-    "prepublish": "yarn build"
+    "cp-readme": "cp ../../README.md .",
+    "prepublish": "yarn cp-readme && yarn build"
   },
   "peerDependencies": {
     "react": "16.x"
