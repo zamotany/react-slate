@@ -1,7 +1,7 @@
 {
-  "name": "react-slate",
-  "version": "0.2.0",
-  "description": "Render React CLI apps to TTY terminals",
+  "name": "react-slate-utils",
+  "version": "0.1.0",
+  "description": "react-slate utils for altering a TTY stream",
   "license": "MIT",
   "repository": "https://github.com/zamotany/react-slate",
   "private": false,
@@ -11,7 +11,8 @@
   },
   "files": [
     "/build",
-    "index.js"
+    "index.js",
+    "README.md"
   ],
   "engines": {
     "node": ">=6"
@@ -21,28 +22,10 @@
     "build:clean": "rimraf build",
     "build:watch": "yarn build:transpile --watch",
     "build": "yarn build:clean && yarn build:transpile",
-    "cp-readme": "cp ../../README.md .",
-    "prepublish": "yarn cp-readme && yarn build"
-  },
-  "peerDependencies": {
-    "react": "16.x"
+    "prepublish": "yarn build"
   },
   "dependencies": {
-    "ansi-parser": "^3.2.8",
-    "ansi-styles": "^3.2.0",
-    "astral-regex": "^1.0.0",
-    "chalk": "^2.1.0",
-    "cli-spinners": "^1.1.0",
-    "fast-memoize": "^2.2.8",
-    "fbjs": "^0.8.16",
-    "is-fullwidth-code-point": "^2.0.0",
-    "mkdirp": "^0.5.1",
-    "prop-types": "^15.6.0",
-    "react-reconciler": "0.3.0-beta.1",
-    "strip-ansi": "^4.0.0"
-  },
-  "devDependencies": {
-    "react": "^16.2.0"
+    "mkdirp": "^0.5.1"
   },
   "babel": {
     "presets": [

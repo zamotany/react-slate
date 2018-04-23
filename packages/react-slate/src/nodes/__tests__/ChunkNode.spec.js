@@ -3,7 +3,7 @@
 import ChunkNode from '../ChunkNode';
 import TextNode from '../TextNode';
 import ContainerNode from '../ContainerNode';
-import AbsoluteCanvas from '../../utils/AbsoluteCanvas';
+import AbsoluteCanvas from '../../host/AbsoluteCanvas';
 import colors from '../../constants/colors';
 
 function withChildren(instance, children) {

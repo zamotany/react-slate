@@ -4,6 +4,13 @@ import { onExit, callOnce } from './utils';
 
 let callbacks = [];
 
+export function clearCallbacks() {
+  callbacks.forEach(({ id, clearFunction }) => {
+    global[clearFunction](id);
+  });
+  callbacks = [];
+}
+
 export default callOnce(() => {
   ['Interval', 'Timeout', 'Immediate'].forEach(type => {
     const set = global[`set${type}`];
@@ -24,10 +31,5 @@ export default callOnce(() => {
     };
   });
 
-  onExit(() => {
-    callbacks.forEach(({ id, clearFunction }) => {
-      global[clearFunction](id);
-    });
-    callbacks = [];
-  });
+  onExit(clearCallbacks);
 });

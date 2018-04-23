@@ -1,8 +1,8 @@
 /* @flow */
 
 import ChunkNode from './nodes/ChunkNode';
-import AbsoluteCanvas from './utils/AbsoluteCanvas';
-import RelativeCanvas from './utils/RelativeCanvas';
+import AbsoluteCanvas from './host/AbsoluteCanvas';
+import RelativeCanvas from './host/RelativeCanvas';
 
 export type Props = { [key: string]: any };
 
@@ -62,4 +62,12 @@ export type CustomRender = (
 
 export type NodeStream = {
   write(data: string): void,
+};
+
+export type Target = {
+  forceFullPrint: boolean,
+  setCursorPosition(x: number, y: number): void,
+  print(data: string): void,
+  clear(): void,
+  getSize(): { width: number, height: number },
 };

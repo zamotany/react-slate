@@ -2,12 +2,12 @@
   "docs": {
     "Getting started": [
       "installation",
-      "adapters"
+      "packages"
     ],
     "API": [
-      "render-function",
-      "tty-adapter",
-      "test-adapter",
+      "renderToTerminal-function",
+      "renderToString-function",
+      "renderToTarget-function",
       "view-component",
       "text-component",
       "key-press-component",
@@ -18,6 +18,9 @@
       "styling",
       "positioning",
       "style-prop"
+    ],
+    "Miscellaneous": [
+      "react-slate-utils"
     ]
   }
 }
