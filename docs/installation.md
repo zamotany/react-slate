@@ -10,10 +10,10 @@ sidebar_label: Installation
 yarn add react react-slate
 ```
 
-Now, in your entry file import [`renderToTerminal` function](./renderToTerminal-function.md) or [`renderToFrames` function](./renderToFrames-function.md):
+Now, in your entry file import [`renderToTerminal` function](./renderToTerminal-function.md) or [`renderToString` function](./renderToString-function.md):
 
 * for terminal apps (CLIs etc) use [`renderToTerminal` function](./renderToTerminal-function.md)
-* for testing on CI use [`renderToFrames` function](./renderToFrames-function.md)
+* for testing on CI use [`renderToString` function](./renderToString-function.md)
 
 ```js
 import React from 'react';

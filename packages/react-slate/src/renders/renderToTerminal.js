@@ -11,7 +11,7 @@ type Options = {
 
 export default function renderToTerminal(
   element: any,
-  stream: tty$WriteStream | stream$WritableStream,
+  stream: tty$WriteStream | stream$Writable,
   { height = 20, width = 40 }: Options = {},
   callback: ?Function = null
 ) {
@@ -27,9 +27,17 @@ export default function renderToTerminal(
       readline.clearScreenDown(stream);
     },
     getSize() {
+      if (stream.isTTY) {
+        const { rows, columns } = ((stream: any): tty$WriteStream);
+        return {
+          height: rows,
+          width: columns,
+        };
+      }
+
       return {
-        height: stream.isTTY ? stream.rows : height,
-        width: stream.isTTY ? stream.columns : width,
+        height,
+        width,
       };
     },
   };

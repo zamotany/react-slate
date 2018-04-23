@@ -26,7 +26,7 @@ describe('renderToTerminal', () => {
       write(data) {
         buffer += data;
       },
-    }: any): stream$WriteStream);
+    }: any): stream$Writable);
 
     renderToTerminal(
       <View>Hello World</View>,

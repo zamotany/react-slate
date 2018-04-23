@@ -6,7 +6,7 @@
     ],
     "API": [
       "renderToTerminal-function",
-      "renderToFrames-function",
+      "renderToString-function",
       "renderToTarget-function",
       "view-component",
       "text-component",

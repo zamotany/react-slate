@@ -14,7 +14,7 @@ export default function renderToString(
   element: any,
   { height = 20, width = 40 }: Options = {},
   callback: ?Function = null
-): Promise<string[]> {
+) {
   let snapshot = '';
   const target = {
     forceFullPrint: true,
