@@ -64,10 +64,17 @@ export default class RelativeCanvas {
     this.canvas = [];
   }
 
+  getMaxLineLength() {
+    return Math.max(...this.canvas.map(line => stripAnsi(line).length));
+  }
+
   addPaddings(offset: Offset) {
     appendOffsets(this.canvas, offset, {
       offsetChar: ' ',
-      width: this.width,
+      width:
+        this.width > -1
+          ? this.width
+          : this.getMaxLineLength() + offset.left + offset.right,
     });
   }
 

@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`in integration tests renderToString should apply backgroundColor to paddings 1`] = `
+"@[41m               @[49m                         
+@[41m               @[49m                         
+@[41m  Hello World  @[49m                         
+@[41m               @[49m                         
+@[41m               @[49m                         
+                                        "
+`;

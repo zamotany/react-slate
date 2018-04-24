@@ -21,10 +21,6 @@ export default class ContainerNode {
     this.frontBuffer = [];
   }
 
-  invalidateParent = () => {
-    /* NOOP */
-  };
-
   appendChild(child: ChunkNode) {
     // eslint-disable-next-line no-param-reassign
     child.parent = this;

@@ -23,28 +23,10 @@ export default class ChunkNode {
   container: ContainerNode;
   parent: ChunkNode | ContainerNode;
   children = [];
-  // previousPosition: Position;
-  // hasChildrenChanged: boolean = true;
-  // hasParentChanged: boolean = false;
-  // memoizedElements: Element[] = [];
 
   constructor(container: ContainerNode, props: ChunkNodePros) {
     this.container = container;
     this.props = props;
-  }
-
-  // hasPositionChanged() {
-  //   return (
-  //     this.props.x !== this.previousPosition.x ||
-  //     this.props.y !== this.previousPosition.y
-  //   );
-  // }
-
-  invalidateParent() {
-    this;
-    // // Invalidate the whole path from this node up to the top.
-    // this.hasChildrenChanged = true;
-    // this.parent.invalidateParent();
   }
 
   prepareChild(child: ChunkNode | TextNode) {
@@ -52,7 +34,6 @@ export default class ChunkNode {
   }
 
   appendChild(child: ChunkNode | TextNode) {
-    this.invalidateParent();
     this.appendInitialChild(child);
   }
 
@@ -62,14 +43,12 @@ export default class ChunkNode {
   }
 
   prependChild(child: ChunkNode | TextNode, childBefore: ChunkNode | TextNode) {
-    this.invalidateParent();
     this.prepareChild(child);
     const index = this.children.indexOf(childBefore);
     this.children.splice(index, 0, child);
   }
 
   removeChild(child: ChunkNode | TextNode) {
-    this.invalidateParent();
     const index = this.children.indexOf(child);
     this.children.splice(index, 1);
   }
