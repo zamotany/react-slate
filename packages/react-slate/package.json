@@ -1,6 +1,6 @@
 {
   "name": "react-slate",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Render React CLI apps to TTY terminals",
   "license": "MIT",
   "repository": "https://github.com/zamotany/react-slate",
@@ -11,7 +11,8 @@
   },
   "files": [
     "/build",
-    "index.js"
+    "index.js",
+    "README.md"
   ],
   "engines": {
     "node": ">=6"
