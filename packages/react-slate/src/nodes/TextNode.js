@@ -21,6 +21,5 @@ export default class TextNode {
 
   replaceChildren(children: string) {
     this.props.children = children;
-    this.parent.invalidateParent();
   }
 }

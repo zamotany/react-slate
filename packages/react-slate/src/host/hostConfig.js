@@ -101,7 +101,6 @@ export default (containerInstance: ContainerNode) => ({
     ) {
       if (!shallowEqual(oldProps, newProps)) {
         instance.props = newProps;
-        instance.invalidateParent();
       }
     },
 
