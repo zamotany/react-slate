@@ -1,0 +1,56 @@
+{
+  "name": "react-slate-playground",
+  "version": "0.1.0",
+  "description": "Playground showcasing features of react-slate",
+  "bin": "./bin",
+  "license": "MIT",
+  "repository": "https://github.com/zamotany/react-slate",
+  "private": false,
+  "author": {
+    "name": "Paweł Trysła",
+    "email": "zamotany.oss@gmail.com"
+  },
+  "files": [
+    "/build",
+    "/bin",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=6"
+  },
+  "scripts": {
+    "build:transpile": "babel src --out-dir build --ignore **/__tests__/**",
+    "build:clean": "rimraf build",
+    "build:watch": "yarn build:transpile --watch",
+    "build": "yarn build:clean && yarn build:transpile",
+    "prepublish": "yarn build"
+  },
+  "dependencies": {
+    "react": "^16.3.2",
+    "react-slate": "^0.4.1",
+    "react-slate-utils": "^0.1.0"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": 6
+          }
+        }
+      ],
+      "react",
+      "stage-2"
+    ],
+    "plugins": [
+      "flow-react-proptypes",
+      "transform-flow-strip-types",
+      "transform-object-rest-spread"
+    ],
+    "sourceMaps": "inline"
+  },
+  "eslintConfig": {
+    "extends": "callstack-io"
+  }
+}
