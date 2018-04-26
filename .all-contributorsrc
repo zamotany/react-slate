@@ -1,0 +1,40 @@
+{
+  "projectName": "react-slate",
+  "projectOwner": "zamotany",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "zamotany",
+      "name": "Paweł Trysła",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/17573635?v=4",
+      "profile": "https://twitter.com/_zamotany",
+      "contributions": [
+        "question",
+        "bug",
+        "code",
+        "design",
+        "doc",
+        "example",
+        "ideas",
+        "test"
+      ]
+    },
+    {
+      "login": "satya164",
+      "name": "Satyajit Sahoo",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1174278?v=4",
+      "profile": "https://twitter.com/@satya164",
+      "contributions": [
+        "code",
+        "ideas",
+        "review"
+      ]
+    }
+  ]
+}

@@ -11,9 +11,11 @@
     "flow": "flow",
     "lint": "lerna exec ../../node_modules/.bin/eslint .",
     "test": "jest",
-    "format": "prettier --single-quote --trailing-comma es5 --write \"packages/*/src/**/*.js\""
+    "format": "prettier --single-quote --trailing-comma es5 --write \"packages/*/src/**/*.js\"",
+    "add-contributor": "all-contributors add"
   },
   "devDependencies": {
+    "all-contributors-cli": "^4.11.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.2",

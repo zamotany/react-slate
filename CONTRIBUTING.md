@@ -30,7 +30,13 @@ From this point, you can use the following scripts:
 * `yarn test` - Run Jest to execute test suites.
 * `yarn format` - Run Prettier to fix formating (usually you don't have to do it, since the prettier is integrated into ESLint).
 * `yarn link-packages` - Run `yarn link` in every package from `packages/`.
+* `yarn add-contributor` - Adds new contributor to a contributors list in `README.md`.
 
 If you want to manually test your changes or see it in action, there's a package `react-slate-playground`, which you can use to experiment. Inside this project everything is liked, so all you need to do is run `yarn build` or `yarn watch` and then `node ./packages/react-slate-playground/bin` to run it.
 
 Alternatively, if you already have a project which uses `react-slate`, you can run `yarn link-packages` and then link each package to in your project using `yarn link <package-name>` eg: `yarn link react-slate`. Remember to run `yarn build` after making changes or have `yarn watch` running.
+
+## Before making a PR
+
+1.  Please make sure the test, flow and lint are passing.
+2.  Please add yourself to a contributors list by running `yarn add-contributor`.
