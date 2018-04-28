@@ -1,7 +1,8 @@
 /* @flow */
 
 import readline from 'readline';
-import { onExit, hasThrownError } from './utils';
+import { Internal } from 'react-slate';
+import { hasThrownError } from './utils';
 import { SHOW_CURSOR, HIDE_CURSOR, CLEAR_SCROLL_BACK } from '../asciiCodes';
 
 type Stream = stream$Writable;
@@ -11,7 +12,7 @@ export function clearScreen(stream: Stream) {
 }
 
 export function clearOnExit(stream: Stream, forceClear?: boolean = false) {
-  onExit(() => {
+  Internal.onExit(() => {
     if (!hasThrownError() || forceClear) {
       clearScreen(stream);
     }
@@ -25,14 +26,14 @@ export function hideCursor(stream: Stream) {
     stream.write(SHOW_CURSOR);
   };
 
-  onExit(restoreCursor);
+  Internal.onExit(restoreCursor);
 }
 
 export function clearScrollbackOnExit(
   stream: Stream,
   forceClear?: boolean = false
 ) {
-  onExit(() => {
+  Internal.onExit(() => {
     if (!hasThrownError() || forceClear) {
       stream.write(CLEAR_SCROLL_BACK);
     }
@@ -40,7 +41,7 @@ export function clearScrollbackOnExit(
 }
 
 export function clearOnError(stream: Stream) {
-  onExit(() => {
+  Internal.onExit(() => {
     if (hasThrownError()) {
       clearScreen(stream);
     }

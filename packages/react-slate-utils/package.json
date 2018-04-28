@@ -24,8 +24,14 @@
     "build": "yarn build:clean && yarn build:transpile",
     "prepublish": "yarn build"
   },
+  "peerDependencies": {
+    "react-slate": "*"
+  },
   "dependencies": {
     "mkdirp": "^0.5.1"
+  },
+  "devDependencies": {
+    "react-slate": "^0.4.1"
   },
   "babel": {
     "presets": [
