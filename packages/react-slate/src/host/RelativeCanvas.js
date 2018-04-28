@@ -103,7 +103,9 @@ export default class RelativeCanvas {
     if (this.height > 0 && this.canvas.length < this.height) {
       const length = this.height - this.canvas.length;
       for (let i = 0; i < length; i++) {
-        this.canvas.push(this.width > 0 ? '\0'.repeat(this.width) : '');
+        this.canvas.push(
+          ' '.repeat(this.width > -1 ? this.width : this.getMaxLineLength())
+        );
       }
     } else if (this.height > 0 && this.canvas.length > this.height) {
       const length = this.canvas.length - this.height;
