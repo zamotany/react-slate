@@ -7,22 +7,6 @@ type ReadableStream = stream$Readable & {
   setRawMode(flag: boolean): void,
 };
 
-let isStreamConfigured = false;
-function configureInputStream(readableStream: ReadableStream) {
-  if (!isStreamConfigured) {
-    readableStream.setRawMode(true);
-    readline.emitKeypressEvents(readableStream);
-
-    readableStream.on('keypress', (ch, key) => {
-      if (key.ctrl && key.name === 'c') {
-        process.exit(0);
-      }
-    });
-
-    isStreamConfigured = true;
-  }
-}
-
 type Key = {
   name: string,
   ctrl: boolean,
@@ -37,18 +21,28 @@ type Props = {
 };
 
 export default class KeyPress extends React.Component<Props> {
+  isStreamConfigured: boolean = false;
+
   onKeyPress = (ch: string, key: Key) => {
     this.props.onPress(ch, key);
+    if (key.ctrl && key.name === 'c') {
+      process.exit(0);
+    }
   };
 
   componentDidMount() {
     const { stream } = this.props;
-    configureInputStream(stream);
+    if (!this.isStreamConfigured) {
+      stream.setRawMode(true);
+      readline.emitKeypressEvents(stream);
+      this.isStreamConfigured = true;
+    }
     stream.addListener('keypress', this.onKeyPress);
   }
 
   componentWillUnmount() {
     const { stream } = this.props;
+    stream.setRawMode(false);
     stream.removeListener('keypress', this.onKeyPress);
   }
 
