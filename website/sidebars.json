@@ -6,6 +6,7 @@
     ],
     "API": [
       "renderToTerminal-function",
+      "unmountFromTerminal-function",
       "renderToString-function",
       "renderToTarget-function",
       "view-component",

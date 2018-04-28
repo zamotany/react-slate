@@ -33,6 +33,8 @@
     "Styling": "Styling",
     "text-component": "Text",
     "Text": "Text",
+    "unmountFromTerminal-function": "unmountFromTerminal",
+    "unmountFromTerminal": "unmountFromTerminal",
     "view-component": "View",
     "View": "View",
     "Docs": "Docs",

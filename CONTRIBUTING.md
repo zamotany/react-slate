@@ -32,7 +32,7 @@ From this point, you can use the following scripts:
 * `yarn link-packages` - Run `yarn link` in every package from `packages/`.
 * `yarn add-contributor` - Adds new contributor to a contributors list in `README.md`.
 
-If you want to manually test your changes or see it in action, there's a package `react-slate-playground`, which you can use to experiment. Inside this project everything is liked, so all you need to do is run `yarn build` or `yarn watch` and then `node ./packages/react-slate-playground/bin` to run it.
+If you want to manually test your changes or see it in action, there's a package `react-slate-playground`, which you can use to experiment. Inside this project everything is liked, so all you need to do is run `yarn build` or `yarn watch` and then `node ./packages/react-slate-playground/bin` or `yarn start` to run it.
 
 Alternatively, if you already have a project which uses `react-slate`, you can run `yarn link-packages` and then link each package to in your project using `yarn link <package-name>` eg: `yarn link react-slate`. Remember to run `yarn build` after making changes or have `yarn watch` running.
 
