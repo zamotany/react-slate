@@ -1,7 +1,6 @@
 /* @flow */
 
 import render from './render';
-import { clearCallbacks } from '../utils/clearCallbacksOnExit';
 
 type Options = {
   height?: number,
@@ -22,10 +21,7 @@ export default function renderToString(
     clear: NOOP,
     print(data: string) {
       snapshot += data;
-      // Need to clear callbacks (setTimeout/setInterval)
-      // so the queue is free from task thus stopping React app
-      // from running.
-      clearCallbacks();
+      render(null, target, callback);
     },
     getSize() {
       return {

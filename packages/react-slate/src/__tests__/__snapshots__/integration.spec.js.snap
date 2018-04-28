@@ -8,3 +8,21 @@ exports[`in integration tests renderToString should apply backgroundColor to pad
 @[41m               @[49m                         
                                         "
 `;
+
+exports[`in integration tests renderToString should apply backgroundColor whole content with fixed height 1`] = `
+"@[41mHello World@[49m                             
+@[41m           @[49m                             
+@[41m           @[49m                             
+@[41m           @[49m                             
+                                        
+                                        "
+`;
+
+exports[`in integration tests renderToString should apply backgroundColor whole content with fixed height 2`] = `
+"@[41mHello World @[49m                            
+@[41m            @[49m                            
+@[41m            @[49m                            
+@[41m            @[49m                            
+                                        
+                                        "
+`;

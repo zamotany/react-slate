@@ -40,6 +40,10 @@ export default class ContainerNode {
   }
 
   draw() {
+    if (!this.children.length) {
+      return;
+    }
+
     this.backBuffer = this.frontBuffer;
 
     const canvas = new AbsoluteCanvas(this.target.getSize());
