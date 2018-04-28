@@ -6,6 +6,12 @@ sidebar_label: react-slate-utils
 
 Utility functions for altering and enhancing terminal apps.
 
+## Installation
+
+```bash
+yarn add react-slate react-slate-utils
+```
+
 ## API
 
 ### `hideCursor(): void`
