@@ -17,13 +17,13 @@ export default function render(
 ) {
   onExit(() => {
     if (targetMap.has(target)) {
-      const { node, reconciler } = targetMap.get(target);
+      const { node, reconciler } = (targetMap.get(target): any);
       reconciler.updateContainer(null, node, null);
     }
   });
 
   if (targetMap.has(target)) {
-    const { node, reconciler } = targetMap.get(target);
+    const { node, reconciler } = (targetMap.get(target): any);
     reconciler.updateContainer(element, node, null, callback);
   } else {
     const container = new ContainerNode(target);

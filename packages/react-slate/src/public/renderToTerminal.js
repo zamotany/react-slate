@@ -1,7 +1,7 @@
 /* @flow */
 
 import readline from 'readline';
-
+import type { Target } from '../types';
 import render from './render';
 
 type Options = {
@@ -13,7 +13,7 @@ const streamMap = new Map();
 
 export function unmountFromTerminal(stream: tty$WriteStream | stream$Writable) {
   if (streamMap.has(stream)) {
-    render(null, streamMap.get(stream));
+    render(null, ((streamMap.get(stream): any): Target));
     return true;
   }
   return false;
@@ -26,7 +26,7 @@ export default function renderToTerminal(
   callback: ?Function = null
 ) {
   if (streamMap.has(stream)) {
-    return render(element, streamMap.get(stream), callback);
+    return render(element, ((streamMap.get(stream): any): Target), callback);
   }
   const target = {
     forceFullPrint: false,

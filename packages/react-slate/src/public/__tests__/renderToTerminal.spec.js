@@ -79,13 +79,12 @@ describe('renderToTerminal', () => {
       isTTY: true,
     }: any): tty$WriteStream);
 
-    class Element extends React.Component {
+    class Element extends React.Component<*, { count: number }> {
       state = {
         count: 0,
       };
 
       componentWillReceiveProps() {
-        // eslint-disable-next-line react/no-did-mount-set-state
         this.setState(state => ({ count: state.count + 1 }));
       }
 
