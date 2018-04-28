@@ -28,7 +28,9 @@ describe('utils/style', () => {
 
     it('should split border to separate properties', () => {
       function test(border, style, color) {
-        const { stylizeArgs: { borderStyle, borderColor } } = getStyleProps({
+        const {
+          stylizeArgs: { borderStyle, borderColor },
+        } = getStyleProps({
           border,
         });
 
