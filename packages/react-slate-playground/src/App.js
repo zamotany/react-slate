@@ -13,7 +13,7 @@ export default class App extends React.Component {
   };
 
   componentDidMount() {
-    setInterval(() => {
+    this.intervalId = setInterval(() => {
       this.setState(state => ({
         progress:
           state.progress >= 1 ||
@@ -22,6 +22,10 @@ export default class App extends React.Component {
             : state.progress + 0.1,
       }));
     }, 100);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
   }
 
   onPress = char => {

@@ -1,4 +1,5 @@
 import React from 'react';
+import path from 'path';
 import { renderToTerminal } from 'react-slate';
 import {
   hideCursor,
@@ -7,11 +8,11 @@ import {
 } from 'react-slate-utils';
 import App from './App';
 
+overwriteConsole({
+  outStream: path.join(__dirname, '../node_modules/.artifacts/stdout.log'),
+  errStream: path.join(__dirname, '../node_modules/.artifacts/stderr.log'),
+});
 hideCursor(process.stdout);
 clearScrollbackOnExit(process.stdout);
-overwriteConsole({
-  outStream: './node_modules/.artifacts/stdout.log',
-  errStream: './node_modules/.artifacts/stderr.log',
-});
 
 renderToTerminal(<App />, process.stdout);
