@@ -17,6 +17,7 @@ type Key = {
 type Props = {
   stream: ReadableStream,
   onPress(char: string, key: Key): void,
+  disableStreamCleanup?: boolean,
   children?: any,
 };
 
@@ -31,19 +32,27 @@ export default class KeyPress extends React.Component<Props> {
   };
 
   componentDidMount() {
-    const { stream } = this.props;
+    const { stream, disableStreamCleanup } = this.props;
+    if (!disableStreamCleanup) {
+      stream.resume();
+    }
     if (!this.isStreamConfigured) {
       stream.setRawMode(true);
       readline.emitKeypressEvents(stream);
-      this.isStreamConfigured = true;
     }
     stream.addListener('keypress', this.onKeyPress);
   }
 
   componentWillUnmount() {
-    const { stream } = this.props;
+    const { stream, disableStreamCleanup } = this.props;
     stream.setRawMode(false);
     stream.removeListener('keypress', this.onKeyPress);
+    if (!disableStreamCleanup) {
+      // This needs to be explicitly called, since `readline.emitKeypressEvents`
+      // contains side effects, which prevents node process from exiting.
+      // All code after this line will execute properly.
+      stream.pause();
+    }
   }
 
   render() {
