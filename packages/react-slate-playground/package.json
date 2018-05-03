@@ -30,6 +30,9 @@
     "react-slate": "^0.4.1",
     "react-slate-utils": "^0.1.0"
   },
+  "devDependencies": {
+    "strip-ansi": "^4.0.0"
+  },
   "babel": {
     "presets": [
       [
@@ -44,7 +47,6 @@
       "stage-2"
     ],
     "plugins": [
-      "flow-react-proptypes",
       "transform-flow-strip-types",
       "transform-object-rest-spread"
     ],

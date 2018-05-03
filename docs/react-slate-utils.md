@@ -6,9 +6,15 @@ sidebar_label: react-slate-utils
 
 Utility functions for altering and enhancing terminal apps.
 
+## Installation
+
+```bash
+yarn add react-slate react-slate-utils
+```
+
 ## API
 
-### `hideCursor(): void`
+### `hideCursor(stream: tty$WritableStream): void`
 
 Hides cursor.
 
@@ -19,10 +25,10 @@ Contains side effects!
 ```js
 import { hideCursor } from 'react-slate-utils';
 
-hideCursor();
+hideCursor(process.stdout);
 ```
 
-### `clearOnExit(shouldClearScrollback: boolean = false): void`
+### `clearOnExit(stream: tty$WritableStream, shouldClearScrollback: boolean = false): void`
 
 Clear screen or scrollback (if `shouldClearScrollback` is `true`) when process is about to exit.
 
@@ -33,10 +39,10 @@ Contains side effects!
 ```js
 import { clearOnExit } from 'react-slate-utils';
 
-clearOnExit(true);
+clearOnExit(process.stdout, true);
 ```
 
-### `clearOnError(): void`
+### `clearOnError(stream: tty$WritableStream): void`
 
 Clear screen (scrollback will be untouched) when process is about to exit due to an error.
 
@@ -47,7 +53,7 @@ Contains side effects!
 ```js
 import { clearOnError } from 'react-slate-utils';
 
-clearOnError();
+clearOnError(process.stdout);
 ```
 
 ### `overwriteConsole(options: OverwriteConsoleOptions): void`

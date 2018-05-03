@@ -6,6 +6,12 @@
 
 Utilities for altering/enhancing terminal for [`react-slate`](https://www.npmjs.com/package/react-slate).
 
+### Installation
+
+```bash
+yarn add react-slate react-slate-utils
+```
+
 ### Documentation
 
 Documentation can be found here: http://react-slate.surge.sh/

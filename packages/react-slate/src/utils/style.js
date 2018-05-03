@@ -146,6 +146,7 @@ function colorize(enhance, bg: boolean, color?: string) {
       return bg ? enhance.bgRgb(...rgb) : enhance.rgb(...rgb);
     } else if (color.startsWith('ansi-')) {
       const name = color.replace(/^ansi-/, '');
+      // $FlowFixMe
       return bg ? enhance[`bg${capitalize(name)}`] : enhance[name];
     }
 
