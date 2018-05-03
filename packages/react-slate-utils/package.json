@@ -21,7 +21,8 @@
     "build:transpile": "babel src --out-dir build --ignore **/__tests__/**",
     "build:clean": "rimraf build",
     "build:watch": "yarn build:transpile --watch",
-    "build": "yarn build:clean && yarn build:transpile",
+    "build:flow": "flow-copy-source src build -i '{**/__tests__/**}'",
+    "build": "yarn build:clean && yarn build:transpile && yarn build:flow",
     "prepublish": "yarn build"
   },
   "peerDependencies": {
@@ -47,7 +48,6 @@
       "stage-2"
     ],
     "plugins": [
-      "flow-react-proptypes",
       "transform-flow-strip-types",
       "transform-object-rest-spread"
     ],

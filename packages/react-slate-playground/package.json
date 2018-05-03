@@ -47,7 +47,6 @@
       "stage-2"
     ],
     "plugins": [
-      "flow-react-proptypes",
       "transform-flow-strip-types",
       "transform-object-rest-spread"
     ],
