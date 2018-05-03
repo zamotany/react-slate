@@ -37,7 +37,7 @@ export default class KeyPress extends React.Component<Props> {
       stream.resume();
     }
     if (!this.isStreamConfigured) {
-      stream.setRawMode(true);
+      setRawMode(stream, true);
       readline.emitKeypressEvents(stream);
     }
     stream.addListener('keypress', this.onKeyPress);
@@ -45,7 +45,7 @@ export default class KeyPress extends React.Component<Props> {
 
   componentWillUnmount() {
     const { stream, disableStreamCleanup } = this.props;
-    stream.setRawMode(false);
+    setRawMode(stream, false);
     stream.removeListener('keypress', this.onKeyPress);
     if (!disableStreamCleanup) {
       // This needs to be explicitly called, since `readline.emitKeypressEvents`
@@ -58,4 +58,8 @@ export default class KeyPress extends React.Component<Props> {
   render() {
     return this.props.children || null;
   }
+}
+
+function setRawMode(stream, value) {
+  stream.setRawMode && stream.setRawMode(value);
 }
