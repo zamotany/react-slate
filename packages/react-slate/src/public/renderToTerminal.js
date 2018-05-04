@@ -9,7 +9,7 @@ type Options = {
   height?: number,
 };
 
-const streamMap = new Map();
+const streamMap = new WeakMap();
 
 export function unmountFromTerminal(stream: tty$WriteStream | stream$Writable) {
   if (streamMap.has(stream)) {

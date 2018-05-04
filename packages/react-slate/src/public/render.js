@@ -8,7 +8,7 @@ import ContainerNode from '../nodes/ContainerNode';
 import hostConfig from '../host/hostConfig';
 import onExit from '../utils/onExit';
 
-const targetMap = new Map();
+const targetMap = new WeakMap();
 
 export default function render(
   element: any,

@@ -21,8 +21,13 @@ type Props = {
   children?: any,
 };
 
+const INTERNAL = Symbol('KeyPress_Internal');
+
 export default class KeyPress extends React.Component<Props> {
-  isStreamConfigured: boolean = false;
+  // $FlowFixMe
+  static [INTERNAL] = {
+    streams: new WeakMap(),
+  };
 
   onKeyPress = (ch: string, key: Key) => {
     this.props.onPress(ch, key);
@@ -36,22 +41,50 @@ export default class KeyPress extends React.Component<Props> {
     if (!disableStreamCleanup) {
       stream.resume();
     }
-    if (!this.isStreamConfigured) {
+
+    // If stream wasn't stored, then the stream was not configured yet, so
+    // configure it, store and set initial value to 1, so another instance
+    // won't run configuration code again.
+    // $FlowFixMe
+    if (!KeyPress[INTERNAL].streams.has(stream)) {
       setRawMode(stream, true);
       readline.emitKeypressEvents(stream);
+      // $FlowFixMe
+      KeyPress[INTERNAL].streams.set(stream, 1);
+    } else {
+      // $FlowFixMe
+      const count = KeyPress[INTERNAL].streams.get(stream);
+      // $FlowFixMe
+      KeyPress[INTERNAL].streams.set(stream, count + 1);
     }
+
     stream.addListener('keypress', this.onKeyPress);
   }
 
   componentWillUnmount() {
     const { stream, disableStreamCleanup } = this.props;
-    setRawMode(stream, false);
     stream.removeListener('keypress', this.onKeyPress);
-    if (!disableStreamCleanup) {
-      // This needs to be explicitly called, since `readline.emitKeypressEvents`
-      // contains side effects, which prevents node process from exiting.
-      // All code after this line will execute properly.
-      stream.pause();
+
+    // Decrement number of instances of `KeyPress` operating on given stream,
+    // only if the stream was configured and stored.
+    // $FlowFixMe
+    if (KeyPress[INTERNAL].streams.has(stream)) {
+      // $FlowFixMe
+      const count = KeyPress[INTERNAL].streams.get(stream) - 1;
+      // $FlowFixMe
+      KeyPress[INTERNAL].streams.set(stream, count);
+
+      // Cleanup the stream if current instance was the only one left
+      // operating on given stream.
+      if (count === 0) {
+        setRawMode(stream, false);
+        if (!disableStreamCleanup) {
+          // This needs to be explicitly called, since `readline.emitKeypressEvents`
+          // contains side effects, which prevents node process from exiting.
+          // All code after this line will execute properly.
+          stream.pause();
+        }
+      }
     }
   }
 
