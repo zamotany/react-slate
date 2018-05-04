@@ -10,5 +10,3 @@ jsconfig.json
 
 build/
 coverage/
-
-packages/react-slate/README.md

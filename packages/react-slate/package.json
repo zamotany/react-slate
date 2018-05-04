@@ -23,8 +23,7 @@
     "build:watch": "yarn build:transpile --watch",
     "build:flow": "flow-copy-source src build -i '{**/__tests__/**}'",
     "build": "yarn build:clean && yarn build:transpile && yarn build:flow",
-    "cp-readme": "cp ../../README.md .",
-    "prepublish": "yarn cp-readme && yarn build"
+    "prepublish": "yarn build"
   },
   "peerDependencies": {
     "react": "16.x"
