@@ -21,8 +21,13 @@ type Props = {
   children?: any,
 };
 
+const INTERNAL = Symbol('KeyPress_Internal');
+
 export default class KeyPress extends React.Component<Props> {
-  isStreamConfigured: boolean = false;
+  // $FlowFixMe
+  static [INTERNAL] = {
+    instanceCount: 0,
+  };
 
   onKeyPress = (ch: string, key: Key) => {
     this.props.onPress(ch, key);
@@ -36,22 +41,30 @@ export default class KeyPress extends React.Component<Props> {
     if (!disableStreamCleanup) {
       stream.resume();
     }
-    if (!this.isStreamConfigured) {
+    // $FlowFixMe
+    if (KeyPress[INTERNAL].instanceCount === 0) {
       setRawMode(stream, true);
       readline.emitKeypressEvents(stream);
     }
     stream.addListener('keypress', this.onKeyPress);
+    // $FlowFixMe
+    KeyPress[INTERNAL].instanceCount++;
   }
 
   componentWillUnmount() {
     const { stream, disableStreamCleanup } = this.props;
-    setRawMode(stream, false);
     stream.removeListener('keypress', this.onKeyPress);
-    if (!disableStreamCleanup) {
-      // This needs to be explicitly called, since `readline.emitKeypressEvents`
-      // contains side effects, which prevents node process from exiting.
-      // All code after this line will execute properly.
-      stream.pause();
+    // $FlowFixMe
+    KeyPress[INTERNAL].instanceCount--;
+    // $FlowFixMe
+    if (KeyPress[INTERNAL].instanceCount === 0) {
+      setRawMode(stream, false);
+      if (!disableStreamCleanup) {
+        // This needs to be explicitly called, since `readline.emitKeypressEvents`
+        // contains side effects, which prevents node process from exiting.
+        // All code after this line will execute properly.
+        stream.pause();
+      }
     }
   }
 
