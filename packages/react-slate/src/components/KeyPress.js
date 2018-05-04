@@ -42,18 +42,13 @@ export default class KeyPress extends React.Component<Props> {
       stream.resume();
     }
 
-    // If stream wasn't stored, then the stream was not configured yet.
+    // If stream wasn't stored, then the stream was not configured yet, so
+    // configure it, store and set initial value to 1, so another instance
+    // won't run configuration code again.
     // $FlowFixMe
     if (!KeyPress[INTERNAL].streams.has(stream)) {
       setRawMode(stream, true);
       readline.emitKeypressEvents(stream);
-    }
-    stream.addListener('keypress', this.onKeyPress);
-
-    // Store stream and set initial value to 1, so another instance
-    // won't run configuration code again.
-    // $FlowFixMe
-    if (!KeyPress[INTERNAL].streams.has(stream)) {
       // $FlowFixMe
       KeyPress[INTERNAL].streams.set(stream, 1);
     } else {
@@ -62,6 +57,8 @@ export default class KeyPress extends React.Component<Props> {
       // $FlowFixMe
       KeyPress[INTERNAL].streams.set(stream, count + 1);
     }
+
+    stream.addListener('keypress', this.onKeyPress);
   }
 
   componentWillUnmount() {
