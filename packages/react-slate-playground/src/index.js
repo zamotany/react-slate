@@ -6,6 +6,7 @@ import {
   clearScrollbackOnExit,
   overwriteConsole,
 } from 'react-slate-utils';
+import throttle from 'lodash.throttle';
 import App from './App';
 
 overwriteConsole({
@@ -16,3 +17,10 @@ hideCursor(process.stdout);
 clearScrollbackOnExit(process.stdout);
 
 renderToTerminal(<App />, process.stdout);
+
+process.on(
+  'resize',
+  throttle(() => {
+    renderToTerminal(<App />, process.stdout);
+  }, 100)
+);

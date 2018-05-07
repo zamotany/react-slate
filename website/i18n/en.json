@@ -16,7 +16,8 @@
     "Positioning": "Positioning",
     "progress-bar-component": "ProgressBar",
     "ProgressBar": "ProgressBar",
-    "react-slate-utils": "react-slate-utils",
+    "react-slate-utils-api": "react-slate-utils: Getting started",
+    "Getting started": "Getting started",
     "render-function": "render",
     "render": "render",
     "renderToString-function": "renderToString",
@@ -25,6 +26,8 @@
     "renderToTarget": "renderToTarget",
     "renderToTerminal-function": "renderToTerminal",
     "renderToTerminal": "renderToTerminal",
+    "responding-to-resize-event-guide": "Responding to `resize` event",
+    "Responding to `resize` event": "Responding to `resize` event",
     "spinner-component": "Spinner",
     "Spinner": "Spinner",
     "style-prop": "Style prop (reference)",
@@ -38,10 +41,10 @@
     "view-component": "View",
     "View": "View",
     "Docs": "Docs",
-    "Getting started": "Getting started",
-    "API": "API",
-    "Styling & Layout": "Styling & Layout",
-    "Miscellaneous": "Miscellaneous"
+    "Guides": "Guides",
+    "react-slate: API": "react-slate: API",
+    "react-slate: Styling & Layout": "react-slate: Styling & Layout",
+    "react-slate-utils": "react-slate-utils"
   },
   "pages-strings": {
     "Help Translate|recruit community translators for your project": "Help Translate",
