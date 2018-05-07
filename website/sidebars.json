@@ -5,7 +5,7 @@
       "packages"
     ],
     "Guides": [
-      "resize-event-handling-guide"
+      "responding-to-resize-event-guide"
     ],
     "react-slate: API": [
       "renderToTerminal-function",

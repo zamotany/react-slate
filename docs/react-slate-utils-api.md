@@ -1,7 +1,7 @@
 ---
 id: react-slate-utils-api
-title: react-slate-utils: Installation + API
-sidebar_label: Installation + API
+title: react-slate-utils: Getting started
+sidebar_label: Getting started
 ---
 
 Utility functions for altering and enhancing terminal apps.
