@@ -1,6 +1,6 @@
 {
   "name": "@react-slate/components",
-  "version": "0.2.0",
+  "version": "0.1.0",
   "description": "Standard component library for react-slate",
   "license": "MIT",
   "repository": "https://github.com/zamotany/react-slate",
@@ -16,6 +16,9 @@
   ],
   "engines": {
     "node": ">=6"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build:transpile": "babel src --out-dir build --ignore **/__tests__/**",

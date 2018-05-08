@@ -1,6 +1,6 @@
 {
   "name": "@react-slate/interactive",
-  "version": "0.2.0",
+  "version": "0.1.0",
   "description": "Components to interact with TTY stream in react-slate apps",
   "license": "MIT",
   "repository": "https://github.com/zamotany/react-slate",
@@ -16,6 +16,9 @@
   ],
   "engines": {
     "node": ">=6"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build:transpile": "babel src --out-dir build --ignore **/__tests__/**",

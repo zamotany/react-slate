@@ -17,6 +17,9 @@
   "engines": {
     "node": ">=6"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build:transpile": "babel src --out-dir build --ignore **/__tests__/**",
     "build:clean": "rimraf build",
