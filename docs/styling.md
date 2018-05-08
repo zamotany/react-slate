@@ -52,7 +52,7 @@ Determines whether the content of a [`View`](./view-component.md) or [`Text`](./
 
 ### `margin: string`
 
-Add a margin around the content of [`View`](./view-component.md) or [`Text`](./text-component.md) component.
+Add a margin around the content of [`View`](./view-component.md) or [`Text`](./text-component.md) component. **Only 0 and positive values are supported**, negative ones are a NOOP.
 
 **The margin area won't be affected by [`backgroundColor`](#background-color) property.**
 
@@ -65,47 +65,47 @@ Use CSS syntax for applying margin:
 
 ### `marginTop: number`
 
-Adds margin on the top of the content of [`View`](./view-component.md) or [`Text`](./text-component.md) component.
+Adds margin on the top of the content of [`View`](./view-component.md) or [`Text`](./text-component.md) component. **Only 0 and positive values are supported**, negative ones are a NOOP.
 
 **The margin area won't be affected by [`backgroundColor`](#backgroundcolor-string) property.**
 
 ### `marginBottom: number`
 
-Adds margin on the bottom of the content of [`View`](./view-component.md) or [`Text`](./text-component.md) component.
+Adds margin on the bottom of the content of [`View`](./view-component.md) or [`Text`](./text-component.md) component. **Only 0 and positive values are supported**, negative ones are a NOOP.
 
 **The margin area won't be affected by [`backgroundColor`](#backgroundcolor-string) property.**
 
 ### `marginLeft: number`
 
-Adds margin on left side of the content of [`View`](./view-component.md) or [`Text`](./text-component.md) component.
+Adds margin on left side of the content of [`View`](./view-component.md) or [`Text`](./text-component.md) component. **Only 0 and positive values are supported**, negative ones are a NOOP.
 
 **The margin area won't be affected by [`backgroundColor`](#backgroundcolor-string) property.**
 
 ### `marginRight: number`
 
-Adds margin on the right side of the content of [`View`](./view-component.md) or [`Text`](./text-component.md)component.
+Adds margin on the right side of the content of [`View`](./view-component.md) or [`Text`](./text-component.md)component. **Only 0 and positive values are supported**, negative ones are a NOOP.
 
 **The margin area won't be affected by [`backgroundColor`](#backgroundcolor-string) property.**
 
 ### `padding: string`
 
-Same as `margin` but **the padding area will be affected by [`backgroundColor`](#backgroundcolor-string)property**.
+Same as `margin` but **the padding area will be affected by [`backgroundColor`](#backgroundcolor-string)property**. **Only 0 and positive values are supported**, negative ones are a NOOP.
 
 ### `paddingTop: number`
 
-Same as `marginTop` but **the padding area will be affected by [`backgroundColor`](#backgroundcolor-string) property**.
+Same as `marginTop` but **the padding area will be affected by [`backgroundColor`](#backgroundcolor-string) property**. **Only 0 and positive values are supported**, negative ones are a NOOP.
 
 ### `paddingBottom: number`
 
-Same as `paddingBottom` but **the padding area will be affected by [`backgroundColor`](#backgroundcolor-string) property**.
+Same as `paddingBottom` but **the padding area will be affected by [`backgroundColor`](#backgroundcolor-string) property**. **Only 0 and positive values are supported**, negative ones are a NOOP.
 
 ### `paddingLeft: number`
 
-Same as `marginLeft` but **the padding area will be affected by [`backgroundColor`](#backgroundcolor-string) property**.
+Same as `marginLeft` but **the padding area will be affected by [`backgroundColor`](#backgroundcolor-string) property**. **Only 0 and positive values are supported**, negative ones are a NOOP.
 
 ### `paddingRight: number`
 
-Same as `marginRight` but **the padding area will be affected by [`backgroundColor`](#backgroundcolor-string) property**.
+Same as `marginRight` but **the padding area will be affected by [`backgroundColor`](#backgroundcolor-string) property**. **Only 0 and positive values are supported**, negative ones are a NOOP.
 
 ### `borderStyle: 'none' | 'solid' | 'double'`
 
