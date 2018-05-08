@@ -1,3 +1,3 @@
-# react-slate-playground
+# @react-slate/playground
 
 Binary showcasing features of `react-slate`.

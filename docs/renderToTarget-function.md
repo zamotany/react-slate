@@ -28,7 +28,7 @@ Renders an React element to a custom target.
 ```js
 import React from 'react';
 import { WebSocket } from 'ws';
-import { renderToTarget, View } from 'react-slate';
+import { renderToTarget, View } from '@react-slate/core';
 
 const NOOP = () => {};
 const ws = new WebSocket(someAddress);

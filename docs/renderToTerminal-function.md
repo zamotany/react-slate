@@ -28,7 +28,7 @@ Renders an React element to a TTY stream (Terminal, usually `process.stdout` or 
 
 ```js
 import React from 'react';
-import { renderToTerminal, View } from 'react-slate';
+import { renderToTerminal, View } from '@react-slate/core';
 
 renderToTerminal(<View>Hello World</View>, process.stdout);
 ```

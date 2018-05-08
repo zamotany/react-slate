@@ -20,7 +20,7 @@ Unmount an app from TTY stream (usually `process.stdout` or `process.stderr`) or
 
 ```js
 import React from 'react';
-import { renderToTerminal, View, unmountFromTerminal } from 'react-slate';
+import { renderToTerminal, View, unmountFromTerminal } from '@react-slate/core';
 
 renderToTerminal(<View>Hello World</View>, process.stdout);
 unmountFromTerminal(process.stdout); // => true

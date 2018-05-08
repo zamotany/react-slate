@@ -1,4 +1,4 @@
-# react-slate
+# @react-slate/core
 
 [![Version][version-badge]][package]
 [![Build Status][build-badge]][build]
@@ -34,14 +34,14 @@ Documentation can be found here: http://react-slate.surge.sh/
 ## Installation
 
 ```bash
-yarn add react react-slate
+yarn add react @react-slate/core
 ```
 
 ## Usage
 
 ```js
 import React from 'react';
-import { renderToTerminal, View } from 'react-slate';
+import { renderToTerminal, View } from '@react-slate/core';
 
 class App extends React.Component {
   render() {

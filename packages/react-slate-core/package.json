@@ -1,5 +1,5 @@
 {
-  "name": "react-slate",
+  "name": "@react-slate/core",
   "version": "0.5.1",
   "description": "Render React CLI apps to TTY terminals",
   "license": "MIT",

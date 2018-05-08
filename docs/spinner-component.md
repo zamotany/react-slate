@@ -17,7 +17,7 @@ Controlled spinner component based on [`cli-spinners`](https://github.com/sindre
 
 ```js
 import React from 'react';
-import { Spinner, View } from 'react-slate';
+import { Spinner, View } from '@react-slate/core';
 
 class MyComponent extends React.Component {
   render() {

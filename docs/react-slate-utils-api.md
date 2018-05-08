@@ -9,7 +9,7 @@ Utility functions for altering and enhancing terminal apps.
 ## Installation
 
 ```bash
-yarn add react-slate react-slate-utils
+yarn add @react-slate/core @react-slate/utils
 ```
 
 ## API
@@ -23,7 +23,7 @@ Contains side effects!
 ### Example
 
 ```js
-import { hideCursor } from 'react-slate-utils';
+import { hideCursor } from '@react-slate/utils';
 
 hideCursor(process.stdout);
 ```
@@ -37,7 +37,7 @@ Contains side effects!
 ### Example
 
 ```js
-import { clearOnExit } from 'react-slate-utils';
+import { clearOnExit } from '@react-slate/utils';
 
 clearOnExit(process.stdout, true);
 ```
@@ -51,7 +51,7 @@ Contains side effects!
 ### Example
 
 ```js
-import { clearOnError } from 'react-slate-utils';
+import { clearOnError } from '@react-slate/utils';
 
 clearOnError(process.stdout);
 ```
@@ -81,7 +81,7 @@ Contains side effects!
 
 ```js
 import path from 'path';
-import { overwriteConsole } from 'react-slate-utils';
+import { overwriteConsole } from '@react-slate/utils';
 
 overwriteConsole({
   outStream: path.join(process.cwd(), 'node_modules/.atrifacts/stdout.log'),

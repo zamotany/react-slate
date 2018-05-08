@@ -7,7 +7,7 @@ sidebar_label: Installation
 `react-slate` is a custom React renderer, not it's re-implementation, so the first thing is to install necessary dependencies:
 
 ```bash
-yarn add react react-slate
+yarn add react @react-slate/core
 ```
 
 Now, in your entry file import [`renderToTerminal` function](./renderToTerminal-function.md) or [`renderToString` function](./renderToString-function.md):
@@ -17,7 +17,7 @@ Now, in your entry file import [`renderToTerminal` function](./renderToTerminal-
 
 ```js
 import React from 'react';
-import { renderToTerminal, View, Text } from 'react-slate';
+import { renderToTerminal, View, Text } from '@react-slate/core';
 
 renderToTerminal(
   <View style={{ margin: '1' }}>

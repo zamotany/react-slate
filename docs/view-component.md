@@ -13,6 +13,9 @@ Basic building block. Can render text (strings), arrays and other nested compone
 ## Example
 
 ```js
+import React from 'react';
+import { View } from '@react-slate/core';
+
 class App extends React.Component {
   render() {
     return (

@@ -1,4 +1,4 @@
-# react-slate-utils
+# @react-slate/utils
 
 [![Version][version-badge]][package]
 [![Build Status][build-badge]][build]
@@ -19,7 +19,7 @@ Prototype of [Haul CLI](https://github.com/callstack/haul). You can see the [sou
 ### Installation
 
 ```bash
-yarn add react-slate react-slate-utils
+yarn add @react-slate/core @react-slate/utils
 ```
 
 ### Documentation

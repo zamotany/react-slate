@@ -26,7 +26,7 @@ Renders an React element to a string.
 
 ```js
 import React from 'react';
-import { renderToString, View } from 'react-slate';
+import { renderToString, View } from '@react-slate/core';
 
 const snapshot = renderToString(<View>Hello World</View>, {
   width: 20,

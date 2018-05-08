@@ -1,5 +1,5 @@
 {
-  "name": "react-slate-utils",
+  "name": "@react-slate/utils",
   "version": "0.2.0",
   "description": "react-slate utils for altering a TTY stream",
   "license": "MIT",
@@ -26,13 +26,13 @@
     "prepublish": "yarn build"
   },
   "peerDependencies": {
-    "react-slate": "*"
+    "@react-slate/core": "*"
   },
   "dependencies": {
     "mkdirp": "^0.5.1"
   },
   "devDependencies": {
-    "react-slate": "^0.4.1"
+    "@react-slate/core": "*"
   },
   "babel": {
     "presets": [

@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderToString } from 'react-slate';
+import { renderToString } from '@react-slate/core';
 import stripAnsi from 'strip-ansi';
 import App from '../App';
 

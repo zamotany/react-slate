@@ -1,5 +1,5 @@
 {
-  "name": "react-slate-playground",
+  "name": "@react-slate/playground",
   "version": "0.1.0",
   "description": "Playground showcasing features of react-slate",
   "bin": "./bin",
@@ -28,8 +28,8 @@
   "dependencies": {
     "lodash.throttle": "^4.1.1",
     "react": "^16.3.2",
-    "react-slate": "^0.5.1",
-    "react-slate-utils": "^0.2.0"
+    "@react-slate/core": "*",
+    "@react-slate/utils": "*"
   },
   "devDependencies": {
     "strip-ansi": "^4.0.0"
