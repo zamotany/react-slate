@@ -26,3 +26,15 @@ exports[`in integration tests renderToString should apply backgroundColor whole 
                                         
                                         "
 `;
+
+exports[`in integration tests renderToString with fixed positioning should correctly left-trim element with border 1`] = `
+"────┐  
+ello│  
+────┘  "
+`;
+
+exports[`in integration tests renderToString with fixed positioning should correctly left-trim element with border 2`] = `
+"@[31m────┐@[0m  @[0m
+@[39mello@[0m@[39m@[31m│@[0m  @[0m
+@[31m────┘@[0m  @[0m"
+`;
