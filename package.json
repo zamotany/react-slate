@@ -13,7 +13,8 @@
     "test": "jest",
     "format": "prettier --single-quote --trailing-comma es5 --write \"packages/*/src/**/*.js\"",
     "add-contributor": "all-contributors add",
-    "start": "node ./packages/react-slate-playground/bin"
+    "start": "node ./packages/react-slate-playground/bin",
+    "publish": "lerna publish --skip-git"
   },
   "dependencies": {
     "lerna": "^2.11.0"
