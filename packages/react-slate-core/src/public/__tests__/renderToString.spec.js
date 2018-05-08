@@ -1,8 +1,7 @@
 /* @flow */
 
 import React from 'react';
-import { View } from '../../components';
-import renderToString from '../renderToString';
+import { View, renderToString } from '../../';
 
 describe('renderToString', () => {
   it('should render hello world to a single frame', async () => {

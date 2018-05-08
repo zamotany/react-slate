@@ -1,8 +1,7 @@
 /* @flow */
 
 import React from 'react';
-import { View } from '../components';
-import renderToString from '../public/renderToString';
+import { View, renderToString } from '../';
 
 describe('in integration tests renderToString', () => {
   it('should apply backgroundColor to paddings', () => {

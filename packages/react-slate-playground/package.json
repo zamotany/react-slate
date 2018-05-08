@@ -5,7 +5,7 @@
   "bin": "./bin",
   "license": "MIT",
   "repository": "https://github.com/zamotany/react-slate",
-  "private": false,
+  "private": true,
   "author": {
     "name": "Paweł Trysła",
     "email": "zamotany.oss@gmail.com"
@@ -29,7 +29,9 @@
     "lodash.throttle": "^4.1.1",
     "react": "^16.3.2",
     "@react-slate/core": "*",
-    "@react-slate/utils": "*"
+    "@react-slate/utils": "*",
+    "@react-slate/components": "*",
+    "@react-slate/interactive": "*"
   },
   "devDependencies": {
     "strip-ansi": "^4.0.0"

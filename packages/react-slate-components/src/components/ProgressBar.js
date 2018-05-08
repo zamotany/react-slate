@@ -1,7 +1,7 @@
 /* @flow */
 
 import React from 'react';
-import View from './View';
+import { View } from '@react-slate/core';
 
 type CharProps = {
   char?: string,

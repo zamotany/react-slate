@@ -1,8 +1,7 @@
 /* @flow */
 
 import React from 'react';
-import { View } from '../../components';
-import renderToTerminal from '../renderToTerminal';
+import { View, renderToTerminal } from '../../';
 
 describe('renderToTerminal', () => {
   it('should render hello world to mocked TTY stream', done => {

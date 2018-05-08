@@ -52,6 +52,9 @@ export type Style = {|
   borderStyle?: 'none' | 'solid' | 'double',
   borderColor?: string,
   textAlign?: 'left' | 'center' | 'right',
+  top?: number,
+  left?: number,
+  position?: 'relative' | 'fixed',
 |};
 
 export type CustomRender = (

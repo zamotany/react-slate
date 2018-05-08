@@ -15,6 +15,9 @@
     "add-contributor": "all-contributors add",
     "start": "node ./packages/react-slate-playground/bin"
   },
+  "dependencies": {
+    "lerna": "^2.11.0"
+  },
   "devDependencies": {
     "all-contributors-cli": "^4.11.1",
     "babel-cli": "^6.26.0",
@@ -42,8 +45,5 @@
     "snapshotSerializers": [
       "<rootDir>/jestSnapshotSerializer.js"
     ]
-  },
-  "dependencies": {
-    "lerna": "^2.9.0"
   }
 }
