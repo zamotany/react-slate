@@ -1,5 +1,5 @@
 ---
-id: renderToString-function
+id: core-renderToString-function
 title: renderToString
 sidebar_label: renderToString
 ---

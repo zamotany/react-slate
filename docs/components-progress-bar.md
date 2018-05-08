@@ -1,5 +1,5 @@
 ---
-id: progress-bar-component
+id: components-progress-bar
 title: ProgressBar
 sidebar_label: ProgressBar
 ---

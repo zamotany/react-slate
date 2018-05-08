@@ -1,5 +1,5 @@
 ---
-id: spinner-component
+id: components-spinner
 title: Spinner
 sidebar_label: Spinner
 ---

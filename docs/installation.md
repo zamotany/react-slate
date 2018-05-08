@@ -10,10 +10,10 @@ sidebar_label: Installation
 yarn add react @react-slate/core
 ```
 
-Now, in your entry file import [`renderToTerminal` function](./renderToTerminal-function.md) or [`renderToString` function](./renderToString-function.md):
+Now, in your entry file import [`renderToTerminal` function](./core-renderToTerminal-function.md) or [`renderToString` function](./core-renderToString-function.md):
 
-* for terminal apps (CLIs etc) use [`renderToTerminal` function](./renderToTerminal-function.md)
-* for testing on CI use [`renderToString` function](./renderToString-function.md)
+* for terminal apps (CLIs etc) use [`renderToTerminal` function](./core-renderToTerminal-function.md)
+* for testing on CI use [`renderToString` function](./core-renderToString-function.md)
 
 ```js
 import React from 'react';

@@ -1,5 +1,5 @@
 ---
-id: styling
+id: core-styling
 title: Styling
 sidebar_label: Styling
 ---

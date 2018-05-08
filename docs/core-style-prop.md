@@ -1,5 +1,5 @@
 ---
-id: style-prop
+id: core-style-prop
 title: Style prop (reference)
 sidebar_label: Style prop (reference)
 ---

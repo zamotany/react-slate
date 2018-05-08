@@ -1,5 +1,5 @@
 ---
-id: render-function
+id: core-render-function
 title: render
 sidebar_label: render
 ---

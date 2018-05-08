@@ -1,5 +1,5 @@
 ---
-id: positioning
+id: core-positioning
 title: Positioning
 sidebar_label: Positioning
 ---

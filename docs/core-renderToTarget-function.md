@@ -1,5 +1,5 @@
 ---
-id: renderToTarget-function
+id: core-renderToTarget-function
 title: renderToTarget
 sidebar_label: renderToTarget
 ---

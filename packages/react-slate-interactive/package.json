@@ -1,7 +1,7 @@
 {
   "name": "@react-slate/interactive",
   "version": "0.2.0",
-  "description": "Components to interact with TTY in react-slate apps",
+  "description": "Components to interact with TTY stream in react-slate apps",
   "license": "MIT",
   "repository": "https://github.com/zamotany/react-slate",
   "private": false,

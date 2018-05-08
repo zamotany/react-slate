@@ -1,5 +1,5 @@
 ---
-id: unmountFromTerminal-function
+id: core-unmountFromTerminal-function
 title: unmountFromTerminal
 sidebar_label: unmountFromTerminal
 ---

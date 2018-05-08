@@ -1,6 +1,6 @@
 ---
-id: react-slate-utils-api
-title: react-slate-utils: Getting started
+id: utils-getting-started
+title: @react-slate/utils: Getting started
 sidebar_label: Getting started
 ---
 

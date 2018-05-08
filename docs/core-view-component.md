@@ -1,5 +1,5 @@
 ---
-id: view-component
+id: core-view-component
 title: View
 sidebar_label: View
 ---

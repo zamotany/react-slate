@@ -1,5 +1,5 @@
 ---
-id: text-component
+id: core-text-component
 title: Text
 sidebar_label: Text
 ---

@@ -1,5 +1,5 @@
 ---
-id: renderToTerminal-function
+id: core-renderToTerminal-function
 title: renderToTerminal
 sidebar_label: renderToTerminal
 ---
