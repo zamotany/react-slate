@@ -33,7 +33,7 @@ module.exports = (str, begin, end) => {
 
     if (ESCAPES.indexOf(x) !== -1) {
       insideEscape = true;
-      const code = /\d[^m]*/.exec(str.slice(i, str.indexOf('m')));
+      const code = /\d[^m]*/.exec(str.slice(i, str.indexOf('m', i)));
       escapeCode = code === END_CODE ? null : code;
     } else if (insideEscape && x === 'm') {
       insideEscape = false;

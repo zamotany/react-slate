@@ -80,8 +80,8 @@ Supports `positive` and `negative` values including `0`.
 
 ### `left: number`
 
-Specifies the left offset of a [`fixed`](#position-relative-fixed) element from the left edge of the canvas.
+Specifies the left offset of a [`fixed`](#position-relative-fixed) element from the left edge of the canvas. Both positive and negative values (including 0) are supported.
 
 ### `top: number`
 
-Specifies the top offset of a [`fixed`](#position-relative-fixed) element from the top edge of the canvas.
+Specifies the top offset of a [`fixed`](#position-relative-fixed) element from the top edge of the canvas. Both positive and negative values (including 0) are supported.

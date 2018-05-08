@@ -12,13 +12,13 @@ function appendOffsets(
   { width, offsetChar }: { width: number, offsetChar: string }
 ) {
   for (let i = 0; i < canvas.length; i++) {
-    canvas[i] = `${offsetChar.repeat(left)}${canvas[i]}${offsetChar.repeat(
-      right
-    )}`;
+    canvas[i] = `${offsetChar.repeat(Math.max(left, 0))}${
+      canvas[i]
+    }${offsetChar.repeat(Math.max(right, 0))}`;
   }
-  for (let i = 0; i < top + bottom; i++) {
+  for (let i = 0; i < Math.max(top, 0) + Math.max(bottom, 0); i++) {
     // $FlowFixMe
-    canvas[i < top ? 'unshift' : 'push'](
+    canvas[i < Math.max(top, 0) ? 'unshift' : 'push'](
       width > 0 ? offsetChar.repeat(width) : ''
     );
   }

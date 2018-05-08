@@ -73,9 +73,17 @@ export default class AbsoluteCanvas {
     { x, y, z }: { x: number, y: number, z: number }
   ) {
     const layer = this.atLayer(z);
-    for (let i = 0; i < nestedTree.length && y + i < layer.length; i++) {
+    for (
+      let i = Math.abs(Math.min(y, 0)); // If y < 0 start from line abs(y), otherwise from 0
+      i < nestedTree.length && y + i < layer.length;
+      i++
+    ) {
+      // Append offsets if x > 0
+      let line = `${'\0'.repeat(Math.max(x, 0))}${nestedTree[i]}`;
+      // Left-trim line if x < 0
+      line = x < 0 ? sliceAnsi(line, Math.abs(x)) : line;
       layer[y + i] = sliceAnsi(
-        mergeAnsiStrings(layer[y + i], `${'\0'.repeat(x)}${nestedTree[i]}`),
+        mergeAnsiStrings(layer[y + i], line),
         0,
         this.size.width
       );
