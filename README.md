@@ -10,10 +10,12 @@
 
 [![tweet][tweet-badge]][tweet]
 
-| Package             | Version                                                            |
-| ------------------- | ------------------------------------------------------------------ |
-| `react-slate`       | [![Version][react-slate-version]][react-slate-package]             |
-| `react-slate-utils` | [![Version][react-slate-utils-version]][react-slate-utils-package] |
+| Package                    | Version                                                                        |
+| -------------------------- | ------------------------------------------------------------------------------ |
+| `@react-slate/core`        | [![Version][react-slate-core-version]][react-slate-core-package]               |
+| `@react-slate/components`  | [![Version][react-slate-components-version]][react-slate-components-package]   |
+| `@react-slate/interactive` | [![Version][react-slate-interactive-version]][react-slate-interactive-package] |
+| `@react-slate/utils`       | [![Version][react-slate-utils-version]][react-slate-utils-package]             |
 
 ---
 
@@ -39,14 +41,14 @@ Documentation can be found here: http://react-slate.surge.sh/
 ## Installation
 
 ```bash
-yarn add react react-slate
+yarn add react @react-slate/core
 ```
 
 ## Usage
 
 ```js
 import React from 'react';
-import { renderToTerminal, View } from 'react-slate';
+import { renderToTerminal, View } from '@react-slate/core';
 
 class App extends React.Component {
   render() {
@@ -63,7 +65,7 @@ renderToTerminal(<App />, process.stdout);
 
 <!-- prettier-ignore -->
 | [<img src="https://avatars2.githubusercontent.com/u/17573635?v=4" width="100px;"/><br /><sub><b>Paweł Trysła</b></sub>](https://twitter.com/_zamotany)<br />[💬](#question-zamotany "Answering Questions") [🐛](https://github.com/zamotany/react-slate/issues?q=author%3Azamotany "Bug reports") [💻](https://github.com/zamotany/react-slate/commits?author=zamotany "Code") [🎨](#design-zamotany "Design") [📖](https://github.com/zamotany/react-slate/commits?author=zamotany "Documentation") [💡](#example-zamotany "Examples") [🤔](#ideas-zamotany "Ideas, Planning, & Feedback") [⚠️](https://github.com/zamotany/react-slate/commits?author=zamotany "Tests") | [<img src="https://avatars2.githubusercontent.com/u/1174278?v=4" width="100px;"/><br /><sub><b>Satyajit Sahoo</b></sub>](https://twitter.com/@satya164)<br />[💻](https://github.com/zamotany/react-slate/commits?author=satya164 "Code") [🤔](#ideas-satya164 "Ideas, Planning, & Feedback") [👀](#review-satya164 "Reviewed Pull Requests") |
-| :---: | :---: |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
@@ -84,7 +86,11 @@ renderToTerminal(<App />, process.stdout);
 
 <!-- badges (packages) -->
 
-[react-slate-version]: https://img.shields.io/npm/v/react-slate.svg?style=flat-square
-[react-slate-package]: https://www.npmjs.com/package/react-slate
-[react-slate-utils-version]: https://img.shields.io/npm/v/react-slate-utils.svg?style=flat-square
-[react-slate-utils-package]: https://www.npmjs.com/package/react-slate-utils
+[react-slate-core-version]: https://img.shields.io/npm/v/@react-slate/core.svg?style=flat-square
+[react-slate-core-package]: https://www.npmjs.com/package/@react-slate/core
+[react-slate-components-version]: https://img.shields.io/npm/v/@react-slate/components.svg?style=flat-square
+[react-slate-components-package]: https://www.npmjs.com/package/@react-slate/components
+[react-slate-interactive-version]: https://img.shields.io/npm/v/@react-slate/interactive.svg?style=flat-square
+[react-slate-interactive-package]: https://www.npmjs.com/package/@react-slate/interactive
+[react-slate-utils-version]: https://img.shields.io/npm/v/@react-slate/utils.svg?style=flat-square
+[react-slate-utils-package]: https://www.npmjs.com/package/@react-slate/utils

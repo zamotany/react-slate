@@ -1,11 +1,11 @@
 {
-  "name": "react-slate-playground",
+  "name": "@react-slate/playground",
   "version": "0.1.0",
   "description": "Playground showcasing features of react-slate",
   "bin": "./bin",
   "license": "MIT",
   "repository": "https://github.com/zamotany/react-slate",
-  "private": false,
+  "private": true,
   "author": {
     "name": "Paweł Trysła",
     "email": "zamotany.oss@gmail.com"
@@ -28,8 +28,10 @@
   "dependencies": {
     "lodash.throttle": "^4.1.1",
     "react": "^16.3.2",
-    "react-slate": "^0.5.1",
-    "react-slate-utils": "^0.2.0"
+    "@react-slate/core": "*",
+    "@react-slate/utils": "*",
+    "@react-slate/components": "*",
+    "@react-slate/interactive": "*"
   },
   "devDependencies": {
     "strip-ansi": "^4.0.0"

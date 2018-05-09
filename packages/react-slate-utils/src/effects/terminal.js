@@ -1,7 +1,7 @@
 /* @flow */
 
 import readline from 'readline';
-import { Internal } from 'react-slate';
+import { Internal } from '@react-slate/core';
 import { hasThrownError } from './utils';
 import { SHOW_CURSOR, HIDE_CURSOR, CLEAR_SCROLL_BACK } from '../asciiCodes';
 
