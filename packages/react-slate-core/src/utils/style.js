@@ -134,7 +134,7 @@ export function getStyleProps(style: any = {}) {
 
   /**
    * If the style is an array, let's get all properties into one object
-   * and then style for that created object
+   * and then style for that created object.
    */
   return getStyle(style.reduce((a, v) => ({ ...a, ...v }), {}));
 }

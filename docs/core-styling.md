@@ -15,7 +15,7 @@ Below you can find all of the supported styling properties and theirs descriptio
 <Text style={{ /* my styles here */ }}>World</Text>
 ```
 
-You can use also array notation and pass styles as an array
+You can use also array notation and pass styles as an array. With this approach you can take advance of conditionals style like this:
 
 ```js
 <View style={[

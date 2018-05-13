@@ -30,13 +30,13 @@ export default function ProgressBar(props: Props) {
     <View
       style={[
         { display: 'inline' },
-        ...(Array.isArray(props.style) ? props.style : [props.style || {}]),
+        ...(Array.isArray(props.style) ? props.style : [props.style]),
       ]}
     >
       <View
         style={[
           { display: 'inline' },
-          ...(Array.isArray(open.style) ? open.style : [open.style || {}]),
+          ...(Array.isArray(open.style) ? open.style : [open.style]),
         ]}
       >
         {open.char || '['}
@@ -44,7 +44,7 @@ export default function ProgressBar(props: Props) {
       <View
         style={[
           { display: 'inline' },
-          ...(Array.isArray(bar.style) ? bar.style : [bar.style || {}]),
+          ...(Array.isArray(bar.style) ? bar.style : [bar.style]),
         ]}
       >
         {(bar.char || '=').repeat(progress)}
@@ -54,7 +54,7 @@ export default function ProgressBar(props: Props) {
           {
             display: 'inline',
           },
-          ...(Array.isArray(fill.style) ? fill.style : [fill.style || {}]),
+          ...(Array.isArray(fill.style) ? fill.style : [fill.style]),
         ]}
       >
         {(fill.char || ' ').repeat(width - progress)}
@@ -62,7 +62,7 @@ export default function ProgressBar(props: Props) {
       <View
         style={[
           { display: 'inline' },
-          ...(Array.isArray(close.style) ? close.style : [close.style || {}]),
+          ...(Array.isArray(close.style) ? close.style : [close.style]),
         ]}
       >
         {close.char || ']'}
