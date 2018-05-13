@@ -59,15 +59,22 @@ function splitOffsets(name: string, value: string) {
   return output;
 }
 
-function getBorderProps(border: string) {
+function getBorderProps(
+  border: string = '',
+  borderStyle: string,
+  borderColor: string,
+) {
   const match = border.match(/(none|solid|double) (.+)/);
   if (!match) {
-    return null;
+    return {
+      borderStyle: borderStyle || 'none',
+      borderColor: borderColor || '',
+    };
   }
   const [, style, color] = match;
   return {
-    borderStyle: style,
-    borderColor: color,
+    borderStyle: borderStyle || style,
+    borderColor: borderColor || color,
   };
 }
 
@@ -119,10 +126,7 @@ export function getStyleProps(style: any = {}) {
     z: typeof zIndex === 'number' ? zIndex : 0,
     stylizeArgs: {
       ...rest,
-      ...(getBorderProps(border || '') || {
-        borderStyle: borderStyle || 'none',
-        borderColor: borderColor || '',
-      }),
+      ...getBorderProps(border, borderStyle, borderColor),
     },
   };
 }
@@ -162,7 +166,7 @@ function createBorderLine(
     backgroundColor?: string,
   },
   position: 'top' | 'bottom',
-  width: number
+  width: number,
 ) {
   let enhancer = colorize(chalk, false, style.borderColor);
   enhancer = colorize(enhancer, true, style.backgroundColor);
@@ -171,13 +175,13 @@ function createBorderLine(
       borderStyleChars[style.borderStyle][`${position}Left`]
     }${borderStyleChars[style.borderStyle][position].repeat(width - 2)}${
       borderStyleChars[style.borderStyle][`${position}Right`]
-    }`
+    }`,
   );
 }
 
 export function createStylize(
   style: any,
-  { height, width }: { height: number, width: number }
+  { height, width }: { height: number, width: number },
 ) {
   /* eslint-disable no-param-reassign */
 
@@ -239,7 +243,7 @@ export function createStylize(
     transform = text =>
       alignText(
         _transform(shouldAddBorder ? text.replace(/\s{2}$/, '') : text),
-        { align: style.textAlign }
+        { align: style.textAlign },
       );
   }
 
@@ -270,7 +274,7 @@ export function createStylize(
         canvas.splice(
           canvas.length - 2,
           2,
-          createBorderLine(style, 'bottom', lineWidth)
+          createBorderLine(style, 'bottom', lineWidth),
         );
       } else {
         canvas.push(createBorderLine(style, 'bottom', lineWidth));
