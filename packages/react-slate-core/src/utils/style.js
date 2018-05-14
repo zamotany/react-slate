@@ -72,59 +72,71 @@ function getBorderProps(border: string) {
 }
 
 export function getStyleProps(style: any = {}) {
-  const {
-    display,
-    margin,
-    marginTop,
-    marginBottom,
-    marginLeft,
-    marginRight,
-    padding,
-    paddingTop,
-    paddingBottom,
-    paddingLeft,
-    paddingRight,
-    border,
-    borderStyle,
-    borderWidth,
-    borderColor,
-    height,
-    width,
-    position,
-    left,
-    top,
-    zIndex,
-    ...rest
-  } = style;
-  const inline = display === 'inline';
-  return {
-    ...(splitOffsets('margin', margin || '') || {
-      marginTop: marginTop || 0,
-      marginBottom: marginBottom || 0,
-      marginLeft: marginLeft || 0,
-      marginRight: marginRight || 0,
-    }),
-    ...(splitOffsets('padding', padding || '') || {
-      paddingTop: paddingTop || 0,
-      paddingBottom: paddingBottom || 0,
-      paddingLeft: paddingLeft || 0,
-      paddingRight: paddingRight || 0,
-    }),
-    height: height || (inline ? 0 : -1),
-    width: width || -1,
-    inline,
-    fixed: position === 'fixed',
-    x: left || 0,
-    y: top || 0,
-    z: typeof zIndex === 'number' ? zIndex : 0,
-    stylizeArgs: {
-      ...rest,
-      ...(getBorderProps(border || '') || {
-        borderStyle: borderStyle || 'none',
-        borderColor: borderColor || '',
+  const getStyle = styleObject => {
+    const {
+      display,
+      margin,
+      marginTop,
+      marginBottom,
+      marginLeft,
+      marginRight,
+      padding,
+      paddingTop,
+      paddingBottom,
+      paddingLeft,
+      paddingRight,
+      border,
+      borderStyle,
+      borderWidth,
+      borderColor,
+      height,
+      width,
+      position,
+      left,
+      top,
+      zIndex,
+      ...rest
+    } = styleObject;
+    const inline = display === 'inline';
+    return {
+      ...(splitOffsets('margin', margin || '') || {
+        marginTop: marginTop || 0,
+        marginBottom: marginBottom || 0,
+        marginLeft: marginLeft || 0,
+        marginRight: marginRight || 0,
       }),
-    },
+      ...(splitOffsets('padding', padding || '') || {
+        paddingTop: paddingTop || 0,
+        paddingBottom: paddingBottom || 0,
+        paddingLeft: paddingLeft || 0,
+        paddingRight: paddingRight || 0,
+      }),
+      height: height || (inline ? 0 : -1),
+      width: width || -1,
+      inline,
+      fixed: position === 'fixed',
+      x: left || 0,
+      y: top || 0,
+      z: typeof zIndex === 'number' ? zIndex : 0,
+      stylizeArgs: {
+        ...rest,
+        ...(getBorderProps(border || '') || {
+          borderStyle: borderStyle || 'none',
+          borderColor: borderColor || '',
+        }),
+      },
+    };
   };
+
+  if (!Array.isArray(style)) {
+    return getStyle(style);
+  }
+
+  /**
+   * If the style is an array, let's get all properties into one object
+   * and then style for that created object.
+   */
+  return getStyle(style.reduce((a, v) => ({ ...a, ...v }), {}));
 }
 
 function capitalize(text: string) {

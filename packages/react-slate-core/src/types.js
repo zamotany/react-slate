@@ -27,35 +27,39 @@ export type AbsoluteProps = {
   z: number,
 };
 
-export type Style = {|
-  color?: string,
-  backgroundColor?: string,
-  fontWeight?: 'bold' | 'normal',
-  fontStyle?: 'italic' | 'normal',
-  textDecoration?: 'underline' | 'line-through' | 'normal',
-  textTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase',
-  visibility?: 'visible' | 'hidden',
-  margin?: string,
-  marginTop?: number,
-  marginBottom?: number,
-  marginLeft?: number,
-  marginRight?: number,
-  padding?: string,
-  paddingTop?: number,
-  paddingBottom?: number,
-  paddingLeft?: number,
-  paddingRight?: number,
-  height?: number,
-  width?: number,
-  display?: 'block' | 'inline',
-  border?: string,
-  borderStyle?: 'none' | 'solid' | 'double',
-  borderColor?: string,
-  textAlign?: 'left' | 'center' | 'right',
-  top?: number,
-  left?: number,
-  position?: 'relative' | 'fixed',
-|};
+type StyleObject =
+  | boolean
+  | ?{|
+      color?: string,
+      backgroundColor?: string,
+      fontWeight?: 'bold' | 'normal',
+      fontStyle?: 'italic' | 'normal',
+      textDecoration?: 'underline' | 'line-through' | 'normal',
+      textTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase',
+      visibility?: 'visible' | 'hidden',
+      margin?: string,
+      marginTop?: number,
+      marginBottom?: number,
+      marginLeft?: number,
+      marginRight?: number,
+      padding?: string,
+      paddingTop?: number,
+      paddingBottom?: number,
+      paddingLeft?: number,
+      paddingRight?: number,
+      height?: number,
+      width?: number,
+      display?: 'block' | 'inline',
+      border?: string,
+      borderStyle?: 'none' | 'solid' | 'double',
+      borderColor?: string,
+      textAlign?: 'left' | 'center' | 'right',
+      top?: number,
+      left?: number,
+      position?: 'relative' | 'fixed',
+    |};
+
+export type Style = StyleObject | Array<StyleObject>;
 
 export type CustomRender = (
   instance: ChunkNode,

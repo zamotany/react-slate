@@ -27,17 +27,44 @@ export default function ProgressBar(props: Props) {
   const progress = Math.round(value * width);
 
   return (
-    <View style={{ display: 'inline', ...(props.style || {}) }}>
-      <View style={{ display: 'inline', ...(open.style || {}) }}>
+    <View
+      style={[
+        { display: 'inline' },
+        ...(Array.isArray(props.style) ? props.style : [props.style]),
+      ]}
+    >
+      <View
+        style={[
+          { display: 'inline' },
+          ...(Array.isArray(open.style) ? open.style : [open.style]),
+        ]}
+      >
         {open.char || '['}
       </View>
-      <View style={{ display: 'inline', ...(bar.style || {}) }}>
+      <View
+        style={[
+          { display: 'inline' },
+          ...(Array.isArray(bar.style) ? bar.style : [bar.style]),
+        ]}
+      >
         {(bar.char || '=').repeat(progress)}
       </View>
-      <View style={{ display: 'inline', ...(fill.style || {}) }}>
+      <View
+        style={[
+          {
+            display: 'inline',
+          },
+          ...(Array.isArray(fill.style) ? fill.style : [fill.style]),
+        ]}
+      >
         {(fill.char || ' ').repeat(width - progress)}
       </View>
-      <View style={{ display: 'inline', ...(close.style || {}) }}>
+      <View
+        style={[
+          { display: 'inline' },
+          ...(Array.isArray(close.style) ? close.style : [close.style]),
+        ]}
+      >
         {close.char || ']'}
       </View>
     </View>

@@ -47,4 +47,27 @@ describe('utils/style', () => {
       test('', 'none', '');
     });
   });
+
+  it('should correctly parse an array', () => {
+    expect(getStyleProps([{ color: 'red' }])).toEqual(
+      getStyleProps({ color: 'red' })
+    );
+
+    expect(getStyleProps([{ color: 'red' }, { color: 'blue' }])).toEqual(
+      getStyleProps({ color: 'blue' })
+    );
+
+    expect(
+      getStyleProps([
+        { color: 'red' },
+        { color: 'blue', backgroundColor: 'pink' },
+        true && { marginBottom: 2 },
+        undefined,
+        null,
+        false,
+      ])
+    ).toEqual(
+      getStyleProps({ color: 'blue', backgroundColor: 'pink', marginBottom: 2 })
+    );
+  });
 });

@@ -15,6 +15,17 @@ Below you can find all of the supported styling properties and theirs descriptio
 <Text style={{ /* my styles here */ }}>World</Text>
 ```
 
+You can use also array notation and pass styles as an array. With this approach you can take advance of conditionals style like this:
+
+```js
+<View style={[
+  { /* my styles here */ },
+  { /* my additional styles here */ },
+  condition && { /* my conditional styles here */}
+]}>Hello</View>
+<Text style={{ /* my styles here */ }}>World</Text>
+```
+
 ### `color: string`
 
 Applies color to a text. It supports color keywords (`blue`), RGB (`rgb(120, 54, 231)`) and HEX (`#ffffff`). Please note that color keywords like `green` are from Truecolor palette. To use colors from 8bit palette (`red`, `green`, `blue`, `yellow`, `magenta`, `cyan`), prefix them with `ansi-`.

@@ -74,7 +74,14 @@ export default class App extends React.Component {
       case 'Spinner':
         return (
           <View>
-            <Spinner style={styles.spinner} />
+            <Spinner
+              style={[
+                styles.spinner,
+                {
+                  color: 'red',
+                },
+              ]}
+            />
             <Spinner style={styles.spinner} type="line" />
             <Spinner type="dots11" />
           </View>
