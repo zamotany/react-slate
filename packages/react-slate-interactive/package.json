@@ -1,7 +1,7 @@
 {
-  "name": "@react-slate/utils",
-  "version": "0.2.0",
-  "description": "react-slate utils for altering a TTY stream",
+  "name": "@react-slate/interactive",
+  "version": "0.1.0",
+  "description": "Components to interact with TTY stream in react-slate apps",
   "license": "MIT",
   "repository": "https://github.com/zamotany/react-slate",
   "private": false,
@@ -29,12 +29,13 @@
     "prepublish": "yarn build"
   },
   "peerDependencies": {
+    "react": "16.x",
     "@react-slate/core": "*"
   },
   "dependencies": {
-    "mkdirp": "^0.5.1"
   },
   "devDependencies": {
+    "react": "^16.3.2",
     "@react-slate/core": "*"
   },
   "babel": {

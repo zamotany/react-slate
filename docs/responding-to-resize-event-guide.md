@@ -7,7 +7,7 @@ sidebar_label: Responding to `resize` event
 Starting from version `0.5.1`, `react-slate` supports re-rendering app to the same target, like `process.stdout`, which means rendering after the terminal was resized is a matter of attaching `resize` event handler and calling `renderToTerminal` again:
 
 ```js
-import { renderToTerminal } from 'react-slate';
+import { renderToTerminal } from '@react-slate/core';
 
 const App = () => {
   /* ... */
@@ -33,7 +33,7 @@ yarn add lodash
 and (throttle version):
 
 ```js
-import { renderToTerminal } from 'react-slate';
+import { renderToTerminal } from '@react-slate/core';
 import throttle from 'lodash/throttle';
 
 const App = () => {

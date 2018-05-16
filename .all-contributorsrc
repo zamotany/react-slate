@@ -37,12 +37,13 @@
       ]
     },
     {
-      "login": "mik639",
-      "name": "Mikhail Nikolaevskiy",
-      "avatar_url": "https://avatars0.githubusercontent.com/u/7389005?v=4",
-      "profile": "https://github.com/mik639",
+      "login": "jukben",
+      "name": "Jakub Beneš",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/8135252?v=4",
+      "profile": "https://jukben.cz",
       "contributions": [
-        "code"
+        "code",
+        "review"
       ]
     }
   ]

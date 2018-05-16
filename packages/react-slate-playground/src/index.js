@@ -1,11 +1,11 @@
 import React from 'react';
 import path from 'path';
-import { renderToTerminal } from 'react-slate';
+import { renderToTerminal } from '@react-slate/core';
 import {
   hideCursor,
   clearScrollbackOnExit,
   overwriteConsole,
-} from 'react-slate-utils';
+} from '@react-slate/utils';
 import throttle from 'lodash.throttle';
 import App from './App';
 

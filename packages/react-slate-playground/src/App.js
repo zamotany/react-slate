@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, Spinner, ProgressBar, KeyPress } from 'react-slate';
+import { View } from '@react-slate/core';
+import { Spinner, ProgressBar } from '@react-slate/components';
+import { KeyPress } from '@react-slate/interactive';
 
 const components = ['Spinner', 'ProgressBar'];
 
@@ -72,7 +74,14 @@ export default class App extends React.Component {
       case 'Spinner':
         return (
           <View>
-            <Spinner style={styles.spinner} />
+            <Spinner
+              style={[
+                styles.spinner,
+                {
+                  color: 'red',
+                },
+              ]}
+            />
             <Spinner style={styles.spinner} type="line" />
             <Spinner type="dots11" />
           </View>
