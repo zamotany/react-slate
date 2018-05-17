@@ -59,15 +59,22 @@ function splitOffsets(name: string, value: string) {
   return output;
 }
 
-function getBorderProps(border: string) {
+function getBorderProps(
+  border: string = '',
+  borderStyle: string,
+  borderColor: string
+) {
   const match = border.match(/(none|solid|double) (.+)/);
   if (!match) {
-    return null;
+    return {
+      borderStyle: borderStyle || 'none',
+      borderColor: borderColor || '',
+    };
   }
   const [, style, color] = match;
   return {
-    borderStyle: style,
-    borderColor: color,
+    borderStyle: borderStyle || style,
+    borderColor: borderColor || color,
   };
 }
 
@@ -120,10 +127,7 @@ export function getStyleProps(style: any = {}) {
       z: typeof zIndex === 'number' ? zIndex : 0,
       stylizeArgs: {
         ...rest,
-        ...(getBorderProps(border || '') || {
-          borderStyle: borderStyle || 'none',
-          borderColor: borderColor || '',
-        }),
+        ...getBorderProps(border, borderStyle, borderColor),
       },
     };
   };

@@ -3,7 +3,7 @@
 [![Build Status][build-badge]][build]
 [![MIT License][license-badge]][license]
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome][prs-welcome-badge]][prs-welcome]
 [![Chat][chat-badge]][chat]
 [![Code of Conduct][coc-badge]][coc]
@@ -63,8 +63,8 @@ renderToTerminal(<App />, process.stdout);
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars2.githubusercontent.com/u/17573635?v=4" width="100px;"/><br /><sub><b>Paweł Trysła</b></sub>](https://twitter.com/_zamotany)<br />[💬](#question-zamotany "Answering Questions") [🐛](https://github.com/zamotany/react-slate/issues?q=author%3Azamotany "Bug reports") [💻](https://github.com/zamotany/react-slate/commits?author=zamotany "Code") [🎨](#design-zamotany "Design") [📖](https://github.com/zamotany/react-slate/commits?author=zamotany "Documentation") [💡](#example-zamotany "Examples") [🤔](#ideas-zamotany "Ideas, Planning, & Feedback") [⚠️](https://github.com/zamotany/react-slate/commits?author=zamotany "Tests") | [<img src="https://avatars2.githubusercontent.com/u/1174278?v=4" width="100px;"/><br /><sub><b>Satyajit Sahoo</b></sub>](https://twitter.com/@satya164)<br />[💻](https://github.com/zamotany/react-slate/commits?author=satya164 "Code") [🤔](#ideas-satya164 "Ideas, Planning, & Feedback") [👀](#review-satya164 "Reviewed Pull Requests") | [<img src="https://avatars3.githubusercontent.com/u/8135252?v=4" width="100px;"/><br /><sub><b>Jakub Beneš</b></sub>](https://jukben.cz)<br />[💻](https://github.com/zamotany/react-slate/commits?author=jukben "Code") [👀](#review-jukben "Reviewed Pull Requests") |
-| :---: | :---: | :---: |
+| [<img src="https://avatars2.githubusercontent.com/u/17573635?v=4" width="100px;"/><br /><sub><b>Paweł Trysła</b></sub>](https://twitter.com/_zamotany)<br />[💬](#question-zamotany "Answering Questions") [🐛](https://github.com/zamotany/react-slate/issues?q=author%3Azamotany "Bug reports") [💻](https://github.com/zamotany/react-slate/commits?author=zamotany "Code") [🎨](#design-zamotany "Design") [📖](https://github.com/zamotany/react-slate/commits?author=zamotany "Documentation") [💡](#example-zamotany "Examples") [🤔](#ideas-zamotany "Ideas, Planning, & Feedback") [⚠️](https://github.com/zamotany/react-slate/commits?author=zamotany "Tests") | [<img src="https://avatars2.githubusercontent.com/u/1174278?v=4" width="100px;"/><br /><sub><b>Satyajit Sahoo</b></sub>](https://twitter.com/@satya164)<br />[💻](https://github.com/zamotany/react-slate/commits?author=satya164 "Code") [🤔](#ideas-satya164 "Ideas, Planning, & Feedback") [👀](#review-satya164 "Reviewed Pull Requests") | [<img src="https://avatars3.githubusercontent.com/u/8135252?v=4" width="100px;"/><br /><sub><b>Jakub Beneš</b></sub>](https://jukben.cz)<br />[💻](https://github.com/zamotany/react-slate/commits?author=jukben "Code") [👀](#review-jukben "Reviewed Pull Requests") | [<img src="https://avatars0.githubusercontent.com/u/7389005?v=4" width="100px;"/><br /><sub><b>Mikhail Nikolaevskiy</b></sub>](https://github.com/mik639)<br />[💻](https://github.com/zamotany/react-slate/commits?author=mik639 "Code") |
+| :---: | :---: | :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 <!-- badges (common) -->
