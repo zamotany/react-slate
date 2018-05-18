@@ -1,6 +1,6 @@
 {
   "name": "@react-slate/utils",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "react-slate utils for altering a TTY stream",
   "license": "MIT",
   "repository": "https://github.com/zamotany/react-slate",
@@ -35,7 +35,7 @@
     "mkdirp": "^0.5.1"
   },
   "devDependencies": {
-    "@react-slate/core": "*"
+    "@react-slate/core": "^0.6.0"
   },
   "babel": {
     "presets": [

@@ -56,10 +56,10 @@ renderToTerminal(<App />, process.stdout);
 
 [build-badge]: https://img.shields.io/circleci/project/github/zamotany/react-slate/master.svg?style=flat-square
 [build]: https://circleci.com/gh/zamotany/react-slate
-[license-badge]: https://img.shields.io/npm/l/react-slate.svg?style=flat-square
+[license-badge]: https://img.shields.io/npm/l/@react-slate/core.svg?style=flat-square
 [license]: https://opensource.org/licenses/MIT
-[version-badge]: https://img.shields.io/npm/v/react-slate.svg?style=flat-square
-[package]: https://www.npmjs.com/package/react-slate
+[version-badge]: https://img.shields.io/npm/v/@react-slate/core.svg?style=flat-square
+[package]: https://www.npmjs.com/package/@react-slate/core
 [prs-welcome-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs-welcome]: http://makeapullrequest.com
 [coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square

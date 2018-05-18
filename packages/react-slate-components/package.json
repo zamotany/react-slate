@@ -29,16 +29,16 @@
     "prepublish": "yarn build"
   },
   "peerDependencies": {
-    "react": "16.x",
-    "@react-slate/core": "*"
+    "@react-slate/core": "*",
+    "react": "16.x"
   },
   "dependencies": {
     "cli-spinners": "^1.3.1",
     "shallowequal": "^1.0.2"
   },
   "devDependencies": {
-    "react": "^16.3.2",
-    "@react-slate/core": "*"
+    "@react-slate/core": "^0.6.0",
+    "react": "^16.3.2"
   },
   "babel": {
     "presets": [

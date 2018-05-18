@@ -1,6 +1,6 @@
 {
   "name": "@react-slate/playground",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Playground showcasing features of react-slate",
   "bin": "./bin",
   "license": "MIT",
@@ -26,12 +26,12 @@
     "prepublish": "yarn build"
   },
   "dependencies": {
+    "@react-slate/components": "^0.1.0",
+    "@react-slate/core": "^0.6.0",
+    "@react-slate/interactive": "^0.1.0",
+    "@react-slate/utils": "^0.2.1",
     "lodash.throttle": "^4.1.1",
-    "react": "^16.3.2",
-    "@react-slate/core": "*",
-    "@react-slate/utils": "*",
-    "@react-slate/components": "*",
-    "@react-slate/interactive": "*"
+    "react": "^16.3.2"
   },
   "devDependencies": {
     "strip-ansi": "^4.0.0"
