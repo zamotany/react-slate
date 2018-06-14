@@ -1,98 +1,53 @@
 /* @flow */
 
 import React from 'react';
-import readline from 'readline';
-
-type ReadableStream = stream$Readable & {
-  setRawMode(flag: boolean): void,
-};
+import configureIoHandler from '../io';
 
 type Key = {
   name: string,
   ctrl: boolean,
   shift: boolean,
   alt: boolean,
+  char: string,
 };
 
 type Props = {
-  stream: ReadableStream,
+  inputStream: tty$ReadStream,
   onPress(char: string, key: Key): void,
-  disableStreamCleanup?: boolean,
   children?: any,
 };
 
-const INTERNAL = Symbol('KeyPress_Internal');
-
 export default class KeyPress extends React.Component<Props> {
-  // $FlowFixMe
-  static [INTERNAL] = {
-    streams: new WeakMap(),
+  static defaultProps = {
+    inputStream: process.stdin,
   };
 
-  onKeyPress = (ch: string, key: Key) => {
-    this.props.onPress(ch, key);
-    if (key.ctrl && key.name === 'c') {
-      process.exit(0);
-    }
-  };
+  emitter: ?* = null;
+  dispatch: ?() => void = null;
 
   componentDidMount() {
-    const { stream, disableStreamCleanup } = this.props;
-    if (!disableStreamCleanup) {
-      stream.resume();
-    }
-
-    // If stream wasn't stored, then the stream was not configured yet, so
-    // configure it, store and set initial value to 1, so another instance
-    // won't run configuration code again.
-    // $FlowFixMe
-    if (!KeyPress[INTERNAL].streams.has(stream)) {
-      setRawMode(stream, true);
-      readline.emitKeypressEvents(stream);
-      // $FlowFixMe
-      KeyPress[INTERNAL].streams.set(stream, 1);
-    } else {
-      // $FlowFixMe
-      const count = KeyPress[INTERNAL].streams.get(stream);
-      // $FlowFixMe
-      KeyPress[INTERNAL].streams.set(stream, count + 1);
-    }
-
-    stream.addListener('keypress', this.onKeyPress);
+    const { inputStream } = this.props;
+    const { emitter, dispatch } = configureIoHandler({
+      input: inputStream,
+      output: null,
+    });
+    this.emitter = emitter;
+    this.dispatch = dispatch;
+    this.emitter.addListener('keypress', this.props.onPress);
   }
 
   componentWillUnmount() {
-    const { stream, disableStreamCleanup } = this.props;
-    stream.removeListener('keypress', this.onKeyPress);
-
-    // Decrement number of instances of `KeyPress` operating on given stream,
-    // only if the stream was configured and stored.
-    // $FlowFixMe
-    if (KeyPress[INTERNAL].streams.has(stream)) {
-      // $FlowFixMe
-      const count = KeyPress[INTERNAL].streams.get(stream) - 1;
-      // $FlowFixMe
-      KeyPress[INTERNAL].streams.set(stream, count);
-
-      // Cleanup the stream if current instance was the only one left
-      // operating on given stream.
-      if (count === 0) {
-        setRawMode(stream, false);
-        if (!disableStreamCleanup) {
-          // This needs to be explicitly called, since `readline.emitKeypressEvents`
-          // contains side effects, which prevents node process from exiting.
-          // All code after this line will execute properly.
-          stream.pause();
-        }
-      }
+    if (this.emitter) {
+      this.emitter.removeListener('keypress', this.props.onPress);
+      this.emitter = null;
+    }
+    if (this.dispatch) {
+      this.dispatch();
+      this.dispatch = null;
     }
   }
 
   render() {
     return this.props.children || null;
   }
-}
-
-function setRawMode(stream, value) {
-  stream.setRawMode && stream.setRawMode(value);
 }

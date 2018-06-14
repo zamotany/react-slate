@@ -10,12 +10,13 @@ import { getStyleProps } from '../utils/style';
 type Props = {
   style?: Style,
   children: mixed,
+  render?: *,
 };
 
 export default function View(props: Props) {
-  const { children, style } = props;
+  const { children, style, render } = props;
   return (
-    <Chunk.componentName {...getStyleProps(style)}>
+    <Chunk.componentName {...getStyleProps(style)} render={render}>
       {children}
     </Chunk.componentName>
   );
