@@ -1,5 +1,7 @@
 /* @flow */
 
+import type { Style } from '@react-slate/core';
+
 import React, { type Element } from 'react';
 import { View } from '@react-slate/core';
 import configureIoHandler from '../io';
@@ -8,10 +10,12 @@ type Props = {
   children: Element<*>,
   height: number,
   inverted?: boolean,
-  inputStream: tty$ReadStream,
-  outputStream: tty$WriteStream,
-  reportingRatio: number,
+  inputStream?: tty$ReadStream,
+  outputStream?: tty$WriteStream,
+  reportingRatio?: number,
+  style?: Style,
   follow?: boolean,
+  disabled?: boolean,
 };
 
 type State = {
@@ -36,6 +40,11 @@ export default class ScrollView extends React.Component<Props, State> {
     if (name !== 'scroll') {
       return;
     }
+
+    if (this.props.disabled) {
+      return;
+    }
+
     const direction = button === 'down' ? 1 : -1;
     this.setState(state => {
       let index = state.index + (this.props.inverted ? -1 : 1) * direction;
@@ -99,6 +108,10 @@ export default class ScrollView extends React.Component<Props, State> {
   }
 
   render() {
-    return <View render={this.customRender}>{this.props.children}</View>;
+    return (
+      <View style={this.props.style}>
+        <View render={this.customRender}>{this.props.children}</View>
+      </View>
+    );
   }
 }

@@ -16,3 +16,5 @@ export { default as Text } from './public/View';
 export const Internal = {
   onExit,
 };
+
+export type * from './types';
