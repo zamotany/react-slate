@@ -21,3 +21,4 @@ yarn add react @react-slate/core
 List of exported components:
 
 * [`KeyPress`](./interactive-key-press.md)
+* [`ScrollView`](./interactive-scroll-view.md)
