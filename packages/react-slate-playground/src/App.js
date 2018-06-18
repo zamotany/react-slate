@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from '@react-slate/core';
 import { Spinner, ProgressBar } from '@react-slate/components';
-import { KeyPress } from '@react-slate/interactive';
+import { KeyPress, ScrollView } from '@react-slate/interactive';
 
 const components = ['Spinner', 'ProgressBar'];
 
@@ -12,6 +12,7 @@ export default class App extends React.Component {
     isMoving: false,
     previewLeftOffset: 0,
     previewTopOffset: 0,
+    scrollDisabled: false,
   };
 
   componentDidMount() {
@@ -31,6 +32,12 @@ export default class App extends React.Component {
   }
 
   onPress = ({ char }) => {
+    if (char === 'x') {
+      this.setState(({ scrollDisabled }) => ({
+        scrollDisabled: !scrollDisabled,
+      }));
+    }
+
     if (!this.state.isMoving && char === 'w') {
       this.setState(state => ({
         componentPreview: Math.max(0, state.componentPreview - 1),
@@ -120,7 +127,7 @@ export default class App extends React.Component {
         <View
           style={{
             ...styles.componentPreview,
-            left: 22 + this.state.previewLeftOffset,
+            left: 30 + this.state.previewLeftOffset,
             top: 5 + this.state.previewTopOffset,
             borderColor: this.state.isMoving ? 'ansi-magenta' : 'ansi-white',
           }}
@@ -128,6 +135,20 @@ export default class App extends React.Component {
           <View style={styles.componentPreviewLabel}>Preview:</View>
           {this.renderPreview(this.state.componentPreview)}
         </View>
+        <ScrollView
+          height={1}
+          disabled={this.state.scrollDisabled}
+          style={{ border: '1px solid red' }}
+        >
+          <View>{'Scroll!'}</View>
+          <View>{'... yeah ...'}</View>
+          <View>{'... you are ...'}</View>
+          <View>{'... scrolling ...'}</View>
+          <View>{'... awesome, right?'}</View>
+        </ScrollView>
+        <View>{`Press "x" to ${
+          this.state.scrollDisabled ? 'enable' : 'disable'
+        } scroll`}</View>
         <KeyPress stream={process.stdin} onPress={this.onPress} />
       </View>
     );
