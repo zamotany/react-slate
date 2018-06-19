@@ -455,7 +455,7 @@ describe('nodes/ChunkNode', () => {
           fixed: true,
           x: 1,
           y: 1,
-          render: customRender,
+          internal_do_not_use_render: customRender,
         })
       );
       rootNode.appendInitialChild(

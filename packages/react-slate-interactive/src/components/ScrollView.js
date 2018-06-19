@@ -37,7 +37,7 @@ export default class ScrollView extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    if ((!this.getHeight() && this.getHeight() !== 0) || this.getHeight() < 0) {
+    if (this.getHeight() < 0) {
       throw new Error(
         'ScrollView height must be a non-negative number. Did you forgot to pass' +
           '`height` prop or `style` prop with `height` property?'
@@ -92,7 +92,9 @@ export default class ScrollView extends React.Component<Props, State> {
   };
 
   getHeight() {
-    return this.props.height || (this.props.style && this.props.style.height);
+    return (
+      this.props.height || (this.props.style && this.props.style.height) || -1
+    );
   }
 
   componentDidMount() {
