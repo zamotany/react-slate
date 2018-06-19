@@ -4,38 +4,36 @@ title: ScrollView
 sidebar_label: ScrollView
 ---
 
-Extends the basic build block View and add an ability to scroll its content while the user is using mouse scroll event. Great for many kinds of reporters-like applications, especially with `follow` property.
+Render `children` elements in a scrollable container with fixed height, using mouse scroll events. Useful for reporters and logs display.
 
 ## Props
 
-* `children: Element<*>`
-* `height: number`
-* `inputStream: tty$ReadStream`
-* `outputStream: tty$WriteStream`
-* `reportingRatio: number` - speed of the scrolling (defaults to 0.25)
-* `inverted?: boolean` - how should scroll direction affect rendering
-* `style?: Style` - Object with [Style properties](./style-prop.md)
-* `follow?: boolean`, - if the cursor is at the bottom and follow is enabled the ScrollView will autoscroll with its new content
-* `disabled?: boolean`,
+* `children: React.Element<*>` - Content to be rendered and scrolled.
+* `height: number` - Fixed height of the visible area.
+* `inputStream: tty$ReadStream` (default: `process.stdin`) - Input stream to capture scroll events from.
+* `outputStream: tty$WriteStream` (default: `process.stdout`) - Output stream to enable/disable mouse reporting, hence toggling scroll events.
+* `reportingRatio: number` (default: `0.25`) - Mouse scrolling reporting ratio, effectively controlling the speed of scroll.
+* `inverted?: boolean` - Inverts the direction of scrolling.
+* `style?: Style` - Object with [Style properties](./core-style-prop.md).
+* `follow?: boolean`, - Makes `ScrollView` follow new content added at the bottom.
+* `disabled?: boolean` - Disables scrolling when set to `true`.
 
 ## Example
 
 ```js
-import React from "react";
-import { ScrollView } from "@react-slate/interactive";
+import React from 'react';
+import { ScrollView } from '@react-slate/interactive';
 
-class App extends React.Component {
+class MyComponent extends React.Component {
   render() {
     return (
-      <View>
-        <ScrollView height={1} style={{ border: "1px solid red" }}>
-          <View>{"Scroll!"}</View>
-          <View>{"... yeah ..."}</View>
-          <View>{"... you are ..."}</View>
-          <View>{"... scrolling ..."}</View>
-          <View>{"... awesome, right?"}</View>
-        </ScrollView>
-      </View>
+      <ScrollView height={2} style={{ border: 'solid red' }}>
+        <View>{'Scroll!'}</View>
+        <View>{'... yeah ...'}</View>
+        <View>{'... you are ...'}</View>
+        <View>{'... scrolling ...'}</View>
+        <View>{'... awesome, right? ...'}</View>
+      </ScrollView>
     );
   }
 }

@@ -37,11 +37,7 @@ export default class ScrollView extends React.Component<Props, State> {
   dispatch: ?() => void = null;
 
   mouseHandler = ({ name, button }: { name: string, button: string }) => {
-    if (name !== 'scroll') {
-      return;
-    }
-
-    if (this.props.disabled) {
+    if (name !== 'scroll' || this.props.disabled) {
       return;
     }
 
