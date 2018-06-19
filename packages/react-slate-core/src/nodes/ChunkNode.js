@@ -102,8 +102,12 @@ export default class ChunkNode {
       style: this.props.stylizeArgs,
     });
 
-    if (typeof this.props.render === 'function') {
-      return this.props.render(this, relativeCanvas, absoluteCanvas);
+    if (typeof this.props.internal_do_not_use_render === 'function') {
+      return this.props.internal_do_not_use_render(
+        this,
+        relativeCanvas,
+        absoluteCanvas
+      );
     }
 
     return this.nativeRender(relativeCanvas, absoluteCanvas);
