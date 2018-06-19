@@ -1,9 +1,7 @@
 /* @flow */
 
-import type { Style } from '@react-slate/core';
-
 import React, { type Element } from 'react';
-import { View } from '@react-slate/core';
+import { View, type Style } from '@react-slate/core';
 import configureIoHandler from '../io';
 
 type Props = {
