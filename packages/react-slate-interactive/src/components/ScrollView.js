@@ -10,9 +10,9 @@ type Props = {
   inverted?: boolean,
   inputStream: tty$ReadStream,
   outputStream: tty$WriteStream,
-  reportingRatio: number,
+  scrollSensitivity: number,
   style?: Style,
-  follow?: boolean,
+  stickToBottom?: boolean,
   disabled?: boolean,
 };
 
@@ -24,15 +24,26 @@ export default class ScrollView extends React.Component<Props, State> {
   static defaultProps = {
     inputStream: process.stdin,
     outputStream: process.stdout,
-    reportingRatio: 0.25,
+    scrollSensitivity: 0.25,
   };
 
   contentHeight: number = 0;
-  state: State = {
+  state = {
     index: 0,
   };
   emitter: ?* = null;
   dispatch: ?() => void = null;
+
+  constructor(props: Props) {
+    super(props);
+
+    if ((!this.getHeight() && this.getHeight() !== 0) || this.getHeight() < 0) {
+      throw new Error(
+        'ScrollView height must be a non-negative number. Did you forgot to pass' +
+          '`height` prop or `style` prop with `height` property?'
+      );
+    }
+  }
 
   mouseHandler = ({ name, button }: { name: string, button: string }) => {
     if (name !== 'scroll' || this.props.disabled) {
@@ -55,14 +66,15 @@ export default class ScrollView extends React.Component<Props, State> {
 
   customRender = (instance: *, relativeCanvas: *, absoluteCanvas: *) => {
     const renderResults = instance.nativeRender(relativeCanvas, absoluteCanvas);
-    const { height, follow } = this.props;
+    const { stickToBottom } = this.props;
+    const height = this.getHeight();
     let { index } = this.state;
 
     // If the scrollable view should follow new content
     // and we have our cursor at the bottom, then
     // we update index to keep actually keep it at the bottom.
     if (
-      follow &&
+      stickToBottom &&
       this.contentHeight !== renderResults.canvas.length &&
       index + height === this.contentHeight
     ) {
@@ -79,11 +91,15 @@ export default class ScrollView extends React.Component<Props, State> {
     return renderResults;
   };
 
+  getHeight() {
+    return this.props.height || (this.props.style && this.props.style.height);
+  }
+
   componentDidMount() {
     const { emitter, dispatch } = configureIoHandler({
       input: this.props.inputStream,
       output: this.props.outputStream,
-      mouseReportingRatio: this.props.reportingRatio,
+      mouseReportingRatio: this.props.scrollSensitivity,
     });
     this.emitter = emitter;
     this.dispatch = dispatch;
@@ -104,7 +120,9 @@ export default class ScrollView extends React.Component<Props, State> {
   render() {
     return (
       <View style={this.props.style}>
-        <View render={this.customRender}>{this.props.children}</View>
+        <View internal_do_not_use_render={this.customRender}>
+          {this.props.children}
+        </View>
       </View>
     );
   }

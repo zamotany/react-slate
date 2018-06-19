@@ -138,7 +138,7 @@ export default class App extends React.Component {
         <ScrollView
           height={1}
           disabled={this.state.scrollDisabled}
-          style={{ border: '1px solid red' }}
+          style={{ border: 'solid red' }}
         >
           <View>{'Scroll!'}</View>
           <View>{'... yeah ...'}</View>
