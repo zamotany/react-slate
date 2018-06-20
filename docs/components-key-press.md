@@ -1,5 +1,5 @@
 ---
-id: interactive-key-press
+id: components-key-press
 title: KeyPress
 sidebar_label: KeyPress
 ---
@@ -26,7 +26,7 @@ Contentless component for attaching `onPress` callback to `keypress` event.
 ```js
 import React from 'react';
 import { Text, View } from '@react-slate/core';
-import { KeyPress } from '@react-slate/interactive';
+import { KeyPress } from '@react-slate/components';
 
 class MyComponent extends React.Component {
   _onPress = (char, key) => {
@@ -49,7 +49,7 @@ Rendering passed children:
 ```js
 import React from 'react';
 import { Text } from '@react-slate/core';
-import { KeyPress } from '@react-slate/interactive';
+import { KeyPress } from '@react-slate/components';
 
 class MyComponent extends React.Component {
   _onPress = (char, key) => {

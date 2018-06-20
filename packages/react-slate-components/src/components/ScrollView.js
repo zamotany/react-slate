@@ -1,4 +1,5 @@
 /* @flow */
+/* eslint-disable react/no-unused-prop-types */
 
 import React, { type Element } from 'react';
 import { View, type Style } from '@react-slate/core';

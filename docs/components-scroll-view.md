@@ -1,5 +1,5 @@
 ---
-id: interactive-scroll-view
+id: components-scroll-view
 title: ScrollView 
 sidebar_label: ScrollView
 ---
@@ -24,7 +24,7 @@ In order for `ScrollView` to function properly, it needs to have a fixed height.
 
 ```js
 import React from 'react';
-import { ScrollView } from '@react-slate/interactive';
+import { ScrollView } from '@react-slate/components';
 
 class MyComponent extends React.Component {
   render() {
