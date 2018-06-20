@@ -56,6 +56,9 @@
     "sourceMaps": "inline"
   },
   "eslintConfig": {
-    "extends": "callstack-io"
+    "extends": "callstack-io",
+    "rules": {
+      "react/no-unused-prop-types": "off"
+    }
   }
 }

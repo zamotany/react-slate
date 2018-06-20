@@ -14,8 +14,13 @@ type Props = {
 
 export default function View(props: Props) {
   const { children, style } = props;
+  // $FlowFixMe
+  const { internal_do_not_use_render } = props; // eslint-disable-line camelcase
   return (
-    <Chunk.componentName {...getStyleProps(style)}>
+    <Chunk.componentName
+      {...getStyleProps(style)}
+      internal_do_not_use_render={internal_do_not_use_render} // eslint-disable-line camelcase
+    >
       {children}
     </Chunk.componentName>
   );

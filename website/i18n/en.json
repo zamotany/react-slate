@@ -35,6 +35,8 @@
     "interactive-getting-started": "@react-slate/interactive: Getting started",
     "interactive-key-press": "KeyPress",
     "KeyPress": "KeyPress",
+    "interactive-scroll-view": "ScrollView",
+    "ScrollView": "ScrollView",
     "packages": "Packages",
     "Packages": "Packages",
     "responding-to-resize-event-guide": "Responding to `resize` event",

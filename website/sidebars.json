@@ -1,12 +1,7 @@
 {
   "docs": {
-    "Getting started": [
-      "installation",
-      "packages"
-    ],
-    "Guides": [
-      "responding-to-resize-event-guide"
-    ],
+    "Getting started": ["installation", "packages"],
+    "Guides": ["responding-to-resize-event-guide"],
     "@react-slate/core: API": [
       "core-renderToTerminal-function",
       "core-unmountFromTerminal-function",
@@ -27,10 +22,9 @@
     ],
     "@react-slate/interactive": [
       "interactive-getting-started",
-      "interactive-key-press"
+      "interactive-key-press",
+      "interactive-scroll-view"
     ],
-    "@react-slate/utils": [
-      "utils-getting-started"
-    ]
+    "@react-slate/utils": ["utils-getting-started"]
   }
 }

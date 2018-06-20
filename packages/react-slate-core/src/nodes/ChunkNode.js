@@ -53,17 +53,7 @@ export default class ChunkNode {
     this.children.splice(index, 1);
   }
 
-  render(absoluteCanvas: AbsoluteCanvas) {
-    const relativeCanvas = new RelativeCanvas({
-      width: this.props.width,
-      height: this.props.height,
-      style: this.props.stylizeArgs,
-    });
-
-    if (typeof this.props.render === 'function') {
-      return this.props.render(this, relativeCanvas, absoluteCanvas);
-    }
-
+  nativeRender(relativeCanvas: RelativeCanvas, absoluteCanvas: AbsoluteCanvas) {
     for (let childIndex = 0; childIndex < this.children.length; childIndex++) {
       const child = this.children[childIndex];
 
@@ -103,5 +93,23 @@ export default class ChunkNode {
     }
 
     return relativeCanvas;
+  }
+
+  render(absoluteCanvas: AbsoluteCanvas) {
+    const relativeCanvas = new RelativeCanvas({
+      width: this.props.width,
+      height: this.props.height,
+      style: this.props.stylizeArgs,
+    });
+
+    if (typeof this.props.internal_do_not_use_render === 'function') {
+      return this.props.internal_do_not_use_render(
+        this,
+        relativeCanvas,
+        absoluteCanvas
+      );
+    }
+
+    return this.nativeRender(relativeCanvas, absoluteCanvas);
   }
 }

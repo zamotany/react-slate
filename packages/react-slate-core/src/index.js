@@ -16,3 +16,13 @@ export { default as Text } from './public/View';
 export const Internal = {
   onExit,
 };
+
+export type {
+  Props,
+  LayoutProps,
+  AbsoluteProps,
+  Style,
+  CustomRender,
+  NodeStream,
+  Target,
+} from './types';

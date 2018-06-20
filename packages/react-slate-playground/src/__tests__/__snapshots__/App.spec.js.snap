@@ -6,13 +6,13 @@ exports[`App should render 1`] = `
   (use \\"w\\" and \\"s\\" to navigate)                             
   (press \\"m\\" to move preview using \\"w\\", \\"a\\", \\"s\\", \\"d\\")      
                                                             
-   Spinner            ┌──────────────────┐                  
-   ProgressBar        │     Preview:     │                  
-                      │                  │                  
-                      │                  │                  
-                      │                  │                  
-                      └──────────────────┘                  
-                                                            
+   Spinner                    ┌──────────────────┐          
+   ProgressBar                │     Preview:     │          
+                              │                  │          
+  ┌───────┐                   │                  │          
+  │Scroll!│                   │                  │          
+  └───────┘                   └──────────────────┘          
+  Press \\"x\\" to disable scroll                               
                                                             
                                                             
                                                             
