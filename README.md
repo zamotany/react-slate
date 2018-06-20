@@ -10,12 +10,11 @@
 
 [![tweet][tweet-badge]][tweet]
 
-| Package                    | Version                                                                        |
-| -------------------------- | ------------------------------------------------------------------------------ |
-| `@react-slate/core`        | [![Version][react-slate-core-version]][react-slate-core-package]               |
-| `@react-slate/components`  | [![Version][react-slate-components-version]][react-slate-components-package]   |
-| `@react-slate/interactive` | [![Version][react-slate-interactive-version]][react-slate-interactive-package] |
-| `@react-slate/utils`       | [![Version][react-slate-utils-version]][react-slate-utils-package]             |
+| Package                   | Version                                                                      |
+| ------------------------- | ---------------------------------------------------------------------------- |
+| `@react-slate/core`       | [![Version][react-slate-core-version]][react-slate-core-package]             |
+| `@react-slate/components` | [![Version][react-slate-components-version]][react-slate-components-package] |
+| `@react-slate/utils`      | [![Version][react-slate-utils-version]][react-slate-utils-package]           |
 
 ---
 
@@ -64,7 +63,7 @@ renderToTerminal(<App />, process.stdout);
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
 | [<img src="https://avatars2.githubusercontent.com/u/17573635?v=4" width="100px;"/><br /><sub><b>Paweł Trysła</b></sub>](https://twitter.com/_zamotany)<br />[💬](#question-zamotany "Answering Questions") [🐛](https://github.com/zamotany/react-slate/issues?q=author%3Azamotany "Bug reports") [💻](https://github.com/zamotany/react-slate/commits?author=zamotany "Code") [🎨](#design-zamotany "Design") [📖](https://github.com/zamotany/react-slate/commits?author=zamotany "Documentation") [💡](#example-zamotany "Examples") [🤔](#ideas-zamotany "Ideas, Planning, & Feedback") [⚠️](https://github.com/zamotany/react-slate/commits?author=zamotany "Tests") | [<img src="https://avatars2.githubusercontent.com/u/1174278?v=4" width="100px;"/><br /><sub><b>Satyajit Sahoo</b></sub>](https://twitter.com/@satya164)<br />[💻](https://github.com/zamotany/react-slate/commits?author=satya164 "Code") [🤔](#ideas-satya164 "Ideas, Planning, & Feedback") [👀](#review-satya164 "Reviewed Pull Requests") | [<img src="https://avatars3.githubusercontent.com/u/8135252?v=4" width="100px;"/><br /><sub><b>Jakub Beneš</b></sub>](https://jukben.cz)<br />[💻](https://github.com/zamotany/react-slate/commits?author=jukben "Code") [👀](#review-jukben "Reviewed Pull Requests") | [<img src="https://avatars0.githubusercontent.com/u/7389005?v=4" width="100px;"/><br /><sub><b>Mikhail Nikolaevskiy</b></sub>](https://github.com/mik639)<br />[💻](https://github.com/zamotany/react-slate/commits?author=mik639 "Code") |
-| :---: | :---: | :---: | :---: |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 <!-- badges (common) -->
@@ -88,7 +87,5 @@ renderToTerminal(<App />, process.stdout);
 [react-slate-core-package]: https://www.npmjs.com/package/@react-slate/core
 [react-slate-components-version]: https://img.shields.io/npm/v/@react-slate/components.svg?style=flat-square
 [react-slate-components-package]: https://www.npmjs.com/package/@react-slate/components
-[react-slate-interactive-version]: https://img.shields.io/npm/v/@react-slate/interactive.svg?style=flat-square
-[react-slate-interactive-package]: https://www.npmjs.com/package/@react-slate/interactive
 [react-slate-utils-version]: https://img.shields.io/npm/v/@react-slate/utils.svg?style=flat-square
 [react-slate-utils-package]: https://www.npmjs.com/package/@react-slate/utils

@@ -18,12 +18,9 @@
     "@react-slate/components": [
       "components-getting-started",
       "components-progress-bar",
-      "components-spinner"
-    ],
-    "@react-slate/interactive": [
-      "interactive-getting-started",
-      "interactive-key-press",
-      "interactive-scroll-view"
+      "components-spinner",
+      "components-key-press",
+      "components-scroll-view"
     ],
     "@react-slate/utils": ["utils-getting-started"]
   }

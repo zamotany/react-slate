@@ -28,7 +28,6 @@
   "dependencies": {
     "@react-slate/components": "^0.1.0",
     "@react-slate/core": "^0.6.0",
-    "@react-slate/interactive": "^0.1.0",
     "@react-slate/utils": "^0.2.1",
     "lodash.throttle": "^4.1.1",
     "react": "^16.3.2"
