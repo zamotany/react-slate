@@ -1,6 +1,6 @@
 {
   "name": "@react-slate/core",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Render React CLI apps to TTY terminals",
   "license": "MIT",
   "repository": "https://github.com/zamotany/react-slate",

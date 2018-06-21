@@ -1,6 +1,6 @@
 {
   "name": "@react-slate/components",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Standard component library for react-slate",
   "license": "MIT",
   "repository": "https://github.com/zamotany/react-slate",
@@ -37,7 +37,7 @@
     "shallowequal": "^1.0.2"
   },
   "devDependencies": {
-    "@react-slate/core": "^0.6.0",
+    "@react-slate/core": "^0.7.0",
     "react": "^16.3.2"
   },
   "babel": {
