@@ -30,6 +30,7 @@
   },
   "peerDependencies": {
     "@react-slate/core": "*",
+    "@react-slate/reflow": "*",
     "react": "16.x"
   },
   "dependencies": {

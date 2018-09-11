@@ -11,23 +11,32 @@ const NOOP = () => {};
 
 export default function renderToString(
   element: any,
-  { height = 20, width = 40 }: Options = {},
-  callback: ?Function = null
+  { height = -1, width = -1 }: Options = {},
+  callback: ?() => void = null
 ) {
   let snapshot = '';
+  let hasScheduledNullRender = false;
+
   const target = {
     forceFullPrint: true,
     setCursorPosition: NOOP,
     clear: NOOP,
+    measure: NOOP,
     print(data: string) {
-      snapshot += data;
-      render(null, target, callback);
+      if (!hasScheduledNullRender) {
+        snapshot += data;
+        hasScheduledNullRender = true;
+        render(null, target, callback);
+      }
     },
     getSize() {
       return {
         height,
         width,
       };
+    },
+    raiseError(error: Error) {
+      throw error;
     },
   };
 

@@ -2,7 +2,8 @@
 /* eslint-disable react/no-unused-prop-types */
 
 import React, { type Element } from 'react';
-import { View, type Style } from '@react-slate/core';
+import { View, type Style, renderToString } from '@react-slate/core';
+import Raw from './Raw';
 import configureIoHandler from '../io';
 
 type Props = {
@@ -65,33 +66,6 @@ export default class ScrollView extends React.Component<Props, State> {
     });
   };
 
-  customRender = (instance: *, relativeCanvas: *, absoluteCanvas: *) => {
-    const renderResults = instance.nativeRender(relativeCanvas, absoluteCanvas);
-    const { stickToBottom } = this.props;
-    const height = this.getHeight();
-    let { index } = this.state;
-
-    // If the scrollable view should follow new content
-    // and we have our cursor at the bottom, then
-    // we update index to keep actually keep it at the bottom.
-    if (
-      stickToBottom &&
-      this.contentHeight !== renderResults.canvas.length &&
-      index + height === this.contentHeight
-    ) {
-      index = renderResults.canvas.length - height;
-      // This is a small hack, but it works fine. Maybe we can get rid of it later.
-      this.setState(() => ({
-        index,
-      }));
-    }
-
-    this.contentHeight = renderResults.canvas.length;
-
-    renderResults.canvas = renderResults.canvas.slice(index, height + index);
-    return renderResults;
-  };
-
   getHeight() {
     return (
       this.props.height || (this.props.style && this.props.style.height) || -1
@@ -121,11 +95,36 @@ export default class ScrollView extends React.Component<Props, State> {
   }
 
   render() {
+    const children = renderToString(this.props.children, {
+      height: -1,
+      width: -1,
+    }).split('\n');
+    const { stickToBottom } = this.props;
+    const height = this.getHeight();
+    let { index } = this.state;
+
+    // If the scrollable view should follow new content
+    // and we have our cursor at the bottom, then
+    // we update index to keep actually keep it at the bottom.
+    if (
+      stickToBottom &&
+      this.contentHeight !== children.length &&
+      index + height === this.contentHeight
+    ) {
+      index = children.length - height;
+      // This is a small hack, but it works fine. Maybe we can get rid of it later.
+      setTimeout(() => {
+        this.setState(() => ({
+          index,
+        }));
+      }, 0);
+    }
+
+    this.contentHeight = children.length;
+
     return (
       <View style={this.props.style}>
-        <View internal_do_not_use_render={this.customRender}>
-          {this.props.children}
-        </View>
+        <Raw>{children.slice(index, height + index)}</Raw>
       </View>
     );
   }

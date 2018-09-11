@@ -11,9 +11,11 @@
     "flow": "flow",
     "lint": "lerna exec ../../node_modules/.bin/eslint .",
     "test": "jest",
+    "test:debug": "node --inspect ./node_modules/.bin/jest",
     "format": "prettier --single-quote --trailing-comma es5 --write \"packages/*/src/**/*.js\"",
     "add-contributor": "all-contributors add",
     "start": "node ./packages/react-slate-playground/bin",
+    "start:debug": "node --inspect-brk ./packages/react-slate-playground/bin",
     "publish": "lerna publish --skip-git"
   },
   "dependencies": {
@@ -32,7 +34,7 @@
     "concurrently": "^3.5.1",
     "eslint": "^4.18.2",
     "eslint-config-callstack-io": "^1.1.1",
-    "flow-bin": "^0.54.1",
+    "flow-bin": "^0.74.0",
     "flow-copy-source": "^1.3.0",
     "jest": "^22.4.2",
     "prettier": "^1.11.1",

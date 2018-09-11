@@ -8,6 +8,6 @@ module.exports = {
   },
 
   test(value) {
-    return value && value.includes(ANSI_ESCAPE_CODE);
+    return value && typeof value === 'string' && value.includes(ANSI_ESCAPE_CODE);
   },
 };

@@ -2,10 +2,10 @@
 
 import onExit from './utils/onExit';
 
-export { default as colors } from './constants/colors';
 export {
   default as renderToTerminal,
   unmountFromTerminal,
+  makeTerminalTarget,
 } from './public/renderToTerminal';
 export { default as renderToString } from './public/renderToString';
 export { default as renderToTarget } from './public/render';
@@ -19,10 +19,8 @@ export const Internal = {
 
 export type {
   Props,
-  LayoutProps,
-  AbsoluteProps,
   Style,
-  CustomRender,
+  // CustomRender,
   NodeStream,
   Target,
 } from './types';

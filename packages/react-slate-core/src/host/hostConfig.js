@@ -2,122 +2,151 @@
 
 /* eslint-disable no-param-reassign */
 
+import { typeof Root, typeof Text, View } from '@react-slate/reflow';
 // $FlowFixMe
 import emptyObject from 'fbjs/lib/emptyObject';
 // $FlowFixMe
 import shallowEqual from 'fbjs/lib/shallowEqual';
 import createElement from './createElement';
-import ContainerNode from '../nodes/ContainerNode';
-import TextNode from '../nodes/TextNode';
-
-type GenericParentInstance = {
-  appendChild(child: any): void,
-  appendInitialChild(child: any): void,
-  prependChild(child: any, childBefore: any): void,
-  removeChild(child: any): void,
-};
+import splitStyleProps from './splitStyleProps';
+import type { Target } from '../types';
 
 const NOOP = () => {};
 const RETURN_EMPTY_OBJ = () => emptyObject;
 const NO = () => false;
 
-export default (containerInstance: ContainerNode) => ({
-  // Create instance of host environment specific node or instance of a component.
-  createInstance(
-    type: string | Function,
-    props: any,
-    rootContainerInstance: ContainerNode
-  ) {
-    return createElement(type, props, rootContainerInstance);
-  },
+function withErrorHandling(target: Target, config: { [key: string]: * }) {
+  return Object.keys(config).reduce(
+    (acc, key) => ({
+      ...acc,
+      [key]:
+        typeof config[key] === 'function'
+          ? (...args: *) => {
+              try {
+                return ((config[key]: any): Function)(...args);
+              } catch (error) {
+                target.raiseError(error);
+                return null;
+              }
+            }
+          : config[key],
+    }),
+    {}
+  );
+}
 
-  appendInitialChild(parentInstance: GenericParentInstance, child: any) {
-    parentInstance.appendInitialChild(child);
-  },
-
-  insertInContainerBefore(
-    container: ContainerNode,
-    child: any,
-    childBefore: any
-  ) {
-    container.prependChild(child, childBefore);
-  },
-
-  prepareUpdate(/* testElement, type, oldProps, newProps, hostContext */) {
-    // @TODO: change it later
-    return true;
-  },
-
-  resetAfterCommit() {
-    // This hooks is called once per update, whereas commitUpdate is called multiple times, for
-    // each updated node. So here is the best place to flush data to host environment, using
-    // container instance.
-    containerInstance.draw();
-  },
-
-  getPublicInstance(inst: any) {
-    return inst;
-  },
-
-  createTextInstance(text: string, rootContainerInstance: ContainerNode) {
-    return createElement(
-      'TEXT_NODE',
-      { children: text },
-      rootContainerInstance
-    );
-  },
-
-  mutation: {
-    appendChild(parentInstance: GenericParentInstance, child: any) {
-      parentInstance.appendChild(child);
+export default (containerInstance: Root, target: Target, render: *) =>
+  withErrorHandling(target, {
+    // Create instance of host environment specific node or instance of a component.
+    createInstance(type: string | Function, props: *) {
+      return createElement(type, props);
     },
 
-    removeChild(parentInstance: GenericParentInstance, child: any) {
-      parentInstance.removeChild(child);
+    createTextInstance(text: string) {
+      return createElement('TEXT_NODE', { children: text });
     },
 
-    appendChildToContainer(container: ContainerNode, child: any) {
+    // Container handlers
+
+    insertInContainerBefore(container: Root, child: *, childBefore: *) {
+      container.prependChild(child, childBefore);
+    },
+
+    appendChildToContainer(container: Root, child: *) {
       container.appendChild(child);
     },
 
-    removeChildFromContainer(container: ContainerNode, child: any) {
+    removeChildFromContainer(container: Root, child: *) {
       container.removeChild(child);
     },
 
-    insertBefore(
-      parentInstance: GenericParentInstance,
-      child: any,
-      childBefore: any
-    ) {
+    // Default handlers
+
+    appendInitialChild(parentInstance: View, child: *) {
+      parentInstance.appendChild(child);
+    },
+
+    appendChild(parentInstance: View, child: *) {
+      parentInstance.appendChild(child);
+    },
+
+    removeChild(parentInstance: View, child: *) {
+      parentInstance.removeChild(child);
+    },
+
+    insertBefore(parentInstance: View, child: *, childBefore: *) {
       parentInstance.prependChild(child, childBefore);
     },
 
+    // Update handlers
+
+    prepareUpdate() {
+      return true;
+    },
+
     commitUpdate(
-      instance: any,
-      updatePayload: any,
+      instance: View,
+      updatePayload: *,
       type: string,
-      oldProps: any,
-      newProps: any
+      oldProps: *,
+      newProps: *
     ) {
-      if (!shallowEqual(oldProps, newProps)) {
-        instance.props = newProps;
+      // TODO: handle style props separately to avoid unnecessary rendering
+      // since style prop will always trigger new render.
+      if (!shallowEqual(oldProps, newProps) && instance instanceof View) {
+        const { layoutProps, styleProps, borderProps } = splitStyleProps(
+          newProps.style
+        );
+        instance.setLayoutProps(layoutProps);
+        instance.setStyleProps(styleProps);
+        instance.setBorder(borderProps);
       }
     },
 
-    commitTextUpdate(textInstance: TextNode, oldText: string, newText: string) {
-      textInstance.replaceChildren(newText);
+    commitTextUpdate(textInstance: Text, oldText: string, newText: string) {
+      textInstance.setBody(newText);
+    },
+
+    resetAfterCommit() {
+      // This hooks is called once per update, whereas commitUpdate is called multiple times, for
+      // each updated node. So here is the best place to flush data to host environment, using
+      // container instance.
+      target.measure('layout-start');
+      const { drawableItems } = containerInstance.calculateLayout();
+      target.measure('layout-end');
+      target.measure('render-start');
+      const output = render(drawableItems, target.getSize());
+      target.measure('render-end');
+      target.measure('draw-start');
+      if (typeof output === 'string') {
+        target.setCursorPosition(0, 0);
+        target.clear(true);
+        target.print(output);
+      } else {
+        Object.keys(output).forEach(index => {
+          target.setCursorPosition(0, parseInt(index, 10));
+          target.clear(false);
+          target.print(output[index]);
+        });
+      }
+      target.measure('draw-end');
+    },
+
+    // Misc
+
+    getPublicInstance(inst: *) {
+      return inst;
     },
 
     commitMount: NOOP,
-  },
+    getRootHostContext: RETURN_EMPTY_OBJ,
+    getChildHostContext: RETURN_EMPTY_OBJ,
+    prepareForCommit: NOOP,
+    shouldSetTextContent: NO,
+    resetTextContent: NOOP,
+    finalizeInitialChildren: NOOP,
+    now: NOOP,
 
-  getRootHostContext: RETURN_EMPTY_OBJ,
-  getChildHostContext: RETURN_EMPTY_OBJ,
-  prepareForCommit: NOOP,
-  shouldSetTextContent: NO,
-  resetTextContent: NOOP,
-  finalizeInitialChildren: NOOP,
-  now: NOOP,
-
-  useSyncScheduling: true,
-});
+    useSyncScheduling: true,
+    supportsMutation: true,
+  });
