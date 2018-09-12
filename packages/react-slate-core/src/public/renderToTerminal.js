@@ -3,10 +3,12 @@
 import readline from 'readline';
 import type { Target } from '../types';
 import render from './render';
+import withDevtools from '../utils/withDevtools';
 
 type Options = {
   width?: number,
   height?: number,
+  devtools?: boolean,
 };
 
 const streamMap = new WeakMap();
@@ -70,12 +72,9 @@ export function unmountFromTerminal(stream: tty$WriteStream | stream$Writable) {
 export default function renderToTerminal(
   element: any,
   stream: tty$WriteStream | stream$Writable,
-  { height = 20, width = 40 }: Options = {},
+  { height = 20, width = 40, devtools = false }: Options = {},
   callback: ?() => void = null
 ) {
-  return render(
-    element,
-    makeTerminalTarget(stream, { width, height }),
-    callback
-  );
+  const target = makeTerminalTarget(stream, { width, height });
+  return render(element, devtools ? withDevtools(target) : target, callback);
 }

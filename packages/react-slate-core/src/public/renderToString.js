@@ -1,17 +1,19 @@
 /* @flow */
 
 import render from './render';
+import withDevtools from '../utils/withDevtools';
 
 type Options = {
   height?: number,
   width?: number,
+  devtools?: boolean,
 };
 
 const NOOP = () => {};
 
 export default function renderToString(
   element: any,
-  { height = -1, width = -1 }: Options = {},
+  { height = -1, width = -1, devtools = false }: Options = {},
   callback: ?() => void = null
 ) {
   let snapshot = '';
@@ -40,6 +42,6 @@ export default function renderToString(
     },
   };
 
-  render(element, target, callback);
+  render(element, devtools ? withDevtools(target) : target, callback);
   return snapshot;
 }

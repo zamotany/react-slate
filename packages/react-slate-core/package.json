@@ -37,6 +37,9 @@
     "@react-slate/reflow": "*",
     "fast-memoize": "^2.5.1"
   },
+  "optionalDependencies": {
+    "@react-slate/devtools": "*"
+  },
   "devDependencies": {
     "react": "^16.3.2",
     "strip-ansi": "^4.0.0"
