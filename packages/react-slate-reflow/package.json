@@ -34,25 +34,6 @@
     "buckets-js": "^1.98.2",
     "strip-ansi": "^4.0.0"
   },
-  "babel": {
-    "presets": [
-      [
-        "env",
-        {
-          "targets": {
-            "node": 6
-          }
-        }
-      ],
-      "react",
-      "stage-2"
-    ],
-    "plugins": [
-      "transform-flow-strip-types",
-      "transform-object-rest-spread"
-    ],
-    "sourceMaps": "inline"
-  },
   "eslintConfig": {
     "extends": "callstack-io"
   }

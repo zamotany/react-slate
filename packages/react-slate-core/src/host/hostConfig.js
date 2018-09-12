@@ -3,16 +3,13 @@
 /* eslint-disable no-param-reassign */
 
 import { typeof Root, typeof Text, View } from '@react-slate/reflow';
-// $FlowFixMe
-import emptyObject from 'fbjs/lib/emptyObject';
-// $FlowFixMe
-import shallowEqual from 'fbjs/lib/shallowEqual';
+import shallowEqual from 'shallowequal';
 import createElement from './createElement';
 import splitStyleProps from './splitStyleProps';
 import type { Target } from '../types';
 
 const NOOP = () => {};
-const RETURN_EMPTY_OBJ = () => emptyObject;
+const RETURN_EMPTY_OBJ = () => ({});
 const NO = () => false;
 
 function withErrorHandling(target: Target, config: { [key: string]: * }) {

@@ -32,8 +32,8 @@
     "react": "16.x"
   },
   "dependencies": {
-    "fbjs": "^0.8.16",
-    "react-reconciler": "0.12.0",
+    "shallowequal": "^1.1.0",
+    "react-reconciler": "0.13.0",
     "@react-slate/reflow": "*",
     "fast-memoize": "^2.5.1"
   },
@@ -41,27 +41,8 @@
     "@react-slate/devtools": "*"
   },
   "devDependencies": {
-    "react": "^16.3.2",
+    "react": "^16.5.0",
     "strip-ansi": "^4.0.0"
-  },
-  "babel": {
-    "presets": [
-      [
-        "env",
-        {
-          "targets": {
-            "node": 6
-          }
-        }
-      ],
-      "react",
-      "stage-2"
-    ],
-    "plugins": [
-      "transform-flow-strip-types",
-      "transform-object-rest-spread"
-    ],
-    "sourceMaps": "inline"
   },
   "eslintConfig": {
     "extends": "callstack-io"

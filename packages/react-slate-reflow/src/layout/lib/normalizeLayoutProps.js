@@ -67,8 +67,9 @@ function makeConstrainFactory(value: number | string) {
     }
 
     if (/^\d+%$/.test(value)) {
+      // $FlowFixMe
       const percentage = parseInt(/^(\d+)%$/.exec(value)[1], 10);
-      return Math.floor(percentage / 100 * parentValue);
+      return Math.floor((percentage / 100) * parentValue);
     }
 
     return 0;

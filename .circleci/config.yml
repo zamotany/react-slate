@@ -38,7 +38,9 @@ jobs:
       steps:
         - attach_workspace:
             at: ~/react-slate
-        - run: yarn test # -- --coverage
+        - run: yarn test --coverage core
+        - run: yarn test --coverage reflow
+        - run: yarn test --coverage utils
         - store_artifacts:
             path: coverage
             destination: coverage
