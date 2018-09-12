@@ -1,7 +1,7 @@
 {
   "name": "@react-slate/reflow",
   "version": "0.1.0",
-  "description": "TODO",
+  "description": "Layout and rendering engine for terminals.",
   "license": "MIT",
   "repository": "https://github.com/zamotany/react-slate",
   "private": true,

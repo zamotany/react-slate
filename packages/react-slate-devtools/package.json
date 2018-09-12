@@ -1,7 +1,7 @@
 {
   "name": "@react-slate/devtools",
   "version": "0.1.0",
-  "description": "TODO",
+  "description": "Devtools for react-slate",
   "license": "MIT",
   "repository": "https://github.com/zamotany/react-slate",
   "private": true,
@@ -9,7 +9,9 @@
     "name": "Paweł Trysła",
     "email": "zamotany.oss@gmail.com"
   },
-  "bin": "./bin/cli.js",
+  "bin": {
+    "react-slate-devtools": "./bin/cli.js"
+  },
   "files": [
     "/build",
     "index.js",
