@@ -58,6 +58,9 @@
     ],
     "snapshotSerializers": [
       "<rootDir>/jestSnapshotSerializer.js"
-    ]
+    ],
+    "transform": {
+      "^.+\\.(js|jsx)$": "./jestTransform.js"
+    }
   }
 }
