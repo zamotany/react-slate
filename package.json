@@ -7,7 +7,7 @@
     "build": "lerna run --parallel build",
     "watch": "lerna run --parallel build:watch",
     "link-packages": "lerna exec --parallel yarn link",
-    "1prepare": "yarn build",
+    "prepare": "yarn build",
     "flow": "flow",
     "lint": "lerna exec ../../node_modules/.bin/eslint .",
     "test": "jest",
