@@ -45,7 +45,10 @@ img[alt="Preview"] {
 @media only screen and (max-width: 1023px) {
 }
 
-@media only screen and (min-width: 1400px) {
+@media only screen and (min-width: 700px) {
+  .logo {
+    max-width: 80%;
+  }
 }
 
 @media only screen and (min-width: 1500px) {

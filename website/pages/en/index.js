@@ -50,13 +50,6 @@ const SplashContainer = props => (
   </div>
 );
 
-const ProjectTitle = props => (
-  <h2 className="projectTitle">
-    {siteConfig.title}
-    <small>{siteConfig.tagline}</small>
-  </h2>
-);
-
 const PromoSection = props => (
   <div className="section promoSection">
     <div className="promoRow">
@@ -71,7 +64,10 @@ class HomeSplash extends React.Component {
     return (
       <SplashContainer>
         <div className="inner">
-          <ProjectTitle />
+          <img src={imgUrl('react_slate_logo.png')} className="logo" />
+          <h2 className="projectTitle">
+            <small>{siteConfig.tagline}</small>
+          </h2>
           <PromoSection>
             <Button href={docUrl('installation.html', language)}>Getting started</Button>
           </PromoSection>

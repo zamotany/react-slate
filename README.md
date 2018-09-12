@@ -1,4 +1,12 @@
-# react-slate
+<p align="center">
+  <img alt="react-slate" src="website/static/img/react_slate_logo.png" width="700">
+</p>
+
+<p align="center">
+  Write React apps for terminal
+</p>
+
+---
 
 [![Build Status][build-badge]][build]
 [![MIT License][license-badge]][license]

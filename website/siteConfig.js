@@ -9,7 +9,7 @@ const users = [
 
 module.exports = {
   title: 'react-slate',
-  tagline: 'Render React apps to terminal',
+  tagline: 'Write React apps for terminal',
   url: 'https://zamotany.github.io',
   baseUrl: '/',
   projectName: 'react-slate',
