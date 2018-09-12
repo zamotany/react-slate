@@ -10,6 +10,8 @@
     "KeyPress": "KeyPress",
     "components-progress-bar": "ProgressBar",
     "ProgressBar": "ProgressBar",
+    "components-raw": "Raw",
+    "Raw": "Raw",
     "components-scroll-view": "ScrollView",
     "ScrollView": "ScrollView",
     "components-spinner": "Spinner",

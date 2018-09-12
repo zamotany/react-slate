@@ -20,7 +20,8 @@
       "components-progress-bar",
       "components-spinner",
       "components-key-press",
-      "components-scroll-view"
+      "components-scroll-view",
+      "components-raw"
     ],
     "@react-slate/utils": ["utils-getting-started"]
   }

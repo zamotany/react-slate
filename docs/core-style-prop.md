@@ -28,12 +28,12 @@ type Style = {|
   border?: string,
   borderStyle?: 'none' | 'solid' | 'double',
   borderColor?: string,
+  borderBackgroundColor?: string,
   height?: number,
   width?: number,
   display?: 'block' | 'inline',
-  textAlign?: 'left' | 'center' | 'right',
   zIndex?: number, // supports both  negative, 0 and positive values
-  position?: 'relative' | 'fixed',
+  position?: 'relative' | 'absolute',
   left?: number,
   top?: number,
 |};

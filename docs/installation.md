@@ -17,11 +17,11 @@ Now, in your entry file import [`renderToTerminal` function](./core-renderToTerm
 
 ```js
 import React from 'react';
-import { renderToTerminal, View, Text } from '@react-slate/core';
+import { renderToTerminal, View } from '@react-slate/core';
 
 renderToTerminal(
   <View style={{ margin: '1' }}>
-    <Text style={{ color: 'ansi-green' }}>Hello world!</Text>
+    <View style={{ color: 'ansi-green' }}>Hello world!</View>
   </View>,
   process.stdout
 );

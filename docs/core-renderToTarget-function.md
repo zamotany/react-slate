@@ -19,7 +19,7 @@ Renders an React element to a custom target.
   * `print(data: string): void` - Prints rendered content. This is the place to flush content to the host environment.
   * `getSize(): { width: number, height: number }` - Provides width and height of the canvas on which the content will be rendered.
   * `setCursorPosition(x: number, y: number): void` - Moves cursor to specific coordinates (can be noop'ed).
-  * `clear(): void` - Clear the content below the cursor position, which will be set before using `setCursorPosition` (can be noop'ed).
+  * `clear(fullScreen: boolean): void` - For `fullScreen: true` it should clear the content below the cursor position, which will be set before using `setCursorPosition`, otherwise it should clear current the line (can be noop'ed).
 
 * `callback: ?Function = null` - Optional callback invoked after the element is rendered.
 

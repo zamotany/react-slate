@@ -4,7 +4,7 @@ title: Styling
 sidebar_label: Styling
 ---
 
-`react-slate` comes with custom CSS-like styling system on top on [`chalk`](https://github.com/chalk/chalk). It is using ANSI escape codes for terminals to allow to create a visually appealing CLI React apps.
+`react-slate` comes with custom React Native and CSS-like styling system on top on [`chalk`](https://github.com/chalk/chalk). It is using ANSI escape codes for terminals to allow to create a visually appealing CLI React apps.
 
 **This guide is only valid for TTY targets like terminals.**
 
@@ -128,6 +128,10 @@ Adds a border to a element using `┌─┐│└─┘` characters (`solid`) or
 
 Same as [`color`](#color-string) but **applied only to a border**.
 
+### `borderBackgroundColor: string`
+
+Same as [`backgroundColor`](#backgroundcolor-string) but **applied only to a border**.
+
 ### `border: string`
 
-Combines both `borderStyle` and `borderColor` property with the following syntax: `<style> <color>` eg: `solid blue`, `double rgb(255, 128, 0)`.
+Combines both `borderStyle`, `borderColor` and optionally `borderBackgroundColor` property with the following syntax: `<style> <color> [<color>]` eg: `solid blue`, `double rgb(255, 128, 0) red`.

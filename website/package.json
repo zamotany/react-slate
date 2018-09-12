@@ -5,7 +5,7 @@
     "publish-website": "yarn build && surge ./build/react-slate react-slate.surge.sh"
   },
   "dependencies": {
-    "docusaurus": "^1.0.7",
+    "docusaurus": "^1.3.3",
     "surge": "^0.20.1"
   }
 }

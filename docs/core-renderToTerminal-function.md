@@ -8,8 +8,8 @@ sidebar_label: renderToTerminal
 renderToTerminal(
   element: React.Element,
   stream: tty$WritableStream | stream$Writable,
-  options: { width: number, height: number } = {}
-  callback: ?Function = null
+  options?: Options = {}
+  callback?: ?Function = null
 ): void
 ```
 
@@ -19,9 +19,10 @@ Renders an React element to a TTY stream (Terminal, usually `process.stdout` or 
 
 * `element: React.Element` - Element to render.
 * `stream: tty$WritableStream` - TTY stream to render to.
-* `options: { width: number, height: number }` - Options to specify canvas size if passed stream is non-TTY:
-  * `width: number = 40` - Width of canvas.
-  * `height: number = 20` - Size of canvas.
+* `options: Options` - Options to specify canvas size if passed stream is non-TTY:
+  * `width?: number = 40` - Width of canvas.
+  * `height?: number = 20` - Size of canvas.
+  * `devtools?: boolean = false` - Specifies if devtools should be used (they must be installed manually: `yarn add -D @react-slate/devtools`).
 * `callback: ?Function = null` - Optional callback invoked after the element is rendered.
 
 ### Example

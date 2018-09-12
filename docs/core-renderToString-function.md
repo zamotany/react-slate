@@ -7,8 +7,8 @@ sidebar_label: renderToString
 ```js
 renderToString(
   element: React.Element,
-  options: Options,
-  callback: ?Function = null
+  options?: Options = {},
+  callback?: ?Function = null
 ): string
 ```
 
@@ -18,8 +18,9 @@ Renders an React element to a string.
 
 * `element: React.Element` - Element to render.
 * `options: Options`:
-  * `width: number = 40` - Width of the canvas.
-  * `height: number = 20` - height of the canvas.
+  * `width?: number = 40` - Width of the canvas.
+  * `height?: number = 20` - height of the canvas.
+  * `devtools?: boolean = false` - Specifies if devtools should be used (they must be installed manually: `yarn add -D @react-slate/devtools`).
 * `callback: ?Function = null` - Optional callback invoked after the element is rendered.
 
 ### Example

@@ -5,6 +5,7 @@ sidebar_label: View
 ---
 
 Basic building block. Can render text (strings), arrays and other nested components.
+**Rendering multiline strings with `\n` is currently not supported.**
 
 ## Props
 
