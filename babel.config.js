@@ -1,5 +1,5 @@
-module.exports = (api, useReact = false) => {
-  api.cache(true);
+module.exports = api => {
+  api.cache(false);
   return {
     presets: [
       [
@@ -10,8 +10,9 @@ module.exports = (api, useReact = false) => {
           }
         }
       ],
-      '@babel/preset-flow'
-    ].concat(useReact ? ['@babel/preset-react'] : []),
+      '@babel/preset-flow',
+      '@babel/preset-react'
+    ],
     plugins: [
       '@babel/plugin-proposal-export-namespace-from',
       ['@babel/plugin-proposal-class-properties', { 'loose': false }],

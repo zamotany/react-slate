@@ -1,2 +1,2 @@
 // eslint-disable-next-line global-require
-module.exports = api => require('../../babel.config')(api, true);
+module.exports = require('../../babel.config');
