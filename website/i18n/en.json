@@ -3,7 +3,7 @@
   "localized-strings": {
     "next": "Next",
     "previous": "Previous",
-    "tagline": "Render React apps to terminal",
+    "tagline": "Write React apps for terminal",
     "components-getting-started": "@react-slate/components: Getting started",
     "Getting started": "Getting started",
     "components-key-press": "KeyPress",

@@ -4,7 +4,7 @@ title: Style prop (reference)
 sidebar_label: Style prop (reference)
 ---
 
-Use [Styling page](./styling.md) for full documentation on each of the properties.
+Use [Styling page](./core-styling.md) for full documentation on each of the properties.
 
 ```js
 type Style = {|

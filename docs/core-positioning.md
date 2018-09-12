@@ -4,7 +4,7 @@ title: Positioning
 sidebar_label: Positioning
 ---
 
-Below you can find all of the supported layout properties and theirs description. For a guide on how to style elements, please refer to [Styling guide](./styling.md). All of the properties should be passed to a `style` prop:
+Below you can find all of the supported layout properties and theirs description. For a guide on how to style elements, please refer to [Styling guide](./core-styling.md). All of the properties should be passed to a `style` prop:
 
 ```js
 <View style={{ /* properties here */ }}>Hello</View>
@@ -15,14 +15,14 @@ Below you can find all of the supported layout properties and theirs description
 
 Determines whether the element should be positioned in the next row (`block`) or in the same row (`inline`). By default [`View`](./view-component.md) and [`Text`](./text-component.md) component have `display` set to `block`.
 
-* If preceding element is `block` and the following is `block`, each of them will be layed out in separate row:
+- If preceding element is `block` and the following is `block`, each of them will be layed out in separate row:
 
   ```js
   <View>First row</View>
   <View>Second row</View>
   ```
 
-* If preceding element is `block` and the following is `inline`, both of them will be layed out in the same row:
+- If preceding element is `block` and the following is `inline`, both of them will be layed out in the same row:
 
   ```js
   <View>First row</View>
@@ -38,7 +38,7 @@ Determines whether the element should be positioned in the next row (`block`) or
   }
   ```
 
-* If preceding element is `inline` and the following is `block`, each of them will be layed out in separate row:
+- If preceding element is `inline` and the following is `block`, each of them will be layed out in separate row:
 
   ```js
   {

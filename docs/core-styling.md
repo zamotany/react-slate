@@ -8,7 +8,7 @@ sidebar_label: Styling
 
 **This guide is only valid for TTY targets like terminals.**
 
-Below you can find all of the supported styling properties and theirs description. For a guide on how to position elements, please refer to [Positioning guide](./positioning.md). All of the properties should be passed to a `style` prop:
+Below you can find all of the supported styling properties and theirs description. For a guide on how to position elements, please refer to [Positioning guide](./core-positioning.md). All of the properties should be passed to a `style` prop:
 
 ```js
 <View style={{ /* my styles here */ }}>Hello</View>
@@ -69,10 +69,10 @@ Add a margin around the content of [`View`](./view-component.md) or [`Text`](./t
 
 Use CSS syntax for applying margin:
 
-* `<top> <right> <bottom> <left>` eg: `2 1 1 0` - adds spaces for `left` and `right` values and new lines for `top` and `bottom` values
-* `<top> <right=left> <bottom>` eg: `2 1 3` is equal to `2 1 3 1`
-* `<top=bottom> <right=left>` eg: `2 1` is equal to `2 1 2 1`
-* `<top=bottom=left=right>` eg: `1` is equal to `1 1 1 1`
+- `<top> <right> <bottom> <left>` eg: `2 1 1 0` - adds spaces for `left` and `right` values and new lines for `top` and `bottom` values
+- `<top> <right=left> <bottom>` eg: `2 1 3` is equal to `2 1 3 1`
+- `<top=bottom> <right=left>` eg: `2 1` is equal to `2 1 2 1`
+- `<top=bottom=left=right>` eg: `1` is equal to `1 1 1 1`
 
 ### `marginTop: number`
 
