@@ -17,10 +17,4 @@ export const Internal = {
   onExit,
 };
 
-export type {
-  Props,
-  Style,
-  // CustomRender,
-  NodeStream,
-  Target,
-} from './types';
+export type { Props, Style, NodeStream, Target } from './types';

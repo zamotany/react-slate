@@ -53,7 +53,7 @@ export default class ContainerLayout implements LayoutElement {
     }
 
     const isSwitching = this.isInline !== isLayoutInline(this.parent.lastChild);
-    debugger; // eslint-disable-line
+
     this.boxModel.setMaxDimensions({
       parentBox: this.parent.boxModel,
       siblingBox: this.parent.lastChild

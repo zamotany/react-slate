@@ -55,7 +55,7 @@ export default function calculateLayout(
 
     return currentLayout;
   };
-  debugger; // eslint-disable-line
+
   // Initial block layout element for Root.
   const rootLayout = new RootLayout();
   layoutState.push(rootLayout);

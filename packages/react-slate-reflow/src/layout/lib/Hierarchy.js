@@ -23,13 +23,11 @@ export default class Hierarchy {
   }
 
   insertElements(index: Index, elements: Drawable[]) {
-    // debugger // eslint-disable-line
     const key = index.layer.toString();
     this.layers[key].splice(index.position, 0, ...elements);
   }
 
   toArray() {
-    // debugger // eslint-disable-line
     return Object.keys(this.layers)
       .sort((a, b) => parseInt(a, 10) - parseInt(b, 10))
       .reduce((acc, layerKey) => [...acc, ...this.layers[layerKey]], [])
