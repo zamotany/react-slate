@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "ws": "^6.0.0",
+    "reconnecting-websocket": "^4.0.0-rc5", 
     "react": "^16.4.2",
     "@react-slate/utils": "^0.2.2",
     "lodash.throttle": "^4.1.1"

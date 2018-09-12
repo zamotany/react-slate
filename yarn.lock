@@ -4517,6 +4517,10 @@ realpath-native@^1.0.0:
   dependencies:
     util.promisify "^1.0.0"
 
+reconnecting-websocket@^4.0.0-rc5:
+  version "4.0.0-rc5"
+  resolved "https://registry.yarnpkg.com/reconnecting-websocket/-/reconnecting-websocket-4.0.0-rc5.tgz#d6b5eb1d3c263ffa70fa4d4c3bf95bebe373ea5b"
+
 redent@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/redent/-/redent-1.0.0.tgz#cf916ab1fd5f1f16dfb20822dd6ec7f730c2afde"

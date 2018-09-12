@@ -1,38 +1,11 @@
 /* @flow */
 
-import WebSocket from 'ws';
 import type { Target } from '@react-slate/core';
-import throttle from 'lodash.throttle';
 
-function createLogger() {
-  const address = 'ws://localhost:9000';
-  let socket;
-  const connect = () => {
-    try {
-      socket = new WebSocket(address);
-      socket.onclose = connect;
-      socket.onerror = connect;
-    } catch (error) {
-      setTimeout(() => {
-        connect();
-      }, 2000);
-    }
-  };
-
-  connect();
-
-  return (message: string) => {
-    try {
-      socket && socket.send(JSON.stringify(message));
-    } catch (error) {
-      socket = null;
-      connect();
-    }
-  };
-}
-
-export default function withRemoteProfiler(target: Target) {
-  const log = throttle(createLogger(), 60);
+export default function withRemoteProfiler(
+  target: Target,
+  send: (string | Object) => void
+) {
   let timestamp;
   const measurements = {
     frame: {
@@ -46,17 +19,12 @@ export default function withRemoteProfiler(target: Target) {
   };
   return {
     ...target,
-    raiseError(error: Error) {
-      log(`ERROR ${error.toString()}`);
-      target.raiseError(error);
-    },
     measure(id) {
       if (id === 'layout-start') {
         timestamp = Date.now();
       } else if (id === 'draw-end' && timestamp) {
         const now = Date.now();
         measurements.frame.current = now - timestamp;
-        timestamp = now;
         measurements.frame.accTime += measurements.frame.current;
         measurements.frame.accSnapshots++;
         measurements.frame.min = Math.min(
@@ -70,7 +38,7 @@ export default function withRemoteProfiler(target: Target) {
         measurements.frame.average = Math.floor(
           measurements.frame.accTime / measurements.frame.accSnapshots
         );
-        log(measurements);
+        send({ measurements });
       }
     },
   };

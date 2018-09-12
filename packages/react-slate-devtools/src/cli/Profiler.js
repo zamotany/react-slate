@@ -38,7 +38,9 @@ export default class Profiler extends React.Component<Props, State> {
   }
 
   handleMessage(message: string) {
-    const { frame } = JSON.parse(message);
+    const {
+      measurements: { frame },
+    } = JSON.parse(message);
     this.setState({
       curFrameTime: frame.current,
       avgFrameTime: frame.average,
