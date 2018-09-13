@@ -28,11 +28,17 @@ You can use also array notation and pass styles as an array. With this approach 
 
 ### `color: string`
 
-Applies color to a text. It supports color keywords (`blue`), RGB (`rgb(120, 54, 231)`) and HEX (`#ffffff`). Please note that color keywords like `green` are from Truecolor palette. To use colors from 8bit palette (`red`, `green`, `blue`, `yellow`, `magenta`, `cyan`), prefix them with `ansi-`.
+Applies color to a text. It supports:
+
+- 8-bit color keywords (`blue`),
+- 256/Truecolor keywords (`rgb(orange)`)
+- 256/Truecolor RGB (`rgb(120, 54, 231)`)
+- 256/Truecolor HEX (`#ffffff`).
+- `initial` value to restore default color
 
 ```js
-<View style={{ color: 'ansi-green' }}>Hello World!</View>
 <View style={{ color: 'green' }}>Hello World!</View>
+<View style={{ color: 'rgb(green)' }}>Hello World!</View>
 <View style={{ color: 'rgb(255, 0, 0)' }}>Hello World!</View>
 <View style={{ color: '#aaaaaa' }}>Hello World!</View>
 ```

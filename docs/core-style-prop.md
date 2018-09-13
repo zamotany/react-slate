@@ -8,13 +8,12 @@ Use [Styling page](./core-styling.md) for full documentation on each of the prop
 
 ```js
 type Style = {|
-  color?: string, // eg: `blue`, `rgb(255, 124, 77)`, `#ffffff`
-  backgroundColor?: string, // eg: `blue`, `rgb(255, 124, 77)`, `#ffffff`
+  color?: string, // eg: `blue`, `rgb(255, 124, 77)`, `#ffffff` or `initial`
+  backgroundColor?: string, // eg: `blue`, `rgb(255, 124, 77)`, `#ffffff` or `initial`
   fontWeight?: 'bold' | 'normal',
   fontStyle?: 'italic' | 'normal',
   textDecoration?: 'underline' | 'line-through' | 'normal',
   textTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase',
-  visibility?: 'visible' | 'hidden',
   margin?: string, // <top> <right> <bottom> <left> eg: `2 1 0 3`, `1 2 3`, `2 1`, `1`
   marginTop?: number,
   marginBottom?: number,
