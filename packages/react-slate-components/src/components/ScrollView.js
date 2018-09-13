@@ -109,7 +109,8 @@ export default class ScrollView extends React.Component<Props, State> {
     if (
       stickToBottom &&
       this.contentHeight !== children.length &&
-      index + height === this.contentHeight
+      index + height === this.contentHeight &&
+      children.length > height
     ) {
       index = children.length - height;
       // This is a small hack, but it works fine. Maybe we can get rid of it later.

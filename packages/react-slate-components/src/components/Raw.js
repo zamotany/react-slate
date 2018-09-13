@@ -9,14 +9,23 @@ type Props = {
   style?: any,
 };
 
-function mapAnsiTreeToViews(node) {
+function mapAnsiTreeToViews(node, isTopLevel = false) {
   if (node.text) {
-    return <View>{node.text}</View>;
+    return (
+      <View style={{ display: isTopLevel ? 'block' : 'inline' }}>
+        {node.text}
+      </View>
+    );
   } else if (node.children) {
     const style = getStyleFromAnsiCode(node.code);
     return (
-      <View style={style && { [style.key]: style.value }}>
-        {node.children.map(mapAnsiTreeToViews)}
+      <View
+        style={[
+          { display: isTopLevel ? 'block' : 'inline' },
+          style && { [style.key]: style.value },
+        ]}
+      >
+        {node.children.map(child => mapAnsiTreeToViews(child))}
       </View>
     );
   }
@@ -27,6 +36,8 @@ export default function Raw(props: Props) {
   const children = Array.isArray(props.children)
     ? props.children
     : props.children.split('\n');
-  const body = children.map(getAnsiTreeFromText).map(mapAnsiTreeToViews);
+  const body = children
+    .map(getAnsiTreeFromText)
+    .map(tree => mapAnsiTreeToViews(tree, true));
   return <View style={props.style}>{body}</View>;
 }
