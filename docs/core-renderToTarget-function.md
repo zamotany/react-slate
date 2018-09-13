@@ -17,7 +17,7 @@ Renders an React element to a custom target.
 
   - `forceFullPrint: boolean` - Switches to rendering full content of the canvas instead of drawing only damaged lines.
   - `print(data: string): void` - Prints rendered content. This is the place to flush content to the host environment.
-  - `getSize(): { width: number, height: number }` - Provides width and height of the canvas on which the content will be rendered.
+  - `getSize(): { width: number, height: number }` - Provides width and height of the canvas on which the content will be rendered (use `-1` to make the canvas auto-resizable).
   - `setCursorPosition(x: number, y: number): void` - Moves cursor to specific coordinates (can be noop'ed).
   - `clear(fullScreen: boolean): void` - For `fullScreen: true` it should clear the content below the cursor position, which will be set before using `setCursorPosition`, otherwise it should clear current the line (can be noop'ed).
   - `measure(id: string): void` - Hook for measuring time it took to perform various tasks (usually it should be noop'ed).
@@ -44,8 +44,8 @@ ws.addEventListener('open', () => {
     },
     getSize() {
       return {
-        width: 40,
-        height: 20,
+        width: -1,
+        height: -1,
       };
     },
   };
