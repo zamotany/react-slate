@@ -2,7 +2,7 @@
 
 .nav-footer {
   box-shadow: none !important;
-  background: #24113a !important;
+  background: #131821 !important;
 }
 
 .blockImage {
@@ -11,6 +11,10 @@
 
 h3 {
   line-height: 1.5em;
+}
+
+article a {
+  font-weight: bold;
 }
 
 .docs-prevnext .button {
@@ -41,7 +45,10 @@ img[alt="Preview"] {
 @media only screen and (max-width: 1023px) {
 }
 
-@media only screen and (min-width: 1400px) {
+@media only screen and (min-width: 700px) {
+  .logo {
+    max-width: 80%;
+  }
 }
 
 @media only screen and (min-width: 1500px) {

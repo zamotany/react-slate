@@ -84,7 +84,7 @@ export default class App extends React.Component {
     switch (components[componentIndex]) {
       case 'Spinner':
         return (
-          <View>
+          <View style={styles.componentPreviewItem}>
             <Spinner
               style={[
                 styles.spinner,
@@ -98,7 +98,13 @@ export default class App extends React.Component {
           </View>
         );
       case 'ProgressBar':
-        return <ProgressBar barWidth={16} value={this.state.progress} />;
+        return (
+          <ProgressBar
+            barWidth={16}
+            value={this.state.progress}
+            style={styles.componentPreviewItem}
+          />
+        );
       default:
         return null;
     }
@@ -129,22 +135,24 @@ export default class App extends React.Component {
           ))}
         </View>
         <View
+          tagId="componentPreview"
           style={{
             ...styles.componentPreview,
             left: 30 + this.state.previewLeftOffset,
             top: 5 + this.state.previewTopOffset,
-            borderColor: this.state.isMoving ? 'ansi-magenta' : 'ansi-white',
+            borderColor: this.state.isMoving ? 'magenta' : 'white',
           }}
         >
           <View style={styles.componentPreviewLabel}>Preview:</View>
           {this.renderPreview(this.state.componentPreview)}
         </View>
         <ScrollView
+          scrollSensitivity={0.35}
           height={1}
           disabled={this.state.scrollDisabled}
           style={{ border: 'solid red' }}
         >
-          <View>{'Scroll!'}</View>
+          <View style={{ color: 'rgb(orange)' }}>{'Scroll!'}</View>
           <View>{'... yeah ...'}</View>
           <View>{'... you are ...'}</View>
           <View>{'... scrolling ...'}</View>
@@ -164,7 +172,7 @@ const styles = {
     marginLeft: 2,
   },
   intro: {
-    color: 'ansi-green',
+    color: 'green',
     margin: '0 0 1 0',
   },
   menu: {
@@ -172,24 +180,30 @@ const styles = {
   },
   menuInfo: {
     marginBottom: 1,
-    color: 'ansi-gray',
+    color: 'gray',
   },
   menuItem: {
     width: 13,
     paddingLeft: 1,
   },
   menuItemActive: {
-    backgroundColor: 'ansi-blue',
+    backgroundColor: 'blue',
   },
   componentPreview: {
     borderStyle: 'solid',
     width: 20,
-    height: 6,
-    position: 'fixed',
-    textAlign: 'center',
+    // height: 3,
+    position: 'absolute',
+    borderBackgroundColor: 'initial',
+    color: 'initial',
+    backgroundColor: 'initial',
   },
   componentPreviewLabel: {
+    textAlign: 'center',
     marginBottom: 1,
+  },
+  componentPreviewItem: {
+    textAlign: 'center',
   },
   spinner: {
     marginRight: 1,

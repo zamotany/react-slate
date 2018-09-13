@@ -8,6 +8,8 @@ Render `children` elements in a scrollable container with fixed height, using mo
 
 In order for `ScrollView` to function properly, it needs to have a fixed height. You can specify it using either `height` prop or a `style` prop with `height` property. Please refer to [Style properties](./core-style-prop.md) for more info.
 
+Under the hood, `ScrollView` renders the children using `renderToString`, trims it and parses the string back to JSX tree with `Views` (with styling). Because of that, **`ScrollView` can be computationally expensive for large trees**.
+
 ## Props
 
 * `children: React.Element<*>` - Content to be rendered and scrolled.

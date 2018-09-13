@@ -5,10 +5,11 @@ sidebar_label: View
 ---
 
 Basic building block. Can render text (strings), arrays and other nested components.
+**Rendering multiline strings with `\n` is currently not supported.**
 
 ## Props
 
-* `style?: Style` - Object with [Style properties](./style-prop.md)
+- `style?: Style` - Object with [Style properties](./core-style-prop.md)
 
 ## Example
 

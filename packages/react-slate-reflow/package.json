@@ -1,0 +1,40 @@
+{
+  "name": "@react-slate/reflow",
+  "version": "0.1.0",
+  "description": "Layout and rendering engine for terminals.",
+  "license": "MIT",
+  "repository": "https://github.com/zamotany/react-slate",
+  "private": true,
+  "author": {
+    "name": "Paweł Trysła",
+    "email": "zamotany.oss@gmail.com"
+  },
+  "files": [
+    "/build",
+    "index.js",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=6"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build:transpile": "babel src --out-dir build --ignore **/__tests__/**",
+    "build:clean": "rimraf build",
+    "build:watch": "yarn build:transpile --watch",
+    "build:flow": "flow-copy-source src build -i '{**/__tests__/**}'",
+    "build": "yarn build:clean && yarn build:transpile && yarn build:flow",
+    "prepublish": "yarn build"
+  },
+  "dependencies": {
+    "ansi-styles": "^3.2.1",
+    "chalk": "^2.4.1",
+    "buckets-js": "^1.98.2",
+    "strip-ansi": "^4.0.0"
+  },
+  "eslintConfig": {
+    "extends": "callstack-io"
+  }
+}

@@ -2,7 +2,7 @@ version: 2
 
 defaults: &defaults
   docker:
-    - image: circleci/node:6.10.3
+    - image: circleci/node:8.12.0
   working_directory: ~/react-slate
 
 jobs:
@@ -38,7 +38,7 @@ jobs:
       steps:
         - attach_workspace:
             at: ~/react-slate
-        - run: yarn test # -- --coverage
+        - run: yarn test --coverage
         - store_artifacts:
             path: coverage
             destination: coverage

@@ -1,4 +1,14 @@
-# @react-slate/core
+<p align="center">
+  <img alt="react-slate" src="../../website/static/img/react_slate_logo.png" width="700">
+</p>
+
+<p align="center">
+  Write React apps for terminal
+</p>
+
+---
+
+# `@react-slate/core`
 
 [![Version][version-badge]][package]
 [![Build Status][build-badge]][build]
@@ -18,14 +28,13 @@ Prototype of [Haul CLI](https://github.com/callstack/haul). You can see the [sou
 
 ### Features
 
-* Similar and intuitive CSS-like styling
-* Custom React Reconciler config, not React re-implementation
-* Small and lightweight
+- Similar and intuitive CSS-like styling
+- Custom React Reconciler config, not React re-implementation
+- Small and lightweight
 
 ### Limitations
 
-* Not as much UI elements as `react-blessed` are provided out of the box
-* No support for scroll events
+- Not as much UI elements as `react-blessed` are provided out of the box
 
 ### Documentation
 

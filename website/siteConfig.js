@@ -9,18 +9,19 @@ const users = [
 
 module.exports = {
   title: 'react-slate',
-  tagline: 'Render React apps to terminal',
+  tagline: 'Write React apps for terminal',
   url: 'https://zamotany.github.io',
   baseUrl: '/',
   projectName: 'react-slate',
+  headerIcon: 'img/react_slate_icon.png',
   organizationName: 'zamotany',
   headerLinks: [
     { doc: 'installation', label: 'Docs' },
   ],
   users,
   colors: {
-    primaryColor: '#3c1b63',
-    secondaryColor: '#24113a',
+    primaryColor: '#457D9A',
+    secondaryColor: '#5699bc',
   },
   copyright: '',
   highlight: {

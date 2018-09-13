@@ -29,30 +29,12 @@
     "@react-slate/components": "^0.2.0",
     "@react-slate/core": "^0.7.0",
     "@react-slate/utils": "^0.2.2",
+    "@react-slate/devtools": "*",
     "lodash.throttle": "^4.1.1",
     "react": "^16.3.2"
   },
   "devDependencies": {
     "strip-ansi": "^4.0.0"
-  },
-  "babel": {
-    "presets": [
-      [
-        "env",
-        {
-          "targets": {
-            "node": 6
-          }
-        }
-      ],
-      "react",
-      "stage-2"
-    ],
-    "plugins": [
-      "transform-flow-strip-types",
-      "transform-object-rest-spread"
-    ],
-    "sourceMaps": "inline"
   },
   "eslintConfig": {
     "extends": "callstack-io"

@@ -1,4 +1,14 @@
-# @react-slate/components
+<p align="center">
+  <img alt="react-slate" src="../../website/static/img/react_slate_logo.png" width="700">
+</p>
+
+<p align="center">
+  Write React apps for terminal
+</p>
+
+---
+
+# `@react-slate/components`
 
 [![Version][version-badge]][package]
 [![Build Status][build-badge]][build]
@@ -8,7 +18,7 @@
 [![Chat][chat-badge]][chat]
 [![Code of Conduct][coc-badge]][coc]
 
-Utilities for altering/enhancing terminal for [`react-slate`](https://www.npmjs.com/package/@react-slate/core).
+Standard component library for [`react-slate`](https://www.npmjs.com/package/@react-slate/core).
 
 ---
 

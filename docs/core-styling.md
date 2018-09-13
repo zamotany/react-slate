@@ -4,11 +4,11 @@ title: Styling
 sidebar_label: Styling
 ---
 
-`react-slate` comes with custom CSS-like styling system on top on [`chalk`](https://github.com/chalk/chalk). It is using ANSI escape codes for terminals to allow to create a visually appealing CLI React apps.
+`react-slate` comes with custom React Native and CSS-like styling system on top on [`chalk`](https://github.com/chalk/chalk). It is using ANSI escape codes for terminals to allow to create a visually appealing CLI React apps.
 
 **This guide is only valid for TTY targets like terminals.**
 
-Below you can find all of the supported styling properties and theirs description. For a guide on how to position elements, please refer to [Positioning guide](./positioning.md). All of the properties should be passed to a `style` prop:
+Below you can find all of the supported styling properties and theirs description. For a guide on how to position elements, please refer to [Positioning guide](./core-positioning.md). All of the properties should be passed to a `style` prop:
 
 ```js
 <View style={{ /* my styles here */ }}>Hello</View>
@@ -28,11 +28,17 @@ You can use also array notation and pass styles as an array. With this approach 
 
 ### `color: string`
 
-Applies color to a text. It supports color keywords (`blue`), RGB (`rgb(120, 54, 231)`) and HEX (`#ffffff`). Please note that color keywords like `green` are from Truecolor palette. To use colors from 8bit palette (`red`, `green`, `blue`, `yellow`, `magenta`, `cyan`), prefix them with `ansi-`.
+Applies color to a text. It supports:
+
+- 8-bit color keywords (`blue`),
+- 256/Truecolor keywords (`rgb(orange)`)
+- 256/Truecolor RGB (`rgb(120, 54, 231)`)
+- 256/Truecolor HEX (`#ffffff`).
+- `initial` value to restore default color
 
 ```js
-<View style={{ color: 'ansi-green' }}>Hello World!</View>
 <View style={{ color: 'green' }}>Hello World!</View>
+<View style={{ color: 'rgb(green)' }}>Hello World!</View>
 <View style={{ color: 'rgb(255, 0, 0)' }}>Hello World!</View>
 <View style={{ color: '#aaaaaa' }}>Hello World!</View>
 ```
@@ -69,10 +75,10 @@ Add a margin around the content of [`View`](./view-component.md) or [`Text`](./t
 
 Use CSS syntax for applying margin:
 
-* `<top> <right> <bottom> <left>` eg: `2 1 1 0` - adds spaces for `left` and `right` values and new lines for `top` and `bottom` values
-* `<top> <right=left> <bottom>` eg: `2 1 3` is equal to `2 1 3 1`
-* `<top=bottom> <right=left>` eg: `2 1` is equal to `2 1 2 1`
-* `<top=bottom=left=right>` eg: `1` is equal to `1 1 1 1`
+- `<top> <right> <bottom> <left>` eg: `2 1 1 0` - adds spaces for `left` and `right` values and new lines for `top` and `bottom` values
+- `<top> <right=left> <bottom>` eg: `2 1 3` is equal to `2 1 3 1`
+- `<top=bottom> <right=left>` eg: `2 1` is equal to `2 1 2 1`
+- `<top=bottom=left=right>` eg: `1` is equal to `1 1 1 1`
 
 ### `marginTop: number`
 
@@ -128,6 +134,10 @@ Adds a border to a element using `┌─┐│└─┘` characters (`solid`) or
 
 Same as [`color`](#color-string) but **applied only to a border**.
 
+### `borderBackgroundColor: string`
+
+Same as [`backgroundColor`](#backgroundcolor-string) but **applied only to a border**.
+
 ### `border: string`
 
-Combines both `borderStyle` and `borderColor` property with the following syntax: `<style> <color>` eg: `solid blue`, `double rgb(255, 128, 0)`.
+Combines both `borderStyle`, `borderColor` and optionally `borderBackgroundColor` property with the following syntax: `<style> <color> [<color>]` eg: `solid blue`, `double rgb(255, 128, 0) red`.

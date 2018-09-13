@@ -1,4 +1,14 @@
-# @react-slate/utils
+<p align="center">
+  <img alt="react-slate" src="../../website/static/img/react_slate_logo.png" width="700">
+</p>
+
+<p align="center">
+  Write React apps for terminal
+</p>
+
+---
+
+# `@react-slate/utils`
 
 [![Version][version-badge]][package]
 [![Build Status][build-badge]][build]

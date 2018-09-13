@@ -16,11 +16,14 @@ overwriteConsole({
 hideCursor(process.stdout);
 clearScrollbackOnExit(process.stdout);
 
-renderToTerminal(<App />, process.stdout);
+const options = {
+  /* devtools: true */
+};
+renderToTerminal(<App />, process.stdout, options);
 
 process.on(
   'resize',
   throttle(() => {
-    renderToTerminal(<App />, process.stdout);
+    renderToTerminal(<App />, process.stdout, options);
   }, 100)
 );

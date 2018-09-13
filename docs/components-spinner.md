@@ -8,10 +8,10 @@ Controlled spinner component based on [`cli-spinners`](https://github.com/sindre
 
 ## Props
 
-* `type?: string` - [`cli-spinners`](https://github.com/sindresorhus/cli-spinners)'s type (default: `dots`).
-* `interval?: number` - Interval between rendering next spinner frames (default value is taken from [`cli-spinners`](https://github.com/sindresorhus/cli-spinners) per animation).
-* `frames?: string[]` - Custom animation frames.
-* `style?: Style` - Object with [Style properties](./style-prop.md)
+- `type?: string` - [`cli-spinners`](https://github.com/sindresorhus/cli-spinners)'s type (default: `dots`).
+- `interval?: number` - Interval between rendering next spinner frames (default value is taken from [`cli-spinners`](https://github.com/sindresorhus/cli-spinners) per animation).
+- `frames?: string[]` - Custom animation frames.
+- `style?: Style` - Object with [Style properties](./core-style-prop.md)
 
 ## Example
 

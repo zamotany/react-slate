@@ -37,25 +37,6 @@
   "devDependencies": {
     "@react-slate/core": "^0.7.0"
   },
-  "babel": {
-    "presets": [
-      [
-        "env",
-        {
-          "targets": {
-            "node": 6
-          }
-        }
-      ],
-      "react",
-      "stage-2"
-    ],
-    "plugins": [
-      "transform-flow-strip-types",
-      "transform-object-rest-spread"
-    ],
-    "sourceMaps": "inline"
-  },
   "eslintConfig": {
     "extends": "callstack-io"
   }

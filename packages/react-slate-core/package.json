@@ -32,39 +32,17 @@
     "react": "16.x"
   },
   "dependencies": {
-    "ansi-parser": "^3.2.8",
-    "ansi-styles": "^3.2.0",
-    "astral-regex": "^1.0.0",
-    "chalk": "^2.1.0",
-    "fast-memoize": "^2.2.8",
-    "fbjs": "^0.8.16",
-    "is-fullwidth-code-point": "^2.0.0",
-    "mkdirp": "^0.5.1",
-    "prop-types": "^15.6.0",
-    "react-reconciler": "0.3.0-beta.1",
-    "strip-ansi": "^4.0.0"
+    "shallowequal": "^1.1.0",
+    "react-reconciler": "0.13.0",
+    "@react-slate/reflow": "*",
+    "fast-memoize": "^2.5.1"
+  },
+  "optionalDependencies": {
+    "@react-slate/devtools": "*"
   },
   "devDependencies": {
-    "react": "^16.3.2"
-  },
-  "babel": {
-    "presets": [
-      [
-        "env",
-        {
-          "targets": {
-            "node": 6
-          }
-        }
-      ],
-      "react",
-      "stage-2"
-    ],
-    "plugins": [
-      "transform-flow-strip-types",
-      "transform-object-rest-spread"
-    ],
-    "sourceMaps": "inline"
+    "react": "^16.5.0",
+    "strip-ansi": "^4.0.0"
   },
   "eslintConfig": {
     "extends": "callstack-io"

@@ -12,16 +12,16 @@ yarn add react @react-slate/core
 
 Now, in your entry file import [`renderToTerminal` function](./core-renderToTerminal-function.md) or [`renderToString` function](./core-renderToString-function.md):
 
-* for terminal apps (CLIs etc) use [`renderToTerminal` function](./core-renderToTerminal-function.md)
-* for testing on CI use [`renderToString` function](./core-renderToString-function.md)
+- for terminal apps (CLIs etc) use [`renderToTerminal` function](./core-renderToTerminal-function.md)
+- for testing on CI use [`renderToString` function](./core-renderToString-function.md)
 
 ```js
 import React from 'react';
-import { renderToTerminal, View, Text } from '@react-slate/core';
+import { renderToTerminal, View } from '@react-slate/core';
 
 renderToTerminal(
   <View style={{ margin: '1' }}>
-    <Text style={{ color: 'ansi-green' }}>Hello world!</Text>
+    <View style={{ color: 'green' }}>Hello world!</View>
   </View>,
   process.stdout
 );

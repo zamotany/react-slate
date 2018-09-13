@@ -24,3 +24,6 @@ List of exported components:
 
 * [`ProgressBar`](./components-progress-bar.md)
 * [`Spinner`](./components-spinner.md)
+* [`KeyPress`](./components-key-press.md)
+* [`ScrollView`](./components-scroll-view.md)
+* [`Raw`](./components-raw.md)

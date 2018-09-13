@@ -1,27 +1,35 @@
 /* @flow */
 
 import render from './render';
+import withDevtools from '../utils/withDevtools';
 
 type Options = {
   height?: number,
   width?: number,
+  devtools?: boolean,
 };
 
 const NOOP = () => {};
 
 export default function renderToString(
   element: any,
-  { height = 20, width = 40 }: Options = {},
-  callback: ?Function = null
+  { height = -1, width = -1, devtools = false }: Options = {},
+  callback: ?() => void = null
 ) {
   let snapshot = '';
+  let hasScheduledNullRender = false;
+
   const target = {
     forceFullPrint: true,
     setCursorPosition: NOOP,
     clear: NOOP,
+    measure: NOOP,
     print(data: string) {
-      snapshot += data;
-      render(null, target, callback);
+      if (!hasScheduledNullRender) {
+        snapshot += data;
+        hasScheduledNullRender = true;
+        render(null, target, callback);
+      }
     },
     getSize() {
       return {
@@ -29,8 +37,11 @@ export default function renderToString(
         width,
       };
     },
+    raiseError(error: Error) {
+      throw error;
+    },
   };
 
-  render(element, target, callback);
+  render(element, devtools ? withDevtools(target) : target, callback);
   return snapshot;
 }
