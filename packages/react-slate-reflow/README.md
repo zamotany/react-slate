@@ -8,7 +8,7 @@
 
 ---
 
-# `@react-slate/utils`
+# `@react-slate/reflow`
 
 [![Version][version-badge]][package]
 [![Build Status][build-badge]][build]
@@ -18,7 +18,7 @@
 [![Chat][chat-badge]][chat]
 [![Code of Conduct][coc-badge]][coc]
 
-Utilities for altering/enhancing terminal for [`react-slate`](https://www.npmjs.com/package/@react-slate/core).
+Layout and rendering engine for terminals, used by [`react-slate`](https://www.npmjs.com/package/@react-slate/core).
 
 ---
 
@@ -29,7 +29,7 @@ Prototype of [Haul CLI](https://github.com/callstack/haul). You can see the [sou
 ### Installation
 
 ```bash
-yarn add @react-slate/core @react-slate/utils
+yarn add @react-slate/core @react-slate/components
 ```
 
 ### Documentation
@@ -40,10 +40,10 @@ Documentation can be found here: http://react-slate.surge.sh/
 
 [build-badge]: https://img.shields.io/circleci/project/github/zamotany/react-slate/master.svg?style=flat-square
 [build]: https://circleci.com/gh/zamotany/react-slate
-[license-badge]: https://img.shields.io/npm/l/@react-slate/utils.svg?style=flat-square
+[license-badge]: https://img.shields.io/npm/l/@react-slate/reflow.svg?style=flat-square
 [license]: https://opensource.org/licenses/MIT
-[version-badge]: https://img.shields.io/npm/v/@react-slate/utils.svg?style=flat-square
-[package]: https://www.npmjs.com/package/@react-slate/utils
+[version-badge]: https://img.shields.io/npm/v/@react-slate/reflow.svg?style=flat-square
+[package]: https://www.npmjs.com/package/@react-slate/reflow
 [prs-welcome-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs-welcome]: http://makeapullrequest.com
 [coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
