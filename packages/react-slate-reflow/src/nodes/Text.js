@@ -1,13 +1,15 @@
 /* @flow */
 
 import assert from 'assert';
-import type { Parent, Traversable } from '../types';
+import UnitLayout from '../layout/elements/UnitLayout';
+import type { Node } from '../types';
 
-export default class Text implements Traversable<*> {
+export default class Text implements Node {
   body: string = '';
-  parent: ?Parent = null;
+  parent = null;
   // Children should always be empty.
-  children: Array<*> = Object.freeze([]);
+  children = Object.freeze([]);
+  layout = new UnitLayout(this);
 
   setBody(body: string) {
     assert(!body.includes('\n'), 'Text body cannot have new line characters');

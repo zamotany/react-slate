@@ -16,11 +16,12 @@ export default class UnitLayout implements LayoutElement {
   isInline = true;
   isAbsolute = false;
 
-  constructor(node: Text, parent: LayoutElement) {
+  constructor(node: Text) {
     this.node = node;
-    this.parent = parent;
-    parent.children.push(this);
-    this.init();
+  }
+
+  reset() {
+    this.boxModel = new BoxModel();
   }
 
   init() {

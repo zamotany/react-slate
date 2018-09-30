@@ -1,7 +1,6 @@
 /* @flow */
 
 import BoxModel from '../lib/BoxModel';
-import normalizeLayoutProps from '../lib/normalizeLayoutProps';
 import { makeBlockStyle } from '../lib/makeStyle';
 import type View from '../../nodes/View';
 import type { LayoutElement } from '../../types';
@@ -20,18 +19,19 @@ export default class ContainerLayout implements LayoutElement {
   isInline = false;
   isAbsolute = false;
 
-  constructor(node: View, parent: LayoutElement) {
+  constructor(node: View) {
     this.node = node;
-    this.parent = parent;
-    parent.children.push(this);
-    this.init();
+  }
+
+  reset() {
+    this.boxModel = new BoxModel();
   }
 
   init() {
     let getWidthConstrain;
     let getHeightConstrain;
-    if (this.node.layoutProps) {
-      const normalizedProps = normalizeLayoutProps(this.node.layoutProps);
+    if (this.node.normalizedLayoutProps) {
+      const normalizedProps = this.node.normalizedLayoutProps;
       const {
         insetBounds,
         outsetBounds,
@@ -115,27 +115,31 @@ export default class ContainerLayout implements LayoutElement {
   getDrawableItems() {
     const { width, height } = this.boxModel.getSize();
     const { x, y } = this.boxModel.getPosition();
-    return [
-      // If element has `backgroundColor`, in order to prevent overlapping background
-      // elements to foreground we need to create fake body elements, which will cover the area.
-      ...new Array(height).fill(null).map((e, index) => ({
+    const items = [];
+    // If element has `backgroundColor`, in order to prevent overlapping background
+    // elements to foreground we need to create fake body elements, which will cover the area.
+    for (let index = 0; index < height; index++) {
+      items[index] = {
         body: {
           value: ' '.repeat(width),
           style: null,
           x,
           y: y + index,
         },
-      })),
-      {
-        box: {
-          style: makeBlockStyle(this.node.styleProps),
-          x,
-          y,
-          width,
-          height,
-        },
+      };
+    }
+
+    items[items.length] = {
+      box: {
+        style: makeBlockStyle(this.node.styleProps),
+        x,
+        y,
+        width,
+        height,
       },
-    ];
+    };
+
+    return items;
   }
 
   getLayoutTree() {

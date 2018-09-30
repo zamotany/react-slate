@@ -39,11 +39,12 @@ export default class BorderLayout implements LayoutElement {
   isInline = false;
   isAbsolute = false;
 
-  constructor(node: View, parent: LayoutElement) {
+  constructor(node: View) {
     this.node = node;
-    this.parent = parent;
-    parent.children.push(this);
-    this.init();
+  }
+
+  reset() {
+    this.boxModel = new BorderBoxModel();
   }
 
   init() {

@@ -2,10 +2,11 @@
 
 import ContainerLayout from './ContainerLayout';
 import BoxModel from '../lib/BoxModel';
+import type Root from '../../nodes/Root';
 import type { LayoutElement } from '../../types';
 
 export default class RootLayout implements LayoutElement {
-  node = null;
+  node: Root;
   parent: LayoutElement;
   children = [];
   lastChild = null;
@@ -13,6 +14,14 @@ export default class RootLayout implements LayoutElement {
   boxModel = new BoxModel();
   isInline = false;
   isAbsolute = false;
+
+  constructor(node: Root) {
+    this.node = node;
+  }
+
+  reset() {
+    this.boxModel = new BoxModel();
+  }
 
   init() {
     // NOOP
