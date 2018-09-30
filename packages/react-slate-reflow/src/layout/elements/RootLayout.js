@@ -21,6 +21,7 @@ export default class RootLayout implements LayoutElement {
 
   reset() {
     this.boxModel = new BoxModel();
+    this.lastChild = null;
   }
 
   init() {

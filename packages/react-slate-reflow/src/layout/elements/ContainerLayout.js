@@ -25,6 +25,7 @@ export default class ContainerLayout implements LayoutElement {
 
   reset() {
     this.boxModel = new BoxModel();
+    this.lastChild = null;
   }
 
   init() {

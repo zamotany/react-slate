@@ -43,6 +43,7 @@ export default function calculateLayout(
 
   // Initial block layout element for Root.
   const rootLayout = root.layout;
+  rootLayout.reset();
   layoutState.push(rootLayout);
 
   root.children.forEach(child => {

@@ -45,6 +45,7 @@ export default class BorderLayout implements LayoutElement {
 
   reset() {
     this.boxModel = new BorderBoxModel();
+    this.lastChild = null;
   }
 
   init() {
