@@ -1,17 +1,6 @@
 /* @flow */
 
-import type { LayoutProps, Bounds, Position } from '../../types';
-
-type GetConstrain = number => number;
-type NormalizedLayoutProps = {
-  insetBounds: Bounds,
-  outsetBounds: Bounds,
-  isInline: boolean,
-  isAbsolute: boolean,
-  placement: Position,
-  getWidthConstrain: ?GetConstrain,
-  getHeightConstrain: ?GetConstrain,
-};
+import type { LayoutProps, NormalizedLayoutProps } from '../../types';
 
 export default function normalizeLayoutProps(
   layoutProps: LayoutProps

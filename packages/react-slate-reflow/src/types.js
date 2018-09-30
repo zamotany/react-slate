@@ -5,13 +5,6 @@ import type View from './nodes/View';
 import type Root from './nodes/Root';
 import type BoxModel from './layout/lib/BoxModel';
 
-export interface Traversable<T> {
-  children: Array<Traversable<T>>;
-}
-
-export type Child = View | Text;
-export type Parent = Root | View;
-
 export type LayoutProps = {
   marginLeft?: number,
   marginRight?: number,
@@ -28,6 +21,17 @@ export type LayoutProps = {
   zIndex?: number,
   left?: number,
   top?: number,
+};
+
+export type GetConstrain = number => number;
+export type NormalizedLayoutProps = {
+  insetBounds: Bounds,
+  outsetBounds: Bounds,
+  isInline: boolean,
+  isAbsolute: boolean,
+  placement: Position,
+  getWidthConstrain: ?GetConstrain,
+  getHeightConstrain: ?GetConstrain,
 };
 
 export type Bounds = {
@@ -107,9 +111,19 @@ export interface LayoutElement {
   isInline: boolean;
   isAbsolute: boolean;
 
+  reset(): void;
   init(): void;
   updateDimensions(LayoutElement): void;
   isDrawable(): boolean;
   getDrawableItems(): Drawable[];
   getLayoutTree(): JsonLayoutTree;
+}
+
+export type ChildNode = View | Text;
+export type ParentNode = Root | View;
+
+export interface Node {
+  parent: ?(Root | View);
+  children: Array<View | Text>;
+  layout: LayoutElement;
 }

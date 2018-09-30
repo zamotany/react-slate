@@ -2,37 +2,22 @@
 
 import { Stack } from 'buckets-js';
 import assert from 'assert';
-import Root from '../nodes/Root';
-import View from '../nodes/View';
-import Text from '../nodes/Text';
-import RootLayout from './elements/RootLayout';
-import ContainerLayout from './elements/ContainerLayout';
-import BorderLayout from './elements/BorderLayout';
-import UnitLayout from './elements/UnitLayout';
 import Hierarchy from './lib/Hierarchy';
-import type { Drawable, LayoutElement } from '../types';
-
-function createLayoutElement(node, parent) {
-  if (node instanceof Text) {
-    return new UnitLayout(node, parent);
-  } else if (node instanceof View && node.borderProps) {
-    return new BorderLayout(node, parent);
-  } else if (node instanceof View) {
-    return new ContainerLayout(node, parent);
-  }
-  throw new Error('Unknown node type');
-}
+import type Root from '../nodes/Root';
+import type { Drawable, LayoutElement, Node } from '../types';
 
 export default function calculateLayout(
   root: Root
-): { drawableItems: Drawable[], layoutTree: RootLayout } {
+): { drawableItems: Drawable[], layoutTree: LayoutElement } {
   const hierarchy = new Hierarchy();
   const layoutState = new Stack();
 
-  const visit = (node): LayoutElement => {
+  const visit = (node: Node): LayoutElement => {
     const parentLayout = layoutState.peek();
     assert(node !== parentLayout.node, 'Cannot use the same node as a child');
-    const currentLayout = createLayoutElement(node, parentLayout);
+    const currentLayout = node.layout;
+    currentLayout.reset();
+    currentLayout.init();
 
     const index = currentLayout.isDrawable()
       ? hierarchy.getIndex(currentLayout.boxModel.getPosition().z)
@@ -57,7 +42,8 @@ export default function calculateLayout(
   };
 
   // Initial block layout element for Root.
-  const rootLayout = new RootLayout();
+  const rootLayout = root.layout;
+  rootLayout.reset();
   layoutState.push(rootLayout);
 
   root.children.forEach(child => {
