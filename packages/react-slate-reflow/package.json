@@ -30,11 +30,14 @@
   },
   "dependencies": {
     "ansi-styles": "^3.2.1",
-    "chalk": "^2.4.1",
     "buckets-js": "^1.98.2",
+    "chalk": "^2.4.1",
     "strip-ansi": "^4.0.0"
   },
   "eslintConfig": {
     "extends": "callstack-io"
+  },
+  "devDependencies": {
+    "benchmark": "^2.1.4"
   }
 }

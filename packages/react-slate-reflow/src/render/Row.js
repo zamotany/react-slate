@@ -34,7 +34,7 @@ export default class Row {
     style: ?Style,
     value: string,
   }) {
-    if (!this.cells[start]) {
+    if (this.cells.length < start + length) {
       this.fillCells(this.maxLength < 0 ? start + length : this.maxLength);
     }
 
