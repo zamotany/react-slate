@@ -1,75 +1,80 @@
 /* @flow */
 
 import chalk from 'chalk';
+import colorette from 'colorette';
+import memoize from 'fast-memoize';
 
+colorette.enabled = process.env.CI ? true : colorette.enabled;
 chalk.enabled = process.env.CI ? true : chalk.enabled;
 chalk.level = process.env.CI ? 1 : chalk.level;
 
-function capitalize(text: string) {
-  return `${text[0].toUpperCase()}${text.slice(1)}`;
-}
+const capitalize = memoize(
+  (text: string) => `${text[0].toUpperCase()}${text.slice(1)}`
+);
 
-function colorize(color: string, isBackground: boolean, text: string) {
-  if (color === 'initial') {
-    return chalk.reset(text);
-  }
-
-  if (color.startsWith('raw')) {
-    const rawMatch = /raw\((.+)\)/.exec(color);
-    if (rawMatch) {
-      const [, rawColor] = rawMatch;
-      const openCode = isBackground ? 48 : 38;
-      const closeCode = openCode + 1;
-      const CSI = '\u001b[';
-      return `${CSI}${openCode};${rawColor}m${text}${CSI}${closeCode}m`;
+const colorize = memoize(
+  (color: string, isBackground: boolean, text: string) => {
+    if (color === 'initial') {
+      return colorette.reset(text);
     }
 
-    return text;
-  }
+    if (color.startsWith('raw')) {
+      const rawMatch = /raw\((.+)\)/.exec(color);
+      if (rawMatch) {
+        const [, rawColor] = rawMatch;
+        const openCode = isBackground ? 48 : 38;
+        const closeCode = openCode + 1;
+        const CSI = '\u001b[';
+        return `${CSI}${openCode};${rawColor}m${text}${CSI}${closeCode}m`;
+      }
 
-  if (color.startsWith('#')) {
-    return isBackground ? chalk.bgHex(color)(text) : chalk.hex(color)(text);
-  } else if (color.startsWith('rgb')) {
-    const rgbColorMatch = /rgb\((\d+),\s?(\d+),\s?(\d+)\)/.exec(color);
-    if (rgbColorMatch) {
-      const [r, g, b] = rgbColorMatch.slice(1, 4).map(e => parseInt(e, 10));
+      return text;
+    }
+
+    if (color.startsWith('#')) {
+      return isBackground ? chalk.bgHex(color)(text) : chalk.hex(color)(text);
+    } else if (color.startsWith('rgb')) {
+      const rgbColorMatch = /rgb\((\d+),\s?(\d+),\s?(\d+)\)/.exec(color);
+      if (rgbColorMatch) {
+        const [r, g, b] = rgbColorMatch.slice(1, 4).map(e => parseInt(e, 10));
+        return isBackground
+          ? chalk.bgRgb(r, g, b)(text)
+          : chalk.rgb(r, g, b)(text);
+      }
+
+      const rgbKeywordMatch = /rgb\((.+)\)/.exec(color);
+      if (rgbKeywordMatch) {
+        return isBackground
+          ? chalk.bgKeyword(rgbKeywordMatch[1])(text)
+          : chalk.keyword(rgbKeywordMatch[1])(text);
+      }
+
+      return text;
+    }
+    try {
       return isBackground
-        ? chalk.bgRgb(r, g, b)(text)
-        : chalk.rgb(r, g, b)(text);
+        ? // $FlowFixMe
+          colorette[`bg${capitalize(color)}`](text)
+        : // $FlowFixMe
+          colorette[color](text);
+    } catch (error) {
+      return text;
     }
-
-    const rgbKeywordMatch = /rgb\((.+)\)/.exec(color);
-    if (rgbKeywordMatch) {
-      return isBackground
-        ? chalk.bgKeyword(rgbKeywordMatch[1])(text)
-        : chalk.keyword(rgbKeywordMatch[1])(text);
-    }
-
-    return text;
   }
-  try {
-    return isBackground
-      ? // $FlowFixMe
-        chalk[`bg${capitalize(color)}`](text)
-      : // $FlowFixMe
-        chalk[color](text);
-  } catch (error) {
-    return text;
-  }
-}
+);
 
-function applySingleStyle(key: string, value: string, text: string) {
+const applySingleStyle = memoize((key: string, value: string, text: string) => {
   switch (key) {
     case 'fontWeight':
-      return value === 'bold' ? chalk.bold(text) : text;
+      return value === 'bold' ? colorette.bold(text) : text;
     case 'fontStyle':
-      return value === 'italic' ? chalk.italic(text) : text;
+      return value === 'italic' ? colorette.italic(text) : text;
     case 'textDecoration': {
       switch (value) {
         case 'line-through':
-          return chalk.strikethrough(text);
+          return colorette.strikethrough(text);
         case 'underline':
-          return chalk.underline(text);
+          return colorette.underline(text);
         default:
           return text;
       }
@@ -89,7 +94,7 @@ function applySingleStyle(key: string, value: string, text: string) {
     default:
       return text;
   }
-}
+});
 
 export default function applyStyle(
   style: { [key: string]: string },
@@ -121,5 +126,5 @@ export default function applyStyle(
     output = colorize(color, false, output);
   }
 
-  return chalk.reset(output);
+  return colorette.reset(output);
 }

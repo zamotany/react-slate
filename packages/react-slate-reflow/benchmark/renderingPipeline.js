@@ -1,5 +1,6 @@
 const { Suite } = require('benchmark');
 const { render } = require('../');
+const RenderingPipeline = require('../build/new_render/render').default;
 
 const fixture = [];
 for (let i = 0; i < 20; i++) {
@@ -29,10 +30,18 @@ for (let i = 0; i < 20; i++) {
   });
 }
 
+// const rp = new RenderingPipeline();
+// console.log(rp.render(fixture));
+// console.log(render(fixture, { width: -1, height: -1 }));
+
 const suite = new Suite();
 suite
   .add('old rendering pipeline', () => {
     render(fixture, { width: -1, height: -1 });
+  })
+  .add('new rendering pipeline', () => {
+    const rp = new RenderingPipeline();
+    rp.render(fixture);
   })
   .on('start', () => {
     console.log('Starting the benchmark...');
