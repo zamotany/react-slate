@@ -1,12 +1,14 @@
 /* @flow */
 
-import chalk from 'chalk';
 import colorette from 'colorette';
 import memoize from 'fast-memoize';
+import { withRgbColor, withRgbBackgroundColor } from './colors/rgb';
+import { withHexColor, withHexBackgroundColor } from './colors/hex';
+import { withKeywordColor, withKeywordBackgroundColor } from './colors/keyword';
 
 colorette.enabled = process.env.CI ? true : colorette.enabled;
-chalk.enabled = process.env.CI ? true : chalk.enabled;
-chalk.level = process.env.CI ? 1 : chalk.level;
+
+const CSI = '\u001b[';
 
 const capitalize = memoize(
   (text: string) => `${text[0].toUpperCase()}${text.slice(1)}`
@@ -24,7 +26,6 @@ const colorize = memoize(
         const [, rawColor] = rawMatch;
         const openCode = isBackground ? 48 : 38;
         const closeCode = openCode + 1;
-        const CSI = '\u001b[';
         return `${CSI}${openCode};${rawColor}m${text}${CSI}${closeCode}m`;
       }
 
@@ -32,21 +33,23 @@ const colorize = memoize(
     }
 
     if (color.startsWith('#')) {
-      return isBackground ? chalk.bgHex(color)(text) : chalk.hex(color)(text);
+      return isBackground
+        ? withHexBackgroundColor(color, text)
+        : withHexColor(color, text);
     } else if (color.startsWith('rgb')) {
       const rgbColorMatch = /rgb\((\d+),\s?(\d+),\s?(\d+)\)/.exec(color);
       if (rgbColorMatch) {
-        const [r, g, b] = rgbColorMatch.slice(1, 4).map(e => parseInt(e, 10));
+        const rgb = rgbColorMatch.slice(1, 4);
         return isBackground
-          ? chalk.bgRgb(r, g, b)(text)
-          : chalk.rgb(r, g, b)(text);
+          ? withRgbBackgroundColor(rgb, text)
+          : withRgbColor(rgb, text);
       }
 
       const rgbKeywordMatch = /rgb\((.+)\)/.exec(color);
       if (rgbKeywordMatch) {
         return isBackground
-          ? chalk.bgKeyword(rgbKeywordMatch[1])(text)
-          : chalk.keyword(rgbKeywordMatch[1])(text);
+          ? withKeywordBackgroundColor(rgbKeywordMatch[1], text)
+          : withKeywordColor(rgbKeywordMatch[1], text);
       }
 
       return text;

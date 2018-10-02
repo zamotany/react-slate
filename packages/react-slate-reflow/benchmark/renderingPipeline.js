@@ -1,6 +1,5 @@
-const { Suite } = require('benchmark');
-const { render } = require('../');
-const RenderingPipeline = require('../build/new_render/render').default;
+const { Suite } = require('benchmark'); // eslint-disable-line
+const RenderingPipeline = require('../build/render/RenderingPipeline').default;
 
 const fixture = [];
 for (let i = 0; i < 20; i++) {
@@ -30,18 +29,28 @@ for (let i = 0; i < 20; i++) {
   });
 }
 
-// const rp = new RenderingPipeline();
-// console.log(rp.render(fixture));
-// console.log(render(fixture, { width: -1, height: -1 }));
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+const pipeline1 = new RenderingPipeline();
+const pipeline2 = new RenderingPipeline();
 
 const suite = new Suite();
 suite
-  .add('old rendering pipeline', () => {
-    render(fixture, { width: -1, height: -1 });
+  .add('full render', () => {
+    fixture[5].box.width = random(5, 20);
+    fixture[5].box.height = random(1, 5);
+    fixture[5].box.x = random(1, 10);
+    fixture[5].box.y = random(1, 10);
+    pipeline1.render(fixture);
   })
-  .add('new rendering pipeline', () => {
-    const rp = new RenderingPipeline();
-    rp.render(fixture);
+  .add('diff render', () => {
+    fixture[5].box.width = random(5, 20);
+    fixture[5].box.height = random(1, 5);
+    fixture[5].box.x = random(1, 10);
+    fixture[5].box.y = random(1, 10);
+    pipeline2.renderDiff(fixture);
   })
   .on('start', () => {
     console.log('Starting the benchmark...');

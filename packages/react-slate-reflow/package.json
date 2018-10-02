@@ -31,16 +31,18 @@
   "dependencies": {
     "ansi-styles": "^3.2.1",
     "buckets-js": "^1.98.2",
-    "chalk": "^2.4.1",
+    "color-convert": "^1.9.3",
     "colorette": "^1.0.5",
     "fast-memoize": "^2.5.1",
     "shallowequal": "^1.1.0",
-    "strip-ansi": "^4.0.0"
+    "strip-ansi": "^4.0.0",
+    "supports-color": "^5.5.0"
   },
   "eslintConfig": {
     "extends": "callstack-io"
   },
   "devDependencies": {
-    "benchmark": "^2.1.4"
+    "benchmark": "^2.1.4",
+    "chalk": "^2.4.1"
   }
 }

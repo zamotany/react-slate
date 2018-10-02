@@ -3,7 +3,7 @@
 
 import stripAnsi from 'strip-ansi';
 import shallowEqual from 'shallowequal';
-import applyStyle from '../render/applyStyle';
+import applyStyle from './applyStyle';
 import type { Drawable, StyleProps } from '../types';
 
 type Cell = {
@@ -14,6 +14,7 @@ type Cell = {
 export default class RenderingPipeline {
   drawableItems: Drawable[];
   canvas: Array<Array<Cell>> = [];
+  memoizedRows: string[] = [];
   canvasHeight = 0;
   canvasWidth = 0;
 
@@ -97,16 +98,38 @@ export default class RenderingPipeline {
 
       rows[y] = line + applyStyle(groupStyle, groupText);
     }
+
     return rows;
   }
 
-  render(drawableItems: Drawable[]) {
-    debugger // eslint-disable-line
+  reset() {
+    this.canvas = [];
+    this.canvasHeight = 0;
+    this.canvasWidth = 0;
+  }
+
+  render = (drawableItems: Drawable[]) => {
+    this.reset();
     this.drawableItems = drawableItems;
     this.rasterize();
     const rows = this.getAnsiRows();
-    return rows.join('\n');
-  }
+    return {
+      '0': rows.join('\n'),
+    };
+  };
 
-  renderDiff() {}
+  renderDiff = (drawableItems: Drawable[]) => {
+    this.reset();
+    this.drawableItems = drawableItems;
+    this.rasterize();
+    const rows = this.getAnsiRows();
+    const diff = {};
+    for (let y = 0; y < Math.max(rows.length, this.memoizedRows.length); y++) {
+      if (this.memoizedRows[y] !== rows[y]) {
+        diff[`${y}`] = rows[y] || '';
+      }
+    }
+    this.memoizedRows = rows;
+    return diff;
+  };
 }

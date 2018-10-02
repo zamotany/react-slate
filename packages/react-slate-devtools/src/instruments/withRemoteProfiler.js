@@ -65,27 +65,30 @@ export default function withRemoteProfiler(
         measurements.frame.average = Math.floor(
           internal.frame.accTime / internal.frame.accSnapshots
         );
-        measurements.frame.currentLayoutShare =
-          (renderTimestamp - layoutTimestamp) / totalDiff;
-        measurements.frame.currentRenderShare =
-          (drawTimestamp - renderTimestamp) / totalDiff;
-        measurements.frame.currentDrawShare = (now - drawTimestamp) / totalDiff;
-        measurements.frame.layoutTimestamp = layoutTimestamp;
-        measurements.frame.renderTimestamp = renderTimestamp;
-        measurements.frame.drawTimestamp = drawTimestamp;
-        measurements.frame.endTimestamp = now;
-        internal.frame.accLayoutTime += measurements.frame.currentLayoutShare;
-        internal.frame.accLayoutSnapshots++;
-        measurements.frame.averageLayoutShare =
-          internal.frame.accLayoutTime / internal.frame.accLayoutSnapshots;
-        internal.frame.accRenderTime += measurements.frame.currentRenderShare;
-        internal.frame.accRenderSnapshots++;
-        measurements.frame.averageRenderShare =
-          internal.frame.accRenderTime / internal.frame.accRenderSnapshots;
-        internal.frame.accDrawTime += measurements.frame.currentDrawShare;
-        internal.frame.accDrawSnapshots++;
-        measurements.frame.averageDrawShare =
-          internal.frame.accDrawTime / internal.frame.accDrawSnapshots;
+        if (totalDiff > 0) {
+          measurements.frame.currentLayoutShare =
+            (renderTimestamp - layoutTimestamp) / totalDiff;
+          measurements.frame.currentRenderShare =
+            (drawTimestamp - renderTimestamp) / totalDiff;
+          measurements.frame.currentDrawShare =
+            (now - drawTimestamp) / totalDiff;
+          measurements.frame.layoutTimestamp = layoutTimestamp;
+          measurements.frame.renderTimestamp = renderTimestamp;
+          measurements.frame.drawTimestamp = drawTimestamp;
+          measurements.frame.endTimestamp = now;
+          internal.frame.accLayoutTime += measurements.frame.currentLayoutShare;
+          internal.frame.accLayoutSnapshots++;
+          measurements.frame.averageLayoutShare =
+            internal.frame.accLayoutTime / internal.frame.accLayoutSnapshots;
+          internal.frame.accRenderTime += measurements.frame.currentRenderShare;
+          internal.frame.accRenderSnapshots++;
+          measurements.frame.averageRenderShare =
+            internal.frame.accRenderTime / internal.frame.accRenderSnapshots;
+          internal.frame.accDrawTime += measurements.frame.currentDrawShare;
+          internal.frame.accDrawSnapshots++;
+          measurements.frame.averageDrawShare =
+            internal.frame.accDrawTime / internal.frame.accDrawSnapshots;
+        }
         send({
           measurements,
         });

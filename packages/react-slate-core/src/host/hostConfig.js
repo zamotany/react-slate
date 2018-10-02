@@ -115,17 +115,11 @@ export default (containerInstance: Root, target: Target, render: *) =>
       const output = render(drawableItems, target.getSize());
       target.measure('render-end');
       target.measure('draw-start');
-      if (typeof output === 'string') {
-        target.setCursorPosition(0, 0);
-        target.clear(true);
-        target.print(output);
-      } else {
-        Object.keys(output).forEach(index => {
-          target.setCursorPosition(0, parseInt(index, 10));
-          target.clear(false);
-          target.print(output[index]);
-        });
-      }
+      Object.keys(output).forEach(index => {
+        target.setCursorPosition(0, parseInt(index, 10));
+        target.clear(false);
+        target.print(output[index]);
+      });
       target.measure('draw-end');
     },
 

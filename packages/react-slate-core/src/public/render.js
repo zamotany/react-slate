@@ -1,11 +1,7 @@
 /* @flow */
 
 import ReactFiberReconciler from 'react-reconciler';
-import {
-  Root,
-  render as nativeRender,
-  createDiffRenderer,
-} from '@react-slate/reflow';
+import { Root, RenderingPipeline } from '@react-slate/reflow';
 
 import type { Target } from '../types';
 
@@ -33,11 +29,14 @@ export default function render(
     target.setCursorPosition(0, 0);
     target.clear(true);
     const container = new Root(target.getSize());
+    const renderingPipeline = new RenderingPipeline();
     const reconciler = ReactFiberReconciler(
       hostConfig(
         container,
         target,
-        target.forceFullPrint ? nativeRender : createDiffRenderer()
+        target.forceFullPrint
+          ? renderingPipeline.render
+          : renderingPipeline.renderDiff
       )
     );
     const node = reconciler.createContainer(container);
