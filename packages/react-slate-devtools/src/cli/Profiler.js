@@ -8,6 +8,12 @@ type State = {
   avgFrameTime: number,
   minFrameTime: number,
   maxFrameTime: number,
+  curLayoutShare: number,
+  curRenderShare: number,
+  curDrawShare: number,
+  avgLayoutShare: number,
+  avgRenderShare: number,
+  avgDrawShare: number,
 };
 
 type Props = {
@@ -20,6 +26,12 @@ export default class Profiler extends React.Component<Props, State> {
     avgFrameTime: 0,
     minFrameTime: 0,
     maxFrameTime: 0,
+    curLayoutShare: 0,
+    curRenderShare: 0,
+    curDrawShare: 0,
+    avgLayoutShare: 0,
+    avgRenderShare: 0,
+    avgDrawShare: 0,
   };
 
   timestamp: number;
@@ -41,11 +53,18 @@ export default class Profiler extends React.Component<Props, State> {
     const {
       measurements: { frame },
     } = JSON.parse(message);
+    console.log(frame);
     this.setState({
       curFrameTime: frame.current,
       avgFrameTime: frame.average,
       minFrameTime: frame.min,
       maxFrameTime: frame.max,
+      curLayoutShare: frame.currentLayoutShare,
+      curRenderShare: frame.currentRenderShare,
+      curDrawShare: frame.currentDrawShare,
+      avgLayoutShare: frame.averageLayoutShare,
+      avgRenderShare: frame.averageRenderShare,
+      avgDrawShare: frame.averageDrawShare,
     });
   }
 
@@ -58,29 +77,37 @@ export default class Profiler extends React.Component<Props, State> {
           <View style={styles.frameTimeItemTitle}>Current:</View>
           <View style={styles.frameTimeItemValue}>
             {this.state.curFrameTime}
-          </View>{' '}
-          ms
+          </View>
+          {` ms (${this.state.curLayoutShare.toFixed(
+            2
+          )}/${this.state.curRenderShare.toFixed(
+            2
+          )}/${this.state.curDrawShare.toFixed(2)})`}
         </View>
         <View style={styles.frameTimeItemContainer}>
           <View style={styles.frameTimeItemTitle}>Average:</View>
           <View style={styles.frameTimeItemValue}>
             {this.state.avgFrameTime}
-          </View>{' '}
-          ms
+          </View>
+          {` ms (${this.state.avgLayoutShare.toFixed(
+            2
+          )}/${this.state.avgRenderShare.toFixed(
+            2
+          )}/${this.state.avgDrawShare.toFixed(2)})`}
         </View>
         <View style={styles.frameTimeItemContainer}>
           <View style={styles.frameTimeItemTitle}>Min:</View>
           <View style={styles.frameTimeItemValue}>
             {this.state.minFrameTime}
-          </View>{' '}
-          ms
+          </View>
+          {' ms'}
         </View>
         <View style={styles.frameTimeItemContainer}>
           <View style={styles.frameTimeItemTitle}>Max:</View>
           <View style={styles.frameTimeItemValue}>
             {this.state.maxFrameTime}
-          </View>{' '}
-          ms
+          </View>
+          {' ms'}
         </View>
       </View>
     );
