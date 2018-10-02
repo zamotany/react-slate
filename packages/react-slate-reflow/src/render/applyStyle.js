@@ -10,6 +10,10 @@ colorette.enabled = process.env.CI ? true : colorette.enabled;
 
 const CSI = '\u001b[';
 
+const reset = memoize(
+  (text: string) => (text ? `${CSI}0m${text}${CSI}0m` : text)
+);
+
 const capitalize = memoize(
   (text: string) => `${text[0].toUpperCase()}${text.slice(1)}`
 );
@@ -17,7 +21,7 @@ const capitalize = memoize(
 const colorize = memoize(
   (color: string, isBackground: boolean, text: string) => {
     if (color === 'initial') {
-      return colorette.reset(text);
+      return reset(text);
     }
 
     if (color.startsWith('raw')) {
@@ -129,5 +133,5 @@ export default function applyStyle(
     output = colorize(color, false, output);
   }
 
-  return colorette.reset(output);
+  return reset(output);
 }

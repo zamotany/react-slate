@@ -23,13 +23,13 @@ exports[`in integration tests renderToString should apply backgroundColor to who
 `;
 
 exports[`in integration tests renderToString with absolute positioning should correctly left-trim element with border 1`] = `
-"@[0m────┐@[0m  
-@[0mello│@[0m  
-@[0m────┘@[0m  "
+"@[0m────┐@[0m
+@[0mello│@[0m
+@[0m────┘@[0m"
 `;
 
 exports[`in integration tests renderToString with absolute positioning should correctly left-trim element with border 2`] = `
-"@[0m@[31m────┐@[39m@[0m  
-@[0mello@[0m@[0m@[31m│@[39m@[0m  
-@[0m@[31m────┘@[39m@[0m  "
+"@[0m@[31m────┐@[39m@[0m
+@[0mello@[0m@[0m@[31m│@[39m@[0m
+@[0m@[31m────┘@[39m@[0m"
 `;
