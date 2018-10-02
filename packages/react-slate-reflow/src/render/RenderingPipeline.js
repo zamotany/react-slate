@@ -4,7 +4,7 @@
 import stripAnsi from 'strip-ansi';
 import shallowEqual from 'shallowequal';
 import applyStyle from './applyStyle';
-import type { Drawable, StyleProps } from '../types';
+import type { Drawable, StyleProps, Size } from '../types';
 
 type Cell = {
   char: string,
@@ -17,17 +17,28 @@ export default class RenderingPipeline {
   memoizedRows: string[] = [];
   canvasHeight = 0;
   canvasWidth = 0;
+  maxHeight = Number.MAX_SAFE_INTEGER;
+  maxWidth = Number.MAX_SAFE_INTEGER;
 
   resize(width: number, height: number) {
     if (width < this.canvasWidth && height < this.canvasHeight) {
       return;
     }
 
-    for (let y = 0; y < Math.max(height, this.canvasHeight); y++) {
+    const safeHeight = Math.min(
+      Math.max(height, this.canvasHeight),
+      this.maxHeight
+    );
+    const safeWidth = Math.min(
+      Math.max(width, this.canvasWidth),
+      this.maxWidth
+    );
+
+    for (let y = 0; y < safeHeight; y++) {
       if (!this.canvas[y]) {
         this.canvas[y] = [];
       }
-      for (let x = 0; x < Math.max(width, this.canvasWidth); x++) {
+      for (let x = 0; x < safeWidth; x++) {
         if (!this.canvas[y][x]) {
           this.canvas[y][x] = {
             char: '',
@@ -37,8 +48,8 @@ export default class RenderingPipeline {
       }
     }
 
-    this.canvasHeight = Math.max(height, this.canvasHeight);
-    this.canvasWidth = Math.max(width, this.canvasWidth);
+    this.canvasHeight = safeHeight;
+    this.canvasWidth = safeWidth;
   }
 
   rasterize() {
@@ -67,8 +78,27 @@ export default class RenderingPipeline {
       this.resize(x + width, y + height);
 
       let textIndex = 0;
-      for (let yCellIndex = y; yCellIndex < y + height; yCellIndex++) {
-        for (let xCellIndex = x; xCellIndex < x + width; xCellIndex++) {
+      for (
+        let yCellIndex = y;
+        yCellIndex < y + height && yCellIndex < this.maxHeight;
+        yCellIndex++
+      ) {
+        if (yCellIndex < 0) {
+          continue;
+        }
+
+        for (
+          let xCellIndex = x;
+          xCellIndex < x + width && xCellIndex < this.maxWidth;
+          xCellIndex++
+        ) {
+          if (xCellIndex < 0) {
+            if (text) {
+              textIndex++;
+            }
+            continue;
+          }
+
           if (text) {
             this.canvas[yCellIndex][xCellIndex].char = text[textIndex];
             textIndex++;
@@ -102,14 +132,20 @@ export default class RenderingPipeline {
     return rows;
   }
 
-  reset() {
+  reset(maxSize?: Size) {
     this.canvas = [];
     this.canvasHeight = 0;
     this.canvasWidth = 0;
+    if (maxSize) {
+      this.maxHeight =
+        maxSize.height < 0 ? Number.MAX_SAFE_INTEGER : maxSize.height;
+      this.maxWidth =
+        maxSize.width < 0 ? Number.MAX_SAFE_INTEGER : maxSize.width;
+    }
   }
 
-  render = (drawableItems: Drawable[]) => {
-    this.reset();
+  render = (drawableItems: Drawable[], maxSize?: Size) => {
+    this.reset(maxSize);
     this.drawableItems = drawableItems;
     this.rasterize();
     const rows = this.getAnsiRows();
@@ -118,8 +154,8 @@ export default class RenderingPipeline {
     };
   };
 
-  renderDiff = (drawableItems: Drawable[]) => {
-    this.reset();
+  renderDiff = (drawableItems: Drawable[], maxSize?: Size) => {
+    this.reset(maxSize);
     this.drawableItems = drawableItems;
     this.rasterize();
     const rows = this.getAnsiRows();
