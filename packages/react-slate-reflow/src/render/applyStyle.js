@@ -6,7 +6,7 @@ import { withRgbColor, withRgbBackgroundColor } from './colors/rgb';
 import { withHexColor, withHexBackgroundColor } from './colors/hex';
 import { withKeywordColor, withKeywordBackgroundColor } from './colors/keyword';
 
-colorette.options.enabled = process.env.CI ? true : colorette.enabled;
+colorette.options.enabled = process.env.CI ? true : colorette.options.enabled;
 
 const CSI = '\u001b[';
 

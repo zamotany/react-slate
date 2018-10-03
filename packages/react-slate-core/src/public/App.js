@@ -2,10 +2,16 @@
 
 let onExitListeners = [];
 let onErrorListeners = [];
+let onBeforeExitListeners = [];
 
 function execOnExitListeners() {
   onExitListeners.forEach(listener => listener());
   onExitListeners = [];
+}
+
+function execOnBeforeExitListeners() {
+  onBeforeExitListeners.forEach(listener => listener());
+  onBeforeExitListeners = [];
 }
 
 function execOnErrorListeners(error?: Error) {
@@ -13,6 +19,9 @@ function execOnErrorListeners(error?: Error) {
   onErrorListeners = [];
 }
 
+process.on('beforeExit', () => {
+  execOnBeforeExitListeners();
+});
 process.on('exit', code => {
   if (code === 0) {
     execOnExitListeners();
@@ -21,6 +30,7 @@ process.on('exit', code => {
   }
 });
 process.on('SIGINT', () => {
+  execOnBeforeExitListeners();
   execOnExitListeners();
   process.exit(0);
 });
@@ -38,6 +48,11 @@ export default {
       onExitListeners.push(listener);
     }
   },
+  onBeforeExit(listener: () => void) {
+    if (onBeforeExitListeners.indexOf(listener) === -1) {
+      onBeforeExitListeners.push(listener);
+    }
+  },
   onError(listener: (Error | number | void) => void) {
     if (onErrorListeners.indexOf(listener) === -1) {
       onErrorListeners.push(listener);
@@ -47,6 +62,12 @@ export default {
     const index = onExitListeners.indexOf(listener);
     if (index >= 0) {
       onExitListeners.splice(index, 1);
+    }
+  },
+  removeOnBeforeExitListener(listener: () => void) {
+    const index = onBeforeExitListeners.indexOf(listener);
+    if (index >= 0) {
+      onBeforeExitListeners.splice(index, 1);
     }
   },
   removeOnErrorListener(listener: () => void) {

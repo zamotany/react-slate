@@ -1,7 +1,5 @@
 /* @flow */
 
-import onExit from './utils/onExit';
-
 export {
   default as renderToTerminal,
   unmountFromTerminal,
@@ -13,8 +11,8 @@ export { default as View } from './public/View';
 // For compatibility
 export { default as Text } from './public/View';
 
-export const Internal = {
-  onExit,
-};
+export { default as App } from './public/App';
+export { default as Log, Logger } from './public/Log';
+export { default as Terminal } from './public/Terminal';
 
 export type { Props, Style, OutputStream, Target } from './types';
