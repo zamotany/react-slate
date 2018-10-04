@@ -18,9 +18,8 @@ function create(level: string, customConsole: typeof console) {
 }
 
 // $FlowFixMe
-const Console: typeof console.Console = process.env.TEST
-  ? class {}
-  : global.console.Console;
+const Console: typeof console.Console =
+  process.env.NODE_ENV === 'test' ? class {} : global.console.Console;
 
 class NoopStream extends fs.WriteStream {
   open() {}
