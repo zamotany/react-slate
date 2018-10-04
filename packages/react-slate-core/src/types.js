@@ -37,9 +37,7 @@ type StyleObject =
 
 export type Style = StyleObject | Array<Style>;
 
-export type NodeStream = {
-  write(data: string): void,
-};
+export type OutputStream = tty$WriteStream | stream$Writable;
 
 export type Target = {
   forceFullPrint: boolean,

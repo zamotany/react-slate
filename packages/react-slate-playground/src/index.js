@@ -1,29 +1,24 @@
 import React from 'react';
-import path from 'path';
-import { renderToTerminal } from '@react-slate/core';
-import {
-  hideCursor,
-  clearScrollbackOnExit,
-  overwriteConsole,
-} from '@react-slate/utils';
+import { renderToTerminal, App, Log, Terminal } from '@react-slate/core';
 import throttle from 'lodash.throttle';
-import App from './App';
+import Application from './App';
 
-overwriteConsole({
-  outStream: path.join(__dirname, '../node_modules/.artifacts/stdout.log'),
-  errStream: path.join(__dirname, '../node_modules/.artifacts/stderr.log'),
+Terminal.clearScrollback();
+Terminal.hideCursor();
+App.onExit(() => {
+  Terminal.showCursor();
+  Terminal.clearScrollback();
 });
-hideCursor(process.stdout);
-clearScrollbackOnExit(process.stdout);
+Log.pipeConsole();
 
 const options = {
-  /* devtools: true */
+  devtools: true,
 };
-renderToTerminal(<App />, process.stdout, options);
+renderToTerminal(<Application />, process.stdout, options);
 
 process.on(
   'resize',
   throttle(() => {
-    renderToTerminal(<App />, process.stdout, options);
+    renderToTerminal(<Application />, process.stdout, options);
   }, 100)
 );

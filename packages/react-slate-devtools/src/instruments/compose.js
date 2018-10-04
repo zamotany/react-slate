@@ -2,7 +2,7 @@
 
 import WebSocket from 'ws';
 import ReconnectingWebsocket from 'reconnecting-websocket';
-import { Internal } from '@react-slate/core';
+import { App } from '@react-slate/core';
 import throttle from 'lodash.throttle';
 import type { Target } from '@react-slate/core';
 
@@ -30,7 +30,11 @@ export default function compose(...devTools: DevTool[]) {
       }
     }, 60);
 
-    Internal.onExit(() => {
+    App.onExit(() => {
+      socket.close();
+    });
+
+    App.onError(() => {
       socket.close();
     });
 

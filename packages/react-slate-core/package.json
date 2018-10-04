@@ -35,7 +35,8 @@
     "shallowequal": "^1.1.0",
     "react-reconciler": "0.13.0",
     "@react-slate/reflow": "*",
-    "fast-memoize": "^2.5.1"
+    "fast-memoize": "^2.5.1",
+    "mkdirp": "^0.5.1"
   },
   "optionalDependencies": {
     "@react-slate/devtools": "*"

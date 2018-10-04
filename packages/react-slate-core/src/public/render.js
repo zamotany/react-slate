@@ -6,7 +6,7 @@ import { Root, RenderingPipeline } from '@react-slate/reflow';
 import type { Target } from '../types';
 
 import hostConfig from '../host/hostConfig';
-import onExit from '../utils/onExit';
+import App from './App';
 
 const targetMap = new WeakMap();
 
@@ -15,7 +15,7 @@ export default function render(
   target: Target,
   callback: ?() => void = null
 ) {
-  onExit(() => {
+  App.onBeforeExit(() => {
     if (targetMap.has(target)) {
       const { node, reconciler } = (targetMap.get(target): any);
       reconciler.updateContainer(null, node, null);
