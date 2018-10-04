@@ -5,6 +5,7 @@ export { default as View } from './nodes/View';
 export { default as Root } from './nodes/Root';
 
 export { default as calculateLayout } from './layout/calculateLayout';
+export { default as getLayout } from './layout/getLayout';
 export { default as RenderingPipeline } from './render/RenderingPipeline';
 
 export {
