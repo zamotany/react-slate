@@ -58,19 +58,19 @@ export default {
       onErrorListeners.push(listener);
     }
   },
-  removeOnExitListener(listener: () => void) {
+  removeOnExit(listener: () => void) {
     const index = onExitListeners.indexOf(listener);
     if (index >= 0) {
       onExitListeners.splice(index, 1);
     }
   },
-  removeOnBeforeExitListener(listener: () => void) {
+  removeOnBeforeExit(listener: () => void) {
     const index = onBeforeExitListeners.indexOf(listener);
     if (index >= 0) {
       onBeforeExitListeners.splice(index, 1);
     }
   },
-  removeOnErrorListener(listener: () => void) {
+  removeOnError(listener: () => void) {
     const index = onErrorListeners.indexOf(listener);
     if (index >= 0) {
       onErrorListeners.splice(index, 1);

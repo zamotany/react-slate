@@ -2,7 +2,7 @@
 
 import path from 'path';
 import fs from 'fs';
-import mkdri from 'mkdirp';
+import mkdir from 'mkdirp';
 
 import type { OutputStream } from '../types';
 
@@ -16,6 +16,11 @@ function create(level: string, customConsole: typeof console) {
     }
   };
 }
+
+// $FlowFixMe
+const Console: typeof console.Console = process.env.TEST
+  ? class {}
+  : global.console.Console;
 
 class NoopStream extends fs.WriteStream {
   open() {}
@@ -36,12 +41,11 @@ export class Logger {
   ) {
     const stdout = path.resolve(stdoutPath);
     const stderr = path.resolve(stderrPath);
-    mkdri.sync(path.dirname(stdout));
-    mkdri.sync(path.dirname(stderr));
+    mkdir.sync(path.dirname(stdout));
+    mkdir.sync(path.dirname(stderr));
     this._stdoutStream = fs.createWriteStream(stdout);
     this._stderrStream = fs.createWriteStream(stderr);
-    // $FlowFixMe
-    this._console = new console.Console(this._stdoutStream, this._stderrStream);
+    this._console = new Console(this._stdoutStream, this._stderrStream);
   }
 
   debug = create('debug', this._console);
@@ -60,8 +64,7 @@ export class Logger {
     Object.defineProperty(global, 'console', {
       configurable: true,
       enumerable: true,
-      // $FlowFixMe
-      get: () => new console.Console(new NoopStream(), new NoopStream()),
+      get: () => new Console(new NoopStream(), new NoopStream()),
     });
   }
 
@@ -79,8 +82,7 @@ export class Logger {
     Object.defineProperty(global, 'console', {
       configurable: true,
       enumerable: true,
-      // $FlowFixMe
-      get: () => new console.Console(process.stdout, process.stderr),
+      get: () => new Console(process.stdout, process.stderr),
     });
   }
 }
