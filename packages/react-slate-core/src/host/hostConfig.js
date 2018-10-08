@@ -46,7 +46,7 @@ export default (containerInstance: Root, target: Target, render: *) =>
     // Container handlers
 
     insertInContainerBefore(container: Root, child: *, childBefore: *) {
-      container.prependChild(child, childBefore);
+      container.prependChild(child, container.findChild(childBefore));
     },
 
     appendChildToContainer(container: Root, child: *) {
@@ -72,7 +72,7 @@ export default (containerInstance: Root, target: Target, render: *) =>
     },
 
     insertBefore(parentInstance: View, child: *, childBefore: *) {
-      parentInstance.prependChild(child, childBefore);
+      parentInstance.prependChild(child, parentInstance.findChild(childBefore));
     },
 
     // Update handlers

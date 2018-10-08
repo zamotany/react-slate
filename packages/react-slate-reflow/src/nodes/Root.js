@@ -5,20 +5,10 @@ import type { ChildNode, Node } from '../types';
 import calculateLayout from '../layout/calculateLayout';
 import RootLayout from '../layout/elements/RootLayout';
 
-type Size = {
-  width: number,
-  height: number,
-};
-
 export default class Root implements Node {
   children = [];
   parent = null;
   layout = new RootLayout(this);
-  size: Size;
-
-  constructor(size: Size) {
-    this.size = size;
-  }
 
   findChild(child: ChildNode) {
     return View.prototype.findChild.call(this, child);
