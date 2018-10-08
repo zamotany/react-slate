@@ -20,7 +20,7 @@ const target = {
 
 export default function getDetachedNode(element: Element<*>) {
   const container = new Root();
-  const config = hostConfig(container, target, (...args) => ''); // eslint-disable-line no-unused-vars
+  const config = hostConfig(container, target, (...args) => ({})); // eslint-disable-line no-unused-vars
   const reconciler = ReactFiberReconciler(config);
   const reconcilerNode = reconciler.createContainer(container);
   reconciler.updateContainer(element, reconcilerNode, null);
