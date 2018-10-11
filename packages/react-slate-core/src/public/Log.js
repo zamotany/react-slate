@@ -2,17 +2,21 @@
 
 import path from 'path';
 import fs from 'fs';
+import EventEmitter from 'events';
 import mkdir from 'mkdirp';
 
-import type { OutputStream } from '../types';
-
-function create(level: string, customConsole: typeof console) {
+function create(level: string, logger: Logger) {
   return (...args: any[]) => {
     const timestamp = `[${new Date().toISOString()}]`;
+    logger._emitter.emit('log', {
+      level,
+      timestamp,
+      messages: args,
+    });
     if (level === 'assert') {
-      customConsole.assert(...args, timestamp);
+      logger._console.assert(...args, timestamp);
     } else {
-      customConsole[level](timestamp, level[0].toUpperCase(), ...args);
+      logger._console[level](timestamp, `${level[0].toUpperCase()}:`, ...args);
     }
   };
 }
@@ -29,29 +33,38 @@ class NoopStream extends fs.WriteStream {
   }
 }
 
-export class Logger {
-  _stdoutStream: OutputStream;
-  _stderrStream: OutputStream;
+class FileStream extends fs.WriteStream {
+  constructor(filePath: string, options: mixed) {
+    const absPath = path.resolve(filePath);
+    mkdir.sync(path.dirname(absPath));
+    // $FlowFixMe
+    super(absPath, options);
+  }
+}
+
+export default class Logger {
   _console: typeof console;
+  _emitter = new EventEmitter();
 
   constructor(
     stdoutPath: string = './node_modules/.artifacts/stdout.log',
     stderrPath: string = './node_modules/.artifacts/stderr.log'
   ) {
-    const stdout = path.resolve(stdoutPath);
-    const stderr = path.resolve(stderrPath);
-    mkdir.sync(path.dirname(stdout));
-    mkdir.sync(path.dirname(stderr));
-    this._stdoutStream = fs.createWriteStream(stdout);
-    this._stderrStream = fs.createWriteStream(stderr);
-    this._console = new Console(this._stdoutStream, this._stderrStream);
+    try {
+      this._console = new Console(
+        new FileStream(stdoutPath),
+        new FileStream(stderrPath)
+      );
+    } catch (error) {
+      this._console = global.console;
+    }
   }
 
-  debug = create('debug', this._console);
-  error = create('error', this._console);
-  warn = create('warn', this._console);
-  info = create('info', this._console);
-  assert = create('assert', this._console);
+  debug = create('debug', this);
+  error = create('error', this);
+  warn = create('warn', this);
+  info = create('info', this);
+  assert = create('assert', this);
   d = this.debug;
   e = this.error;
   w = this.warn;
@@ -85,5 +98,3 @@ export class Logger {
     });
   }
 }
-
-export default new Logger();
