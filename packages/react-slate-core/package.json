@@ -43,7 +43,8 @@
   },
   "devDependencies": {
     "react": "^16.5.0",
-    "strip-ansi": "^4.0.0"
+    "strip-ansi": "^4.0.0",
+    "@babel/register": "^7.0.0"
   },
   "eslintConfig": {
     "extends": "callstack-io"
