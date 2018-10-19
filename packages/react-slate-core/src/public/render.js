@@ -15,12 +15,12 @@ export default function render(
   target: Target,
   callback: ?() => void = null
 ) {
-  App.onBeforeExit(() => {
+  App.onExit(() => {
     if (targetMap.has(target)) {
       const { node, reconciler } = (targetMap.get(target): any);
       reconciler.updateContainer(null, node, null);
     }
-  });
+  }, App.Priority.Critical);
 
   if (targetMap.has(target)) {
     const { node, reconciler } = (targetMap.get(target): any);

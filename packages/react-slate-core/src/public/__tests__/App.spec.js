@@ -14,7 +14,7 @@ describe('App', () => {
   it('should run onExit listeners on normal exit', () => {
     const stdout = runFixture('normalExit.js').toString();
     expect(stdout).toEqual(
-      'called onExit Normal listener\ncalled onExit High listener\n'
+      'called onExit High listener\ncalled onExit Normal listener\n'
     );
   });
 

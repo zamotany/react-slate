@@ -3,44 +3,38 @@
 const onExitListeners = [[], [], [], []];
 const onErrorListeners = [[], [], [], []];
 
-function execOnExitListeners() {
-  onExitListeners.forEach((listeners, priority) => {
-    listeners.forEach(listener => listener());
-    onExitListeners[priority] = [];
-  });
-}
-
-function execOnErrorListeners(error?: Error) {
-  onErrorListeners.forEach((listeners, priority) => {
-    listeners.forEach((listener: (error?: Error) => void) => listener(error));
-    onErrorListeners[priority] = [];
-  });
-}
-
-process.on('exit', code => {
-  if (code === 0) {
-    execOnExitListeners();
-  } else {
-    execOnErrorListeners();
-  }
-});
-
-process.on('SIGINT', () => {
-  execOnExitListeners();
-  process.exit(0);
-});
-
-process.on('uncaughtException', error => {
-  execOnErrorListeners(error);
-  process.exitCode = 1;
-});
-
 const Priority = {
   Critical: 3,
   High: 2,
   Normal: 1,
   Low: 0,
 };
+
+function execListeners(listeners, ...args) {
+  for (let i = Priority.Critical; i >= Priority.Low; i--) {
+    // $FlowFixMe
+    listeners[i].forEach(listener => listener(...args));
+    listeners[i] = []; // eslint-disable-line no-param-reassign
+  }
+}
+
+process.on('exit', code => {
+  if (code === 0) {
+    execListeners(onExitListeners);
+  } else {
+    execListeners(onErrorListeners);
+  }
+});
+
+process.on('SIGINT', () => {
+  execListeners(onExitListeners);
+  process.exit(0);
+});
+
+process.on('uncaughtException', error => {
+  execListeners(onErrorListeners, error);
+  process.exitCode = 1;
+});
 
 function validatePriority(priority?: number) {
   if (
