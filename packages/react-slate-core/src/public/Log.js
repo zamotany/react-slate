@@ -2,6 +2,7 @@
 
 import path from 'path';
 import fs from 'fs';
+import { Console } from 'console';
 import EventEmitter from 'events';
 import mkdir from 'mkdirp';
 
@@ -14,16 +15,17 @@ function create(level: string, logger: Logger) {
       messages: args,
     });
     if (level === 'assert') {
+      if (args[0]) {
+        logger._console.log(timestamp, 'A:', ...args.slice(1), 'PASSED');
+      } else {
+        logger._console.error(timestamp, 'A:', ...args.slice(1), 'FAILED');
+      }
       logger._console.assert(...args, timestamp);
     } else {
       logger._console[level](timestamp, `${level[0].toUpperCase()}:`, ...args);
     }
   };
 }
-
-// $FlowFixMe
-const Console: typeof console.Console =
-  process.env.NODE_ENV === 'test' ? class {} : global.console.Console;
 
 class NoopStream extends fs.WriteStream {
   open() {}
