@@ -38,16 +38,26 @@ export default class Logger extends React.Component<Props, State> {
     }
   }
 
+  onPress = ({ char }: { char: string }) => {
+    if (char === 'r') {
+      this.setState({
+        logs: [],
+      });
+    }
+  };
+
   render() {
     return (
       <View>
         <View style={styles.title}>logger</View>
-        <KeyPress onPress={() => {}}>
+        <View style={styles.count}>Count: {this.state.logs.length}</View>
+        <KeyPress onPress={this.onPress}>
           <View style={styles.controls}>{`(Press R' to clear logs)`}</View>
         </KeyPress>
         <ListView
           listHeight={5}
           data={this.state.logs}
+          stickToBottom
           keyExtractor={({ item }) => `${item.timestamp}-${item.level}`}
           renderItem={({ item }) => (
             <View>
@@ -84,6 +94,7 @@ const styles = {
   controls: {
     marginBottom: 1,
     color: 'gray',
+    display: 'inline',
   },
   baseLogItem: {
     display: 'inline',
@@ -91,6 +102,10 @@ const styles = {
   },
   logTimestamp: {
     color: 'gray',
+  },
+  count: {
+    display: 'inline',
+    marginRight: 2,
   },
   logLevel(level: string) {
     let color = 'white';

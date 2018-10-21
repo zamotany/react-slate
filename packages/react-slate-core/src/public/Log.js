@@ -2,6 +2,7 @@
 
 import path from 'path';
 import fs from 'fs';
+// $FlowFixMe
 import { Console } from 'console';
 import EventEmitter from 'events';
 import mkdir from 'mkdirp';
@@ -52,14 +53,7 @@ export default class Logger {
     stdoutPath: string = './node_modules/.artifacts/stdout.log',
     stderrPath: string = './node_modules/.artifacts/stderr.log'
   ) {
-    try {
-      this._console = new Console(
-        new FileStream(stdoutPath),
-        new FileStream(stderrPath)
-      );
-    } catch (error) {
-      this._console = global.console;
-    }
+    this.setOutput(stdoutPath, stderrPath);
   }
 
   debug = create('debug', this);
@@ -72,6 +66,17 @@ export default class Logger {
   w = this.warn;
   i = this.info;
   a = this.assert;
+
+  setOutput(stdoutPath: string, stderrPath: string) {
+    try {
+      this._console = new Console(
+        new FileStream(stdoutPath),
+        new FileStream(stderrPath)
+      );
+    } catch (error) {
+      this._console = global.console;
+    }
+  }
 
   silenceConsole() {
     // $FlowFixMe

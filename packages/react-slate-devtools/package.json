@@ -37,7 +37,7 @@
   "dependencies": {
     "ws": "^6.0.0",
     "reconnecting-websocket": "^4.0.0-rc5", 
-    "react": "^16.4.2",
+    "react": "^16.5.0",
     "lodash.throttle": "^4.1.1",
     "@react-slate/components": "*"
   },
@@ -45,6 +45,9 @@
     "@react-slate/core": "*"
   },
   "eslintConfig": {
-    "extends": "callstack-io"
+    "extends": "callstack-io",
+    "rules": {
+      "react/no-unused-prop-types": 0
+    }
   }
 }
