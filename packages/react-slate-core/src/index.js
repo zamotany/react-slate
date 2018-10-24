@@ -1,5 +1,7 @@
 /* @flow */
 
+import Logger from './public/Log';
+
 export {
   default as renderToTerminal,
   unmountFromTerminal,
@@ -12,7 +14,8 @@ export { default as View } from './public/View';
 export { default as Text } from './public/View';
 
 export { default as App } from './public/App';
-export { default as Log, Logger } from './public/Log';
+export { Logger };
+export const Log = new Logger();
 export { default as Terminal } from './public/Terminal';
 export { default as getDetachedNode } from './utils/getDetachedNode';
 

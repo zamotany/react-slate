@@ -3,6 +3,7 @@
 import React from 'react';
 import { View } from '@react-slate/core';
 import Profiler from './Profiler';
+import Logger from './Logger';
 
 type State = {
   status: 'connected' | 'disconnected',
@@ -45,6 +46,7 @@ export default class App extends React.Component<Props, State> {
         <View style={[styles.title, styles.divider]}>devtools</View>
         <View style={styles.divider}>Status: {this.state.status}</View>
         <Profiler socket={this.state.socket} />
+        <Logger socket={this.state.socket} />
       </View>
     );
   }

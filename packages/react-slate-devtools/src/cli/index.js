@@ -16,6 +16,14 @@ App.onExit(() => {
   Terminal.showCursor();
   Terminal.clearScrollback();
 });
+App.onError(error => {
+  Log.resetConsole();
+  console.error(error);
+});
+Log.setOutput(
+  './node_modules/.devtools-artifacts/stdout.log',
+  './node_modules/.devtools-artifacts/stderr.log'
+);
 Log.pipeConsole();
 
 renderToTerminal(<Application server={server} />, process.stdout);

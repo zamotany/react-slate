@@ -2,24 +2,31 @@
 
 import path from 'path';
 import fs from 'fs';
+// $FlowFixMe
+import { Console } from 'console';
+import EventEmitter from 'events';
 import mkdir from 'mkdirp';
 
-import type { OutputStream } from '../types';
-
-function create(level: string, customConsole: typeof console) {
+function create(level: string, logger: Logger) {
   return (...args: any[]) => {
     const timestamp = `[${new Date().toISOString()}]`;
+    logger._emitter.emit('log', {
+      level,
+      timestamp,
+      messages: args,
+    });
     if (level === 'assert') {
-      customConsole.assert(...args, timestamp);
+      if (args[0]) {
+        logger._console.log(timestamp, 'A:', ...args.slice(1), 'PASSED');
+      } else {
+        logger._console.error(timestamp, 'A:', ...args.slice(1), 'FAILED');
+      }
+      logger._console.assert(...args, timestamp);
     } else {
-      customConsole[level](timestamp, level[0].toUpperCase(), ...args);
+      logger._console[level](timestamp, `${level[0].toUpperCase()}:`, ...args);
     }
   };
 }
-
-// $FlowFixMe
-const Console: typeof console.Console =
-  process.env.NODE_ENV === 'test' ? class {} : global.console.Console;
 
 class NoopStream extends fs.WriteStream {
   open() {}
@@ -29,34 +36,47 @@ class NoopStream extends fs.WriteStream {
   }
 }
 
-export class Logger {
-  _stdoutStream: OutputStream;
-  _stderrStream: OutputStream;
+class FileStream extends fs.WriteStream {
+  constructor(filePath: string, options: mixed) {
+    const absPath = path.resolve(filePath);
+    mkdir.sync(path.dirname(absPath));
+    // $FlowFixMe
+    super(absPath, options);
+  }
+}
+
+export default class Logger {
   _console: typeof console;
+  _emitter = new EventEmitter();
 
   constructor(
     stdoutPath: string = './node_modules/.artifacts/stdout.log',
     stderrPath: string = './node_modules/.artifacts/stderr.log'
   ) {
-    const stdout = path.resolve(stdoutPath);
-    const stderr = path.resolve(stderrPath);
-    mkdir.sync(path.dirname(stdout));
-    mkdir.sync(path.dirname(stderr));
-    this._stdoutStream = fs.createWriteStream(stdout);
-    this._stderrStream = fs.createWriteStream(stderr);
-    this._console = new Console(this._stdoutStream, this._stderrStream);
+    this.setOutput(stdoutPath, stderrPath);
   }
 
-  debug = create('debug', this._console);
-  error = create('error', this._console);
-  warn = create('warn', this._console);
-  info = create('info', this._console);
-  assert = create('assert', this._console);
+  debug = create('debug', this);
+  error = create('error', this);
+  warn = create('warn', this);
+  info = create('info', this);
+  assert = create('assert', this);
   d = this.debug;
   e = this.error;
   w = this.warn;
   i = this.info;
   a = this.assert;
+
+  setOutput(stdoutPath: string, stderrPath: string) {
+    try {
+      this._console = new Console(
+        new FileStream(stdoutPath),
+        new FileStream(stderrPath)
+      );
+    } catch (error) {
+      this._console = global.console;
+    }
+  }
 
   silenceConsole() {
     // $FlowFixMe
@@ -85,5 +105,3 @@ export class Logger {
     });
   }
 }
-
-export default new Logger();

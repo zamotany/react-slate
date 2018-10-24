@@ -1,12 +1,20 @@
 /* @flow */
 
+import { Log } from '../';
 import type { Target } from '../types';
 
 export default function withDevtools(target: Target) {
   try {
-    // eslint-disable-next-line global-require
-    const { withRemoteProfiler, compose } = require('@react-slate/devtools');
-    return compose(withRemoteProfiler)(target);
+    const {
+      withRemoteProfiler,
+      compose,
+      captureLogs,
+    } = require('@react-slate/devtools'); // eslint-disable-line global-require
+
+    return compose(
+      withRemoteProfiler,
+      captureLogs(Log._emitter)
+    )(target);
   } catch (error) {
     return target;
   }

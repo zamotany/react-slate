@@ -50,21 +50,23 @@ export default class Profiler extends React.Component<Props, State> {
   }
 
   handleMessage(message: string) {
-    const {
-      measurements: { frame },
-    } = JSON.parse(message);
-    this.setState({
-      curFrameTime: frame.current,
-      avgFrameTime: frame.average,
-      minFrameTime: frame.min,
-      maxFrameTime: frame.max,
-      curLayoutShare: frame.currentLayoutShare,
-      curRenderShare: frame.currentRenderShare,
-      curDrawShare: frame.currentDrawShare,
-      avgLayoutShare: frame.averageLayoutShare,
-      avgRenderShare: frame.averageRenderShare,
-      avgDrawShare: frame.averageDrawShare,
-    });
+    const { measurements } = JSON.parse(message);
+
+    if (measurements) {
+      const { frame } = measurements;
+      this.setState({
+        curFrameTime: frame.current,
+        avgFrameTime: frame.average,
+        minFrameTime: frame.min,
+        maxFrameTime: frame.max,
+        curLayoutShare: frame.currentLayoutShare,
+        curRenderShare: frame.currentRenderShare,
+        curDrawShare: frame.currentDrawShare,
+        avgLayoutShare: frame.averageLayoutShare,
+        avgRenderShare: frame.averageRenderShare,
+        avgDrawShare: frame.averageDrawShare,
+      });
+    }
   }
 
   render() {

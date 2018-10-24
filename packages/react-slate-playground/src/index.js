@@ -9,6 +9,10 @@ App.onExit(() => {
   Terminal.showCursor();
   Terminal.clearScrollback();
 });
+App.onError(error => {
+  Log.resetConsole();
+  console.error(error);
+});
 Log.pipeConsole();
 
 const options = {
