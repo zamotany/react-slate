@@ -1,6 +1,6 @@
 {
   "name": "@react-slate/components",
-  "version": "0.2.0",
+  "version": "0.3.0-alpha.0",
   "description": "Standard component library for react-slate",
   "license": "MIT",
   "repository": "https://github.com/zamotany/react-slate",
@@ -38,10 +38,11 @@
     "shallowequal": "^1.1.0"
   },
   "devDependencies": {
-    "@react-slate/core": "^0.7.0",
+    "@react-slate/core": "^0.8.0-alpha.0",
     "react": "^16.5.0"
   },
   "eslintConfig": {
     "extends": "callstack-io"
-  }
+  },
+  "gitHead": "d65d5e27c401e2a123403c8c49a09a2d7baa5ce1"
 }

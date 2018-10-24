@@ -1,10 +1,10 @@
 {
   "name": "@react-slate/devtools",
-  "version": "0.1.0",
+  "version": "0.2.0-alpha.0",
   "description": "Devtools for react-slate",
   "license": "MIT",
   "repository": "https://github.com/zamotany/react-slate",
-  "private": true,
+  "private": false,
   "author": {
     "name": "Paweł Trysła",
     "email": "zamotany.oss@gmail.com"
@@ -32,17 +32,17 @@
     "prepublish": "yarn build"
   },
   "peerDependencies": {
-    "@react-slate/core": "*" 
+    "@react-slate/core": "*"
   },
   "dependencies": {
-    "ws": "^6.0.0",
-    "reconnecting-websocket": "^4.0.0-rc5", 
-    "react": "^16.5.0",
-    "lodash.throttle": "^4.1.1",
     "@react-slate/components": "*"
+    "lodash.throttle": "^4.1.1",
+    "react": "^16.4.2",
+    "reconnecting-websocket": "^4.0.0-rc5",
+    "ws": "^6.0.0"
   },
   "devDependencies": {
-    "@react-slate/core": "*"
+    "@react-slate/core": "^0.8.0-alpha.0"
   },
   "eslintConfig": {
     "extends": "callstack-io",

@@ -18,13 +18,13 @@
 
 [![tweet][tweet-badge]][tweet]
 
-| Package                   | Version                                                                      |
-| ------------------------- | ---------------------------------------------------------------------------- |
-| `@react-slate/core`       | [![Version][react-slate-core-version]][react-slate-core-package]             |
-| `@react-slate/components` | [![Version][react-slate-components-version]][react-slate-components-package] |
-| `@react-slate/utils`      | [![Version][react-slate-utils-version]][react-slate-utils-package]           |
-| `@react-slate/devtools`   | [![Version][react-slate-devtools-version]][react-slate-devtools-package]     |
-| `@react-slate/reflow`     | [![Version][react-slate-reflow-version]][react-slate-reflow-package]         |
+| Package                   | Stable                                                                       | Next                                                                              |
+| ------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `@react-slate/core`       | [![Version][react-slate-core-version]][react-slate-core-package]             | [![Version][react-slate-core-version-next]][react-slate-core-package]             |
+| `@react-slate/components` | [![Version][react-slate-components-version]][react-slate-components-package] | [![Version][react-slate-components-version-next]][react-slate-components-package] |
+| `@react-slate/utils`      | [![Version][react-slate-utils-version]][react-slate-utils-package]           | N/A                                                                               |
+| `@react-slate/devtools`   | N/A                                                                          | [![Version][react-slate-devtools-version]][react-slate-devtools-package]          |
+| `@react-slate/reflow`     | N/A                                                                          | [![Version][react-slate-reflow-version]][react-slate-reflow-package]              |
 
 ---
 
@@ -93,8 +93,10 @@ renderToTerminal(<App />, process.stdout);
 <!-- badges (packages) -->
 
 [react-slate-core-version]: https://img.shields.io/npm/v/@react-slate/core.svg?style=flat-square
+[react-slate-core-version-next]: https://img.shields.io/npm/v/@react-slate/core/next.svg?style=flat-square
 [react-slate-core-package]: https://www.npmjs.com/package/@react-slate/core
 [react-slate-components-version]: https://img.shields.io/npm/v/@react-slate/components.svg?style=flat-square
+[react-slate-components-version-next]: https://img.shields.io/npm/v/@react-slate/components/next.svg?style=flat-square
 [react-slate-components-package]: https://www.npmjs.com/package/@react-slate/components
 [react-slate-utils-version]: https://img.shields.io/npm/v/@react-slate/utils.svg?style=flat-square
 [react-slate-utils-package]: https://www.npmjs.com/package/@react-slate/utils
