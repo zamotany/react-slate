@@ -2,7 +2,7 @@
 
 .nav-footer {
   box-shadow: none !important;
-  background: #131821 !important;
+  background: rgb(47,52,63) !important;
 }
 
 .blockImage {
@@ -43,6 +43,12 @@ img[alt="Preview"] {
 }
 
 @media only screen and (max-width: 1023px) {
+  .navigationSlider .slidingNav ul li.siteNavGroupActive a {
+    background-color: rgb(101,129,168) !important
+  }
+  .navigationSlider .slidingNav ul li.siteNavItemActive a {
+    background-color: rgb(152,187,186) !important
+  }
 }
 
 @media only screen and (min-width: 700px) {

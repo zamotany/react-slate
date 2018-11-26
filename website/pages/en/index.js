@@ -64,7 +64,7 @@ class HomeSplash extends React.Component {
     return (
       <SplashContainer>
         <div className="inner">
-          <img src={imgUrl('react_slate_logo.png')} className="logo" />
+          <img src={imgUrl('logo_name_2x.png')} className="logo" />
           <h2 className="projectTitle">
             <small>{siteConfig.tagline}</small>
           </h2>

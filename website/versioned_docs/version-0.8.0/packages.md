@@ -1,7 +1,8 @@
 ---
-id: packages
+id: version-0.8.0-packages
 title: Packages
 sidebar_label: Packages
+original_id: packages
 ---
 
 `react-slate` is a monorepo consisting of a few separate packages.

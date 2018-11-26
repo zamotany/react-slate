@@ -1,7 +1,8 @@
 ---
-id: components-getting-started
+id: version-0.7.0-components-getting-started
 title: @react-slate/components: Getting started
 sidebar_label: Getting started
+original_id: components-getting-started
 ---
 
 A standard library of components for `react-slate`.
@@ -25,6 +26,5 @@ List of exported components:
 * [`ProgressBar`](./components-progress-bar.md)
 * [`Spinner`](./components-spinner.md)
 * [`KeyPress`](./components-key-press.md)
-* [`ListView`](./components-list-view.md)
 * [`ScrollView`](./components-scroll-view.md)
 * [`Raw`](./components-raw.md)

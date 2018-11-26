@@ -13,15 +13,18 @@ module.exports = {
   url: 'https://zamotany.github.io',
   baseUrl: '/',
   projectName: 'react-slate',
-  headerIcon: 'img/react_slate_icon.png',
+  favicon: 'img/favicon/favicon.ico',
+  headerIcon: 'img/logo_1x.png',
   organizationName: 'zamotany',
   headerLinks: [
     { doc: 'installation', label: 'Docs' },
+    { doc: 'core-renderToTerminal-function', label: 'API' },
+    { doc: 'core-view-component', label: 'Components' },
   ],
   users,
   colors: {
-    primaryColor: '#457D9A',
-    secondaryColor: '#5699bc',
+    primaryColor: 'rgb(60,66,81)',
+    secondaryColor: 'rgb(101,129,168)'
   },
   copyright: '',
   highlight: {

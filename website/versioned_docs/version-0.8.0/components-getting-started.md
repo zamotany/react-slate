@@ -1,7 +1,8 @@
 ---
-id: components-getting-started
+id: version-0.8.0-components-getting-started
 title: @react-slate/components: Getting started
 sidebar_label: Getting started
+original_id: components-getting-started
 ---
 
 A standard library of components for `react-slate`.
