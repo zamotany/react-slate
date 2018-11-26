@@ -26,8 +26,6 @@ export default function render(
     const { node, reconciler } = (targetMap.get(target): any);
     reconciler.updateContainer(element, node, null, callback);
   } else {
-    target.setCursorPosition(0, 0);
-    target.clear(true);
     const container = new Root(target.getSize());
     const renderingPipeline = new RenderingPipeline();
     const reconciler = ReactFiberReconciler(

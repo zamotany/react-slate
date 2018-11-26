@@ -144,9 +144,14 @@ export default class RenderingPipeline {
     }
   }
 
-  render = (drawableItems: Drawable[], maxSize?: Size) => {
+  render = (
+    drawableItems: Drawable[],
+    calculatedSize: Size,
+    maxSize?: Size
+  ) => {
     this.reset(maxSize);
     this.drawableItems = drawableItems;
+    this.resize(calculatedSize.width, calculatedSize.height);
     this.rasterize();
     const rows = this.getAnsiRows();
     return {
@@ -154,9 +159,14 @@ export default class RenderingPipeline {
     };
   };
 
-  renderDiff = (drawableItems: Drawable[], maxSize?: Size) => {
+  renderDiff = (
+    drawableItems: Drawable[],
+    calculatedSize: Size,
+    maxSize?: Size
+  ) => {
     this.reset(maxSize);
     this.drawableItems = drawableItems;
+    this.resize(calculatedSize.width, calculatedSize.height);
     this.rasterize();
     const rows = this.getAnsiRows();
     const diff = {};

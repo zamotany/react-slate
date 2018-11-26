@@ -32,8 +32,9 @@ function withErrorHandling(target: Target, config: { [key: string]: * }) {
   );
 }
 
-export default (containerInstance: Root, target: Target, render: *) =>
-  withErrorHandling(target, {
+export default (containerInstance: Root, target: Target, render: *) => {
+  let isInitialRender = true;
+  return withErrorHandling(target, {
     // Create instance of host environment specific node or instance of a component.
     createInstance(type: string | Function, props: *) {
       return createElement(type, props);
@@ -109,17 +110,28 @@ export default (containerInstance: Root, target: Target, render: *) =>
       // each updated node. So here is the best place to flush data to host environment, using
       // container instance.
       target.measure('layout-start');
-      const { drawableItems } = containerInstance.calculateLayout();
+      const { drawableItems, layoutTree } = containerInstance.calculateLayout();
       target.measure('layout-end');
       target.measure('render-start');
-      const output = render(drawableItems, target.getSize());
+      const output = render(
+        drawableItems,
+        layoutTree.getLayoutTree().dimensions,
+        target.getSize()
+      );
       target.measure('render-end');
       target.measure('draw-start');
-      Object.keys(output).forEach(index => {
-        target.setCursorPosition(0, parseInt(index, 10));
-        target.clear(false);
-        target.print(output[index]);
-      });
+      const keys = Object.keys(output);
+      if (keys.length >= 1 && output[0] !== '') {
+        Object.keys(output).forEach(index => {
+          target.setCursorPosition(0, parseInt(index, 10));
+          target.clear(isInitialRender);
+          isInitialRender = false;
+          target.print(output[index]);
+        });
+      } else {
+        target.print('\n');
+      }
+
       target.measure('draw-end');
     },
 
@@ -141,3 +153,4 @@ export default (containerInstance: Root, target: Target, render: *) =>
     useSyncScheduling: true,
     supportsMutation: true,
   });
+};
