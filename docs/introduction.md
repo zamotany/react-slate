@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="react-slate" src="docs/_assets/react_slate_logo.png" width="700">
+  <img alt="react-slate" src="_assets/react_slate_logo.png" width="700">
 </p>
 
 <p align="center">

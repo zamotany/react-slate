@@ -4,63 +4,41 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "lerna run --parallel build",
-    "watch": "lerna run --parallel build:watch",
-    "link-packages": "lerna exec --parallel yarn link",
-    "prepare": "yarn build",
-    "flow": "flow",
-    "lint": "lerna exec ../../node_modules/.bin/eslint .",
+    "build:example": "babel ./example/src --out-dir ./example/build --extensions '.js,.ts,.tsx' --config-file=./babel.config.js",
+    "build:source": "lerna exec --parallel \"babel src --out-dir build --extensions '.js,.ts,.tsx' --ignore '**/__tests__/**' --source-maps --delete-dir-on-start --config-file=../../babel.config.js\"",
+    "watch": "lerna exec --parallel \"babel src --out-dir build --extensions '.js,.ts,.tsx' --ignore '**/__tests__/**' --source-maps --delete-dir-on-start --config-file=../../babel.config.js --watch\"",
+    "build:def": "lerna exec \"tsc --emitDeclarationOnly -p ./tsconfig.json --outDir ./build\"",
+    "prepare": "yarn build:source && yarn build:def && yarn build:example",
+    "typecheck": "lerna exec \"tsc --noEmit\"",
+    "lint": "eslint --ext '.ts,.tsx' './packages'",
     "test": "jest",
-    "test:debug": "node --inspect ./node_modules/.bin/jest",
-    "format": "prettier --single-quote --trailing-comma es5 --write \"packages/*/src/**/*.js\"",
-    "add-contributor": "all-contributors add",
-    "start": "node ./packages/react-slate-playground/bin",
-    "start:debug": "node --inspect-brk ./packages/react-slate-playground/bin",
-    "publish": "lerna publish --skip-git"
+    "publish": "lerna publish --skip-git",
+    "docs": "docsify serve ./docs"
   },
   "dependencies": {
-    "lerna": "^3.3.1"
+    "lerna": "^3.16.4",
+    "react": "^16.9.0",
+    "docsify-cli": "^4.3.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.0.1",
-    "@babel/plugin-proposal-class-properties": "^7.0.0",
-    "@babel/plugin-proposal-do-expressions": "^7.0.0",
-    "@babel/plugin-proposal-export-namespace-from": "^7.0.0",
-    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.0.0",
-    "@babel/plugin-proposal-optional-chaining": "^7.0.0",
-    "@babel/plugin-proposal-pipeline-operator": "^7.0.0",
-    "@babel/plugin-proposal-throw-expressions": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
-    "@babel/preset-flow": "^7.0.0",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-typescript": "^7.3.3",
     "@babel/preset-react": "^7.0.0",
-    "all-contributors-cli": "^4.11.1",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-eslint": "^9.0.0",
-    "concurrently": "^4.0.1",
-    "eslint": "^5.5.0",
-    "eslint-config-callstack-io": "^1.1.2",
-    "eslint-plugin-prettier": "^2.6.2",
-    "flow-bin": "^0.80.0",
-    "flow-copy-source": "^2.0.2",
-    "jest": "^23.6.0",
-    "prettier": "^1.14.2",
-    "regenerator-runtime": "^0.12.1",
-    "rimraf": "^2.6.2"
-  },
-  "resolutions": {
-    "**/babel-core": "7.0.0-bridge.0"
-  },
-  "jest": {
-    "modulePathIgnorePatterns": [
-      "<rootDir>/packages/.+/build",
-      "<rootDir>/example"
-    ],
-    "snapshotSerializers": [
-      "<rootDir>/jestSnapshotSerializer.js"
-    ],
-    "transform": {
-      "^.+\\.(js|jsx)$": "./jestTransform.js"
-    }
+    "@callstack/eslint-config": "^7.0.0",
+    "@types/jest": "^24.0.17",
+    "@types/node": "^10.14.15",
+    "@types/react": "^16.9.2",
+    "@types/react-reconciler": "^0.18.0",
+    "@types/shallowequal": "^1.1.1",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
+    "babel-eslint": "^10.0.2",
+    "babel-jest": "^24.8.0",
+    "eslint": "^6.1.0",
+    "jest": "^24.8.0",
+    "typescript": "^3.5.3"
   }
 }

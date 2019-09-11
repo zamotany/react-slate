@@ -2,7 +2,7 @@ version: 2
 
 defaults: &defaults
   docker:
-    - image: circleci/node:8.12.0
+    - image: circleci/node:10
   working_directory: ~/react-slate
 
 jobs:
@@ -16,7 +16,6 @@ jobs:
           keys:
             - dependencies-{{ checksum "yarn.lock" }}
             - dependencies-
-      - run: sudo npm i -g yarn@^1.5.1
       - run: yarn install --frozen-lockfile
       - save_cache:
           key: dependencies-{{ checksum "yarn.lock" }}
@@ -32,7 +31,7 @@ jobs:
             at: ~/react-slate
         - run: |
             yarn run lint
-            yarn run flow
+            yarn run typecheck
   unit-tests:
       <<: *defaults
       steps:

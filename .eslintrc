@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "@callstack/eslint-config",
+    "plugin:import/typescript"
+  ],
+  "rules": {
+    "import/no-extraneous-dependencies": [2, {
+      "devDependencies": ["**/types.ts", "**/*.test.ts"]
+    }],
+    "react-native/no-raw-text": 0
+  }
+}
