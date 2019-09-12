@@ -1,7 +1,9 @@
 import colorette from 'colorette';
+import * as supportsColor from 'supports-color';
 import applyStyle from '../applyStyle';
 
 colorette.options.enabled = true;
+supportsColor.stdout.level = 3;
 
 describe('applyStyle', () => {
   it('should reset if color is initial', () => {

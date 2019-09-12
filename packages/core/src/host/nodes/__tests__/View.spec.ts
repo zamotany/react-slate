@@ -116,7 +116,7 @@ describe('View node', () => {
       shift: false,
       code: 0,
       x: 4,
-      y: 0,
+      y: 1,
     });
     expect(root.onClickHook).not.toHaveBeenCalled();
     expect(view.onClickHook).toHaveBeenCalled();

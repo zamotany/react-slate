@@ -108,8 +108,8 @@ describe('Base node', () => {
         ctrl: false,
         shift: false,
         alt: false,
-        x: 2,
-        y: 3,
+        x: 3,
+        y: 4,
       })
     ).toBeFalsy();
   });
