@@ -18,9 +18,9 @@
 
 [![tweet][tweet-badge]][tweet]
 
-| Package             | Description                       | Version                                                               |
-| ------------------- | --------------------------------- | --------------------------------------------------------------------- |
-| `@react-slate/core` | The core functionality and logic. | [![Version][react-slate-core-version-next]][react-slate-core-package] |
+| Package             | Description                       | Version                                                          |
+| ------------------- | --------------------------------- | ---------------------------------------------------------------- |
+| `@react-slate/core` | The core functionality and logic. | [![Version][react-slate-core-version]][react-slate-core-package] |
 
 ---
 
@@ -85,5 +85,4 @@ render(<App />);
 <!-- badges (packages) -->
 
 [react-slate-core-version]: https://img.shields.io/npm/v/@react-slate/core.svg?style=flat-square
-[react-slate-core-version-next]: https://img.shields.io/npm/v/@react-slate/core/next.svg?style=flat-square
 [react-slate-core-package]: https://www.npmjs.com/package/@react-slate/core
