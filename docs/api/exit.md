@@ -1,6 +1,6 @@
 # exit
 
-#### Syntax:
+#### Definition:
 
 ```js
 exit(code?: number = 0): void
@@ -10,8 +10,7 @@ exit(code?: number = 0): void
 
 Exit from the app programmatically.
 
-
-`exit` function contains cleanup logic to return to valid and usable terminal session and thus, __should be used instead of `process.exit`__.
+`exit` function contains cleanup logic to return to valid and usable terminal session and thus, **should be used instead of `process.exit`**.
 
 #### Arguments:
 
@@ -22,7 +21,7 @@ Exit from the app programmatically.
 #### Example:
 
 ```js
-import { exit } from '@react-slate/core';
+import {exit} from '@react-slate/core';
 
 exit();
 // or

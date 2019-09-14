@@ -1,6 +1,6 @@
 # renderToString
 
-#### Syntax:
+#### Definition:
 
 ```js
 renderToString(
@@ -35,7 +35,7 @@ Use `for await` for continuously rendered app - ones that render more than a sin
 #### Example:
 
 ```js
-import { renderToString, Text } from '@react-slate/core';
+import {renderToString, Text} from '@react-slate/core';
 
 const App = () => <Text>Hello</Text>;
 

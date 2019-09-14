@@ -1,6 +1,6 @@
 # render
 
-#### Syntax:
+#### Definition:
 
 ```js
 render(
@@ -23,9 +23,9 @@ By default the rendered content will be styled with colors and modifiers. You ca
 #### Example:
 
 ```js
-import { render, Text } from '@react-slate/core';
+import {render, Text} from '@react-slate/core';
 
 const App = () => <Text>Hello</Text>;
 
-render(<App />)
+render(<App />);
 ```
