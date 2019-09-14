@@ -5,8 +5,10 @@ export type Style = {
 };
 
 export type RectData = {
+  absolute: boolean;
   x: number;
   y: number;
+  z: number;
   relativeX: number;
   relativeY: number;
   width: number;

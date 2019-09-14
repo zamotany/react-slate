@@ -51,6 +51,7 @@ export type Props = {
   right?: number | string;
   bottom?: number | string;
   left?: number | string;
+  zIndex?: number;
   marginTop?: number | string;
   marginRight?: number | string;
   marginBottom?: number | string;
@@ -84,7 +85,9 @@ export default function View(props: Props) {
   );
 }
 
-export function reduceLayoutStyle(props: Props): LayoutStyle {
+export function reduceLayoutStyle(
+  props: Props
+): LayoutStyle & { zIndex: number } {
   return {
     display: props.display === 'none' ? Display.None : Display.Flex,
     positionType:
@@ -165,5 +168,6 @@ export function reduceLayoutStyle(props: Props): LayoutStyle {
     minHeight: props.minHeight,
     maxWidth: props.maxWidth,
     maxHeight: props.maxHeight,
+    zIndex: props.position === 'absolute' ? props.zIndex || 1 : 0,
   };
 }

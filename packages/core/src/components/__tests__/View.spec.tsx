@@ -34,6 +34,7 @@ const LAYOUT_STYLE_DEFAULTS = {
   minHeight: undefined,
   maxWidth: undefined,
   maxHeight: undefined,
+  zIndex: 0,
 };
 
 describe('View component', () => {
@@ -126,6 +127,7 @@ describe('View component', () => {
         {
           ...LAYOUT_STYLE_DEFAULTS,
           positionType: 1,
+          zIndex: 1,
         }
       );
     });

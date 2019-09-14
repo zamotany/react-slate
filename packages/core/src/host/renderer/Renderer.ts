@@ -8,6 +8,7 @@ import { Layout } from '../../layout';
 type Cell = {
   char: string;
   style?: Style;
+  zIndex: number;
 };
 
 export type RenderDiff = Array<{ line: number; text: string }>;
@@ -43,6 +44,7 @@ export default class Renderer {
         if (!this.canvas[y][x]) {
           this.canvas[y][x] = {
             char: '',
+            zIndex: -Number.MAX_VALUE,
           };
         }
       }
@@ -109,9 +111,16 @@ export default class Renderer {
   private assignBodyCell(
     x: number,
     y: number,
+    z: number,
     char: string | undefined,
     style?: Style
   ) {
+    if (z < this.canvas[y][x].zIndex) {
+      return;
+    }
+
+    this.canvas[y][x].zIndex = z;
+
     if (char) {
       this.canvas[y][x].char = char;
     }
@@ -165,10 +174,10 @@ export default class Renderer {
           }
 
           if (body) {
-            this.assignBodyCell(x, y, body[bodyIndex], node.style);
+            this.assignBodyCell(x, y, node.zIndex, body[bodyIndex], node.style);
             bodyIndex += 1;
           } else {
-            this.assignBodyCell(x, y, undefined, node.style);
+            this.assignBodyCell(x, y, node.zIndex, undefined, node.style);
           }
         }
       }

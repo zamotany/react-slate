@@ -7,6 +7,8 @@ describe('Base node', () => {
     const layout: Layout = {
       x: 1,
       y: 1,
+      z: 0,
+      absolute: false,
       width: 10,
       height: 2,
     } as any;
@@ -28,6 +30,8 @@ describe('Base node', () => {
     const layout: Layout = {
       x: 1,
       y: 1,
+      z: 0,
+      absolute: false,
       width: 10,
       height: 2,
     } as any;
@@ -50,6 +54,8 @@ describe('Base node', () => {
     const layout: Layout = {
       x: 1,
       y: 1,
+      z: 0,
+      absolute: false,
       width: 10,
       height: 2,
     } as any;
@@ -67,6 +73,8 @@ describe('Base node', () => {
     base.rect = {
       x: 1,
       y: 1,
+      z: 0,
+      absolute: false,
       relativeX: 0,
       relativeY: 0,
       width: 10,
@@ -94,6 +102,8 @@ describe('Base node', () => {
     base.rect = {
       x: 1,
       y: 1,
+      z: 0,
+      absolute: false,
       relativeX: 0,
       relativeY: 0,
       width: 10,
@@ -119,6 +129,8 @@ describe('Base node', () => {
     base.rect = {
       x: 1,
       y: 1,
+      z: 0,
+      absolute: false,
       relativeX: 0,
       relativeY: 0,
       width: 10,

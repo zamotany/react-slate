@@ -18,12 +18,16 @@ export default class Base<C> {
   onLayoutHook?: OnLayoutHook;
   rect?: RectData;
   onClickHook?: OnClickHook;
+  isAbsolute = false;
+  zIndex = 0;
 
   notifyOnLayoutHook(
     layout: Layout,
     { offsetX, offsetY }: { offsetX: number; offsetY: number }
   ) {
     const rect = {
+      absolute: this.isAbsolute,
+      z: this.zIndex,
       x: layout.x + offsetX,
       y: layout.y + offsetY,
       relativeX: layout.x,

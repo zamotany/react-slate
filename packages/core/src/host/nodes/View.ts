@@ -1,14 +1,28 @@
 import assert from 'assert';
 import Base from './Base';
 import Text from './Text';
-import { Style as LayoutStyle } from '../../layout';
+import { Style as LayoutStyle, PositionType } from '../../layout';
 import { Layout } from '../../layout';
 import { MouseEvent } from '../../types';
 
 export default class View extends Base<View | Text> {
   static TAG = 'VIEW_NODE';
 
-  setLayoutStyle(style: LayoutStyle) {
+  setLayoutStyle(style: LayoutStyle & { zIndex?: number }) {
+    const isAbsolute = style.positionType === PositionType.Absolute;
+    if (this.isAbsolute !== isAbsolute) {
+      this.isAbsolute = isAbsolute;
+      if (style.zIndex) {
+        this.zIndex = style.zIndex;
+      } else {
+        this.zIndex = isAbsolute ? 1 : 0;
+      }
+      for (let i = 0; i < this.children.length; i++) {
+        this.children[i].isAbsolute = this.isAbsolute;
+        this.children[i].zIndex = this.zIndex;
+      }
+    }
+
     this.layoutNode.setStyle({
       ...this.layoutNode.getStyle(),
       ...style,
@@ -27,6 +41,8 @@ export default class View extends Base<View | Text> {
       this.layoutNode.removeChildAtIndex(0);
     }
     for (let i = 0; i < this.children.length; i++) {
+      this.children[i].isAbsolute = this.isAbsolute;
+      this.children[i].zIndex = this.zIndex;
       this.layoutNode.addChild(this.children[i].layoutNode);
     }
   }

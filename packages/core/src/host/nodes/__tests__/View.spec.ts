@@ -76,6 +76,8 @@ describe('View node', () => {
     expect(view.onLayoutHook).toHaveBeenCalledWith({
       x: 0,
       y: 0,
+      z: 0,
+      absolute: false,
       relativeX: 0,
       relativeY: 0,
       width: 11,
@@ -84,6 +86,8 @@ describe('View node', () => {
     expect(child.onLayoutHook).toHaveBeenCalledWith({
       x: 1,
       y: 1,
+      z: 0,
+      absolute: false,
       relativeX: 1,
       relativeY: 1,
       width: 10,
