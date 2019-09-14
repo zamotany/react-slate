@@ -52,8 +52,8 @@ const colorize = fastMemoize(
       const rgbKeywordMatch = /rgb\((.+)\)/.exec(color);
       if (rgbKeywordMatch) {
         return isBackground
-          ? applyKeywordBackgroundColor(rgbKeywordMatch[1], text)
-          : applyKeywordColor(rgbKeywordMatch[1], text);
+          ? applyKeywordBackgroundColor(rgbKeywordMatch[1].toLowerCase(), text)
+          : applyKeywordColor(rgbKeywordMatch[1].toLowerCase(), text);
       }
 
       return text;
