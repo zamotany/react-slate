@@ -36,6 +36,7 @@
 * Get layout information using `onLayout` prop.
 * Handle clicks using `onClick` prop.
 * Use `for await` to continuously render your app using `renderToString` or `renderToJson`.
+* Support for absolute positioning and depth (`zIndex`).
 
 Please check out [Roadmap](https://github.com/zamotany/react-slate/issues/99) for in-progress and planned features. 
 
