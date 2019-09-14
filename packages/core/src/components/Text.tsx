@@ -5,7 +5,7 @@ import { OnLayoutHook, OnClickHook } from '../types';
 
 export type TextTransform = 'none' | 'capitalize' | 'uppercase' | 'lowercase';
 export type Props = {
-  children: number | string | string[];
+  children: number | string | Array<string | number>;
   color?: string;
   bgColor?: string;
   textTransform?: TextTransform;
