@@ -1,6 +1,16 @@
 # Text component
 
-A React component for displaying text. All string values should be wrapped in `<Text>` component.
+A React component for displaying text. All string values should be wrapped in `Text` component.
+
+`Text` components can be nested inside another `Text` to build a styling hierarchy:
+
+```js
+<Text bold>
+  Hello <Text color="green">World</Text>
+</Text>
+```
+
+will make both `Hello` and `World` bolded and only `World` will be green.
 
 #### Props:
 
