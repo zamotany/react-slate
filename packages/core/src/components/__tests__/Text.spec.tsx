@@ -1,7 +1,6 @@
 import React from 'react';
 import Text from '../Text';
 import renderToJson from '../../renderToJson';
-import { JsonText } from '../../types';
 
 describe('Text component', () => {
   it('should transform children', () => {

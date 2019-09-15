@@ -1,5 +1,6 @@
 import React from 'react';
 import Progress from '../Progress';
+import View from '../View';
 import renderToString from '../../renderToString';
 
 class ProgressController extends React.Component<
@@ -13,16 +14,16 @@ class ProgressController extends React.Component<
   componentDidMount() {
     setTimeout(() => {
       this.setState({ value: 0.5 });
-    }, 0);
-    setTimeout(() => {
-      this.setState({ value: 0.99 });
     }, 5);
     setTimeout(() => {
-      this.setState({ value: 1 });
+      this.setState({ value: 0.99 });
     }, 10);
     setTimeout(() => {
-      this.setState({ value: 1.1 });
+      this.setState({ value: 1 });
     }, 15);
+    setTimeout(() => {
+      this.setState({ value: 1.1 });
+    }, 20);
   }
 
   render() {
@@ -38,15 +39,13 @@ describe('Progress component', () => {
     process.env.NO_COLOR = undefined;
   });
 
-  it('should not render bar if width was not provided', () => {
-    expect(
-      renderToString(<Progress value={0.5} percentage />).snapshot
-    ).toMatch(' 50%');
-  });
-
   it('should render only bar', () => {
     expect(
-      renderToString(<Progress value={0.5} width={10} />).snapshot
+      renderToString(
+        <View width={12}>
+          <Progress value={0.5} />
+        </View>
+      ).snapshot
     ).toMatch('[=====>    ]');
   });
 
@@ -54,26 +53,32 @@ describe('Progress component', () => {
     let index = 0;
     for await (const snapshot of renderToString(
       <ProgressController>
-        {value => <Progress value={value} width={10} percentage />}
+        {value => (
+          <View width={17}>
+            <Progress value={value} percentage />
+          </View>
+        )}
       </ProgressController>,
       {
-        maxRenders: 5,
+        maxRenders: 6,
       }
     )) {
       switch (index) {
         case 0:
-          expect(snapshot).toMatch('[>         ]   0%');
           break;
         case 1:
-          expect(snapshot).toMatch('[=====>    ]  50%');
+          expect(snapshot).toMatch('[>         ]   0%');
           break;
         case 2:
-          expect(snapshot).toMatch('[=========>]  99%');
+          expect(snapshot).toMatch('[=====>    ]  50%');
           break;
         case 3:
-          expect(snapshot).toMatch('[==========] 100%');
+          expect(snapshot).toMatch('[=========>]  99%');
           break;
         case 4:
+          expect(snapshot).toMatch('[==========] 100%');
+          break;
+        case 5:
           expect(snapshot).toMatch('[==========] 100%');
           break;
         default:

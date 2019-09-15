@@ -48,7 +48,7 @@ export class AsyncIterator<D> {
             }
 
             if (self.awaitingData.length) {
-              value = Promise.resolve(self.awaitingData.pop()!);
+              value = Promise.resolve(self.awaitingData.shift()!);
             } else {
               value = new Promise(resolve => {
                 self.awaitingResolver = resolve;
