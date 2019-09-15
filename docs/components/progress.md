@@ -15,7 +15,7 @@ A React component for displaying progress bar.
 
 ```js
 import React from 'react';
-import {View, Spinner, render} from '@react-slate/core';
+import {View, Text, Progress, render} from '@react-slate/core';
 
 const App = () => (
   <View width="100%" flexDirection="column">
