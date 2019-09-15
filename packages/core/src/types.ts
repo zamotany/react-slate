@@ -4,7 +4,6 @@ export type Style = {
   color?: string;
   bgColor?: string;
   modifiers?: string[];
-  textTransform?: TextTransform;
 };
 
 export type RectData = {

@@ -1,5 +1,6 @@
 import React from 'react';
 import Paragraph from '../host/nodes/Paragraph';
+import { capitalize } from '../utils';
 import { TextTransform, OnLayoutHook, OnClickHook } from '../types';
 
 type SingleOrMulti<T> = T | Array<T>;
@@ -28,10 +29,30 @@ export default function View(props: Props) {
         color: props.color,
         bgColor: props.bgColor,
         modifiers: reduceModifiers(props),
-        textTransform: props.textTransform,
       }}
     >
-      {props.children}
+      {React.Children.map(props.children, child => {
+        if (React.isValidElement(child)) {
+          return React.cloneElement(child, {
+            textTransform: props.textTransform,
+          } as any);
+        }
+
+        switch (props.textTransform) {
+          case 'capitalize': {
+            return capitalize(child.toString());
+          }
+          case 'lowercase': {
+            return child.toString().toLowerCase();
+          }
+          case 'uppercase': {
+            return child.toString().toUpperCase();
+          }
+          case 'none':
+          default:
+            return child;
+        }
+      })}
     </Paragraph.TAG>
   );
 }

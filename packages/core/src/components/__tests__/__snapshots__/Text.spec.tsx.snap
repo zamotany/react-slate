@@ -6,7 +6,7 @@ Object {
     Object {
       "children": Array [
         Object {
-          "body": "hello",
+          "body": "HELLO",
           "height": 1,
           "node": "Text",
           "style": undefined,
@@ -21,7 +21,6 @@ Object {
         "bgColor": undefined,
         "color": undefined,
         "modifiers": undefined,
-        "textTransform": "uppercase",
       },
       "width": 5,
       "x": 0,
@@ -43,7 +42,7 @@ Object {
     Object {
       "children": Array [
         Object {
-          "body": "HELLO",
+          "body": "hello",
           "height": 1,
           "node": "Text",
           "style": undefined,
@@ -58,7 +57,6 @@ Object {
         "bgColor": undefined,
         "color": undefined,
         "modifiers": undefined,
-        "textTransform": "lowercase",
       },
       "width": 5,
       "x": 0,
@@ -81,7 +79,7 @@ Object {
       Object {
         "children": Array [
           Object {
-            "body": "hello world",
+            "body": "Hello World",
             "height": 1,
             "node": "Text",
             "style": undefined,
@@ -96,7 +94,6 @@ Object {
           "bgColor": undefined,
           "color": undefined,
           "modifiers": undefined,
-          "textTransform": "capitalize",
         },
         "width": 11,
         "x": 0,
@@ -135,7 +132,6 @@ Object {
         "bgColor": undefined,
         "color": undefined,
         "modifiers": undefined,
-        "textTransform": "none",
       },
       "width": 5,
       "x": 0,
@@ -158,7 +154,7 @@ Object {
       Object {
         "children": Array [
           Object {
-            "body": "hello ",
+            "body": "HELLO ",
             "height": 1,
             "node": "Text",
             "style": undefined,
@@ -167,7 +163,7 @@ Object {
             "y": 0,
           },
           Object {
-            "body": "world",
+            "body": "WORLD",
             "height": 1,
             "node": "Text",
             "style": undefined,
@@ -182,7 +178,6 @@ Object {
           "bgColor": undefined,
           "color": undefined,
           "modifiers": undefined,
-          "textTransform": "uppercase",
         },
         "width": 11,
         "x": 0,
