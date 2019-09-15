@@ -1,9 +1,12 @@
 import React from 'react';
 import Paragraph from '../host/nodes/Paragraph';
 import { capitalize } from '../utils';
-import { TextTransform, OnLayoutHook, OnClickHook } from '../types';
-
-type SingleOrMulti<T> = T | Array<T>;
+import {
+  SingleOrMulti,
+  TextTransform,
+  OnLayoutHook,
+  OnClickHook,
+} from '../types';
 
 export type Props = {
   children: SingleOrMulti<number | string | JSX.Element>;

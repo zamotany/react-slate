@@ -15,6 +15,7 @@
   - [View](components/view)
   - [Text](components/text)
   - [Spinner](components/spinner)
+  - [Progress](components/progress)
 
 - Handlers
 

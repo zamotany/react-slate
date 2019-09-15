@@ -12,10 +12,10 @@ import {
   AlignSelf,
   JustifyContent,
 } from '../layout';
-import { OnLayoutHook, OnClickHook } from '../types';
+import { SingleOrMulti, OnLayoutHook, OnClickHook } from '../types';
 
 export type Props = {
-  children: JSX.Element | JSX.Element[];
+  children: SingleOrMulti<0 | false | null | undefined | JSX.Element>;
   bgColor?: string;
   /** Layout props */
   display?: 'flex' | 'none';

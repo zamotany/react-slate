@@ -1,75 +1,52 @@
 import React from 'react';
-import { Text, View, TextProps } from '..';
+import { Text, View } from '..';
+import { OnLayoutHook } from '../types';
 
-type PercentageStyle = Omit<TextProps, 'children'>;
-type BarStyle = Omit<TextProps, 'children'>;
+export default class Progress extends React.Component<
+  {
+    value: number;
+    percentage?: boolean;
+    renderBar?: (children: string) => JSX.Element;
+    renderPercentage?: (children: string) => JSX.Element;
+  },
+  { width: number }
+> {
+  state = {
+    width: 0,
+  };
 
-type Props = {
-  value: number;
-  width?: number;
-  percentage?: boolean;
-  percentageStyle?: PercentageStyle;
-  barStyle?: BarStyle;
-  renderPercentage?: (
-    percentage: number,
-    percentageStyle?: PercentageStyle
-  ) => JSX.Element;
-  renderBar?: (
-    value: number,
-    width: number,
-    barStyle?: BarStyle
-  ) => JSX.Element;
-  renderContainer?: (children: JSX.Element[]) => JSX.Element;
-};
+  onLayout: OnLayoutHook = layout => {
+    this.setState({ width: layout.width });
+  };
 
-export default function Progress(props: Props) {
-  const value = Math.max(0, Math.min(1, props.value));
-  const percentageValue = Math.floor(value * 100);
-  const percentageElement = props.percentage
-    ? (props.renderPercentage || renderPercentage)(
-        percentageValue,
-        props.percentageStyle
-      )
-    : null;
-  const barElement = props.width
-    ? (props.renderBar || renderBar)(value, props.width, props.barStyle)
-    : null;
-  return (props.renderContainer || renderContainer)([
-    barElement,
-    percentageElement,
-  ].filter(Boolean) as JSX.Element[]);
-}
+  render() {
+    const { percentage, renderBar, renderPercentage } = this.props;
+    const { width } = this.state;
+    const value = Math.max(0, Math.min(1, this.props.value));
 
-function renderPercentage(
-  percentage: number,
-  percentageStyle?: PercentageStyle
-) {
-  const text = `${percentage.toString()}%`;
-  return (
-    <Text {...percentageStyle} key="progress-percentage">
-      {' '.repeat(4 - text.length)}
-      {text}
-    </Text>
-  );
-}
+    const percentageLength = this.props.percentage ? 5 : 0;
+    const maxBarWith = width - 2 - percentageLength;
+    const fillWidth = Math.max(0, Math.floor(value * maxBarWith));
+    const offsetWidth = Math.max(0, maxBarWith - fillWidth - 1);
+    const bar = `[${'='.repeat(fillWidth)}${value === 1 ? '' : '>'}${' '.repeat(
+      offsetWidth
+    )}]`;
+    const percentageString = `${Math.floor(value * 100).toString()}%`;
 
-function renderBar(value: number, width: number, barStyle?: BarStyle) {
-  const barWidth = Math.floor(value * width);
-  return (
-    <View marginRight={1} key="progress-bar">
-      {value === 1 ? (
-        <Text {...barStyle}>[{'='.repeat(barWidth)}]</Text>
-      ) : (
-        <Text {...barStyle}>
-          [{'='.repeat(barWidth)}
-          {value === 1 ? '=' : '>'}
-          {' '.repeat(width - barWidth - 1)}]
-        </Text>
-      )}
-    </View>
-  );
-}
-
-function renderContainer(children: JSX.Element[]) {
-  return <View>{children}</View>;
+    return (
+      <View
+        onLayout={this.onLayout}
+        width="100%"
+        justifyContent="space-between"
+      >
+        {width && (renderBar ? renderBar(bar) : <Text>{bar}</Text>)}
+        {percentage &&
+          (renderPercentage ? (
+            renderPercentage(percentageString)
+          ) : (
+            <Text>{percentageString}</Text>
+          ))}
+      </View>
+    );
+  }
 }

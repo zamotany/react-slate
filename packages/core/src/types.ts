@@ -1,3 +1,5 @@
+export type SingleOrMulti<T> = T | Array<T>;
+
 export type TextTransform = 'none' | 'capitalize' | 'uppercase' | 'lowercase';
 
 export type Style = {
