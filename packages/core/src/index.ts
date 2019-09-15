@@ -8,6 +8,5 @@ export { default as View, Props as ViewProps } from './components/View';
 export { default as Text, Props as TextProps } from './components/Text';
 export { default as Progress } from './components/Progress';
 export { default as Spinner } from './components/Spinner';
-export { default as Link } from './components/Link';
 
 export { TextTransform, JsonText, JsonView, JsonParagraph } from './types';
