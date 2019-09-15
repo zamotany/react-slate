@@ -9,9 +9,11 @@ import {
   OnClickHook,
 } from '../../types';
 import { Layout } from '../../layout';
+import Paragraph from './Paragraph';
+import ContainerBase from './ContainerBase';
 
 export default class Base<C> {
-  parent?: View;
+  parent?: ContainerBase<any> | View | Paragraph;
   children: C[] = [];
   layoutNode = new LayoutNode(allocator, {});
   style?: Style;

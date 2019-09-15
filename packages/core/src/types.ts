@@ -1,7 +1,10 @@
+export type TextTransform = 'none' | 'capitalize' | 'uppercase' | 'lowercase';
+
 export type Style = {
   color?: string;
   bgColor?: string;
   modifiers?: string[];
+  textTransform?: TextTransform;
 };
 
 export type RectData = {
@@ -31,6 +34,16 @@ export type OnClickHook = (event: MouseEvent) => boolean | void;
 export type JsonText = {
   node: 'Text';
   body: string;
+  width: number;
+  height: number;
+  x: number;
+  y: number;
+  style?: Style;
+};
+
+export type JsonParagraph = {
+  node: 'Paragraph';
+  children: Array<JsonParagraph | JsonText>;
   width: number;
   height: number;
   x: number;

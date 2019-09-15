@@ -1,4 +1,5 @@
 import View from '../View';
+import { PositionType } from '../../../layout';
 
 describe('View node', () => {
   it('should add child at the end', () => {
@@ -126,5 +127,33 @@ describe('View node', () => {
     expect(view.onClickHook).toHaveBeenCalled();
     expect(child1.onClickHook).toHaveBeenCalled();
     expect(child2.onClickHook).not.toHaveBeenCalled();
+  });
+
+  it("should set mark node and it's children  as absolute", () => {
+    const view = new View();
+    const child1 = new View();
+    const child2 = new View();
+
+    view.appendChild(child1);
+    view.prependChild(child2);
+    view.setLayoutStyle({
+      positionType: PositionType.Absolute,
+    });
+    expect(view.isAbsolute).toBe(true);
+    expect(view.zIndex).toBe(1);
+
+    view.setLayoutStyle({
+      positionType: PositionType.Absolute,
+      zIndex: 2,
+    });
+    expect(view.isAbsolute).toBe(true);
+    expect(view.zIndex).toBe(2);
+
+    view.setLayoutStyle({
+      positionType: PositionType.Relative,
+      zIndex: 2,
+    });
+    expect(view.isAbsolute).toBe(false);
+    expect(view.zIndex).toBe(0);
   });
 });

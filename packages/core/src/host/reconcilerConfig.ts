@@ -2,7 +2,9 @@ import shallowEqual from 'shallowequal';
 import ReactReconciler from 'react-reconciler';
 import createElement from './createElement';
 import Text from './nodes/Text';
+import Paragraph from './nodes/Paragraph';
 import View from './nodes/View';
+import ContainerBase from './nodes/ContainerBase';
 
 const NOOP = () => {};
 const RETURN_EMPTY_OBJ = () => ({});
@@ -14,11 +16,11 @@ export default function createReconcilerConfig(
 ): ReactReconciler.HostConfig<
   any, // TODO: replace with concrete type
   any, // TODO: replace with concrete type
-  View,
-  View | Text | Function | undefined,
+  ContainerBase<any>,
+  View | Paragraph | Text | Function | undefined,
   Text,
   undefined,
-  Text | View,
+  Text | Paragraph | View,
   {},
   any, // TODO: replace with concrete type
   unknown,
@@ -44,31 +46,46 @@ export default function createReconcilerConfig(
       container.prependChild(child, container.findChild(childBefore));
     },
 
-    appendChildToContainer(container: View, child: View | Text) {
+    appendChildToContainer(
+      container: ContainerBase<any>,
+      child: View | Text | Paragraph
+    ) {
       container.appendChild(child);
     },
 
-    removeChildFromContainer(container: View, child: View | Text) {
+    removeChildFromContainer(
+      container: ContainerBase<any>,
+      child: View | Text | Paragraph
+    ) {
       container.removeChild(child);
     },
 
     // Default handlers
-    appendInitialChild(parentInstance: View, child: View | Text) {
+    appendInitialChild(
+      parentInstance: ContainerBase<any>,
+      child: View | Text | Paragraph
+    ) {
       parentInstance.appendChild(child);
     },
 
-    appendChild(parentInstance: View, child: View | Text) {
+    appendChild(
+      parentInstance: ContainerBase<any>,
+      child: View | Text | Paragraph
+    ) {
       parentInstance.appendChild(child);
     },
 
-    removeChild(parentInstance: View, child: View | Text) {
+    removeChild(
+      parentInstance: ContainerBase<any>,
+      child: View | Text | Paragraph
+    ) {
       parentInstance.removeChild(child);
     },
 
     insertBefore(
-      parentInstance: View,
-      child: View | Text,
-      childBefore: View | Text
+      parentInstance: ContainerBase<any>,
+      child: View | Text | Paragraph,
+      childBefore: View | Text | Paragraph
     ) {
       parentInstance.prependChild(child, parentInstance.findChild(childBefore));
     },
@@ -79,7 +96,7 @@ export default function createReconcilerConfig(
     },
 
     commitUpdate(
-      instance: View | Text,
+      instance: View | Paragraph | Text,
       _updatePayload: any,
       _type: string,
       oldProps: any,
@@ -99,6 +116,8 @@ export default function createReconcilerConfig(
         } else if (instance instanceof Text) {
           instance.style = newProps.style;
           instance.setBody(newProps.children);
+        } else if (instance instanceof Paragraph) {
+          instance.style = newProps.style;
         }
       }
     },
@@ -116,13 +135,7 @@ export default function createReconcilerConfig(
       return inst;
     },
 
-    shouldSetTextContent: (type: string) => {
-      if (type === Text.TAG) {
-        return true;
-      }
-      return false;
-    },
-
+    shouldSetTextContent: NO,
     commitMount: NOOP,
     getRootHostContext: RETURN_EMPTY_OBJ,
     getChildHostContext: RETURN_EMPTY_OBJ,

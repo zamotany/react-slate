@@ -1,0 +1,201 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Text component should transform children 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "hello",
+          "height": 1,
+          "node": "Text",
+          "style": undefined,
+          "width": 5,
+          "x": 0,
+          "y": 0,
+        },
+      ],
+      "height": 1,
+      "node": "Paragraph",
+      "style": Object {
+        "bgColor": undefined,
+        "color": undefined,
+        "modifiers": undefined,
+        "textTransform": "uppercase",
+      },
+      "width": 5,
+      "x": 0,
+      "y": 0,
+    },
+  ],
+  "height": 1,
+  "node": "View",
+  "style": undefined,
+  "width": 5,
+  "x": 0,
+  "y": 0,
+}
+`;
+
+exports[`Text component should transform children 2`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "HELLO",
+          "height": 1,
+          "node": "Text",
+          "style": undefined,
+          "width": 5,
+          "x": 0,
+          "y": 0,
+        },
+      ],
+      "height": 1,
+      "node": "Paragraph",
+      "style": Object {
+        "bgColor": undefined,
+        "color": undefined,
+        "modifiers": undefined,
+        "textTransform": "lowercase",
+      },
+      "width": 5,
+      "x": 0,
+      "y": 0,
+    },
+  ],
+  "height": 1,
+  "node": "View",
+  "style": undefined,
+  "width": 5,
+  "x": 0,
+  "y": 0,
+}
+`;
+
+exports[`Text component should transform children 3`] = `
+Object {
+  "snapshot": Object {
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "body": "hello world",
+            "height": 1,
+            "node": "Text",
+            "style": undefined,
+            "width": 11,
+            "x": 0,
+            "y": 0,
+          },
+        ],
+        "height": 1,
+        "node": "Paragraph",
+        "style": Object {
+          "bgColor": undefined,
+          "color": undefined,
+          "modifiers": undefined,
+          "textTransform": "capitalize",
+        },
+        "width": 11,
+        "x": 0,
+        "y": 0,
+      },
+    ],
+    "height": 1,
+    "node": "View",
+    "style": undefined,
+    "width": 11,
+    "x": 0,
+    "y": 0,
+  },
+  Symbol(Symbol.iterator): [Function],
+}
+`;
+
+exports[`Text component should transform children 4`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "hello",
+          "height": 1,
+          "node": "Text",
+          "style": undefined,
+          "width": 5,
+          "x": 0,
+          "y": 0,
+        },
+      ],
+      "height": 1,
+      "node": "Paragraph",
+      "style": Object {
+        "bgColor": undefined,
+        "color": undefined,
+        "modifiers": undefined,
+        "textTransform": "none",
+      },
+      "width": 5,
+      "x": 0,
+      "y": 0,
+    },
+  ],
+  "height": 1,
+  "node": "View",
+  "style": undefined,
+  "width": 5,
+  "x": 0,
+  "y": 0,
+}
+`;
+
+exports[`Text component should transform children 5`] = `
+Object {
+  "snapshot": Object {
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "body": "hello ",
+            "height": 1,
+            "node": "Text",
+            "style": undefined,
+            "width": 6,
+            "x": 0,
+            "y": 0,
+          },
+          Object {
+            "body": "world",
+            "height": 1,
+            "node": "Text",
+            "style": undefined,
+            "width": 5,
+            "x": 6,
+            "y": 0,
+          },
+        ],
+        "height": 1,
+        "node": "Paragraph",
+        "style": Object {
+          "bgColor": undefined,
+          "color": undefined,
+          "modifiers": undefined,
+          "textTransform": "uppercase",
+        },
+        "width": 11,
+        "x": 0,
+        "y": 0,
+      },
+    ],
+    "height": 1,
+    "node": "View",
+    "style": undefined,
+    "width": 11,
+    "x": 0,
+    "y": 0,
+  },
+  Symbol(Symbol.iterator): [Function],
+}
+`;

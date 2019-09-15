@@ -4,6 +4,7 @@ import View from '../nodes/View';
 import Text from '../nodes/Text';
 import { Style } from '../../types';
 import { Layout } from '../../layout';
+import Paragraph from '../nodes/Paragraph';
 
 type Cell = {
   char: string;
@@ -19,7 +20,7 @@ export default class Renderer {
   maxHeight: number = Number.MAX_SAFE_INTEGER;
   maxWidth: number = Number.MAX_SAFE_INTEGER;
 
-  private canvas: Cell[][] = [];
+  canvas: Cell[][] = [];
   private memoizedRows: string[] = [];
 
   resize(width: number, height: number): void {
@@ -100,7 +101,7 @@ export default class Renderer {
   ): string[] {
     this.reset(maxWidth, maxHeight);
     this.resize(layout.width, layout.height);
-    this.rasterize(rootNode, layout, 0, 0);
+    this.rasterize(rootNode, layout, 0, 0, 0);
     return this.getAnsiRows();
   }
 
@@ -119,32 +120,41 @@ export default class Renderer {
       return;
     }
 
-    this.canvas[y][x].zIndex = z;
-
     if (char) {
       this.canvas[y][x].char = char;
     }
 
-    if (style) {
+    if (this.canvas[y][x].zIndex === z) {
+      if (style) {
+        this.canvas[y][x].style = {
+          color:
+            style.color ||
+            (this.canvas[y][x].style && this.canvas[y][x].style!.color),
+          bgColor:
+            style.bgColor ||
+            (this.canvas[y][x].style && this.canvas[y][x].style!.bgColor),
+          modifiers:
+            style.modifiers ||
+            (this.canvas[y][x].style && this.canvas[y][x].style!.modifiers),
+        };
+      }
+    } else {
       this.canvas[y][x].style = {
-        color:
-          style.color ||
-          (this.canvas[y][x].style && this.canvas[y][x].style!.color),
-        bgColor:
-          style.bgColor ||
-          (this.canvas[y][x].style && this.canvas[y][x].style!.bgColor),
-        modifiers:
-          style.modifiers ||
-          (this.canvas[y][x].style && this.canvas[y][x].style!.modifiers),
+        color: style ? style.color : undefined,
+        bgColor: style ? style.bgColor : undefined,
+        modifiers: style ? style.modifiers : undefined,
       };
     }
+
+    this.canvas[y][x].zIndex = z;
   }
 
   private rasterize(
-    node: View | Text,
+    node: View | Text | Paragraph,
     layout: Layout,
     accX: number,
-    accY: number
+    accY: number,
+    zIndex: number
   ) {
     const body = node instanceof Text && node.getBody();
     if (
@@ -174,22 +184,23 @@ export default class Renderer {
           }
 
           if (body) {
-            this.assignBodyCell(x, y, node.zIndex, body[bodyIndex], node.style);
+            this.assignBodyCell(x, y, zIndex, body[bodyIndex], node.style);
             bodyIndex += 1;
           } else {
-            this.assignBodyCell(x, y, node.zIndex, undefined, node.style);
+            this.assignBodyCell(x, y, zIndex, undefined, node.style);
           }
         }
       }
     }
 
-    if (node instanceof View && node.children) {
+    if ((node instanceof View || node instanceof Paragraph) && node.children) {
       for (let i = 0; i < node.children.length; i++) {
         this.rasterize(
           node.children[i],
           layout.child(i),
           layout.x + accX,
-          layout.y + accY
+          layout.y + accY,
+          node.isAbsolute ? node.zIndex : zIndex
         );
       }
     }

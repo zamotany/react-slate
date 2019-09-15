@@ -4,13 +4,14 @@ import createReconcilerConfig from './host/reconcilerConfig';
 import View from './host/nodes/View';
 import Text from './host/nodes/Text';
 import { Layout } from './layout';
-import { JsonView, JsonText } from './types';
+import { JsonView, JsonText, JsonParagraph } from './types';
 import { AsyncIterator } from './utils';
+import Paragraph from './host/nodes/Paragraph';
 
 function traverse(
-  node: View | Text,
+  node: View | Paragraph | Text,
   layout: Layout
-): JsonView | JsonText | undefined {
+): JsonView | JsonParagraph | JsonText | undefined {
   if (node instanceof View) {
     return {
       node: 'View',
@@ -33,6 +34,18 @@ function traverse(
       y: layout.y,
       style: node.style,
     } as JsonText;
+  } else if (node instanceof Paragraph) {
+    return {
+      node: 'Paragraph',
+      children: node.children.map((child, index) =>
+        traverse(child, layout.child(index))
+      ),
+      width: layout.width,
+      height: layout.height,
+      x: layout.x,
+      y: layout.y,
+      style: node.style,
+    } as JsonParagraph;
   }
 
   throw new Error(`Unknown instance of node: ${inspect(node)}`);

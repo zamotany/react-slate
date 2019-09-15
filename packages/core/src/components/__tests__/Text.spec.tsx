@@ -6,26 +6,20 @@ import { JsonText } from '../../types';
 describe('Text component', () => {
   it('should transform children', () => {
     expect(
-      (renderToJson(<Text textTransform="uppercase">hello</Text>).snapshot
-        .children[0] as JsonText).body
-    ).toEqual('HELLO');
+      renderToJson(<Text textTransform="uppercase">hello</Text>).snapshot
+    ).toMatchSnapshot();
     expect(
-      (renderToJson(<Text textTransform="lowercase">HELLO</Text>).snapshot
-        .children[0] as JsonText).body
-    ).toEqual('hello');
+      renderToJson(<Text textTransform="lowercase">HELLO</Text>).snapshot
+    ).toMatchSnapshot();
     expect(
-      (renderToJson(<Text textTransform="capitalize">hello world</Text>)
-        .snapshot.children[0] as JsonText).body
-    ).toEqual('Hello World');
+      renderToJson(<Text textTransform="capitalize">hello world</Text>)
+    ).toMatchSnapshot();
     expect(
-      (renderToJson(<Text textTransform="none">hello</Text>).snapshot
-        .children[0] as JsonText).body
-    ).toEqual('hello');
+      renderToJson(<Text textTransform="none">hello</Text>).snapshot
+    ).toMatchSnapshot();
     expect(
-      (renderToJson(
-        <Text textTransform="uppercase">{['hello ', 'world']}</Text>
-      ).snapshot.children[0] as JsonText).body
-    ).toEqual('HELLO WORLD');
+      renderToJson(<Text textTransform="uppercase">{['hello ', 'world']}</Text>)
+    ).toMatchSnapshot();
   });
 
   it('should add modifiers', () => {

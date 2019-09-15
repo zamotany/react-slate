@@ -1,4 +1,5 @@
 import assert from 'assert';
+import stripAnsi from 'strip-ansi';
 import Base from './Base';
 
 export type TextStyle = {
@@ -16,7 +17,7 @@ export default class Text extends Base<never> {
     assert(!body.includes('\n'), 'Text body cannot have new line characters');
     this.body = body;
     this.layoutNode.setStyle({
-      width: this.body.length,
+      width: stripAnsi(this.body).length,
       height: 1,
     });
   }
