@@ -2,6 +2,10 @@
 
 A React component for displaying progress bar.
 
+`Progress` component will take `100%` of available width, so if you need to shrink if, wrap `Progress` component inside a `View` with fixed `width`.
+
+`Progress` component uses `onLayout` to get available width, so there might be a flash of empty content, before the bar is rendered.
+
 #### Props:
 
 | Name               | Type                                | Optional | Description                                           |
