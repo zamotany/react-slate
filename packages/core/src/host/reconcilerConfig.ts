@@ -106,9 +106,7 @@ export default function createReconcilerConfig(
         instance.onLayoutHook = newProps.onLayout;
       }
 
-      if (newProps.onClick !== instance.onClickHook) {
-        instance.onClickHook = newProps.onClick;
-      }
+      instance.eventListener.setOnClickListener(newProps.onClick);
 
       if (!shallowEqual(oldProps, newProps)) {
         if (instance instanceof View) {

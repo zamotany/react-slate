@@ -1,5 +1,7 @@
 import Base from '../Base';
 import { Layout } from '../../../layout';
+import { EventManager, EventTypes } from '../../../events';
+import { MouseEvent } from '../../../types';
 
 describe('Base node', () => {
   it('should call onLayout hook', () => {
@@ -70,6 +72,7 @@ describe('Base node', () => {
 
   it('should call onClick if mouse click is within bounds', () => {
     const base = new Base();
+    const eventManager = new EventManager<MouseEvent>();
     base.rect = {
       x: 1,
       y: 1,
@@ -80,25 +83,31 @@ describe('Base node', () => {
       width: 10,
       height: 2,
     };
-    base.onClickHook = jest.fn(event => {
+    const onClick = jest.fn(event => {
       expect(event).toBeDefined();
       return true;
     });
+    base.eventListener.setOnClickListener(onClick);
     expect(
-      base.notifyOnClickHook({
-        code: 0,
-        ctrl: false,
-        shift: false,
-        alt: false,
-        x: 2,
-        y: 2,
-      })
+      eventManager.propagateEvent(
+        EventTypes.MOUSE_LEFT_BUTTON_PRESSED,
+        {
+          code: 0,
+          ctrl: false,
+          shift: false,
+          alt: false,
+          x: 2,
+          y: 2,
+        },
+        base.eventListener
+      )
     ).toBeTruthy();
-    expect(base.onClickHook).toHaveBeenCalled();
+    expect(onClick).toHaveBeenCalled();
   });
 
   it('should not call onClick if mouse click is outside of bounds', () => {
     const base = new Base();
+    const eventManager = new EventManager<MouseEvent>();
     base.rect = {
       x: 1,
       y: 1,
@@ -109,23 +118,30 @@ describe('Base node', () => {
       width: 10,
       height: 2,
     };
-    base.onClickHook = jest.fn(() => {
-      throw new Error('should not been called');
-    });
-    expect(
-      base.notifyOnClickHook({
-        code: 0,
-        ctrl: false,
-        shift: false,
-        alt: false,
-        x: 3,
-        y: 4,
+    base.eventListener.setOnClickListener(
+      jest.fn(() => {
+        throw new Error('should not been called');
       })
+    );
+    expect(
+      eventManager.propagateEvent(
+        EventTypes.MOUSE_LEFT_BUTTON_PRESSED,
+        {
+          code: 0,
+          ctrl: false,
+          shift: false,
+          alt: false,
+          x: 3,
+          y: 4,
+        },
+        base.eventListener
+      )
     ).toBeFalsy();
   });
 
   it('should not call if onClick was not set', () => {
     const base = new Base();
+    const eventManager = new EventManager<MouseEvent>();
     base.rect = {
       x: 1,
       y: 1,
@@ -137,14 +153,18 @@ describe('Base node', () => {
       height: 2,
     };
     expect(
-      base.notifyOnClickHook({
-        code: 0,
-        ctrl: false,
-        shift: false,
-        alt: false,
-        x: 2,
-        y: 1,
-      })
+      eventManager.propagateEvent(
+        EventTypes.MOUSE_LEFT_BUTTON_PRESSED,
+        {
+          code: 0,
+          ctrl: false,
+          shift: false,
+          alt: false,
+          x: 2,
+          y: 1,
+        },
+        base.eventListener
+      )
     ).toBeFalsy();
   });
 });

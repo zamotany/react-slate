@@ -5,6 +5,7 @@ import View from './host/nodes/View';
 import Renderer, { RenderDiff } from './host/renderer/Renderer';
 import { createBufferedConsole } from './bufferedConsole';
 import { MouseEvent } from './types';
+import { EventManager, EventTypes } from './events';
 
 function reflowAndDiff(container: View, renderer: Renderer) {
   container.setLayoutStyle({ width: '100%', height: '100%' });
@@ -51,9 +52,36 @@ function initialize(container: View, renderer: Renderer) {
     }
   });
 
+  const eventManager = new EventManager<MouseEvent>();
+
   terminal.on('mouse', (name: string, data: MouseEvent) => {
     if (name === 'MOUSE_LEFT_BUTTON_PRESSED') {
-      container.notifyOnClickHook(data);
+      eventManager.propagateEvent(
+        EventTypes.MOUSE_LEFT_BUTTON_PRESSED,
+        data,
+        container.eventListener
+      );
+    } else if (name === 'MOUSE_RIGHT_BUTTON_PRESSED') {
+      eventManager.propagateEvent(
+        EventTypes.MOUSE_RIGHT_BUTTON_PRESSED,
+        data,
+        container.eventListener
+      );
+    } else if (name === 'MOUSE_WHEEL_UP' || name === 'MOUSE_WHEEL_DOWN') {
+      eventManager.propagateEvent(
+        EventTypes.MOUSE_WHEEL,
+        {
+          ...data,
+          direction: name === 'MOUSE_WHEEL_UP' ? 1 : -1,
+        },
+        container.eventListener
+      );
+    } else if (name === 'MOUSE_MOTION') {
+      eventManager.propagateEvent(
+        EventTypes.MOUSE_MOTION,
+        data,
+        container.eventListener
+      );
     }
   });
 

@@ -28,6 +28,7 @@ export type MouseEvent = {
   shift: boolean;
   alt: boolean;
   ctrl: boolean;
+  direction?: number;
 };
 
 export type OnClickHook = (event: MouseEvent) => boolean | void;

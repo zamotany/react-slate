@@ -1,7 +1,6 @@
 import assert from 'assert';
 import Base from './Base';
 import { Layout } from '../../layout';
-import { MouseEvent } from '../../types';
 
 export default class ContainerBase<C extends Base<any>> extends Base<C> {
   findChild(child: C) {
@@ -24,6 +23,7 @@ export default class ContainerBase<C extends Base<any>> extends Base<C> {
 
   prependChild(child: C, position?: number) {
     child.parent = this;
+    this.eventListener.addChild(child.eventListener);
     if (position !== undefined) {
       assert(
         position >= 0 && position <= this.children.length - 1,
@@ -39,6 +39,7 @@ export default class ContainerBase<C extends Base<any>> extends Base<C> {
 
   appendChild(child: C, position?: number) {
     child.parent = this;
+    this.eventListener.addChild(child.eventListener);
     if (position !== undefined) {
       assert(
         position >= 0 && position <= this.children.length,
@@ -58,6 +59,7 @@ export default class ContainerBase<C extends Base<any>> extends Base<C> {
     assert(nodeIndex >= 0, 'child not found');
     delete child.parent;
     delete child.layoutNode;
+    this.eventListener.removeChild(child.eventListener);
     this.children.splice(nodeIndex, 1);
     this.layoutNode.removeChildAtIndex(nodeIndex);
   }
@@ -73,13 +75,5 @@ export default class ContainerBase<C extends Base<any>> extends Base<C> {
         offsetY: offsetY + layout.y,
       });
     }
-  }
-
-  notifyOnClickHook(event: MouseEvent) {
-    const handled = this.children.some(child => child.notifyOnClickHook(event));
-    if (!handled) {
-      return Boolean(super.notifyOnClickHook(event));
-    }
-    return false;
   }
 }

@@ -1,5 +1,7 @@
 import View from '../View';
 import { PositionType } from '../../../layout';
+import { EventManager, EventTypes } from '../../../events';
+import { MouseEvent } from '../../../types';
 
 describe('View node', () => {
   it('should add child at the end', () => {
@@ -101,12 +103,19 @@ describe('View node', () => {
     const view = new View();
     const child1 = new View();
     const child2 = new View();
+    const eventManager = new EventManager<MouseEvent>();
 
-    root.onClickHook = jest.fn();
-    view.onClickHook = jest.fn(() => true);
-    child1.onClickHook = jest.fn();
+    const rootOnClick = jest.fn();
+    const viewOnClick = jest.fn(() => true);
+    const child1OnClick = jest.fn();
+    const child2OnClick = jest.fn();
+
+    root.eventListener.setOnClickListener(rootOnClick);
+    view.eventListener.setOnClickListener(viewOnClick);
+    child1.eventListener.setOnClickListener(child1OnClick);
+    child1.eventListener.setOnClickValidator(undefined);
     child1.setLayoutStyle({ width: 10, height: 1 });
-    child2.onClickHook = jest.fn();
+    child2.eventListener.setOnClickListener(child2OnClick);
     child2.setLayoutStyle({ width: 10, height: 1 });
 
     root.appendChild(view);
@@ -115,18 +124,22 @@ describe('View node', () => {
 
     const layout = root.layoutNode.computeLayout({ width: null, height: null });
     root.notifyOnLayoutHook(layout, { offsetX: 0, offsetY: 0 });
-    root.notifyOnClickHook({
-      ctrl: false,
-      alt: false,
-      shift: false,
-      code: 0,
-      x: 4,
-      y: 1,
-    });
-    expect(root.onClickHook).not.toHaveBeenCalled();
-    expect(view.onClickHook).toHaveBeenCalled();
-    expect(child1.onClickHook).toHaveBeenCalled();
-    expect(child2.onClickHook).not.toHaveBeenCalled();
+    eventManager.propagateEvent(
+      EventTypes.MOUSE_LEFT_BUTTON_PRESSED,
+      {
+        ctrl: false,
+        alt: false,
+        shift: false,
+        code: 0,
+        x: 4,
+        y: 1,
+      },
+      root.eventListener
+    );
+    // expect(rootOnClick).not.toHaveBeenCalled();
+    expect(viewOnClick).toHaveBeenCalled();
+    expect(child1OnClick).toHaveBeenCalled();
+    expect(child2OnClick).not.toHaveBeenCalled();
   });
 
   it("should set mark node and it's children  as absolute", () => {
