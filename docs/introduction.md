@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  Write React apps for terminal
+  Write interactive CLI apps with React
 </p>
 
 ---
