@@ -12,10 +12,10 @@ import {
   AlignSelf,
   JustifyContent,
 } from '../layout';
-import { SingleOrMulti, OnLayoutHook, OnClickHook } from '../types';
+import { SingleOrMulti, OnLayoutHook, MouseEventHandler } from '../types';
 
 export type Props = {
-  children: SingleOrMulti<0 | false | null | undefined | JSX.Element>;
+  children?: SingleOrMulti<0 | false | null | undefined | JSX.Element>;
   bgColor?: string;
   /** Layout props */
   display?: 'flex' | 'none';
@@ -66,8 +66,10 @@ export type Props = {
   minHeight?: number | string;
   maxWidth?: number | string;
   maxHeight?: number | string;
+  /** Hooks & handlers */
   onLayout?: OnLayoutHook;
-  onClick?: OnClickHook;
+  onClick?: MouseEventHandler;
+  onWheel?: MouseEventHandler;
 };
 
 export default function View(props: Props) {
@@ -77,6 +79,7 @@ export default function View(props: Props) {
     <HostView.TAG
       onLayout={onLayout}
       onClick={props.onClick}
+      onWheel={props.onWheel}
       layoutStyle={reduceLayoutStyle(props)}
       style={{ bgColor }}
     >

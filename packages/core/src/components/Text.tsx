@@ -5,7 +5,7 @@ import {
   SingleOrMulti,
   TextTransform,
   OnLayoutHook,
-  OnClickHook,
+  MouseEventHandler,
 } from '../types';
 
 export type Props = {
@@ -19,7 +19,8 @@ export type Props = {
   bold?: boolean;
   italic?: boolean;
   onLayout?: OnLayoutHook;
-  onClick?: OnClickHook;
+  onClick?: MouseEventHandler;
+  onWheel?: MouseEventHandler;
 };
 
 export default function View(props: Props) {
@@ -28,6 +29,7 @@ export default function View(props: Props) {
     <Paragraph.TAG
       onLayout={props.onLayout}
       onClick={props.onClick}
+      onWheel={props.onWheel}
       style={{
         color: props.color,
         bgColor: props.bgColor,

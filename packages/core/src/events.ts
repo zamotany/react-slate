@@ -1,6 +1,5 @@
 export enum EventTypes {
   MOUSE_LEFT_BUTTON_PRESSED = 'MOUSE_LEFT_BUTTON_PRESSED',
-  MOUSE_RIGHT_BUTTON_PRESSED = 'MOUSE_RIGHT_BUTTON_PRESSED',
   MOUSE_WHEEL = 'MOUSE_WHEEL',
   MOUSE_MOTION = 'MOUSE_MOTION',
 }
@@ -23,8 +22,11 @@ export class EventManager<E> {
     }
 
     const handler = rootListener.listeners[name];
-    const validator = rootListener.validators[name];
-    if (typeof handler === 'function' && (!validator || validator(eventData))) {
+    const validator = rootListener.validator;
+    if (
+      typeof handler === 'function' &&
+      (!validator || validator(name, eventData))
+    ) {
       return Boolean(handler(eventData));
     }
 
@@ -42,15 +44,18 @@ export class EventManager<E> {
 
 export type EventHandler<E> = (eventData: E) => boolean;
 
+export type EventValidator<E> = (
+  eventName: EventTypes,
+  eventData: E
+) => boolean;
+
 export class EventListener<E> {
   parent?: EventListener<E>;
   children: EventListener<E>[] = [];
   listeners: {
     [eventName: string]: EventHandler<E> | undefined;
   } = {};
-  validators: {
-    [eventName: string]: EventHandler<E> | undefined;
-  } = {};
+  validator: EventValidator<E> | undefined;
   listenerCount: number = 0;
 
   private updateListenerCount(value: number) {
@@ -97,12 +102,8 @@ export class EventListener<E> {
     this.setListener(EventTypes.MOUSE_LEFT_BUTTON_PRESSED, listener);
   }
 
-  setOnClickValidator(validator?: EventHandler<E>): void {
-    this.validators[EventTypes.MOUSE_LEFT_BUTTON_PRESSED] = validator;
-  }
-
-  setOnContextMenuListener(listener?: EventHandler<E>): void {
-    this.setListener(EventTypes.MOUSE_RIGHT_BUTTON_PRESSED, listener);
+  setValidator(validator?: EventValidator<E>): void {
+    this.validator = validator;
   }
 
   setOnWheelListener(listener?: EventHandler<E>): void {

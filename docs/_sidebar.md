@@ -21,6 +21,7 @@
 
   - [onLayout](handlers/on-layout)
   - [onClick](handlers/on-click)
+  - [onWheel](handlers/on-wheel)
 
 - **Links**
 - [![Github](https://icongram.jgog.in/simple/github.svg?color=808080&size=16)Github](https://github.com/zamotany/react-slate)

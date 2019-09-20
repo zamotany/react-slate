@@ -107,6 +107,7 @@ export default function createReconcilerConfig(
       }
 
       instance.eventListener.setOnClickListener(newProps.onClick);
+      instance.eventListener.setOnWheelListener(newProps.onWheel);
 
       if (!shallowEqual(oldProps, newProps)) {
         if (instance instanceof View) {

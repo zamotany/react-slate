@@ -18,15 +18,19 @@ export default class Base<C> {
   zIndex = 0;
 
   constructor() {
-    this.eventListener.setOnClickValidator((event: MouseEvent) => {
-      return Boolean(
-        this.rect &&
-          event.x - 1 >= this.rect.x &&
-          event.x - 1 < this.rect.x + this.rect.width &&
-          event.y - 1 >= this.rect.y &&
-          event.y - 1 < this.rect.y + this.rect.height
-      );
+    this.eventListener.setValidator((_eventName, eventData: MouseEvent) => {
+      return this.isWithinRect(eventData);
     });
+  }
+
+  private isWithinRect({ x, y }: { x: number; y: number }) {
+    return Boolean(
+      this.rect &&
+        x - 1 >= this.rect.x &&
+        x - 1 < this.rect.x + this.rect.width &&
+        y - 1 >= this.rect.y &&
+        y - 1 < this.rect.y + this.rect.height
+    );
   }
 
   notifyOnLayoutHook(

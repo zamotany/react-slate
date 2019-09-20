@@ -39,6 +39,7 @@ https://zamotany.github.io/react-slate/
 * Use built-in `<Progress />` and `<Spinner />` components.
 * Get layout information using `onLayout` prop.
 * Handle clicks using `onClick` prop.
+* Detect mouse wheel events using `onWheel` prop.
 * Use `for await` to continuously render your app using `renderToString` or `renderToJson`.
 * Support for absolute positioning and depth (`zIndex`).
 * Built with TypeScript.

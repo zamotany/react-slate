@@ -14,19 +14,20 @@ will make both `Hello` and `World` bolded and only `World` will be green.
 
 #### Props:
 
-| Name            | Type                                                | Optional | Description                                                   |
-| --------------- | --------------------------------------------------- | :------: | ------------------------------------------------------------- |
-| `children`      | `number \| string \| string[]`                      |  **No**  | Content to render.                                            |
-| `color`         | `string`                                            |   Yes    | Foreground color of the text.                                 |
-| `bgColor`       | `string`                                            |   Yes    | Background color of the text.                                 |
-| `textTransform` | `'none'` `'capitalize'` `'uppercase'` `'lowercase'` |   Yes    | Transform the text using given capitalization algorithm.      |
-| `dim`           | `boolean`                                           |   Yes    | Makes the text dimmed.                                        |
-| `underline`     | `boolean`                                           |   Yes    | Adds underline to the text.                                   |
-| `lineThrough`   | `boolean`                                           |   Yes    | Add line through the text (strike-through).                   |
-| `bold`          | `boolean`                                           |   Yes    | Makes the text bolded.                                        |
-| `italic`        | `boolean`                                           |   Yes    | Makes the text italic.                                        |
-| `onLayout`      | `(layout: RectData) => void`                        |   Yes    | Function to call once new layout calculated.                  |
-| `onClick`       | `(event: MouseEvent) => boolean \| void`            |   Yes    | Function to call when mouse click is triggered over the text. |
+| Name                             | Type                                                | Optional | Description                                                   |
+| -------------------------------- | --------------------------------------------------- | :------: | ------------------------------------------------------------- |
+| `children`                       | `number \| string \| string[]`                      |  **No**  | Content to render.                                            |
+| `color`                          | `string`                                            |   Yes    | Foreground color of the text.                                 |
+| `bgColor`                        | `string`                                            |   Yes    | Background color of the text.                                 |
+| `textTransform`                  | `'none'` `'capitalize'` `'uppercase'` `'lowercase'` |   Yes    | Transform the text using given capitalization algorithm.      |
+| `dim`                            | `boolean`                                           |   Yes    | Makes the text dimmed.                                        |
+| `underline`                      | `boolean`                                           |   Yes    | Adds underline to the text.                                   |
+| `lineThrough`                    | `boolean`                                           |   Yes    | Add line through the text (strike-through).                   |
+| `bold`                           | `boolean`                                           |   Yes    | Makes the text bolded.                                        |
+| `italic`                         | `boolean`                                           |   Yes    | Makes the text italic.                                        |
+| [`onLayout`](handlers/on-layout) | `(layout: RectData) => void`                        |   Yes    | Function to call once new layout calculated.                  |
+| [`onClick`](handlers/on-click)   | `(event: MouseEvent) => boolean \| void`            |   Yes    | Function to call when mouse click is triggered over the text. |
+| [`onWheel`](handlers/on-wheel)   | `(event: MouseEvent) => boolean \| void`            |   Yes    | Function to call when mouse click is triggered over the text. |
 
 #### Example:
 

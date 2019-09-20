@@ -16,8 +16,8 @@ describe('Event system', () => {
     root.addChild(child2);
 
     child1_2_1.setOnClickListener(() => true);
-    child1_2_1.setOnContextMenuListener(() => true);
-    child1_2.setOnContextMenuListener(() => true);
+    child1_2_1.setOnWheelListener(() => true);
+    child1_2.setOnWheelListener(() => true);
     child2.setOnWheelListener(() => true);
     child2.setOnMouseMoveListener(() => true);
 
@@ -41,7 +41,6 @@ describe('Event system', () => {
     child2.setOnWheelListener(undefined);
     child2.setOnMouseMoveListener(undefined);
     child2.setOnClickListener(undefined);
-    child2.setOnContextMenuListener(undefined);
     expect(child2.listenerCount).toBe(0);
     expect(root.listenerCount).toBe(1);
   });
@@ -87,7 +86,7 @@ describe('Event system', () => {
     root.addChild(child);
     const childHandler = jest.fn(() => true);
     child.setOnClickListener(childHandler);
-    child.setOnClickValidator(() => false);
+    child.setValidator(() => false);
 
     const manager = new EventManager();
     manager.propagateEvent(
@@ -98,7 +97,7 @@ describe('Event system', () => {
 
     expect(childHandler).not.toHaveBeenCalled();
 
-    child.setOnClickValidator(() => true);
+    child.setValidator(() => true);
     manager.propagateEvent(
       EventTypes.MOUSE_LEFT_BUTTON_PRESSED,
       { test: true },

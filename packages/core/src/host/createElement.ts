@@ -40,6 +40,9 @@ export default function createElement(type: Function | string, props: any) {
     if (props.onClick) {
       instance.eventListener.setOnClickListener(props.onClick);
     }
+    if (props.onWheel) {
+      instance.eventListener.setOnWheelListener(props.onWheel);
+    }
   }
 
   return instance;

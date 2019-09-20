@@ -1,5 +1,7 @@
 # onClick handler
 
+> Only available when rendering app with [`render`](api/render) function.
+
 `onClick` handler is a function called upon receiving mouse click event over the element, which has the handler attached.
 
 `onClick` handler is available on both [`Text`](components/text) and [`View`](components/view) components.
@@ -12,16 +14,17 @@ All `onClick` handlers undergo event bubbling meaning each `onClick` handler on 
 onClick(event: MouseEvent): boolean | void;
 ```
 
-`RectData` consist of the following properties:
+`MouseEvent` consist of the following properties:
 
 ```ts
 type MouseEvent = {
-  x: number,
-  y: number,
-  code: number,
-  shift: boolean,
-  alt: boolean,
-  ctrl: boolean,
+  x: number;
+  y: number;
+  code: number;
+  shift: boolean;
+  alt: boolean;
+  ctrl: boolean;
+  direction?: number; // available only in onWheel handler
 };
 ```
 

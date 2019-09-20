@@ -31,7 +31,7 @@ export type MouseEvent = {
   direction?: number;
 };
 
-export type OnClickHook = (event: MouseEvent) => boolean | void;
+export type MouseEventHandler = (event: MouseEvent) => boolean | void;
 
 export type JsonText = {
   node: 'Text';

@@ -61,12 +61,6 @@ function initialize(container: View, renderer: Renderer) {
         data,
         container.eventListener
       );
-    } else if (name === 'MOUSE_RIGHT_BUTTON_PRESSED') {
-      eventManager.propagateEvent(
-        EventTypes.MOUSE_RIGHT_BUTTON_PRESSED,
-        data,
-        container.eventListener
-      );
     } else if (name === 'MOUSE_WHEEL_UP' || name === 'MOUSE_WHEEL_DOWN') {
       eventManager.propagateEvent(
         EventTypes.MOUSE_WHEEL,
@@ -77,11 +71,12 @@ function initialize(container: View, renderer: Renderer) {
         container.eventListener
       );
     } else if (name === 'MOUSE_MOTION') {
-      eventManager.propagateEvent(
-        EventTypes.MOUSE_MOTION,
-        data,
-        container.eventListener
-      );
+      // TODO: uncomment once there's a need for motion detection
+      // eventManager.propagateEvent(
+      //   EventTypes.MOUSE_MOTION,
+      //   data,
+      //   container.eventListener
+      // );
     }
   });
 

@@ -113,7 +113,6 @@ describe('View node', () => {
     root.eventListener.setOnClickListener(rootOnClick);
     view.eventListener.setOnClickListener(viewOnClick);
     child1.eventListener.setOnClickListener(child1OnClick);
-    child1.eventListener.setOnClickValidator(undefined);
     child1.setLayoutStyle({ width: 10, height: 1 });
     child2.eventListener.setOnClickListener(child2OnClick);
     child2.setLayoutStyle({ width: 10, height: 1 });
