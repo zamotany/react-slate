@@ -2,7 +2,7 @@
 
 #### Definition:
 
-```js
+```ts
 exit(code?: number = 0): void
 ```
 

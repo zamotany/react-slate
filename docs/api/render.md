@@ -2,7 +2,7 @@
 
 #### Definition:
 
-```js
+```ts
 render(
   element: JSX.Element,
 ): void

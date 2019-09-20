@@ -6,19 +6,19 @@ Create a new directory `TerminalApp` and run `yarn init` inside it.
    
 Now let's install the dependencies we'll be using, run:
 
-```sh
+```bash
 yarn add react @react-slate/core
 ```
 
 And:
 
-```sh
+```bash
 yarn add -D @babel/core @babel/cli @babel/preset-env @babel/preset-react
 ```
 
 If you plan on using TypeScript install `@babel/preset-typescript` as well:
 
-```sh
+```bash
 yarn add -D @babel/preset-typescript
 ```
 

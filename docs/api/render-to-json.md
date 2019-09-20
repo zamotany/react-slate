@@ -2,7 +2,7 @@
 
 #### Definition:
 
-```js
+```ts
 renderToJson(
   element: JSX.Element,
   options: {

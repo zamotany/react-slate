@@ -6,7 +6,56 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="react-slate - built terminal apps with React and flexbox">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/_assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_assets/favicon/favicon-16x16.png">
+  <meta name="theme-color" content="#232931">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
+  <link rel="stylesheet" href="https://unpkg.com/prismjs/themes/prism-tomorrow.css">
+  <style>
+    :root {
+      --theme-color: #4ecca3;
+      --base-background-color: #232931;
+      --base-color: #eeeeee;
+      --heading-color: #eeeeee;
+      --code-inline-background: #393e46;
+      --code-theme-background: #393e46;
+      --code-theme-text: #f3f3f3;
+      --code-theme-selection: rgba(255, 255, 255, 0.15);
+      --table-row-odd-background: #2b3138;
+      --table-cell-border-color: #3a3f44;
+      --code-block-border-radius: 2px;
+      --border-radius-m: 2px;
+      --copycode-background: #2b3138;
+      --copycode-color: #eeeeee;
+      --heading-h2-border-color: #3a3f44;
+      --blockquote-background: #393e46;
+      --sidebar-toggle-background: #393e46;
+      --sidebar-background: #2b3138;
+      --sidebar-border-color: #3a3f44;
+    }
+
+    .markdown-section a:hover, .markdown-section a:hover code {
+      color: var(--theme-color) !important;
+    }
+
+    .sidebar-toggle span {
+      background-color: var(--base-color);
+    }
+
+    .sidebar-nav p.active a {
+      color: var(--theme-color);
+      border-color: var(--theme-color);
+    }
+
+    hr {
+      border-color: var(--heading-h2-border-color);
+    }
+
+    :not(pre)>code[class*="lang-"], pre[data-lang] {
+      background: var(--code-theme-background) !important;
+    }
+  </style>
 </head>
 <body>
   <div id="app"></div>
@@ -14,9 +63,10 @@
     window.$docsify = {
       name: 'react-slate',
       repo: 'zamotany/react-slate',
-      logo: '/_assets/react_slate_logo.png',
+      logo: '/_assets/react_slate_logo_dark.png',
       loadSidebar: true,
       homepage: 'introduction.md',
+      auto2top: true,
       themeable: {
         readyTransition: true,
         responsiveTables: true,
@@ -26,5 +76,7 @@
   <script src="https://unpkg.com/docsify/lib/docsify.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0"></script>
   <script src="https://unpkg.com/docsify-copy-code@2"></script>
+  <script src="https://unpkg.com/prismjs/components/prism-bash.min.js"></script>
+  <script src="https://unpkg.com/prismjs/components/prism-typescript.min.js"></script>
 </body>
 </html>
