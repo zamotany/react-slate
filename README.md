@@ -24,6 +24,10 @@
 
 ---
 
+### Website & documentation
+
+https://zamotany.github.io/react-slate/
+
 ### Features
 
 * Render React apps to terminal (`render`), string (`renderToString`) or as a JSON tree (`renderToJson`).
@@ -37,6 +41,7 @@
 * Handle clicks using `onClick` prop.
 * Use `for await` to continuously render your app using `renderToString` or `renderToJson`.
 * Support for absolute positioning and depth (`zIndex`).
+* Built with TypeScript.
 
 Please check out [Roadmap](https://github.com/zamotany/react-slate/issues/99) for in-progress and planned features. 
 

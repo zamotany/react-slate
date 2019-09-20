@@ -45,7 +45,7 @@ For props with type `number | string`, both numbers (eg `width={100}`) and perce
 
 #### Example:
 
-```js
+```jsx
 import React from 'react';
 import {View, Text, render} from '@react-slate/core';
 

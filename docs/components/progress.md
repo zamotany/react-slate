@@ -17,7 +17,7 @@ A React component for displaying progress bar.
 
 #### Example:
 
-```js
+```jsx
 import React from 'react';
 import {View, Text, Progress, render} from '@react-slate/core';
 

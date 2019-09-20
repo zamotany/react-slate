@@ -4,7 +4,7 @@ A React component for displaying text. All string values should be wrapped in `T
 
 `Text` components can be nested inside another `Text` to build a styling hierarchy:
 
-```js
+```jsx
 <Text bold>
   Hello <Text color="green">World</Text>
 </Text>
@@ -30,7 +30,7 @@ will make both `Hello` and `World` bolded and only `World` will be green.
 
 #### Example:
 
-```js
+```jsx
 import React from 'react';
 import {View, Text, render} from '@react-slate/core';
 

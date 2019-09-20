@@ -26,7 +26,7 @@ Great, let's write some code!
 
 Let's import `render` and `Text` from `@react-slate/core` and make it display a `Hello World` text:
 
-```js
+```jsx
 import React from 'react';
 import { render, Text } from '@react-slate/core';
 
@@ -43,7 +43,7 @@ Use `CTRL + C` to exit the app.
 
 Let's add some styling and layout, import `View` from `@react-slate/core` and center the text vertically and horizontally:
 
-```js
+```jsx
 import React from 'react';
 import { render, Text, View } from '@react-slate/core';
 
@@ -62,7 +62,7 @@ You should see something like this:
 
 Let's make the Hello World text more interesting, use `bold` and `color` props to style the text:
 
-```js
+```jsx
 import React from 'react';
 import { render, Text, View } from '@react-slate/core';
 
@@ -82,7 +82,7 @@ You should see:
 
 Every `react-slate` app can be exited by pressing `CTRL + C`, but let's be more creative and add a exit button:
 
-```js
+```jsx
 import React from 'react';
 import { render, Text, View, exit } from '@react-slate/core';
 

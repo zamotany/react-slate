@@ -8,13 +8,13 @@ All `onClick` handlers undergo event bubbling meaning each `onClick` handler on 
 
 #### Definition:
 
-```js
+```ts
 onClick(event: MouseEvent): boolean | void;
 ```
 
 `RectData` consist of the following properties:
 
-```js
+```ts
 type MouseEvent = {
   x: number,
   y: number,
@@ -29,7 +29,7 @@ Please not that **different terminals might report `shift`, `alt` and `ctrl` dif
 
 #### Example:
 
-```js
+```jsx
 import React from 'react';
 import {View, Text, render} from '@react-slate/core';
 

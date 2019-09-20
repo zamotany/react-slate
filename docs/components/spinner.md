@@ -15,7 +15,7 @@ A React component for displaying activity indicator.
 
 #### Example:
 
-```js
+```jsx
 import React from 'react';
 import {View, Spinner, render} from '@react-slate/core';
 

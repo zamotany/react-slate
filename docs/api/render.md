@@ -22,7 +22,7 @@ By default the rendered content will be styled with colors and modifiers. You ca
 
 #### Example:
 
-```js
+```jsx
 import {render, Text} from '@react-slate/core';
 
 const App = () => <Text>Hello</Text>;

@@ -6,13 +6,13 @@
 
 #### Definition:
 
-```js
+```ts
 onLayout(layout: RectData): void
 ```
 
 `RectData` consist of the following properties:
 
-```js
+```ts
 type RectData = {
   x: number,
   y: number,
@@ -25,7 +25,7 @@ type RectData = {
 
 #### Example:
 
-```js
+```jsx
 import React from 'react';
 import {View, Text, render} from '@react-slate/core';
 

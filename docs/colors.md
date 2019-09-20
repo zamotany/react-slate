@@ -28,7 +28,7 @@ rgb(<r>, <g>, <b>)
 
 for example:
 
-```js
+```jsx
 <Text color="rgb(235, 64, 52)">Hello</Text>
 <Text color="rgb(52,235,153)">Hello</Text>
 <View bgColor="rgb(198, 179, 232)"><Text>Hello</Text></View>
@@ -42,7 +42,7 @@ The supported color range is handled by [supports-color](https://www.npmjs.com/p
 
 You can use 6 character HEX color format perfixed with `#` in `color` and `bgColor` props, for example:
 
-```js
+```jsx
 <Text color="#eb4034">Hello</Text>
 <Text color="#34eb99">Hello</Text>
 <View bgColor="#c6b3e8"><Text>Hello</Text></View>
@@ -56,7 +56,7 @@ The conversion from HEX format to RGB format is done by [color-convert](https://
 
 You can CSS color keyword wrapped in a `rgb(<color>)` for `color` and `bgColor` props, for example:
 
-```js
+```jsx
 <Text color="rgb(crimson)">Hello</Text>
 <Text color="rgb(lime)">Hello</Text>
 <View bgColor="rgb(steelBlue)"><Text>Hello</Text></View>
