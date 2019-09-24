@@ -24,6 +24,6 @@
   - [onWheel](handlers/on-wheel)
 
 - **Links**
-- [![Github](https://icongram.jgog.in/simple/github.svg?color=808080&size=16)Github](https://github.com/zamotany/react-slate)
-- [![NPM](https://icongram.jgog.in/simple/npm.svg?colored&size=16)NPM](https://www.npmjs.com/package/@react-slate/core)
-- [![Twitter](https://icongram.jgog.in/simple/twitter.svg?colored&size=16)@\_zamotany](http://twitter.com/_zamotany)
+- [![Github](_assets/github.svg)Github](https://github.com/zamotany/react-slate)
+- [![NPM](_assets/npm.svg)NPM](https://www.npmjs.com/package/@react-slate/core)
+- [![Twitter](_assets/twitter.svg)@\_zamotany](http://twitter.com/_zamotany)
