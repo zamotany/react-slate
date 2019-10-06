@@ -16,7 +16,9 @@ export default class Progress extends React.Component<
   };
 
   onLayout: OnLayoutHook = layout => {
-    this.setState({ width: layout.width });
+    if (layout.width !== this.state.width) {
+      this.setState({ width: layout.width });
+    }
   };
 
   render() {
