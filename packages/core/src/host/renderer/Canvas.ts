@@ -18,26 +18,20 @@ export default class Canvas {
   y: number = 0;
 
   private resize(layout: Layout) {
-    for (let y = layout.y; y < layout.y + layout.height; y += 1) {
-      if (y < 0) {
-        continue;
-      }
-
+    for (let y = 0; y < layout.height; y += 1) {
       this.pixels[y] = [];
-      for (let x = layout.x; x < layout.x + layout.width; x += 1) {
-        if (x >= 0) {
-          this.pixels[y][x] = {
-            char: '',
-            z: -Number.MAX_VALUE,
-          };
-        }
+      for (let x = 0; x < layout.width; x += 1) {
+        this.pixels[y][x] = {
+          char: '',
+          z: -Number.MAX_VALUE,
+        };
       }
     }
 
-    this.width = layout.x + layout.width;
-    this.height = layout.y + layout.height;
-    this.x = Math.max(0, layout.x);
-    this.y = Math.max(0, layout.y);
+    this.width = layout.width;
+    this.height = layout.height;
+    this.x = layout.x;
+    this.y = layout.y;
   }
 
   private fillPixel(
@@ -88,24 +82,10 @@ export default class Canvas {
 
     const body = node instanceof Text && node.getBody();
 
-    // Y position can be negative, trimming the content on the top edge.
-    // Bottom edge trimming is done when merging canvases.
-    for (let y = layout.y; y < layout.y + layout.height; y++) {
-      if (y < 0) {
-        continue;
-      }
-
+    for (let y = 0; y < layout.height; y++) {
       // Body X index
       let bx = 0;
-      // X position can be negative, trimming the content on the left edge.
-      // Right edge trimming is done when merging canvases.
-      for (let x = layout.x; x < layout.x + layout.width; x += 1) {
-        if (x < 0) {
-          // If left edge trimming is needed, increment bx as well.
-          bx += 1;
-          continue;
-        }
-
+      for (let x = 0; x < layout.width; x += 1) {
         this.fillPixel(
           { x, y, z: node.isAbsolute ? node.zIndex : parentZ },
           body ? body[bx] : undefined,
@@ -116,13 +96,29 @@ export default class Canvas {
     }
   }
 
-  mergeChildCanvas(_childCanvas: Canvas) {
-    // get child Y as CY
-    // get child X as CX
-    // get parent height as PH
-    // get parent width as PW
-    // for CY <= PH
-    //   for CX <= PW
-    //     merge child pixel into parent pixel
+  mergeChildCanvas(childCanvas: Canvas) {
+    debugger;
+    for (
+      let cy = childCanvas.y, y = 0;
+      cy < childCanvas.y + childCanvas.height && cy < this.height;
+      cy += 1, y += 1
+    ) {
+      if (cy < 0) {
+        continue;
+      }
+
+      for (
+        let cx = childCanvas.x, x = 0;
+        cx < childCanvas.x + childCanvas.width && cx < this.width;
+        cx += 1, x += 1
+      ) {
+        if (cx < 0) {
+          continue;
+        }
+
+        const pixel = childCanvas.pixels[y][x];
+        this.fillPixel({ x: cx, y: cy, z: pixel.z }, pixel.char, pixel.style);
+      }
+    }
   }
 }

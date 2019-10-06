@@ -1,0 +1,597 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Canvas should fill pixels and trim on bottom-edge 1`] = `
+Array [
+  Array [
+    Object {
+      "char": "H",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "green",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "e",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "green",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "l",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "green",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "l",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "green",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "o",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "green",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+  ],
+]
+`;
+
+exports[`Canvas should fill pixels and trim on left-edge 1`] = `
+Array [
+  Array [
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+  ],
+  Array [
+    Object {
+      "char": "l",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "green",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "l",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "green",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "o",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "green",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+  ],
+  Array [
+    Object {
+      "char": "r",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "red",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "l",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "red",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "d",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "red",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+  ],
+  Array [
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+  ],
+]
+`;
+
+exports[`Canvas should fill pixels and trim on right-edge 1`] = `
+Array [
+  Array [
+    Object {
+      "char": "H",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "green",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "e",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "green",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "l",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "green",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "l",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "green",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+  ],
+  Array [
+    Object {
+      "char": "W",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "red",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "o",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "red",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "r",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "red",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "l",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "red",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+  ],
+]
+`;
+
+exports[`Canvas should fill pixels and trim on top-edge 1`] = `
+Array [
+  Array [
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "W",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "red",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "o",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "red",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "r",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "red",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "l",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "red",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "d",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "red",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+  ],
+  Array [
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+  ],
+]
+`;
+
+exports[`Canvas should fill pixels and trim on top-edge 2`] = `
+Array [
+  Array [
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "W",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "red",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "o",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "red",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "r",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "red",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "l",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "red",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "d",
+      "style": Object {
+        "bgColor": "gray",
+        "color": "red",
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+  ],
+  Array [
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+    Object {
+      "char": "",
+      "style": Object {
+        "bgColor": "gray",
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 0,
+    },
+  ],
+]
+`;

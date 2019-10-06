@@ -1,7 +1,7 @@
 import Canvas from '../Canvas';
 import View from '../../nodes/View';
 import Text from '../../nodes/Text';
-import { Layout } from '../../../layout';
+import { Layout, FlexDirection } from '../../../layout';
 
 describe('Canvas', () => {
   it('should fill pixels', () => {
@@ -101,66 +101,218 @@ describe('Canvas', () => {
   });
 
   it('should fill pixels and trim on top-edge', () => {
-    const canvas = new Canvas();
+    const canvasView = new Canvas();
+    const canvasText1 = new Canvas();
+    const canvasText2 = new Canvas();
+
     const view = new View();
-    const child = new View();
-    view.setLayoutStyle({ paddingTop: -1 });
-    child.setLayoutStyle({ width: 1, height: 2 });
-    view.appendChild(child);
+    view.style = { bgColor: 'gray' };
+    view.setLayoutStyle({
+      paddingTop: -1,
+      paddingBottom: 1,
+      paddingStart: 2,
+      paddingEnd: 2,
+      flexDirection: FlexDirection.Column,
+    });
+
+    const text1 = new Text();
+    text1.setBody('Hello');
+    text1.style = { color: 'green' };
+    const text2 = new Text();
+    text2.setBody('World');
+    text2.style = { color: 'red' };
+
+    view.appendChild(text1);
+    view.appendChild(text2);
     const layout = view.layoutNode.computeLayout({
       width: null,
       height: null,
     });
 
-    canvas.fill(child, layout.child(0), { parentZ: 0 });
-    expect(canvas.width).toBe(1);
-    expect(canvas.height).toBe(1);
-    expect(canvas.x).toBe(0);
-    expect(canvas.y).toBe(0);
-    expect(canvas.pixels).toEqual([
-      [
-        {
-          char: '',
-          z: 0,
-          style: {
-            color: undefined,
-            bgColor: undefined,
-            modifiers: undefined,
-          },
-        },
-      ],
-    ]);
+    canvasView.fill(view, layout, { parentZ: 0 });
+    canvasText1.fill(text1, layout.child(0), { parentZ: 0 });
+    canvasText2.fill(text2, layout.child(1), { parentZ: 0 });
+    canvasView.mergeChildCanvas(canvasText1);
+    canvasView.mergeChildCanvas(canvasText2);
+
+    expect(canvasView.width).toBe(9);
+    expect(canvasView.height).toBe(2);
+    expect(canvasView.x).toBe(0);
+    expect(canvasView.y).toBe(0);
+    expect(canvasView.pixels).toMatchSnapshot();
+  });
+
+  it('should fill pixels and trim on bottom-edge', () => {
+    const canvasView = new Canvas();
+    const canvasText1 = new Canvas();
+    const canvasText2 = new Canvas();
+
+    const view = new View();
+    view.style = { bgColor: 'gray' };
+    view.setLayoutStyle({
+      height: 1,
+      flexDirection: FlexDirection.Column,
+    });
+
+    const text1 = new Text();
+    text1.setBody('Hello');
+    text1.style = { color: 'green' };
+    const text2 = new Text();
+    text2.setBody('World');
+    text2.style = { color: 'red' };
+
+    view.appendChild(text1);
+    view.appendChild(text2);
+    const layout = view.layoutNode.computeLayout({
+      width: null,
+      height: null,
+    });
+
+    canvasView.fill(view, layout, { parentZ: 0 });
+    canvasText1.fill(text1, layout.child(0), { parentZ: 0 });
+    canvasText2.fill(text2, layout.child(1), { parentZ: 0 });
+    canvasView.mergeChildCanvas(canvasText1);
+    canvasView.mergeChildCanvas(canvasText2);
+
+    expect(canvasView.width).toBe(5);
+    expect(canvasView.height).toBe(1);
+    expect(canvasView.x).toBe(0);
+    expect(canvasView.y).toBe(0);
+    expect(canvasView.pixels).toMatchSnapshot();
   });
 
   it('should fill pixels and trim on left-edge', () => {
-    const canvas = new Canvas();
+    const canvasView = new Canvas();
+    const canvasText1 = new Canvas();
+    const canvasText2 = new Canvas();
+
     const view = new View();
-    const child = new View();
-    view.setLayoutStyle({ paddingStart: -1 });
-    child.setLayoutStyle({ width: 2, height: 1 });
-    view.appendChild(child);
+    view.style = { bgColor: 'gray' };
+    view.setLayoutStyle({
+      paddingTop: 1,
+      paddingBottom: 1,
+      paddingStart: -2,
+      flexDirection: FlexDirection.Column,
+    });
+
+    const text1 = new Text();
+    text1.setBody('Hello');
+    text1.style = { color: 'green' };
+    const text2 = new Text();
+    text2.setBody('World');
+    text2.style = { color: 'red' };
+
+    view.appendChild(text1);
+    view.appendChild(text2);
     const layout = view.layoutNode.computeLayout({
       width: null,
       height: null,
     });
 
-    canvas.fill(child, layout.child(0), { parentZ: 0 });
-    expect(canvas.width).toBe(1);
-    expect(canvas.height).toBe(1);
-    expect(canvas.x).toBe(0);
-    expect(canvas.y).toBe(0);
-    expect(canvas.pixels).toEqual([
-      [
-        {
-          char: '',
-          z: 0,
-          style: {
-            color: undefined,
-            bgColor: undefined,
-            modifiers: undefined,
-          },
+    canvasView.fill(view, layout, { parentZ: 0 });
+    canvasText1.fill(text1, layout.child(0), { parentZ: 0 });
+    canvasText2.fill(text2, layout.child(1), { parentZ: 0 });
+    canvasView.mergeChildCanvas(canvasText1);
+    canvasView.mergeChildCanvas(canvasText2);
+
+    expect(canvasView.width).toBe(3);
+    expect(canvasView.height).toBe(4);
+    expect(canvasView.x).toBe(0);
+    expect(canvasView.y).toBe(0);
+    expect(canvasView.pixels).toMatchSnapshot();
+  });
+
+  it('should fill pixels and trim on right-edge', () => {
+    const canvasView = new Canvas();
+    const canvasText1 = new Canvas();
+    const canvasText2 = new Canvas();
+
+    const view = new View();
+    view.style = { bgColor: 'gray' };
+    view.setLayoutStyle({
+      width: 4,
+      flexDirection: FlexDirection.Column,
+    });
+
+    const text1 = new Text();
+    text1.setBody('Hello');
+    text1.style = { color: 'green' };
+    const text2 = new Text();
+    text2.setBody('World');
+    text2.style = { color: 'red' };
+
+    view.appendChild(text1);
+    view.appendChild(text2);
+    const layout = view.layoutNode.computeLayout({
+      width: null,
+      height: null,
+    });
+
+    canvasView.fill(view, layout, { parentZ: 0 });
+    canvasText1.fill(text1, layout.child(0), { parentZ: 0 });
+    canvasText2.fill(text2, layout.child(1), { parentZ: 0 });
+    canvasView.mergeChildCanvas(canvasText1);
+    canvasView.mergeChildCanvas(canvasText2);
+
+    expect(canvasView.width).toBe(4);
+    expect(canvasView.height).toBe(2);
+    expect(canvasView.x).toBe(0);
+    expect(canvasView.y).toBe(0);
+    expect(canvasView.pixels).toMatchSnapshot();
+  });
+
+  it('should merge canvases', () => {
+    const canvasView = new Canvas();
+    const canvasText = new Canvas();
+
+    const view = new View();
+    view.style = { bgColor: 'gray' };
+    view.setLayoutStyle({
+      paddingTop: 1,
+      paddingBottom: 1,
+      paddingStart: 2,
+      paddingEnd: 2,
+    });
+
+    const text = new Text();
+    text.setBody('Hello World');
+    text.style = { color: 'green' };
+
+    view.appendChild(text);
+    const layout = view.layoutNode.computeLayout({
+      width: null,
+      height: null,
+    });
+    canvasView.fill(view, layout, { parentZ: 0 });
+    canvasText.fill(text, layout.child(0), { parentZ: 0 });
+    canvasView.mergeChildCanvas(canvasText);
+
+    expect(canvasView.width).toBe(15);
+    expect(canvasView.height).toBe(3);
+    expect(canvasView.x).toBe(0);
+    expect(canvasView.y).toBe(0);
+
+    const emptyRow = new Array(15).fill(null).map((_, i) => ({
+      char: '',
+      z: 0,
+      style: {
+        color: undefined,
+        bgColor: 'gray',
+        modifiers: undefined,
+      },
+    }));
+    expect(canvasView.pixels[0]).toEqual(emptyRow);
+    expect(canvasView.pixels[1]).toEqual(
+      new Array(15).fill(null).map((_, i) => ({
+        char: i > 1 && i < 13 ? 'Hello World'[i - 2] : '',
+        z: 0,
+        style: {
+          color: i > 1 && i < 13 ? 'green' : undefined,
+          bgColor: 'gray',
+          modifiers: undefined,
         },
-      ],
-    ]);
+      }))
+    );
+    expect(canvasView.pixels[2]).toEqual(emptyRow);
   });
 });
