@@ -15,10 +15,11 @@ describe('Canvas', () => {
       height: null,
     });
 
-    canvas.resize(layout);
-    canvas.fill(emptyView, layout, { z: 0 });
+    canvas.fill(emptyView, layout, { parentZ: 0 });
     expect(canvas.width).toBe(0);
     expect(canvas.height).toBe(0);
+    expect(canvas.x).toBe(0);
+    expect(canvas.y).toBe(0);
     expect(canvas.pixels).toEqual([]);
 
     canvas = new Canvas();
@@ -29,10 +30,11 @@ describe('Canvas', () => {
       height: null,
     });
 
-    canvas.resize(layout);
-    canvas.fill(viewStyleless, layout, { z: 0 });
+    canvas.fill(viewStyleless, layout, { parentZ: 0 });
     expect(canvas.width).toBe(5);
     expect(canvas.height).toBe(2);
+    expect(canvas.x).toBe(0);
+    expect(canvas.y).toBe(0);
     const rowStyleless = new Array(5).fill(null).map(() => ({
       char: '',
       z: 0,
@@ -53,10 +55,11 @@ describe('Canvas', () => {
       height: null,
     });
 
-    canvas.resize(layout);
-    canvas.fill(viewStyled, layout, { z: 0 });
+    canvas.fill(viewStyled, layout, { parentZ: 0 });
     expect(canvas.width).toBe(5);
     expect(canvas.height).toBe(2);
+    expect(canvas.x).toBe(0);
+    expect(canvas.y).toBe(0);
     const rowStyled = new Array(5).fill(null).map(() => ({
       char: '',
       z: 0,
@@ -79,10 +82,11 @@ describe('Canvas', () => {
       height: null,
     });
 
-    canvas.resize(layout);
-    canvas.fill(text, layout, { z: 0 });
+    canvas.fill(text, layout, { parentZ: 0 });
     expect(canvas.width).toBe(11);
     expect(canvas.height).toBe(1);
+    expect(canvas.x).toBe(0);
+    expect(canvas.y).toBe(0);
     expect(canvas.pixels).toEqual([
       new Array(11).fill(null).map((_, i) => ({
         char: 'Hello World'[i],
@@ -108,10 +112,11 @@ describe('Canvas', () => {
       height: null,
     });
 
-    canvas.resize(layout.child(0));
-    canvas.fill(child, layout.child(0), { z: 0 });
+    canvas.fill(child, layout.child(0), { parentZ: 0 });
     expect(canvas.width).toBe(1);
     expect(canvas.height).toBe(1);
+    expect(canvas.x).toBe(0);
+    expect(canvas.y).toBe(0);
     expect(canvas.pixels).toEqual([
       [
         {
@@ -139,10 +144,11 @@ describe('Canvas', () => {
       height: null,
     });
 
-    canvas.resize(layout.child(0));
-    canvas.fill(child, layout.child(0), { z: 0 });
+    canvas.fill(child, layout.child(0), { parentZ: 0 });
     expect(canvas.width).toBe(1);
     expect(canvas.height).toBe(1);
+    expect(canvas.x).toBe(0);
+    expect(canvas.y).toBe(0);
     expect(canvas.pixels).toEqual([
       [
         {

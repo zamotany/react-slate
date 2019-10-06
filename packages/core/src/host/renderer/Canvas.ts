@@ -14,18 +14,18 @@ export default class Canvas {
   pixels: Pixel[][] = [];
   width: number = 0;
   height: number = 0;
+  x: number = 0;
+  y: number = 0;
 
-  resize(layout: Layout) {
+  private resize(layout: Layout) {
     for (let y = layout.y; y < layout.y + layout.height; y += 1) {
       if (y < 0) {
         continue;
       }
 
-      if (!this.pixels[y]) {
-        this.pixels[y] = [];
-      }
+      this.pixels[y] = [];
       for (let x = layout.x; x < layout.x + layout.width; x += 1) {
-        if (x >= 0 && !this.pixels[y][x]) {
+        if (x >= 0) {
           this.pixels[y][x] = {
             char: '',
             z: -Number.MAX_VALUE,
@@ -36,6 +36,8 @@ export default class Canvas {
 
     this.width = layout.x + layout.width;
     this.height = layout.y + layout.height;
+    this.x = Math.max(0, layout.x);
+    this.y = Math.max(0, layout.y);
   }
 
   private fillPixel(
@@ -77,7 +79,13 @@ export default class Canvas {
     this.pixels[y][x].z = z;
   }
 
-  fill(node: View | Text | Paragraph, layout: Layout, { z }: { z: number }) {
+  fill(
+    node: View | Text | Paragraph,
+    layout: Layout,
+    { parentZ }: { parentZ: number }
+  ) {
+    this.resize(layout);
+
     const body = node instanceof Text && node.getBody();
 
     // Y position can be negative, trimming the content on the top edge.
@@ -98,11 +106,23 @@ export default class Canvas {
           continue;
         }
 
-        this.fillPixel({ x, y, z }, body ? body[bx] : undefined, node.style);
+        this.fillPixel(
+          { x, y, z: node.isAbsolute ? node.zIndex : parentZ },
+          body ? body[bx] : undefined,
+          node.style
+        );
         bx += 1;
       }
     }
   }
 
-  mergeChildCanvas(_childCanvas: Canvas) {}
+  mergeChildCanvas(_childCanvas: Canvas) {
+    // get child Y as CY
+    // get child X as CX
+    // get parent height as PH
+    // get parent width as PW
+    // for CY <= PH
+    //   for CX <= PW
+    //     merge child pixel into parent pixel
+  }
 }
