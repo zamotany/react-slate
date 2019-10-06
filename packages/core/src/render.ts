@@ -37,7 +37,7 @@ export function exit(code: number = 0) {
   terminal.processExit(code);
 }
 
-function initialize(container: View, renderer: Renderer) {
+function initialize(container: View) {
   process.on('exit', exit);
 
   global.console = bufferedConsole;
@@ -79,11 +79,6 @@ function initialize(container: View, renderer: Renderer) {
       // );
     }
   });
-
-  terminal.on('resize', () => {
-    const diff = reflowAndDiff(container, renderer);
-    flushDiff(diff);
-  });
 }
 
 export default function render(element: JSX.Element) {
@@ -97,7 +92,7 @@ export default function render(element: JSX.Element) {
 
       if (!initialized) {
         initialized = true;
-        initialize(container, renderer);
+        initialize(container);
       }
 
       flushDiff(diff);
@@ -105,4 +100,20 @@ export default function render(element: JSX.Element) {
   );
   const node = reconciler.createContainer(container, false, false);
   reconciler.updateContainer(element, node, null, () => undefined);
+
+  let timeout: NodeJS.Timeout | undefined;
+  let unmounted = false;
+  terminal.on('resize', () => {
+    if (!unmounted) {
+      unmounted = true;
+      reconciler.updateContainer(null, node, null, () => undefined);
+    }
+
+    timeout && clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      timeout = undefined;
+      unmounted = false;
+      reconciler.updateContainer(element, node, null, () => undefined);
+    }, 1000);
+  });
 }

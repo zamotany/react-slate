@@ -39,13 +39,15 @@ export default class Progress extends React.Component<
         width="100%"
         justifyContent="space-between"
       >
-        {width && (renderBar ? renderBar(bar) : <Text>{bar}</Text>)}
-        {percentage &&
-          (renderPercentage ? (
-            renderPercentage(percentageString)
-          ) : (
-            <Text>{percentageString}</Text>
-          ))}
+        {width ? renderBar ? renderBar(bar) : <Text>{bar}</Text> : null}
+        {width
+          ? percentage &&
+            (renderPercentage ? (
+              renderPercentage(percentageString)
+            ) : (
+              <Text>{percentageString}</Text>
+            ))
+          : null}
       </View>
     );
   }
