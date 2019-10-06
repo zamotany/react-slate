@@ -1,7 +1,7 @@
 import Canvas from '../Canvas';
 import View from '../../nodes/View';
 import Text from '../../nodes/Text';
-import { Layout, FlexDirection } from '../../../layout';
+import { Layout, FlexDirection, PositionType } from '../../../layout';
 
 describe('Canvas', () => {
   it('should fill pixels', () => {
@@ -292,7 +292,7 @@ describe('Canvas', () => {
     expect(canvasView.x).toBe(0);
     expect(canvasView.y).toBe(0);
 
-    const emptyRow = new Array(15).fill(null).map((_, i) => ({
+    const emptyRow = new Array(15).fill(null).map(() => ({
       char: '',
       z: 0,
       style: {
@@ -314,5 +314,47 @@ describe('Canvas', () => {
       }))
     );
     expect(canvasView.pixels[2]).toEqual(emptyRow);
+  });
+
+  it('should merge canvases with absolute elements', () => {
+    const canvasView = new Canvas();
+    const canvasViewAbs = new Canvas();
+    const canvasText1 = new Canvas();
+    const canvasText2 = new Canvas();
+
+    const view = new View();
+    const viewAbsolute = new View();
+    viewAbsolute.setLayoutStyle({ positionType: PositionType.Absolute });
+
+    const text1 = new Text();
+    text1.setBody('Hello World');
+    const text2 = new Text();
+    text2.setBody('Absolute');
+
+    view.appendChild(text1);
+    viewAbsolute.appendChild(text2);
+    view.appendChild(viewAbsolute);
+
+    const layout = view.layoutNode.computeLayout({
+      width: null,
+      height: null,
+    });
+
+    canvasView.fill(view, layout, { parentZ: 0 });
+    canvasText1.fill(text1, layout.child(0), { parentZ: 0 });
+    canvasViewAbs.fill(viewAbsolute, layout.child(1), { parentZ: 0 });
+    canvasText2.fill(text2, layout.child(1).child(0), {
+      parentZ: viewAbsolute.zIndex,
+    });
+
+    canvasView.mergeChildCanvas(canvasText1);
+    canvasViewAbs.mergeChildCanvas(canvasText2);
+    canvasView.mergeChildCanvas(canvasViewAbs);
+
+    expect(canvasView.width).toBe(11);
+    expect(canvasView.height).toBe(1);
+    expect(canvasView.x).toBe(0);
+    expect(canvasView.y).toBe(0);
+    expect(canvasView.pixels).toMatchSnapshot();
   });
 });

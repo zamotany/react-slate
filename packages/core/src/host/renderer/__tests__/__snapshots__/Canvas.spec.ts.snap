@@ -425,50 +425,86 @@ Array [
 ]
 `;
 
-exports[`Canvas should fill pixels and trim on top-edge 2`] = `
+exports[`Canvas should merge canvases with absolute elements 1`] = `
 Array [
   Array [
     Object {
-      "char": "",
+      "char": "A",
       "style": Object {
-        "bgColor": "gray",
+        "bgColor": undefined,
         "color": undefined,
         "modifiers": undefined,
       },
-      "z": 0,
+      "z": 1,
     },
     Object {
-      "char": "",
+      "char": "b",
       "style": Object {
-        "bgColor": "gray",
+        "bgColor": undefined,
         "color": undefined,
         "modifiers": undefined,
       },
-      "z": 0,
+      "z": 1,
     },
     Object {
-      "char": "W",
+      "char": "s",
       "style": Object {
-        "bgColor": "gray",
-        "color": "red",
+        "bgColor": undefined,
+        "color": undefined,
         "modifiers": undefined,
       },
-      "z": 0,
+      "z": 1,
     },
     Object {
       "char": "o",
       "style": Object {
-        "bgColor": "gray",
-        "color": "red",
+        "bgColor": undefined,
+        "color": undefined,
         "modifiers": undefined,
       },
-      "z": 0,
+      "z": 1,
+    },
+    Object {
+      "char": "l",
+      "style": Object {
+        "bgColor": undefined,
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 1,
+    },
+    Object {
+      "char": "u",
+      "style": Object {
+        "bgColor": undefined,
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 1,
+    },
+    Object {
+      "char": "t",
+      "style": Object {
+        "bgColor": undefined,
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 1,
+    },
+    Object {
+      "char": "e",
+      "style": Object {
+        "bgColor": undefined,
+        "color": undefined,
+        "modifiers": undefined,
+      },
+      "z": 1,
     },
     Object {
       "char": "r",
       "style": Object {
-        "bgColor": "gray",
-        "color": "red",
+        "bgColor": undefined,
+        "color": undefined,
         "modifiers": undefined,
       },
       "z": 0,
@@ -476,8 +512,8 @@ Array [
     Object {
       "char": "l",
       "style": Object {
-        "bgColor": "gray",
-        "color": "red",
+        "bgColor": undefined,
+        "color": undefined,
         "modifiers": undefined,
       },
       "z": 0,
@@ -485,108 +521,7 @@ Array [
     Object {
       "char": "d",
       "style": Object {
-        "bgColor": "gray",
-        "color": "red",
-        "modifiers": undefined,
-      },
-      "z": 0,
-    },
-    Object {
-      "char": "",
-      "style": Object {
-        "bgColor": "gray",
-        "color": undefined,
-        "modifiers": undefined,
-      },
-      "z": 0,
-    },
-    Object {
-      "char": "",
-      "style": Object {
-        "bgColor": "gray",
-        "color": undefined,
-        "modifiers": undefined,
-      },
-      "z": 0,
-    },
-  ],
-  Array [
-    Object {
-      "char": "",
-      "style": Object {
-        "bgColor": "gray",
-        "color": undefined,
-        "modifiers": undefined,
-      },
-      "z": 0,
-    },
-    Object {
-      "char": "",
-      "style": Object {
-        "bgColor": "gray",
-        "color": undefined,
-        "modifiers": undefined,
-      },
-      "z": 0,
-    },
-    Object {
-      "char": "",
-      "style": Object {
-        "bgColor": "gray",
-        "color": undefined,
-        "modifiers": undefined,
-      },
-      "z": 0,
-    },
-    Object {
-      "char": "",
-      "style": Object {
-        "bgColor": "gray",
-        "color": undefined,
-        "modifiers": undefined,
-      },
-      "z": 0,
-    },
-    Object {
-      "char": "",
-      "style": Object {
-        "bgColor": "gray",
-        "color": undefined,
-        "modifiers": undefined,
-      },
-      "z": 0,
-    },
-    Object {
-      "char": "",
-      "style": Object {
-        "bgColor": "gray",
-        "color": undefined,
-        "modifiers": undefined,
-      },
-      "z": 0,
-    },
-    Object {
-      "char": "",
-      "style": Object {
-        "bgColor": "gray",
-        "color": undefined,
-        "modifiers": undefined,
-      },
-      "z": 0,
-    },
-    Object {
-      "char": "",
-      "style": Object {
-        "bgColor": "gray",
-        "color": undefined,
-        "modifiers": undefined,
-      },
-      "z": 0,
-    },
-    Object {
-      "char": "",
-      "style": Object {
-        "bgColor": "gray",
+        "bgColor": undefined,
         "color": undefined,
         "modifiers": undefined,
       },

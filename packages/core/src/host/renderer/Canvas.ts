@@ -4,7 +4,7 @@ import Text from '../nodes/Text';
 import { Layout } from '../../layout';
 import { Style } from '../../types';
 
-type Pixel = {
+export type Pixel = {
   char: string;
   style?: Style;
   z: number;
@@ -97,7 +97,6 @@ export default class Canvas {
   }
 
   mergeChildCanvas(childCanvas: Canvas) {
-    debugger;
     for (
       let cy = childCanvas.y, y = 0;
       cy < childCanvas.y + childCanvas.height && cy < this.height;
