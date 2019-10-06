@@ -16,6 +16,7 @@ export default class Base<C> {
   rect?: RectData;
   isAbsolute = false;
   zIndex = 0;
+  testID?: string;
 
   constructor() {
     this.eventListener.setValidator((_eventName, eventData: MouseEvent) => {

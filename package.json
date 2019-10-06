@@ -7,6 +7,7 @@
     "example:build": "babel ./example/src --out-dir ./example/build --extensions '.js,.ts,.tsx' --config-file=./babel.config.js",
     "example:watch": "yarn example:build --watch",
     "example:start": "node ./example/build",
+    "example:debug": "node --inspect-brk ./example/build",
     "build:source": "lerna exec --parallel \"babel src --out-dir build --extensions '.js,.ts,.tsx' --ignore '**/__tests__/**' --source-maps --delete-dir-on-start --config-file=../../babel.config.js\"",
     "build:source:watch": "lerna exec --parallel \"babel src --out-dir build --extensions '.js,.ts,.tsx' --ignore '**/__tests__/**' --source-maps --config-file=../../babel.config.js  --watch\"",
     "build:ts": "lerna exec \"tsc --emitDeclarationOnly -p ./tsconfig.json --outDir ./build\"",

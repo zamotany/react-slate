@@ -31,6 +31,7 @@ export default function createElement(type: Function | string, props: any) {
   }
 
   if (instance) {
+    instance.testID = props.testID;
     if (props.style) {
       instance.style = props.style;
     }

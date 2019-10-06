@@ -17,6 +17,7 @@ import { SingleOrMulti, OnLayoutHook, MouseEventHandler } from '../types';
 export type Props = {
   children?: SingleOrMulti<0 | false | null | undefined | JSX.Element>;
   bgColor?: string;
+  testID?: string;
   /** Layout props */
   display?: 'flex' | 'none';
   position?: 'relative' | 'absolute';
@@ -73,7 +74,7 @@ export type Props = {
 };
 
 export default function View(props: Props) {
-  const { children, onLayout, bgColor } = props;
+  const { children, onLayout, bgColor, testID } = props;
   return (
     // @ts-ignore
     <HostView.TAG
@@ -82,6 +83,7 @@ export default function View(props: Props) {
       onWheel={props.onWheel}
       layoutStyle={reduceLayoutStyle(props)}
       style={{ bgColor }}
+      testID={testID}
     >
       {children}
     </HostView.TAG>
