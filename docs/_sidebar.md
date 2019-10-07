@@ -24,6 +24,6 @@
   - [onWheel](handlers/on-wheel)
 
 - **Links**
-- [![Github](_assets/github.svg)Github](https://github.com/zamotany/react-slate)
-- [![NPM](_assets/npm.svg)NPM](https://www.npmjs.com/package/@react-slate/core)
-- [![Twitter](_assets/twitter.svg)@\_zamotany](http://twitter.com/_zamotany)
+- [![Github](https://zamotany.github.io/react-slate/_assets/github.svg)Github](https://github.com/zamotany/react-slate)
+- [![NPM](https://zamotany.github.io/react-slate/_assets/npm.svg)NPM](https://www.npmjs.com/package/@react-slate/core)
+- [![Twitter](https://zamotany.github.io/react-slate/_assets/twitter.svg)@\_zamotany](http://twitter.com/_zamotany)
