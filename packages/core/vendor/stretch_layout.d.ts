@@ -1,3 +1,5 @@
+/* tslint:disable */
+
 export type Dimension = string | number; // '100%', '100', 100, or 'auto'
  
 export type Style = {
@@ -128,35 +130,80 @@ export enum FlexWrap {
 }
 /**
 */
+/**
+*/
 export class Allocator {
   free(): void;
+/**
+* @returns {Allocator} 
+*/
   constructor();
 }
 /**
 */
 export class Layout {
   free(): void;
-  readonly width: number;
+/**
+* @param {number} at 
+* @returns {Layout} 
+*/
+  child(at: number): Layout;
+  readonly childCount: number;
   readonly height: number;
+  readonly width: number;
   readonly x: number;
   readonly y: number;
-  readonly childCount: number;
-  child(at: number): Layout;
 }
 /**
 */
 export class Node {
   free(): void;
-  readonly childCount: number;
-  constructor(allocator: Allocator, style: Style);
+/**
+* @param {Allocator} allocator 
+* @param {any} style 
+* @returns {Node} 
+*/
+  constructor(allocator: Allocator, style: any);
+/**
+* @param {any} measure 
+*/
   setMeasure(measure: any): void;
+/**
+* @param {Node} child 
+*/
   addChild(child: Node): void;
+/**
+* @param {Node} child 
+*/
   removeChild(child: Node): void;
+/**
+* @param {number} index 
+* @param {Node} child 
+*/
   replaceChildAtIndex(index: number, child: Node): void;
+/**
+* @param {number} index 
+*/
   removeChildAtIndex(index: number): void;
-  getStyle(): Style;
-  setStyle(style: Style): void;
+/**
+* @returns {any} 
+*/
+  getStyle(): any;
+/**
+* @param {any} style 
+*/
+  setStyle(style: any): void;
+/**
+*/
   markDirty(): void;
+/**
+* @returns {boolean} 
+*/
   isDirty(): boolean;
-  computeLayout(size: { width: number | null, height: number | null }): Layout;
+/**
+* @param {any} size 
+* @returns {Layout} 
+*/
+  computeLayout(size: any): Layout;
+  readonly childCount: number;
 }

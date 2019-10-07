@@ -1,4 +1,4 @@
-import { Allocator } from './vendor/stretch_layout';
+import { Allocator } from '../vendor/stretch_layout';
 export {
   Node,
   Layout,
@@ -14,6 +14,6 @@ export {
   AlignContent,
   AlignSelf,
   JustifyContent,
-} from './vendor/stretch_layout';
+} from '../vendor/stretch_layout';
 
 export const allocator = new Allocator();
