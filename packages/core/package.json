@@ -26,15 +26,15 @@
   },
   "dependencies": {
     "ansi-escapes": "^4.2.1",
-    "ansi-styles": "^4.0.0",
+    "ansi-styles": "^4.1.0",
     "cli-spinners": "^2.2.0",
     "color-convert": "^2.0.1",
     "colorette": "^1.1.0",
     "fast-memoize": "^2.5.1",
-    "react-reconciler": "0.21.0",
+    "react-reconciler": "0.22.2",
     "shallowequal": "^1.1.0",
-    "supports-color": "^7.0.0",
-    "strip-ansi": "^4.0.0",
+    "supports-color": "^7.1.0",
+    "strip-ansi": "^5.2.0",
     "terminal-kit": "^1.31.1"
   },
   "devDependencies": {

@@ -26,25 +26,29 @@
     "react": "^16.9.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
-    "@babel/preset-typescript": "^7.3.3",
+    "@babel/preset-typescript": "^7.6.0",
     "@callstack/eslint-config": "^7.0.0",
-    "@types/jest": "^24.0.17",
+    "@types/jest": "^24.0.18",
     "@types/node": "^10.14.15",
     "@types/react": "^16.9.2",
     "@types/react-reconciler": "^0.18.0",
     "@types/shallowequal": "^1.1.1",
-    "@typescript-eslint/eslint-plugin": "^1.13.0",
-    "@typescript-eslint/parser": "^1.13.0",
-    "babel-eslint": "^10.0.2",
-    "babel-jest": "^24.8.0",
-    "concurrently": "^4.1.2",
-    "eslint": "^6.1.0",
-    "jest": "^24.8.0",
-    "typescript": "^3.5.3"
+    "@typescript-eslint/eslint-plugin": "^2.3.2",
+    "@typescript-eslint/parser": "^2.3.2",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
+    "concurrently": "^5.0.0",
+    "eslint": "^6.5.1",
+    "jest": "^24.9.0",
+    "typescript": "^3.6.3"
+  },
+  "resolutions": {
+    "marked": "0.7.0",
+    "braces": "2.3.1"
   }
 }
