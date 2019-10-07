@@ -115,7 +115,7 @@ export default class FlatList<T> extends React.Component<Props<T>, State> {
         width="100%"
         onWheel={this.onWheel}
       >
-        {this.state.height && false > 0 ? this.renderItemsInViewport() : null}
+        {this.state.height > 0 ? this.renderItemsInViewport() : null}
       </View>
     );
   }
