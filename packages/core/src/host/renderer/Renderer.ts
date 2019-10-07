@@ -41,7 +41,9 @@ export default class Renderer {
 
   private render(rootNode: View | Paragraph | Text, layout: Layout) {
     const canvas = new Canvas();
-    canvas.fill(rootNode, layout, { parentZ: rootNode.zIndex });
+    canvas.fill(rootNode, layout, {
+      parentZ: rootNode.parent ? rootNode.parent.zIndex : 0,
+    });
     rootNode.children.forEach((child, i) => {
       canvas.mergeChildCanvas(this.render(child, layout.child(i)));
     });

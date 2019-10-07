@@ -24,10 +24,7 @@ export default function renderToString(
         height: height || null,
       });
       container.notifyOnLayoutHook(layout, { offsetX: 0, offsetY: 0 });
-      currentSnapshot = renderer.renderToString(container, layout, {
-        maxHeight: height,
-        maxWidth: width,
-      });
+      currentSnapshot = renderer.renderToString(container, layout);
 
       asyncIterator.nextValue(currentSnapshot);
     })

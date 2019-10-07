@@ -107,7 +107,7 @@ describe('Renderer', () => {
     });
   });
 
-  it.skip('should properly colorize cells and overwrite styles with absolute View', () => {
+  it('should properly colorize cells and overwrite styles with absolute View', () => {
     const renderer = new Renderer();
     render(
       <View>
@@ -151,7 +151,7 @@ describe('Renderer', () => {
     });
   });
 
-  it.skip('should trim content', () => {
+  it('should trim content', () => {
     const renderer = new Renderer();
     render(
       <View position="absolute" left={-2} top={-1} flexDirection="column">

@@ -14,10 +14,7 @@ function reflowAndDiff(container: View, renderer: Renderer) {
     height: terminal.height,
   });
   container.notifyOnLayoutHook(layout, { offsetX: 0, offsetY: 0 });
-  return renderer.renderDiff(container, layout, {
-    maxWidth: terminal.width,
-    maxHeight: terminal.height,
-  });
+  return renderer.renderDiff(container, layout);
 }
 
 function flushDiff(diff: RenderDiff) {

@@ -15,8 +15,10 @@ export default class ContainerBase<C extends Base<any>> extends Base<C> {
       this.layoutNode.removeChildAtIndex(0);
     }
     for (let i = 0; i < this.children.length; i++) {
-      this.children[i].isAbsolute = this.isAbsolute;
-      this.children[i].zIndex = this.zIndex;
+      if (!this.children[i].isAbsolute) {
+        this.children[i].isAbsolute = this.isAbsolute;
+        this.children[i].zIndex = this.zIndex;
+      }
       this.layoutNode.addChild(this.children[i].layoutNode);
     }
   }

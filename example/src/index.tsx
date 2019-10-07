@@ -67,11 +67,13 @@ class App extends React.Component {
       <View width="100%" height="100%" flexDirection="column">
         <Section label="Compilation">
           <CompilationStatus label="ASDF " status="running" progress={0.2} />
-          {/* <CompilationStatus label="QWERT" status="running" progress={0.6} /> */}
+          <CompilationStatus label="QWERT" status="running" progress={0.6} />
         </Section>
         <Section label="Logs" growable>
-          <View bgColor="blue" width="100%" height="100%">
-            <Text>This should take the remaining space</Text>
+          <View bgColor="blue" width="100%" height="100%" testID="container">
+            <View marginTop={0} testID="textBox">
+              <Text>This should take the remaining space</Text>
+            </View>
           </View>
         </Section>
       </View>

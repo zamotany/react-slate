@@ -1,4 +1,10 @@
+import React from 'react';
+import Reconciler from 'react-reconciler';
+import createReconcilerConfig from '../../reconcilerConfig';
 import View from '../View';
+import Paragraph from '../Paragraph';
+import ViewJsx from '../../../components/View';
+import TextJsx from '../../../components/Text';
 import { PositionType } from '../../../layout';
 import { EventManager, EventTypes } from '../../../events';
 import { MouseEvent } from '../../../types';
@@ -167,5 +173,26 @@ describe('View node', () => {
     });
     expect(view.isAbsolute).toBe(false);
     expect(view.zIndex).toBe(0);
+  });
+
+  it('should have absolute properties set when created with reconciler', () => {
+    const container = new View();
+    const element = (
+      <ViewJsx>
+        <ViewJsx position="absolute" left={2} top={0}>
+          <TextJsx>Absolute</TextJsx>
+        </ViewJsx>
+      </ViewJsx>
+    );
+
+    const reconciler = Reconciler(createReconcilerConfig(container, () => {}));
+    const node = reconciler.createContainer(container, false, false);
+    reconciler.updateContainer(element, node, null, () => undefined);
+
+    expect(container.children[0].children[0].isAbsolute).toBe(true);
+    expect(container.children[0].children[0].zIndex).toBe(1);
+    expect(container.children[0].children[0].children[0]).toBeInstanceOf(
+      Paragraph
+    );
   });
 });
