@@ -9,10 +9,14 @@ type Element<T> = {
 };
 
 type Props<T> = {
-  itemHeight?: number | 'infer';
+  itemHeight: number | 'infer';
   data: T[];
   renderItem: (element: Element<T>) => JSX.Element;
   keyExtractor: (element: Element<T>) => number | string;
+  scrollMultiplier?: (data: {
+    viewportHeight: number;
+    itemHeight: number;
+  }) => number;
 };
 
 type State = {
@@ -27,6 +31,20 @@ export default class FlatList<T> extends React.Component<Props<T>, State> {
   };
 
   inferredItemHeight?: number;
+  scrollScale = 0;
+
+  getScrollScale() {
+    if (this.scrollScale === 0) {
+      this.scrollScale = this.props.scrollMultiplier
+        ? this.props.scrollMultiplier({
+            viewportHeight: this.state.height,
+            itemHeight: this.getItemHeight(),
+          })
+        : this.getItemHeight();
+    }
+
+    return this.scrollScale;
+  }
 
   onLayout: OnLayoutHook = layout => {
     if (layout.height !== this.state.height) {
@@ -35,7 +53,7 @@ export default class FlatList<T> extends React.Component<Props<T>, State> {
   };
 
   onWheel: MouseEventHandler = evt => {
-    // this.scrollBy(evt.direction || 0);
+    this.scrollBy(-(evt.direction || 0) * this.getScrollScale());
   };
 
   getItemHeight(): number {

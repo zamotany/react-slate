@@ -62,16 +62,6 @@ function CompilationStatus({
 class App extends React.Component {
   state = {};
 
-  flatList = React.createRef<FlatList<any>>();
-
-  componentDidMount() {
-    for (let i = 0; i < 7; i++) {
-      setTimeout(() => {
-        this.flatList.current!.scrollBy(1);
-      }, 2000 * (i + 1));
-    }
-  }
-
   render() {
     return (
       <View width="100%" height="100%" flexDirection="column">
@@ -80,11 +70,10 @@ class App extends React.Component {
           <CompilationStatus label="QWERT" status="running" progress={0.6} />
         </Section>
         <Section label="Logs" growable>
-          <View bgColor="blue" width="100%" height={8} testID="container">
+          <View bgColor="blue" width="100%" height="100%" testID="container">
             <FlatList
-              ref={this.flatList}
               itemHeight={3}
-              data={['1', '2', '3', '4', '5']}
+              data={new Array(20).fill(null).map((_, i) => `Element #${i}`)}
               keyExtractor={({ item }) => item}
               renderItem={({ item, index }) => (
                 <View
