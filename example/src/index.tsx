@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Progress, render } from '../../packages/core';
+import { View, Text, Progress, FlatList, render } from '../../packages/core';
 
 function Section({
   label,
@@ -71,9 +71,21 @@ class App extends React.Component {
         </Section>
         <Section label="Logs" growable>
           <View bgColor="blue" width="100%" height="100%" testID="container">
-            <View marginTop={0} testID="textBox">
-              <Text>This should take the remaining space</Text>
-            </View>
+            <FlatList
+              itemHeight={3}
+              data={new Array(20).fill(null).map((_, i) => `Element #${i}`)}
+              keyExtractor={({ item }) => item}
+              renderItem={({ item, index }) => (
+                <View
+                  paddingTop={1}
+                  paddingBottom={1}
+                  bgColor={index % 2 === 0 ? 'green' : 'magenta'}
+                  width="100%"
+                >
+                  <Text>{item}</Text>
+                </View>
+              )}
+            />
           </View>
         </Section>
       </View>
