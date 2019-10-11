@@ -24,6 +24,17 @@ type State = {
   offset: number;
 };
 
+function throttle<T extends Function>(func: T, limit: number) {
+  let inThrottle: boolean;
+  return (...args: any[]) => {
+    if (!inThrottle) {
+      func(...args);
+      inThrottle = true;
+      setTimeout(() => (inThrottle = false), limit);
+    }
+  };
+}
+
 export default class FlatList<T> extends React.Component<Props<T>, State> {
   state = {
     height: 0,
@@ -52,9 +63,9 @@ export default class FlatList<T> extends React.Component<Props<T>, State> {
     }
   };
 
-  onWheel: MouseEventHandler = evt => {
+  onWheel = throttle<MouseEventHandler>(evt => {
     this.scrollBy(-(evt.direction || 0) * this.getScrollScale());
-  };
+  }, 16);
 
   getItemHeight(): number {
     if (typeof this.props.itemHeight === 'number') {
