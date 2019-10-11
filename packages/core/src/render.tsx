@@ -60,6 +60,10 @@ export default function render(element: JSX.Element) {
     terminal(staticElementSnapshot);
     terminal('\n');
     terminal(dynamicContentSnapshot);
+    const staticContentheight = (staticElementSnapshot || '').split('\n')
+      .length;
+    dynamicContentTop += staticContentheight;
+    dynamicContentBottom += staticContentheight;
   }
 
   (async () => {

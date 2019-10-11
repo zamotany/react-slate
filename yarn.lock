@@ -2744,7 +2744,7 @@ chownr@^1.1.1, chownr@^1.1.2:
   resolved "https://registry.yarnpkg.com/chownr/-/chownr-1.1.3.tgz#42d837d5239688d55f303003a508230fa6727142"
   integrity sha512-i70fVHhmV3DtTl6nqvZOnIjbY0Pe4kAUjwHj8z0zAdgBtYrJyYwLKCCuRBQ5ppkyL0AkN7HKRnETdmdp1zqNXw==
 
-chroma-js@^2.0.6:
+chroma-js@^2.0.4:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/chroma-js/-/chroma-js-2.0.6.tgz#2d4b761be09bf142b541f0011f64f213ecf6c8b6"
   integrity sha512-IiiClbBRkRwuXNl6impq5ssEhUGpmWvc5zzImZbDUWLWcFbj6ZbtsdZEx6sIXMKes7azgYaUpnmsY1T8BL6PqQ==
@@ -6340,7 +6340,7 @@ nested-error-stacks@^2.0.0:
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.0.tgz#0fbdcf3e13fe4994781280524f8b96b0cdff9c61"
   integrity sha512-AO81vsIO1k1sM4Zrd6Hu7regmJN1NSiAja10gc4bX3F0wd+9rQmcuHQaHVQCYIEC8iFXnE+mavh23GOt7wBgug==
 
-nextgen-events@^1.3.0:
+nextgen-events@^1.1.1:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/nextgen-events/-/nextgen-events-1.3.0.tgz#a32665d1ab6f026448b19d75c4603ec20292fa22"
   integrity sha512-eBz5mrO4Hw2eenPVm0AVPHuAzg/RZetAWMI547RH8O9+a0UYhCysiZ3KoNWslnWNlHetb9kzowEshsKsmFo2YQ==
@@ -8166,10 +8166,10 @@ stream-shift@^1.0.0:
   resolved "https://registry.yarnpkg.com/stream-shift/-/stream-shift-1.0.0.tgz#d5c752825e5367e786f78e18e445ea223a155952"
   integrity sha1-1cdSgl5TZ+eG944Y5EXqIjoVWVI=
 
-string-kit@^0.10.0:
-  version "0.10.1"
-  resolved "https://registry.yarnpkg.com/string-kit/-/string-kit-0.10.1.tgz#b5bf0e83cf2239ba6f68b6131ddad59768f7e575"
-  integrity sha512-qxIqv5bJqYoWzJa0WJFdw9CCoPJ3/9EixXQXVerIYMghd45w0XiESgUchYCEeGg8bQQWHS+TYZW1DcJmHwAxZA==
+string-kit@^0.9.10:
+  version "0.9.12"
+  resolved "https://registry.yarnpkg.com/string-kit/-/string-kit-0.9.12.tgz#8715e4ecf41089d20031ccd6109c94f17ba10c02"
+  integrity sha512-l6BRL9uO4uV1o6/r/mJthahp8qatqGv4l6Z2o2mX+y2VYc7gFb2YD0k3zThvw3BATj/nDvLTB1s167vc2JdeDg==
 
 string-length@^2.0.0:
   version "2.0.0"
@@ -8389,18 +8389,18 @@ term-size@^1.2.0:
   dependencies:
     execa "^0.7.0"
 
-terminal-kit@^1.31.4:
-  version "1.31.4"
-  resolved "https://registry.yarnpkg.com/terminal-kit/-/terminal-kit-1.31.4.tgz#74cb09596bcb896c113dd3f29233e197c9f2ef22"
-  integrity sha512-alrT1vDcKamNxdU8HrN25hTsHBuSWb++HVPVy98xbbUJBTw5l+NiF+ILAO56fl0XQLPOMqVUs0lhqf0B20Lucg==
+terminal-kit@1.31.1:
+  version "1.31.1"
+  resolved "https://registry.yarnpkg.com/terminal-kit/-/terminal-kit-1.31.1.tgz#82535fe3eb7370884bc35b8732e3d439aadeb150"
+  integrity sha512-mKPPkvRgUAuerK/bcZze6GLl8Y8C/agPncFsgR9zwIcz/2xPydcng9hbB48tYz6jrY3IXumi6WkaEYYYyzYtWQ==
   dependencies:
     "@cronvel/get-pixels" "^3.3.1"
-    chroma-js "^2.0.6"
+    chroma-js "^2.0.4"
     lazyness "^1.1.1"
     ndarray "^1.0.18"
-    nextgen-events "^1.3.0"
+    nextgen-events "^1.1.1"
     seventh "^0.7.28"
-    string-kit "^0.10.0"
+    string-kit "^0.9.10"
     tree-kit "^0.6.1"
 
 test-exclude@^5.2.3:

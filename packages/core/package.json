@@ -36,7 +36,7 @@
     "shallowequal": "^1.1.0",
     "supports-color": "^7.1.0",
     "strip-ansi": "^5.2.0",
-    "terminal-kit": "^1.31.4"
+    "terminal-kit": "1.31.1"
   },
   "devDependencies": {
     "@types/ansi-styles": "^3.2.1",
