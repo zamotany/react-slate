@@ -8389,7 +8389,7 @@ term-size@^1.2.0:
   dependencies:
     execa "^0.7.0"
 
-terminal-kit@^1.31.1:
+terminal-kit@^1.31.4:
   version "1.31.4"
   resolved "https://registry.yarnpkg.com/terminal-kit/-/terminal-kit-1.31.4.tgz#74cb09596bcb896c113dd3f29233e197c9f2ef22"
   integrity sha512-alrT1vDcKamNxdU8HrN25hTsHBuSWb++HVPVy98xbbUJBTw5l+NiF+ILAO56fl0XQLPOMqVUs0lhqf0B20Lucg==
