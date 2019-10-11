@@ -4,7 +4,7 @@
 
 - API
 
-  - [render](api/render)
+  - [render-fullscreen](api/render-fullscreen)
   - [renderToString](api/render-to-string)
   - [renderToJson](api/render-to-json)
   - [terminal](api/terminal)

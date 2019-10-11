@@ -26,9 +26,9 @@
 
 ### Features
 
-* Render React apps to terminal (`render`), string (`renderToString`) or as a JSON tree (`renderToJson`).
+* Render React apps to terminal in fullscreen mode (`renderFullscreen`), string (`renderToString`) or as a JSON tree (`renderToJson`).
 * Build layouts with FlexBox (https://github.com/vislyhq/stretch).
-* Render your app to alternative screen buffer and go back to the previous content upon exit.
+* Render your app to alternative screen buffer and go back to the previous content upon exit with `renderFullscreen`.
 * Log messages to main screen buffer with `console` when exiting.
 * Disable colors with [`NO_COLOR`](https://no-color.org/) environment variable.
 * Use standard ANSI colors, RBG, Hex and CSS keywords to style your app.
