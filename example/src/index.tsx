@@ -3,8 +3,10 @@ import {
   View,
   Text,
   Progress,
-  renderToString,
   terminal,
+  render,
+  renderToString,
+  useRenderStatic,
 } from '../../packages/core';
 import { EventEmitter } from 'events';
 import DayJs from 'dayjs';
@@ -71,12 +73,18 @@ function Compilation({
 }
 
 function Dash({ compiler }: { compiler: EventEmitter }) {
+  const renderStatic = useRenderStatic();
   const [state, setState] = React.useState({ ios: 0, android: 0 });
+
   React.useEffect(() => {
     compiler.on('progress', ({ platform, value }) => {
       setState(state => ({ ...state, [platform]: value }));
     });
-  }, [compiler]);
+
+    compiler.on('log', ({ message }) => {
+      renderStatic(<Log>{message}</Log>);
+    });
+  }, [compiler, renderStatic]);
 
   return (
     <View flexDirection="column" paddingTop={1} width="100%">
@@ -91,41 +99,13 @@ function Dash({ compiler }: { compiler: EventEmitter }) {
   );
 }
 
-(async () => {
-  terminal(
-    renderToString(
-      <View marginBottom={1}>
-        <Text bold color="green">
-          Starting...
-        </Text>
-      </View>
-    ).snapshot
-  );
-
-  dataSource.on('log', ({ message }) => {
-    const { snapshot: log } = renderToString(<Log>{message}</Log>);
-    terminal.moveTo(0, lineAboveDash);
-    terminal('\n' + log + '\n');
-    terminal(lastDashSnapshot);
-  });
-
-  let firstDashRender = true;
-  let lastDashSnapshot = '';
-  let lineAboveDash = 0;
-
-  for await (const snapshot of renderToString(<Dash compiler={dataSource} />, {
-    width: terminal.width,
-  })) {
-    lastDashSnapshot = snapshot || '';
-    if (firstDashRender) {
-      firstDashRender = false;
-      terminal(snapshot);
-    } else {
-      const dashHeight = (snapshot || '').split('\n').length;
-      lineAboveDash = terminal.height - dashHeight;
-      terminal.moveTo(0, lineAboveDash + 1);
-      terminal.eraseDisplayBelow();
-      terminal(snapshot);
-    }
-  }
-})();
+terminal(
+  renderToString(
+    <View marginBottom={1}>
+      <Text bold color="green">
+        Starting...
+      </Text>
+    </View>
+  ).snapshot
+);
+render(<Dash compiler={dataSource} />);
