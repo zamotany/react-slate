@@ -12,6 +12,7 @@
   "main": "build/index.js",
   "files": [
     "/build",
+    "/vendor",
     "index.js",
     "README.md"
   ],
