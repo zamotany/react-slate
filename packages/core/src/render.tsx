@@ -13,7 +13,9 @@ export type RenderStatic = (staticElement: JSX.Element) => void;
 const RenderStaticContext = React.createContext<{ renderStatic: RenderStatic }>(
   {
     renderStatic: () => {
-      /* NOOP */
+      throw new Error(
+        'renderStatic() can only be used when rendering with render() function'
+      );
     },
   }
 );

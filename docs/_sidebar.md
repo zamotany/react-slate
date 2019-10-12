@@ -3,12 +3,15 @@
 - [Colors](colors)
 
 - API
-
-  - [render-fullscreen](api/render-fullscreen)
+  - [render](api/render)
+    - [withRenderStatic](api/with-render-static)
+    - [useRenderStatic](api/use-render-static)
+    - [renderStatic](api/render-static)
+  - [renderFullscreen](api/render-fullscreen)
+    - [exit](api/exit)
   - [renderToString](api/render-to-string)
   - [renderToJson](api/render-to-json)
   - [terminal](api/terminal)
-  - [exit](api/exit)
 
 - Components
 

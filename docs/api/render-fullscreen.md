@@ -3,14 +3,14 @@
 #### Definition:
 
 ```ts
-renderFullscreen(
+function renderFullscreen(
   element: JSX.Element,
 ): void
 ```
 
 #### Description:
 
-Render app in fullscreen mode to a terminal's alternate screen buffer using process standard output (`STD`). Apps rendered to alterante screen buffer will take all available window space.
+Render app in fullscreen mode to the terminal's alternate screen buffer using process standard output (`STD`). Apps rendered to alterante screen buffer will take all available window space.
 
 By default the rendered content will be styled with colors and modifiers. You can disable this behavior by passing [`NO_COLOR`](https://no-color.org/) environment variable.
 
@@ -23,6 +23,7 @@ By default the rendered content will be styled with colors and modifiers. You ca
 #### Example:
 
 ```jsx
+import React from 'react';
 import {renderFullscreen, Text} from '@react-slate/core';
 
 const App = () => <Text>Hello</Text>;

@@ -24,15 +24,15 @@ yarn add -D @babel/preset-typescript
 
 Great, let's write some code!
 
-Let's import `render` and `Text` from `@react-slate/core` and make it display a `Hello World` text:
+Let's import `renderFullscreen` and `Text` from `@react-slate/core` and make it display a `Hello World` text:
 
 ```jsx
 import React from 'react';
-import { render, Text } from '@react-slate/core';
+import { renderFullscreen, Text } from '@react-slate/core';
 
 const App = () => <Text>Hello World</Text>;
 
-render(<App />);
+renderFullscreen(<App />);
 ```
 
 Now you should see:
@@ -45,7 +45,7 @@ Let's add some styling and layout, import `View` from `@react-slate/core` and ce
 
 ```jsx
 import React from 'react';
-import { render, Text, View } from '@react-slate/core';
+import { renderFullscreen, Text, View } from '@react-slate/core';
 
 const App = () => (
   <View width="100%" height="100%" justifyContent="center" alignItems="center">
@@ -53,7 +53,7 @@ const App = () => (
   </View>
 );
 
-render(<App />);
+renderFullscreen(<App />);
 ```
 
 You should see something like this:
@@ -64,7 +64,7 @@ Let's make the Hello World text more interesting, use `bold` and `color` props t
 
 ```jsx
 import React from 'react';
-import { render, Text, View } from '@react-slate/core';
+import { renderFullscreen, Text, View } from '@react-slate/core';
 
 const App = () => (
   <View width="100%" height="100%" justifyContent="center" alignItems="center">
@@ -74,7 +74,7 @@ const App = () => (
   </View>
 );
 
-render(<App />);
+renderFullscreen(<App />);
 ```
 You should see:
 
@@ -84,7 +84,7 @@ Every `react-slate` app can be exited by pressing `CTRL + C`, but let's be more 
 
 ```jsx
 import React from 'react';
-import { render, Text, View, exit } from '@react-slate/core';
+import { renderFullscreen, Text, View, exit } from '@react-slate/core';
 
 const App = () => (
   <View
@@ -112,7 +112,7 @@ const App = () => (
   </View>
 );
 
-render(<App />);
+renderFullscreen(<App />);
 ```
 
 Now try running your app and pressing the exit button:

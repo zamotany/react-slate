@@ -26,17 +26,21 @@
 
 ### Features
 
-* Render React apps to terminal in fullscreen mode (`renderFullscreen`), string (`renderToString`) or as a JSON tree (`renderToJson`).
+* Render React apps to:
+  * terminal with [`render`](api/render)
+  * terminal in fullscreen mode with [`renderFullscreen`](api/render-fullscreen)
+  * a string with [`renderToString`](api/render-to-string)
+  * a JSON tree [`renderToJson`](api/render-to-json)
+* Use `for await` to continuously render your app using [`renderToString`](api/render-to-string) or [`renderToJson`](api/render-to-json).
+* Render your app to alternative screen buffer and go back to the previous content upon exit with [`renderFullscreen`](api/render-fullscreen).
+* Log messages to main screen buffer with `console` when exiting when in fullscreen mode ([`renderFullscreen`](api/render-fullscreen)).
 * Build layouts with FlexBox (https://github.com/vislyhq/stretch).
-* Render your app to alternative screen buffer and go back to the previous content upon exit with `renderFullscreen`.
-* Log messages to main screen buffer with `console` when exiting.
 * Disable colors with [`NO_COLOR`](https://no-color.org/) environment variable.
 * Use standard ANSI colors, RBG, Hex and CSS keywords to style your app.
-* Use built-in `<Progress />` and `<Spinner />` components.
-* Get layout information using `onLayout` prop.
-* Handle clicks using `onClick` prop.
-* Detect mouse wheel events using `onWheel` prop.
-* Use `for await` to continuously render your app using `renderToString` or `renderToJson`.
+* Use built-in [`<Progress />`](components/progress) and [`<Spinner />`](components/spinner) components.
+* Get layout information using [`onLayout`](handlers/on-layout) prop.
+* Handle clicks using [`onClick`](handlers/on-click) prop.
+* Detect mouse wheel events using [`onWheel`](handlers/on-wheel) prop.
 * Support for absolute positioning and depth (`zIndex`).
 * Built with TypeScript.
 
