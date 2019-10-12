@@ -16,7 +16,7 @@
     "typecheck": "lerna exec \"tsc --noEmit\"",
     "lint": "eslint --ext '.ts,.tsx' './packages'",
     "test": "jest",
-    "publish": "lerna publish --skip-git",
+    "release": "lerna publish --sign-git-commit --sign-git-tag",
     "docs": "docsify serve ./docs",
     "dev": "concurrently \"yarn:build:source:watch\" \"yarn:example:watch\" \"yarn:build:ts:watch\""
   },
