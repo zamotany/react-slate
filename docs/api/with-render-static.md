@@ -16,7 +16,7 @@ Higher Order Component for getting [`renderStatic`](api/render-static) function 
 
 #### Example:
 
-```jsx
+```tsx
 import React from 'react';
 import {render, withRenderStatic, RenderStatic, Text} from '@react-slate/core';
 
