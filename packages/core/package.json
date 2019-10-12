@@ -4,6 +4,8 @@
   "description": "Write interactive CLI apps with React",
   "license": "MIT",
   "repository": "https://github.com/zamotany/react-slate",
+  "bugs": "https://github.com/zamotany/react-slate/issues",
+  "homepage": "https://zamotany.github.io/react-slate/",
   "private": false,
   "author": {
     "name": "Paweł Trysła",
@@ -13,8 +15,7 @@
   "files": [
     "/build",
     "/vendor",
-    "index.js",
-    "README.md"
+    "index.js"
   ],
   "engines": {
     "node": ">=10"
@@ -36,7 +37,7 @@
     "shallowequal": "^1.1.0",
     "supports-color": "^7.1.0",
     "strip-ansi": "^5.2.0",
-    "terminal-kit": "^1.31.1"
+    "terminal-kit": "1.31.1"
   },
   "devDependencies": {
     "@types/ansi-styles": "^3.2.1",

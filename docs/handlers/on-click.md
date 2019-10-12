@@ -1,6 +1,6 @@
 # onClick handler
 
-> Only available when rendering app with [`render`](api/render) function.
+> Only available when rendering app with [`renderFullscreen`](api/render-fullscreen) function.
 
 `onClick` handler is a function called upon receiving mouse click event over the element, which has the handler attached.
 
@@ -11,7 +11,7 @@ All `onClick` handlers undergo event bubbling meaning each `onClick` handler on 
 #### Definition:
 
 ```ts
-onClick(event: MouseEvent): boolean | void;
+function onClick(event: MouseEvent): boolean | void;
 ```
 
 `MouseEvent` consist of the following properties:

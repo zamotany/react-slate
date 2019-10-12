@@ -3,7 +3,7 @@
 #### Definition:
 
 ```ts
-exit(code?: number = 0): void
+function exit(code?: number = 0): void
 ```
 
 #### Description:
@@ -11,6 +11,8 @@ exit(code?: number = 0): void
 Exit from the app programmatically.
 
 `exit` function contains cleanup logic to return to valid and usable terminal session and thus, **should be used instead of `process.exit`**.
+
+> `exit` should only be used when rendering app with [`renderFullscreen`](api/render-fullscreen). To exit programmatically when rendering using different method use `terminal.processExit(code)`.
 
 #### Arguments:
 

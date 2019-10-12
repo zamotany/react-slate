@@ -3,7 +3,7 @@
 #### Definition:
 
 ```ts
-renderToString(
+function renderToString(
   element: JSX.Element,
   options: {
     width?: number;
@@ -35,6 +35,7 @@ Use `for await` for continuously rendered app - ones that render more than a sin
 #### Example:
 
 ```jsx
+import React from 'react';
 import {renderToString, Text} from '@react-slate/core';
 
 const App = () => <Text>Hello</Text>;

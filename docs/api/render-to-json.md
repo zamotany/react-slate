@@ -3,7 +3,7 @@
 #### Definition:
 
 ```ts
-renderToJson(
+function renderToJson(
   element: JSX.Element,
   options: {
     width?: number;
@@ -33,6 +33,7 @@ Use `for await` for continuously rendered app - ones that render more than a sin
 #### Example:
 
 ```jsx
+import React from 'react';
 import {renderToJson, Text} from '@react-slate/core';
 
 const App = () => <Text>Hello</Text>;

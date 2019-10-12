@@ -7,7 +7,7 @@
 #### Definition:
 
 ```ts
-onLayout(layout: RectData): void
+function onLayout(layout: RectData): void
 ```
 
 `RectData` consist of the following properties:
