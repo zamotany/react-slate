@@ -11,26 +11,6 @@ import {
 import { EventEmitter } from 'events';
 import DayJs from 'dayjs';
 
-//#region data_source
-
-const dataSource = new EventEmitter();
-const emitLogs = () => {
-  setTimeout(() => {
-    dataSource.emit('log', { message: 'New log :)' });
-    emitLogs();
-  }, Math.random() * (5000 - 1000) + 1000);
-};
-emitLogs();
-const emitProgress = (platform: string, value: number = 0) => {
-  setTimeout(() => {
-    dataSource.emit('progress', { platform, value: value + 0.05 });
-    emitProgress(platform, value + 0.05);
-  }, Math.random() * (500 - 10) + 10);
-};
-emitProgress('ios');
-
-//#endregion data_source
-
 function Log({ children }: { children: string }) {
   return (
     <View>
@@ -84,6 +64,10 @@ function Dash({ compiler }: { compiler: EventEmitter }) {
     compiler.on('log', ({ message }) => {
       renderStatic(<Log>{message}</Log>);
     });
+
+    return () => {
+      compiler.removeAllListeners();
+    };
   }, [compiler, renderStatic]);
 
   return (
@@ -99,6 +83,40 @@ function Dash({ compiler }: { compiler: EventEmitter }) {
   );
 }
 
+class App extends React.Component {
+  compiler = new EventEmitter();
+  logsTimeout?: NodeJS.Timeout;
+  progressTimeout?: NodeJS.Timeout;
+
+  emitLogs = () => {
+    this.logsTimeout = setTimeout(() => {
+      this.compiler.emit('log', { message: 'New log :)' });
+      this.emitLogs();
+    }, Math.random() * (5000 - 1000) + 1000);
+  };
+
+  emitProgress = (platform: string, value: number = 0) => {
+    this.progressTimeout = setTimeout(() => {
+      this.compiler.emit('progress', { platform, value: value + 0.05 });
+      this.emitProgress(platform, value + 0.05);
+    }, Math.random() * (500 - 10) + 10);
+  };
+
+  componentDidMount() {
+    this.emitLogs();
+    this.emitProgress('ios');
+  }
+
+  componentWillUnmount() {
+    this.logsTimeout && clearTimeout(this.logsTimeout);
+    this.progressTimeout && clearTimeout(this.progressTimeout);
+  }
+
+  render() {
+    return <Dash compiler={this.compiler} />;
+  }
+}
+
 terminal(
   renderToString(
     <View marginBottom={1}>
@@ -108,4 +126,4 @@ terminal(
     </View>
   ).snapshot
 );
-render(<Dash compiler={dataSource} />);
+render(<App />);
