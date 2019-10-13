@@ -58,12 +58,15 @@ export default function renderToJson(
     height,
     maxRenders,
   }: { width?: number; height?: number; maxRenders?: number } = {}
-): { snapshot: JsonView | undefined } & Iterable<
-  Promise<JsonView | undefined>
-> {
+): {
+  snapshot: JsonView | undefined;
+  start: () => Iterable<Promise<JsonView | undefined>>;
+  stop: () => void;
+} {
   let currentSnapshot: JsonView | undefined;
   const asyncIterator = new AsyncIterator<JsonView | undefined>(maxRenders);
   const container = new View();
+
   container.setLayoutStyle({ width: '100%', height: '100%' });
   const reconciler = Reconciler(
     createReconcilerConfig(container, () => {
@@ -78,9 +81,15 @@ export default function renderToJson(
   );
   const node = reconciler.createContainer(container, false, false);
   reconciler.updateContainer(element, node, null, () => undefined);
-  return asyncIterator.makeIterator({
+
+  return {
     get snapshot() {
       return currentSnapshot;
     },
-  });
+    start: () => asyncIterator.makeIterator({}),
+    stop: () => {
+      asyncIterator.finish(undefined);
+      reconciler.updateContainer(null, node, null, () => undefined);
+    },
+  };
 }

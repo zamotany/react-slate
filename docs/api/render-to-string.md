@@ -10,9 +10,11 @@ function renderToString(
     height?: number;
     maxRenders?: number;
   } = {}
-): { snapshot: string | undefined } & Iterable<
-  Promise<string | undefined>
->
+): {
+  snapshot: string | undefined;
+  start: () => Iterable<Promise<string | undefined>>;
+  stop: () => void;
+}
 ```
 
 #### Description:
@@ -21,7 +23,7 @@ Render app to a string for custom processing.
 
 By default the rendered string will include ANSI escape codes for styling. You can disable this behavior by passing [`NO_COLOR`](https://no-color.org/) environment variable.
 
-Use `for await` for continuously rendered app - ones that render more than a single frame.
+Use `start` function and `for await` for continuously rendered app - ones that render more than a single frame. Use `stop` function to programatically stop rendering.
 
 #### Arguments:
 
@@ -43,7 +45,7 @@ const App = () => <Text>Hello</Text>;
 console.log(renderToString(<App />).snapshot);
 // or
 (async () => {
-  for await (const snapshot of renderToString(<App />)) {
+  for await (const snapshot of renderToString(<App />).start()) {
     console.log(snapshot);
   }
 })();

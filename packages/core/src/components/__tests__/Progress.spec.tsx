@@ -62,7 +62,7 @@ describe('Progress component', () => {
       {
         maxRenders: 6,
       }
-    )) {
+    ).start()) {
       switch (index) {
         case 0:
           break;

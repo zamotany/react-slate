@@ -9,16 +9,28 @@ export class AsyncIterator<D> {
   private awaitingData: D[] = [];
   private awaitingResolver?: (value: D) => void;
   private iteration: number = 0;
+  private isDone = false;
 
   constructor(private maxIterations?: number) {}
 
   nextValue(value: D) {
+    if (this.isDone) {
+      return;
+    }
+
     if (this.awaitingResolver) {
       this.awaitingResolver(value);
       this.awaitingResolver = undefined;
     } else {
       this.awaitingData.push(value);
     }
+  }
+
+  finish(value: D) {
+    if (this.awaitingResolver) {
+      this.awaitingResolver(value);
+    }
+    this.isDone = true;
   }
 
   makeIterator<T>(target: T): T & Iterable<Promise<D | undefined>> {
@@ -28,8 +40,9 @@ export class AsyncIterator<D> {
         return {
           next: () => {
             if (
-              self.maxIterations &&
-              self.iteration >= self.maxIterations - 1
+              (self.maxIterations &&
+                self.iteration >= self.maxIterations - 1) ||
+              self.isDone
             ) {
               return {
                 done: true,
