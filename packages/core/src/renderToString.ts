@@ -11,11 +11,16 @@ export default function renderToString(
     height,
     maxRenders,
   }: { width?: number; height?: number; maxRenders?: number } = {}
-): { snapshot: string | undefined } & Iterable<Promise<string | undefined>> {
+): {
+  snapshot?: string;
+  start: () => Iterable<Promise<string | undefined>>;
+  stop: () => void;
+} {
   let currentSnapshot = '';
-  const asyncIterator = new AsyncIterator<string>(maxRenders);
+  const asyncIterator = new AsyncIterator<string | undefined>(maxRenders);
   const renderer = new Renderer();
   const container = new View();
+
   container.setLayoutStyle({ width: '100%', height: '100%' });
   const reconciler = Reconciler(
     createReconcilerConfig(container, () => {
@@ -31,9 +36,15 @@ export default function renderToString(
   );
   const node = reconciler.createContainer(container, false, false);
   reconciler.updateContainer(element, node, null, () => undefined);
-  return asyncIterator.makeIterator({
+
+  return {
     get snapshot() {
       return currentSnapshot;
     },
-  });
+    start: () => asyncIterator.makeIterator({}),
+    stop: () => {
+      asyncIterator.finish(undefined);
+      reconciler.updateContainer(null, node, null, () => undefined);
+    },
+  };
 }

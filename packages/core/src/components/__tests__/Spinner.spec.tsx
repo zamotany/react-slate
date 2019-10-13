@@ -14,7 +14,7 @@ describe('Progress component', () => {
     let index = 0;
     for await (const snapshot of renderToString(<Spinner type="line" />, {
       maxRenders: 5,
-    })) {
+    }).start()) {
       switch (index) {
         case 0:
           expect(snapshot).toMatch('-');
@@ -45,7 +45,7 @@ describe('Progress component', () => {
       {
         maxRenders: 4,
       }
-    )) {
+    ).start()) {
       switch (index) {
         case 0:
           expect(snapshot).toMatch('A');

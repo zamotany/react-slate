@@ -74,40 +74,37 @@ Object {
 
 exports[`Text component should transform children 3`] = `
 Object {
-  "snapshot": Object {
-    "children": Array [
-      Object {
-        "children": Array [
-          Object {
-            "body": "Hello World",
-            "height": 1,
-            "node": "Text",
-            "style": undefined,
-            "width": 11,
-            "x": 0,
-            "y": 0,
-          },
-        ],
-        "height": 1,
-        "node": "Paragraph",
-        "style": Object {
-          "bgColor": undefined,
-          "color": undefined,
-          "modifiers": undefined,
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "Hello World",
+          "height": 1,
+          "node": "Text",
+          "style": undefined,
+          "width": 11,
+          "x": 0,
+          "y": 0,
         },
-        "width": 11,
-        "x": 0,
-        "y": 0,
+      ],
+      "height": 1,
+      "node": "Paragraph",
+      "style": Object {
+        "bgColor": undefined,
+        "color": undefined,
+        "modifiers": undefined,
       },
-    ],
-    "height": 1,
-    "node": "View",
-    "style": undefined,
-    "width": 11,
-    "x": 0,
-    "y": 0,
-  },
-  Symbol(Symbol.iterator): [Function],
+      "width": 11,
+      "x": 0,
+      "y": 0,
+    },
+  ],
+  "height": 1,
+  "node": "View",
+  "style": undefined,
+  "width": 11,
+  "x": 0,
+  "y": 0,
 }
 `;
 
@@ -149,48 +146,45 @@ Object {
 
 exports[`Text component should transform children 5`] = `
 Object {
-  "snapshot": Object {
-    "children": Array [
-      Object {
-        "children": Array [
-          Object {
-            "body": "HELLO ",
-            "height": 1,
-            "node": "Text",
-            "style": undefined,
-            "width": 6,
-            "x": 0,
-            "y": 0,
-          },
-          Object {
-            "body": "WORLD",
-            "height": 1,
-            "node": "Text",
-            "style": undefined,
-            "width": 5,
-            "x": 6,
-            "y": 0,
-          },
-        ],
-        "height": 1,
-        "node": "Paragraph",
-        "style": Object {
-          "bgColor": undefined,
-          "color": undefined,
-          "modifiers": undefined,
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "body": "HELLO ",
+          "height": 1,
+          "node": "Text",
+          "style": undefined,
+          "width": 6,
+          "x": 0,
+          "y": 0,
         },
-        "width": 11,
-        "x": 0,
-        "y": 0,
+        Object {
+          "body": "WORLD",
+          "height": 1,
+          "node": "Text",
+          "style": undefined,
+          "width": 5,
+          "x": 6,
+          "y": 0,
+        },
+      ],
+      "height": 1,
+      "node": "Paragraph",
+      "style": Object {
+        "bgColor": undefined,
+        "color": undefined,
+        "modifiers": undefined,
       },
-    ],
-    "height": 1,
-    "node": "View",
-    "style": undefined,
-    "width": 11,
-    "x": 0,
-    "y": 0,
-  },
-  Symbol(Symbol.iterator): [Function],
+      "width": 11,
+      "x": 0,
+      "y": 0,
+    },
+  ],
+  "height": 1,
+  "node": "View",
+  "style": undefined,
+  "width": 11,
+  "x": 0,
+  "y": 0,
 }
 `;

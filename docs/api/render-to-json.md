@@ -10,16 +10,18 @@ function renderToJson(
     height?: number;
     maxRenders?: number;
   } = {}
-): { snapshot: JsonView | undefined } & Iterable<
-  Promise<JsonView | undefined>
->
+): {
+  snapshot: JsonView | undefined;
+  start: () => Iterable<Promise<JsonView | undefined>>;
+  stop: () => void;
+}
 ```
 
 #### Description:
 
 Render app to JSON-serializable tree with content, layout and style information for custom processing.
 
-Use `for await` for continuously rendered app - ones that render more than a single frame.
+Use `start` function and `for await` for continuously rendered app - ones that render more than a single frame. Use `stop` function to programatically stop rendering.
 
 #### Arguments:
 
@@ -41,7 +43,7 @@ const App = () => <Text>Hello</Text>;
 console.log(renderToJson(<App />).snapshot);
 // or
 (async () => {
-  for await (const snapshot of renderToJson(<App />)) {
+  for await (const snapshot of renderToJson(<App />).start()) {
     console.log(snapshot);
   }
 })();

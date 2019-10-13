@@ -11,13 +11,14 @@ describe('Text component', () => {
       renderToJson(<Text textTransform="lowercase">HELLO</Text>).snapshot
     ).toMatchSnapshot();
     expect(
-      renderToJson(<Text textTransform="capitalize">hello world</Text>)
+      renderToJson(<Text textTransform="capitalize">hello world</Text>).snapshot
     ).toMatchSnapshot();
     expect(
       renderToJson(<Text textTransform="none">hello</Text>).snapshot
     ).toMatchSnapshot();
     expect(
       renderToJson(<Text textTransform="uppercase">{['hello ', 'world']}</Text>)
+        .snapshot
     ).toMatchSnapshot();
   });
 

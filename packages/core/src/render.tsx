@@ -60,12 +60,13 @@ export default function render(element: JSX.Element) {
     const { snapshot: staticElementSnapshot } = renderToString(staticElement);
     terminal.moveTo(0, dynamicContentTop);
     terminal(staticElementSnapshot);
-    terminal('\n');
     terminal(dynamicContentSnapshot);
-    const staticContentheight = (staticElementSnapshot || '').split('\n')
-      .length;
-    dynamicContentTop += staticContentheight;
-    dynamicContentBottom += staticContentheight;
+    if (dynamicContentBottom < terminal.height) {
+      const staticContentheight = (staticElementSnapshot || '').split('\n')
+        .length;
+      dynamicContentTop += staticContentheight;
+      dynamicContentBottom += staticContentheight;
+    }
   }
 
   (async () => {
@@ -76,7 +77,7 @@ export default function render(element: JSX.Element) {
       {
         width: terminal.width,
       }
-    )) {
+    ).start()) {
       dynamicContentSnapshot = snapshot || '';
       if (dynamicContentFirstRender) {
         dynamicContentFirstRender = false;
