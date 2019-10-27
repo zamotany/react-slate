@@ -59,13 +59,14 @@ export default function render(element: JSX.Element) {
   function renderStatic(staticElement: JSX.Element) {
     const { snapshot: staticElementSnapshot } = renderToString(staticElement);
     terminal.moveTo(0, dynamicContentTop);
+    terminal.eraseDisplayBelow();
     terminal(staticElementSnapshot);
     terminal(dynamicContentSnapshot);
     if (dynamicContentBottom < terminal.height) {
-      const staticContentheight = (staticElementSnapshot || '').split('\n')
+      const staticContentHeight = (staticElementSnapshot || '').split('\n')
         .length;
-      dynamicContentTop += staticContentheight;
-      dynamicContentBottom += staticContentheight;
+      dynamicContentTop += staticContentHeight;
+      dynamicContentBottom += staticContentHeight;
     }
   }
 
