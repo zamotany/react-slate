@@ -12,6 +12,7 @@ import { EventEmitter } from 'events';
 import DayJs from 'dayjs';
 
 function Log({ children }: { children: string }) {
+  const lines = children.split('\n');
   return (
     <View>
       <View marginRight={1}>
@@ -22,9 +23,15 @@ function Log({ children }: { children: string }) {
       <View marginRight={1}>
         <Text bold>info</Text>
       </View>
-      <Text>▶︎</Text>
-      <View marginLeft={1}>
-        <Text>{children}</Text>
+      <View width={1}>
+        <Text>▶︎</Text>
+      </View>
+      <View marginLeft={1} flexDirection="column">
+        {lines.map((line, i) => (
+          <View key={i}>
+            <Text>{line}</Text>
+          </View>
+        ))}
       </View>
     </View>
   );
@@ -88,9 +95,16 @@ class App extends React.Component {
   logsTimeout?: NodeJS.Timeout;
   progressTimeout?: NodeJS.Timeout;
 
+  counter = 0;
+
   emitLogs = () => {
     this.logsTimeout = setTimeout(() => {
-      this.compiler.emit('log', { message: 'New log :)' });
+      this.compiler.emit('log', {
+        message: `New log ${this.counter}${
+          this.counter % 3 === 0 ? '\nNew line boom' : ''
+        }`,
+      });
+      this.counter++;
       this.emitLogs();
     }, Math.random() * (5000 - 1000) + 1000);
   };
