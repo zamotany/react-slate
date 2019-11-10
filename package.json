@@ -21,6 +21,7 @@
     "dev": "concurrently \"yarn:build:source:watch\" \"yarn:example:watch\" \"yarn:build:ts:watch\""
   },
   "dependencies": {
+    "dayjs": "^1.8.16",
     "docsify-cli": "^4.3.0",
     "lerna": "^3.16.4",
     "react": "^16.9.0"
