@@ -11,6 +11,23 @@
     "name": "Paweł Trysła",
     "email": "zamotany.oss@gmail.com"
   },
+  "keywords": [
+    "react",
+    "renderer",
+    "reconciler",
+    "terminal",
+    "cli",
+    "tty",
+    "flexbox",
+    "colors",
+    "ansi",
+    "term",
+    "command-line",
+    "jsx",
+    "render",
+    "text",
+    "components"
+  ],
   "main": "build/index.js",
   "files": [
     "/build",
